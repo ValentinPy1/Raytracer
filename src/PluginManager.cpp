@@ -7,10 +7,11 @@
 
 #include <filesystem>
 #include <string>
+#include <functional>
 #include "Render.hpp"
 #include "PluginManager.hpp"
 
-namespace pl {
+namespace render {
 
     PluginManager::PluginManager()
     {
@@ -69,5 +70,20 @@ namespace pl {
                 }
             }
         }
+    }
+
+    Plugin::init_t Plugin::getInit() const noexcept
+    {
+        return _init;
+    }
+
+    Plugin::processRay_t Plugin::getProcessRay() const noexcept
+    {
+        return _processRay;
+    }
+
+    Plugin::postProcess_t Plugin::getPostProcess() const noexcept
+    {
+        return _postProcess;
     }
 }

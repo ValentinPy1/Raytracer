@@ -333,7 +333,12 @@ CMakeFiles/ray.dir/src/AObject.cpp.o: src/AObject.cpp \
   /usr/include/c++/12/bits/unordered_map.h \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
-  include/Light.hpp
+  include/Light.hpp \
+  include/PluginManager.hpp \
+  /usr/include/dlfcn.h \
+  /usr/include/bits/dlfcn.h \
+  /usr/include/bits/dl_find_object.h \
+  /usr/include/c++/12/iostream
 
 CMakeFiles/ray.dir/src/Camera.cpp.o: src/Camera.cpp \
   /usr/include/stdc-predef.h \
@@ -665,6 +670,10 @@ CMakeFiles/ray.dir/src/Camera.cpp.o: src/Camera.cpp \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
   include/Light.hpp \
+  include/PluginManager.hpp \
+  /usr/include/dlfcn.h \
+  /usr/include/bits/dlfcn.h \
+  /usr/include/bits/dl_find_object.h \
   include/Ray.hpp \
   include/AObject.hpp \
   include/IObject.hpp \
@@ -881,133 +890,7 @@ CMakeFiles/ray.dir/src/DLLoader.cpp.o: src/DLLoader.cpp \
   /usr/include/c++/12/bits/algorithmfwd.h \
   /usr/include/c++/12/bits/stl_heap.h \
   /usr/include/c++/12/bits/stl_tempbuf.h \
-  /usr/include/c++/12/bits/uniform_int_dist.h \
-  include/Ray.hpp \
-  /usr/local/include/SFML/Graphics.hpp \
-  /usr/local/include/SFML/Window.hpp \
-  /usr/local/include/SFML/System.hpp \
-  /usr/local/include/SFML/Config.hpp \
-  /usr/local/include/SFML/System/Clock.hpp \
-  /usr/local/include/SFML/System/Export.hpp \
-  /usr/local/include/SFML/System/Time.hpp \
-  /usr/local/include/SFML/System/Err.hpp \
-  /usr/local/include/SFML/System/FileInputStream.hpp \
-  /usr/local/include/SFML/System/InputStream.hpp \
-  /usr/local/include/SFML/System/NonCopyable.hpp \
-  /usr/local/include/SFML/System/Lock.hpp \
-  /usr/local/include/SFML/System/MemoryInputStream.hpp \
-  /usr/local/include/SFML/System/Mutex.hpp \
-  /usr/local/include/SFML/System/Sleep.hpp \
-  /usr/local/include/SFML/System/String.hpp \
-  /usr/local/include/SFML/System/Utf.hpp \
-  /usr/include/c++/12/algorithm \
-  /usr/include/c++/12/pstl/glue_algorithm_defs.h \
-  /usr/include/c++/12/pstl/execution_defs.h \
-  /usr/include/c++/12/locale \
-  /usr/include/c++/12/bits/locale_facets_nonio.h \
-  /usr/include/c++/12/ctime \
-  /usr/include/c++/12/x86_64-redhat-linux/bits/time_members.h \
-  /usr/include/c++/12/x86_64-redhat-linux/bits/messages_members.h \
-  /usr/include/libintl.h \
-  /usr/include/c++/12/bits/codecvt.h \
-  /usr/include/c++/12/bits/locale_facets_nonio.tcc \
-  /usr/include/c++/12/bits/locale_conv.h \
-  /usr/local/include/SFML/System/Utf.inl \
-  /usr/include/c++/12/iterator \
-  /usr/include/c++/12/bits/stream_iterator.h \
-  /usr/local/include/SFML/System/String.inl \
-  /usr/local/include/SFML/System/Thread.hpp \
-  /usr/local/include/SFML/System/Thread.inl \
-  /usr/local/include/SFML/System/ThreadLocal.hpp \
-  /usr/local/include/SFML/System/ThreadLocalPtr.hpp \
-  /usr/local/include/SFML/System/ThreadLocalPtr.inl \
-  /usr/local/include/SFML/System/Vector2.hpp \
-  /usr/local/include/SFML/System/Vector2.inl \
-  /usr/local/include/SFML/System/Vector3.hpp \
-  /usr/local/include/SFML/System/Vector3.inl \
-  /usr/local/include/SFML/Window/Clipboard.hpp \
-  /usr/local/include/SFML/Window/Export.hpp \
-  /usr/local/include/SFML/Window/Context.hpp \
-  /usr/local/include/SFML/Window/GlResource.hpp \
-  /usr/local/include/SFML/Window/ContextSettings.hpp \
-  /usr/local/include/SFML/Window/Cursor.hpp \
-  /usr/local/include/SFML/Window/Event.hpp \
-  /usr/local/include/SFML/Window/Joystick.hpp \
-  /usr/local/include/SFML/Window/Keyboard.hpp \
-  /usr/local/include/SFML/Window/Mouse.hpp \
-  /usr/local/include/SFML/Window/Sensor.hpp \
-  /usr/local/include/SFML/Window/Touch.hpp \
-  /usr/local/include/SFML/Window/VideoMode.hpp \
-  /usr/local/include/SFML/Window/Window.hpp \
-  /usr/local/include/SFML/Window/WindowHandle.hpp \
-  /usr/local/include/SFML/Window/WindowStyle.hpp \
-  /usr/local/include/SFML/Graphics/BlendMode.hpp \
-  /usr/local/include/SFML/Graphics/Export.hpp \
-  /usr/local/include/SFML/Graphics/CircleShape.hpp \
-  /usr/local/include/SFML/Graphics/Shape.hpp \
-  /usr/local/include/SFML/Graphics/Drawable.hpp \
-  /usr/local/include/SFML/Graphics/RenderStates.hpp \
-  /usr/local/include/SFML/Graphics/Transform.hpp \
-  /usr/local/include/SFML/Graphics/Rect.hpp \
-  /usr/local/include/SFML/Graphics/Rect.inl \
-  /usr/local/include/SFML/Graphics/Transformable.hpp \
-  /usr/local/include/SFML/Graphics/VertexArray.hpp \
-  /usr/local/include/SFML/Graphics/Vertex.hpp \
-  /usr/local/include/SFML/Graphics/Color.hpp \
-  /usr/local/include/SFML/Graphics/PrimitiveType.hpp \
-  /usr/local/include/SFML/Graphics/ConvexShape.hpp \
-  /usr/local/include/SFML/Graphics/Font.hpp \
-  /usr/local/include/SFML/Graphics/Glyph.hpp \
-  /usr/local/include/SFML/Graphics/Texture.hpp \
-  /usr/local/include/SFML/Graphics/Image.hpp \
-  /usr/include/c++/12/map \
-  /usr/include/c++/12/bits/stl_tree.h \
-  /usr/include/c++/12/bits/stl_map.h \
-  /usr/include/c++/12/bits/stl_multimap.h \
-  /usr/local/include/SFML/Graphics/RectangleShape.hpp \
-  /usr/local/include/SFML/Graphics/RenderTarget.hpp \
-  /usr/local/include/SFML/Graphics/View.hpp \
-  /usr/local/include/SFML/Graphics/RenderTexture.hpp \
-  /usr/local/include/SFML/Graphics/RenderWindow.hpp \
-  /usr/local/include/SFML/Graphics/Shader.hpp \
-  /usr/local/include/SFML/Graphics/Glsl.hpp \
-  /usr/local/include/SFML/Graphics/Glsl.inl \
-  /usr/local/include/SFML/Graphics/Sprite.hpp \
-  /usr/local/include/SFML/Graphics/Text.hpp \
-  /usr/local/include/SFML/Graphics/VertexBuffer.hpp \
-  include/AObject.hpp \
-  include/IObject.hpp \
-  include/Render.hpp \
-  /usr/include/c++/12/fstream \
-  /usr/include/c++/12/x86_64-redhat-linux/bits/basic_file.h \
-  /usr/include/c++/12/x86_64-redhat-linux/bits/c++io.h \
-  /usr/include/c++/12/bits/fstream.tcc \
-  /usr/include/c++/12/memory \
-  /usr/include/c++/12/bits/stl_raw_storage_iter.h \
-  /usr/include/c++/12/bits/align.h \
-  /usr/include/c++/12/bit \
-  /usr/include/c++/12/bits/unique_ptr.h \
-  /usr/include/c++/12/bits/shared_ptr.h \
-  /usr/include/c++/12/bits/shared_ptr_base.h \
-  /usr/include/c++/12/bits/allocated_ptr.h \
-  /usr/include/c++/12/ext/concurrence.h \
-  /usr/include/c++/12/bits/shared_ptr_atomic.h \
-  /usr/include/c++/12/bits/atomic_base.h \
-  /usr/include/c++/12/bits/atomic_lockfree_defines.h \
-  /usr/include/c++/12/backward/auto_ptr.h \
-  /usr/include/c++/12/pstl/glue_memory_defs.h \
-  /usr/include/c++/12/thread \
-  /usr/include/c++/12/bits/std_thread.h \
-  /usr/include/c++/12/bits/this_thread_sleep.h \
-  /usr/include/c++/12/bits/chrono.h \
-  /usr/include/c++/12/ratio \
-  /usr/include/c++/12/limits \
-  /usr/include/c++/12/bits/parse_numbers.h \
-  /usr/include/c++/12/mutex \
-  /usr/include/c++/12/bits/std_mutex.h \
-  /usr/include/c++/12/bits/unique_lock.h \
-  include/Pipeline.hpp \
-  include/Light.hpp
+  /usr/include/c++/12/bits/uniform_int_dist.h
 
 CMakeFiles/ray.dir/src/Intercection.cpp.o: src/Intercection.cpp \
   /usr/include/stdc-predef.h \
@@ -1343,6 +1226,10 @@ CMakeFiles/ray.dir/src/Intercection.cpp.o: src/Intercection.cpp \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
   include/Light.hpp \
+  include/PluginManager.hpp \
+  /usr/include/dlfcn.h \
+  /usr/include/bits/dlfcn.h \
+  /usr/include/bits/dl_find_object.h \
   include/Ray.hpp \
   include/operations.hpp
 
@@ -1699,6 +1586,11 @@ CMakeFiles/ray.dir/src/Light.cpp.o: src/Light.cpp \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
   include/Light.hpp \
+  include/PluginManager.hpp \
+  /usr/include/dlfcn.h \
+  /usr/include/bits/dlfcn.h \
+  /usr/include/bits/dl_find_object.h \
+  /usr/include/c++/12/iostream \
   include/Ray.hpp \
   include/AObject.hpp \
   include/IObject.hpp \
@@ -2037,7 +1929,11 @@ CMakeFiles/ray.dir/src/Logger.cpp.o: src/Logger.cpp \
   /usr/include/c++/12/bits/unordered_map.h \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
-  include/Light.hpp
+  include/Light.hpp \
+  include/PluginManager.hpp \
+  /usr/include/dlfcn.h \
+  /usr/include/bits/dlfcn.h \
+  /usr/include/bits/dl_find_object.h
 
 CMakeFiles/ray.dir/src/Plane.cpp.o: src/Plane.cpp \
   /usr/include/stdc-predef.h \
@@ -2372,7 +2268,12 @@ CMakeFiles/ray.dir/src/Plane.cpp.o: src/Plane.cpp \
   /usr/include/c++/12/bits/unordered_map.h \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
-  include/Light.hpp
+  include/Light.hpp \
+  include/PluginManager.hpp \
+  /usr/include/dlfcn.h \
+  /usr/include/bits/dlfcn.h \
+  /usr/include/bits/dl_find_object.h \
+  /usr/include/c++/12/iostream
 
 CMakeFiles/ray.dir/src/Plugin.cpp.o: src/Plugin.cpp \
   /usr/include/stdc-predef.h \
@@ -2584,133 +2485,7 @@ CMakeFiles/ray.dir/src/Plugin.cpp.o: src/Plugin.cpp \
   /usr/include/c++/12/bits/algorithmfwd.h \
   /usr/include/c++/12/bits/stl_heap.h \
   /usr/include/c++/12/bits/stl_tempbuf.h \
-  /usr/include/c++/12/bits/uniform_int_dist.h \
-  include/Ray.hpp \
-  /usr/local/include/SFML/Graphics.hpp \
-  /usr/local/include/SFML/Window.hpp \
-  /usr/local/include/SFML/System.hpp \
-  /usr/local/include/SFML/Config.hpp \
-  /usr/local/include/SFML/System/Clock.hpp \
-  /usr/local/include/SFML/System/Export.hpp \
-  /usr/local/include/SFML/System/Time.hpp \
-  /usr/local/include/SFML/System/Err.hpp \
-  /usr/local/include/SFML/System/FileInputStream.hpp \
-  /usr/local/include/SFML/System/InputStream.hpp \
-  /usr/local/include/SFML/System/NonCopyable.hpp \
-  /usr/local/include/SFML/System/Lock.hpp \
-  /usr/local/include/SFML/System/MemoryInputStream.hpp \
-  /usr/local/include/SFML/System/Mutex.hpp \
-  /usr/local/include/SFML/System/Sleep.hpp \
-  /usr/local/include/SFML/System/String.hpp \
-  /usr/local/include/SFML/System/Utf.hpp \
-  /usr/include/c++/12/algorithm \
-  /usr/include/c++/12/pstl/glue_algorithm_defs.h \
-  /usr/include/c++/12/pstl/execution_defs.h \
-  /usr/include/c++/12/locale \
-  /usr/include/c++/12/bits/locale_facets_nonio.h \
-  /usr/include/c++/12/ctime \
-  /usr/include/c++/12/x86_64-redhat-linux/bits/time_members.h \
-  /usr/include/c++/12/x86_64-redhat-linux/bits/messages_members.h \
-  /usr/include/libintl.h \
-  /usr/include/c++/12/bits/codecvt.h \
-  /usr/include/c++/12/bits/locale_facets_nonio.tcc \
-  /usr/include/c++/12/bits/locale_conv.h \
-  /usr/local/include/SFML/System/Utf.inl \
-  /usr/include/c++/12/iterator \
-  /usr/include/c++/12/bits/stream_iterator.h \
-  /usr/local/include/SFML/System/String.inl \
-  /usr/local/include/SFML/System/Thread.hpp \
-  /usr/local/include/SFML/System/Thread.inl \
-  /usr/local/include/SFML/System/ThreadLocal.hpp \
-  /usr/local/include/SFML/System/ThreadLocalPtr.hpp \
-  /usr/local/include/SFML/System/ThreadLocalPtr.inl \
-  /usr/local/include/SFML/System/Vector2.hpp \
-  /usr/local/include/SFML/System/Vector2.inl \
-  /usr/local/include/SFML/System/Vector3.hpp \
-  /usr/local/include/SFML/System/Vector3.inl \
-  /usr/local/include/SFML/Window/Clipboard.hpp \
-  /usr/local/include/SFML/Window/Export.hpp \
-  /usr/local/include/SFML/Window/Context.hpp \
-  /usr/local/include/SFML/Window/GlResource.hpp \
-  /usr/local/include/SFML/Window/ContextSettings.hpp \
-  /usr/local/include/SFML/Window/Cursor.hpp \
-  /usr/local/include/SFML/Window/Event.hpp \
-  /usr/local/include/SFML/Window/Joystick.hpp \
-  /usr/local/include/SFML/Window/Keyboard.hpp \
-  /usr/local/include/SFML/Window/Mouse.hpp \
-  /usr/local/include/SFML/Window/Sensor.hpp \
-  /usr/local/include/SFML/Window/Touch.hpp \
-  /usr/local/include/SFML/Window/VideoMode.hpp \
-  /usr/local/include/SFML/Window/Window.hpp \
-  /usr/local/include/SFML/Window/WindowHandle.hpp \
-  /usr/local/include/SFML/Window/WindowStyle.hpp \
-  /usr/local/include/SFML/Graphics/BlendMode.hpp \
-  /usr/local/include/SFML/Graphics/Export.hpp \
-  /usr/local/include/SFML/Graphics/CircleShape.hpp \
-  /usr/local/include/SFML/Graphics/Shape.hpp \
-  /usr/local/include/SFML/Graphics/Drawable.hpp \
-  /usr/local/include/SFML/Graphics/RenderStates.hpp \
-  /usr/local/include/SFML/Graphics/Transform.hpp \
-  /usr/local/include/SFML/Graphics/Rect.hpp \
-  /usr/local/include/SFML/Graphics/Rect.inl \
-  /usr/local/include/SFML/Graphics/Transformable.hpp \
-  /usr/local/include/SFML/Graphics/VertexArray.hpp \
-  /usr/local/include/SFML/Graphics/Vertex.hpp \
-  /usr/local/include/SFML/Graphics/Color.hpp \
-  /usr/local/include/SFML/Graphics/PrimitiveType.hpp \
-  /usr/local/include/SFML/Graphics/ConvexShape.hpp \
-  /usr/local/include/SFML/Graphics/Font.hpp \
-  /usr/local/include/SFML/Graphics/Glyph.hpp \
-  /usr/local/include/SFML/Graphics/Texture.hpp \
-  /usr/local/include/SFML/Graphics/Image.hpp \
-  /usr/include/c++/12/map \
-  /usr/include/c++/12/bits/stl_tree.h \
-  /usr/include/c++/12/bits/stl_map.h \
-  /usr/include/c++/12/bits/stl_multimap.h \
-  /usr/local/include/SFML/Graphics/RectangleShape.hpp \
-  /usr/local/include/SFML/Graphics/RenderTarget.hpp \
-  /usr/local/include/SFML/Graphics/View.hpp \
-  /usr/local/include/SFML/Graphics/RenderTexture.hpp \
-  /usr/local/include/SFML/Graphics/RenderWindow.hpp \
-  /usr/local/include/SFML/Graphics/Shader.hpp \
-  /usr/local/include/SFML/Graphics/Glsl.hpp \
-  /usr/local/include/SFML/Graphics/Glsl.inl \
-  /usr/local/include/SFML/Graphics/Sprite.hpp \
-  /usr/local/include/SFML/Graphics/Text.hpp \
-  /usr/local/include/SFML/Graphics/VertexBuffer.hpp \
-  include/AObject.hpp \
-  include/IObject.hpp \
-  include/Render.hpp \
-  /usr/include/c++/12/fstream \
-  /usr/include/c++/12/x86_64-redhat-linux/bits/basic_file.h \
-  /usr/include/c++/12/x86_64-redhat-linux/bits/c++io.h \
-  /usr/include/c++/12/bits/fstream.tcc \
-  /usr/include/c++/12/memory \
-  /usr/include/c++/12/bits/stl_raw_storage_iter.h \
-  /usr/include/c++/12/bits/align.h \
-  /usr/include/c++/12/bit \
-  /usr/include/c++/12/bits/unique_ptr.h \
-  /usr/include/c++/12/bits/shared_ptr.h \
-  /usr/include/c++/12/bits/shared_ptr_base.h \
-  /usr/include/c++/12/bits/allocated_ptr.h \
-  /usr/include/c++/12/ext/concurrence.h \
-  /usr/include/c++/12/bits/shared_ptr_atomic.h \
-  /usr/include/c++/12/bits/atomic_base.h \
-  /usr/include/c++/12/bits/atomic_lockfree_defines.h \
-  /usr/include/c++/12/backward/auto_ptr.h \
-  /usr/include/c++/12/pstl/glue_memory_defs.h \
-  /usr/include/c++/12/thread \
-  /usr/include/c++/12/bits/std_thread.h \
-  /usr/include/c++/12/bits/this_thread_sleep.h \
-  /usr/include/c++/12/bits/chrono.h \
-  /usr/include/c++/12/ratio \
-  /usr/include/c++/12/limits \
-  /usr/include/c++/12/bits/parse_numbers.h \
-  /usr/include/c++/12/mutex \
-  /usr/include/c++/12/bits/std_mutex.h \
-  /usr/include/c++/12/bits/unique_lock.h \
-  include/Pipeline.hpp \
-  include/Light.hpp
+  /usr/include/c++/12/bits/uniform_int_dist.h
 
 CMakeFiles/ray.dir/src/PluginManager.cpp.o: src/PluginManager.cpp \
   /usr/include/stdc-predef.h \
@@ -2925,12 +2700,28 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o: src/PluginManager.cpp \
   /usr/include/c++/12/ext/aligned_buffer.h \
   /usr/include/c++/12/bits/fs_dir.h \
   /usr/include/c++/12/bits/fs_ops.h \
-  include/Render.hpp \
+  /usr/include/c++/12/functional \
+  /usr/include/c++/12/bits/std_function.h \
+  /usr/include/c++/12/unordered_map \
+  /usr/include/c++/12/bits/hashtable.h \
+  /usr/include/c++/12/bits/hashtable_policy.h \
+  /usr/include/c++/12/bits/enable_special_members.h \
+  /usr/include/c++/12/bits/node_handle.h \
+  /usr/include/c++/12/bits/unordered_map.h \
+  /usr/include/c++/12/bits/erase_if.h \
   /usr/include/c++/12/vector \
   /usr/include/c++/12/bits/stl_uninitialized.h \
   /usr/include/c++/12/bits/stl_vector.h \
   /usr/include/c++/12/bits/stl_bvector.h \
   /usr/include/c++/12/bits/vector.tcc \
+  /usr/include/c++/12/array \
+  /usr/include/c++/12/compare \
+  /usr/include/c++/12/bits/stl_algo.h \
+  /usr/include/c++/12/bits/algorithmfwd.h \
+  /usr/include/c++/12/bits/stl_heap.h \
+  /usr/include/c++/12/bits/stl_tempbuf.h \
+  /usr/include/c++/12/bits/uniform_int_dist.h \
+  include/Render.hpp \
   /usr/include/c++/12/fstream \
   /usr/include/c++/12/x86_64-redhat-linux/bits/basic_file.h \
   /usr/include/c++/12/x86_64-redhat-linux/bits/c++io.h \
@@ -2953,11 +2744,6 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o: src/PluginManager.cpp \
   /usr/local/include/SFML/System/String.hpp \
   /usr/local/include/SFML/System/Utf.hpp \
   /usr/include/c++/12/algorithm \
-  /usr/include/c++/12/bits/stl_algo.h \
-  /usr/include/c++/12/bits/algorithmfwd.h \
-  /usr/include/c++/12/bits/stl_heap.h \
-  /usr/include/c++/12/bits/stl_tempbuf.h \
-  /usr/include/c++/12/bits/uniform_int_dist.h \
   /usr/include/c++/12/pstl/glue_algorithm_defs.h \
   /usr/include/c++/12/pstl/execution_defs.h \
   /usr/local/include/SFML/System/Utf.inl \
@@ -3010,10 +2796,8 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o: src/PluginManager.cpp \
   /usr/local/include/SFML/Graphics/Image.hpp \
   /usr/include/c++/12/map \
   /usr/include/c++/12/bits/stl_tree.h \
-  /usr/include/c++/12/bits/node_handle.h \
   /usr/include/c++/12/bits/stl_map.h \
   /usr/include/c++/12/bits/stl_multimap.h \
-  /usr/include/c++/12/bits/erase_if.h \
   /usr/local/include/SFML/Graphics/RectangleShape.hpp \
   /usr/local/include/SFML/Graphics/RenderTarget.hpp \
   /usr/local/include/SFML/Graphics/View.hpp \
@@ -3041,25 +2825,13 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o: src/PluginManager.cpp \
   /usr/include/c++/12/bits/std_mutex.h \
   /usr/include/c++/12/bits/unique_lock.h \
   include/Pipeline.hpp \
-  /usr/include/c++/12/functional \
-  /usr/include/c++/12/bits/std_function.h \
-  /usr/include/c++/12/unordered_map \
-  /usr/include/c++/12/bits/hashtable.h \
-  /usr/include/c++/12/bits/hashtable_policy.h \
-  /usr/include/c++/12/bits/enable_special_members.h \
-  /usr/include/c++/12/bits/unordered_map.h \
-  /usr/include/c++/12/array \
-  /usr/include/c++/12/compare \
   include/Light.hpp \
   include/PluginManager.hpp \
   /usr/include/dlfcn.h \
   /usr/include/bits/dlfcn.h \
   /usr/include/bits/dl_find_object.h \
   /usr/include/c++/12/iostream \
-  include/Ray.hpp \
-  include/AObject.hpp \
-  include/IObject.hpp \
-  include/Render.hpp
+  include/PluginManager.hpp
 
 CMakeFiles/ray.dir/src/Ray.cpp.o: src/Ray.cpp \
   /usr/include/stdc-predef.h \
@@ -3419,6 +3191,10 @@ CMakeFiles/ray.dir/src/Ray.cpp.o: src/Ray.cpp \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
   include/Light.hpp \
+  include/PluginManager.hpp \
+  /usr/include/dlfcn.h \
+  /usr/include/bits/dlfcn.h \
+  /usr/include/bits/dl_find_object.h \
   include/operations.hpp
 
 CMakeFiles/ray.dir/src/Renderer.cpp.o: src/Renderer.cpp \
@@ -3779,6 +3555,10 @@ CMakeFiles/ray.dir/src/Renderer.cpp.o: src/Renderer.cpp \
   /usr/include/c++/12/bits/unique_lock.h \
   include/Pipeline.hpp \
   include/Light.hpp \
+  include/PluginManager.hpp \
+  /usr/include/dlfcn.h \
+  /usr/include/bits/dlfcn.h \
+  /usr/include/bits/dl_find_object.h \
   include/Camera.hpp \
   include/Pipeline.hpp \
   include/Plane.hpp \
@@ -4144,6 +3924,10 @@ CMakeFiles/ray.dir/src/Sphere.cpp.o: src/Sphere.cpp \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
   include/Light.hpp \
+  include/PluginManager.hpp \
+  /usr/include/dlfcn.h \
+  /usr/include/bits/dlfcn.h \
+  /usr/include/bits/dl_find_object.h \
   include/Camera.hpp \
   include/Ray.hpp \
   include/Sphere.hpp \
@@ -4483,6 +4267,10 @@ CMakeFiles/ray.dir/src/main.cpp.o: src/main.cpp \
   /usr/include/c++/12/array \
   /usr/include/c++/12/compare \
   include/Light.hpp \
+  include/PluginManager.hpp \
+  /usr/include/dlfcn.h \
+  /usr/include/bits/dlfcn.h \
+  /usr/include/bits/dl_find_object.h \
   include/operations.hpp \
   include/Sphere.hpp \
   include/Camera.hpp \
@@ -4837,11 +4625,11 @@ include/operations.hpp:
 
 src/Intercection.cpp:
 
-include/PluginManager.hpp:
-
 src/DLLoader.cpp:
 
 /usr/include/c++/12/iostream:
+
+include/PluginManager.hpp:
 
 src/Sphere.cpp:
 

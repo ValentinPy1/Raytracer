@@ -13,7 +13,7 @@
 
 namespace render {
     Ray::Ray(const sf::Vector3f &origin, const sf::Vector3f &direction, int reflectionDepth)
-    : _origin(origin), _direction(direction), _reflectionDepth(reflectionDepth)
+    : _reflectionDepth(reflectionDepth), _origin(origin), _direction(direction)
     {
     }
 
@@ -171,26 +171,26 @@ namespace render {
         return *this;
     }
 
-    Ray &Ray::getReflectionColor(const Renderer &renderer)
+    sf::Color Ray::getReflectionColor(const Renderer &renderer)
     {
         if (_intersections.size() == 0)
-            throw std::runtime_error("No intersection");
+            return sf::Color::Black;
         sf::Vector3f normal = _intersections[0].getNormal();
         sf::Vector3f reflection = _direction - 2 * normal * (normal.x * _direction.x + normal.y * _direction.y + normal.z * _direction.z);
         Ray reflectionRay(_intersections[0].getPoint(), -reflection, _reflectionDepth - 1);
         reflectionRay.findIntersections(renderer);
 
         if (reflectionRay._intersections.size() == 0)
-            reflectionRay;
+            return sf::Color::Black;
         if (Ray::getNorm(reflectionRay._intersections[0].getPoint() - _intersections[0].getPoint()) < 0.01f)
             reflectionRay._intersections.erase(reflectionRay._intersections.begin());
         if (reflectionRay._intersections.size() == 0) {
             reflectionRay.setColor(sf::Color::Black);
-            return reflectionRay;
+            return sf::Color::Black;
         }
         reflectionRay.applyLighting(renderer);
-        reflectionRay.blendAdd(reflectionRay.getReflectionColor(renderer).getColor());
-        return reflectionRay;
+        reflectionRay.blendAdd(reflectionRay.getReflectionColor(renderer));
+        return reflectionRay.getColor();
     }
 
     sf::Color Ray::cast(const Renderer &renderer)
@@ -198,11 +198,7 @@ namespace render {
         findIntersections(renderer);
         applyLighting(renderer);
         if (_reflectionDepth > 0) {
-            try {
-            return blendAdd(getReflectionColor(renderer).getColor());
-            } catch (std::runtime_error &e) {
-                return getColor();
-            }
+            return blendAdd(getReflectionColor(renderer));
         }
         return getColor();
     }

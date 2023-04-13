@@ -7,13 +7,13 @@
 
 #include "PluginManager.hpp"
 
-namespace pl {
+namespace render {
     DLLoader::DLLoaderException::DLLoaderException(const std::string &message) :
         _message(message)
     {
     }
 
-    const char *pl::DLLoader::DLLoaderException::what() const noexcept {
+    const char *render::DLLoader::DLLoaderException::what() const noexcept {
         return _message.c_str();
     }
 

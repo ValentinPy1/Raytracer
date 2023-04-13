@@ -32,7 +32,7 @@ namespace render {
         return true;
     }
 
-    sf::Vector3f Plane::getNormal(const sf::Vector3f &point) const
+    sf::Vector3f Plane::getNormal(__attribute__((unused)) const sf::Vector3f &point) const
     {
         return -_normal;
     }

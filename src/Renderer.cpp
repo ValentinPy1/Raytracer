@@ -21,24 +21,6 @@ namespace render {
         : _camera(-focalPoint, imSide, imSide, sf::Vector3f(0, 0, 0), sf::Vector3f(90, 0, 0)), _lightSamples(lightSamples)
     {
         setupPipeline();
-        std::cout << "renderer created" << std::endl;
-        _logs.log("Renderer created");
-        _logs.log("Camera set to (" +
-            std::to_string(_camera.getPosition().x) + ", " +
-            std::to_string(_camera.getPosition().y) + ", " +
-            std::to_string(_camera.getPosition().z) + ")");
-        _logs.log("Camera is rotated by (" +
-            std::to_string(_camera.getRotation().x) + ", " +
-            std::to_string(_camera.getRotation().y) + ", " +
-            std::to_string(_camera.getRotation().z) + ")");
-        _logs.log("Camera focal point is (" +
-            std::to_string(_camera.getFocalPoint().x) + ", " +
-            std::to_string(_camera.getFocalPoint().y) + ", " +
-            std::to_string(_camera.getFocalPoint().z) + ")");
-        _logs.log("Deduced camera direction is (" +
-            std::to_string(Ray::normalize(_camera.getFocalPoint() - _camera.getPosition()).x) + ", " +
-            std::to_string(Ray::normalize(_camera.getFocalPoint() - _camera.getPosition()).y) + ", " +
-            std::to_string(Ray::normalize(_camera.getFocalPoint() - _camera.getPosition()).z) + ")");
     }
 
     void Renderer::setupPipeline()
@@ -49,6 +31,21 @@ namespace render {
         _pipeline.push_back([](__attribute__((unused)) render::Ray &self, Renderer &rdr, render::Ray &ray)->render::Ray &{
             return ray.applyLighting(rdr);
         });
+    }
+
+    void Renderer::init()
+    {
+
+    }
+
+    void Renderer::processRay()
+    {
+
+    }
+
+    void Renderer::postProcess()
+    {
+
     }
 
     std::vector<std::shared_ptr<render::IObject>> Renderer::getObjects() const
@@ -111,7 +108,7 @@ namespace render {
     {
         std::vector<std::thread> threads;
         _logs.log("Rendering scene...");
-        size_t k = 0;
+
         auto rays = _camera.getRays();
         for (unsigned int i = 0; i < _camera.getCaptor().getSize().x; i++) {
             while (threads.size() > std::thread::hardware_concurrency() / 2) {

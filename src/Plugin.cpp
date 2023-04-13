@@ -7,7 +7,7 @@
 
 #include "PluginManager.hpp"
 
-namespace pl {
+namespace render {
 
     Plugin::Plugin(
         void (*initFun)(render::Renderer&),

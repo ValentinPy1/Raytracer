@@ -15,6 +15,7 @@
     #include <mutex>
     #include "Pipeline.hpp"
     #include "Light.hpp"
+    #include "PluginManager.hpp"
 
 namespace render {
     class Ray;
@@ -79,8 +80,14 @@ namespace render {
             void updatePixelLine(int i);
 
         private:
+            void init();
+            void processRay();
+            void postProcess();
+
             void setupPipeline();
             void showProgressBar(int total, std::string message = "");
+
+            PluginManager _pluginManager;
             int _progress = 0;
             std::vector<std::shared_ptr<render::IObject>> _objects;
             Camera _camera;
