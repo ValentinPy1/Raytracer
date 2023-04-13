@@ -35,17 +35,27 @@ namespace render {
 
     void Renderer::init()
     {
+        auto initFuns = _pluginManager.getInitFunctions();
+        for (auto &fun : initFuns) {
+            fun(*this);
+        }
+        loadScene();
 
+        _rayProcess = _pluginManager.getProcessRayFunctions();
+        _postProcess = _pluginManager.getPostProcessFunctions();
     }
 
-    void Renderer::processRay()
+    sf::Color Renderer::processRay(Ray &ray) const
     {
-
+        for (auto &fun : _rayProcess)
+            ray = fun(ray, *this);
+        return ray.getColor();
     }
 
     void Renderer::postProcess()
     {
-
+        for (auto &fun : _postProcess)
+            fun(*this);
     }
 
     std::vector<std::shared_ptr<render::IObject>> Renderer::getObjects() const

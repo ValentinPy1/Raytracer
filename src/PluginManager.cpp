@@ -23,9 +23,9 @@ namespace render {
 
     void PluginManager::loadPlugin(const std::string &path, const std::string &libName)
     {
-        void (*init)(render::Renderer&)= nullptr;
-        void (*processRay)(render::Ray &ray, const render::Renderer &rdr) = nullptr;
-        void (*postProcess)(render::Renderer &rdr) = nullptr;
+        init_t init = nullptr;
+        processRay_t processRay = nullptr;
+        postProcess_t postProcess= nullptr;
         unsigned int (*getPriority)() = nullptr;
         unsigned int priority = 0;
 
@@ -72,18 +72,36 @@ namespace render {
         }
     }
 
-    Plugin::init_t Plugin::getInit() const noexcept
+    std::vector<init_t> PluginManager::getInitFunctions() const
     {
-        return _init;
+        std::vector<init_t> ret;
+
+        for (const auto &plugin : _plugins) {
+            if (plugin.getInit())
+                ret.push_back(plugin.getInit());
+        }
+        return ret;
     }
 
-    Plugin::processRay_t Plugin::getProcessRay() const noexcept
+    std::vector<processRay_t> PluginManager::getProcessRayFunctions() const
     {
-        return _processRay;
+        std::vector<processRay_t> ret;
+
+        for (const auto &plugin : _plugins) {
+            if (plugin.getProcessRay())
+                ret.push_back(plugin.getProcessRay());
+        }
+        return ret;
     }
 
-    Plugin::postProcess_t Plugin::getPostProcess() const noexcept
+    std::vector<postProcess_t> PluginManager::getPostProcessFunctions() const
     {
-        return _postProcess;
+        std::vector<postProcess_t> ret;
+
+        for (const auto &plugin : _plugins) {
+            if (plugin.getPostProcess())
+                ret.push_back(plugin.getPostProcess());
+        }
+        return ret;
     }
 }

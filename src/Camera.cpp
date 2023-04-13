@@ -72,14 +72,4 @@ namespace render {
     {
         return _rays;
     }
-
-    void Camera::updatePixelLine(int i, std::vector<Ray> &rays, Renderer &rdr)
-    {
-        for (unsigned int j = 0; j < getCaptor().getSize().y; j++) {
-            render::Ray ray = rays[i * getCaptor().getSize().x + j];
-            ray = ray.findIntersections(rdr);
-            ray = ray.applyLighting(rdr);
-            getCaptor().setPixel(i, j, ray.getColor());
-        }
-    }
 }

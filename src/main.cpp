@@ -52,7 +52,7 @@ void runFromArgs(int argc, char **argv)
         }
     }
     render::Renderer renderer(lightSamples, imSide, focalPoint);
-    renderer.loadScene();
+    renderer.init();
     renderer.render();
 }
 

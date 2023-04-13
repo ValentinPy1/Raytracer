@@ -107,8 +107,12 @@ namespace render {
             std::vector<std::string> _handleNames;
     };
 
+    typedef void (*init_t)(render::Renderer &rdr);
+    typedef Ray &(*processRay_t)(render::Ray &ray, const render::Renderer &rdr);
+    typedef void (*postProcess_t)(render::Renderer &rdr);
+
     /**
-     * A plugin is an object loaded from a dynamic library (.so file with an entryPoint function).
+     * @brief A plugin is an object loaded from a dynamic library (.so file with an entryPoint function).
      * This object should have several function defined, which could be set to
      * nullptr if needed:
      *  - void (*init)(render::Renderer &rdr) (called when the plugin is loaded)
@@ -124,7 +128,12 @@ namespace render {
     class Plugin {
         public:
             Plugin() = delete;
-            Plugin(void (*)(render::Renderer&), void (*)(render::Ray&, const render::Renderer&), void (*)(render::Renderer&), unsigned int priority);
+            Plugin(
+                init_t init,
+                processRay_t processRay,
+                postProcess_t postProcess,
+                unsigned int priority
+            );
             ~Plugin() = default;
 
             /**
@@ -156,10 +165,6 @@ namespace render {
              */
             unsigned int getPriority() const;
 
-            typedef void (*init_t)(render::Renderer &rdr);
-            typedef void (*processRay_t)(render::Ray &ray, const render::Renderer &rdr);
-            typedef void (*postProcess_t)(render::Renderer &rdr);
-
             /**
              * @brief Get the pointer to the function _init.
              * Note that this function can be nullptr.
@@ -184,23 +189,62 @@ namespace render {
              */
             postProcess_t getPostProcess() const noexcept;
         private:
-            void (*_init)(render::Renderer &rdr) = nullptr;
-            void (*_processRay)(render::Ray &ray, const render::Renderer &rdr) = nullptr;
-            void (*_postProcess)(render::Renderer &rdr) = nullptr;
+            init_t _init = nullptr;
+            processRay_t _processRay = nullptr;
+            postProcess_t _postProcess = nullptr;
             unsigned int _priority;
     };
 
     /**
-     * @brief A class that stores and manages plugins.
+     * @brief A class that stores and manages plugins. The plugins can later
+     * be used to call the functions they contain.
+     *
      */
     class PluginManager {
         public:
             PluginManager();
             ~PluginManager();
 
-        private:
+            /**
+             * @brief Load a plugin from a path and a library name.
+             * Registers it so that it can be called and used later.
+             *
+             * @param path
+             * @param libName
+             */
             void loadPlugin(const std::string &path, const std::string &libName);
+
+            /**
+             * @brief Load all plugins from a directory.
+             *
+             * @param pluginsDir
+             */
             void autoLoadPlugins(const std::string &pluginsDir = "./plugins");
+
+            /**
+             * @brief Returns all of the non null init functions of the plugins,
+             * sorted by priority of execution.
+             *
+             * @return std::vector<Plugin::init_t>
+             */
+            std::vector<init_t> getInitFunctions() const;
+
+            /**
+             * @brief Returns all of the non null processRay functions of the plugins,
+             * sorted by priority of execution.
+             *
+             * @return std::vector<Plugin::processRay_t>
+             */
+            std::vector<processRay_t> getProcessRayFunctions() const;
+
+            /**
+             * @brief Returns all of the non null postProcess functions of the plugins,
+             * sorted by priority of execution.
+             *
+             * @return std::vector<Plugin::postProcess_t>
+             */
+            std::vector<postProcess_t> getPostProcessFunctions() const;
+        private:
 
             DLLoader _loader;
             std::vector<Plugin> _plugins;

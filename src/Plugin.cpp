@@ -10,9 +10,9 @@
 namespace render {
 
     Plugin::Plugin(
-        void (*initFun)(render::Renderer&),
-        void (*processRayFun)(render::Ray&, const render::Renderer&),
-        void (*postProcessFun)(render::Renderer&),
+        init_t initFun,
+        processRay_t processRayFun,
+        postProcess_t postProcessFun,
         unsigned int priority) :
         _init(initFun),
         _processRay(processRayFun),
@@ -42,4 +42,20 @@ namespace render {
     unsigned int Plugin::getPriority() const {
         return _priority;
     }
+
+    init_t Plugin::getInit() const noexcept
+    {
+        return _init;
+    }
+
+    processRay_t Plugin::getProcessRay() const noexcept
+    {
+        return _processRay;
+    }
+
+    postProcess_t Plugin::getPostProcess() const noexcept
+    {
+        return _postProcess;
+    }
+
 }
