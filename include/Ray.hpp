@@ -64,7 +64,7 @@ namespace render {
             sf::Color cast(const Renderer & renderer);
             Ray &findIntersections(const render::Renderer &renderer);
             Ray &applyLighting(const render::Renderer &renderer);
-            sf::Color getReflectionColor(const Renderer &renderer);
+            Ray &getReflectionColor(const Renderer &renderer);
 
             bool hasIntersections() const;
             const std::vector<Intersection> &getIntersections() const;

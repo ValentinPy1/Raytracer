@@ -7,21 +7,38 @@
 
 #include "PluginManager.hpp"
 
-DLLoader::DLLoaderException::DLLoaderException(const std::string &message) :
-     _message(message)
-{
-}
-
-const char *DLLoader::DLLloaderException::what() const noexcept {
-    return _message.c_str();
-}
-
-pl::DLLoader::DLLoader() {
-}
-
-pl::DLLoader::~DLLoader() {
-    for (auto &handle : _handles) {
-        dlclose(handle);
+namespace pl {
+    DLLoader::DLLoaderException::DLLoaderException(const std::string &message) :
+        _message(message)
+    {
     }
-    _handles.clear();
+
+    const char *pl::DLLoader::DLLoaderException::what() const noexcept {
+        return _message.c_str();
+    }
+
+    DLLoader::DLLoader() {
+    }
+
+    DLLoader::~DLLoader() {
+        for (auto &handle : _handles) {
+            dlclose(handle);
+        }
+        _handles.clear();
+    }
+
+    void DLLoader::load(const std::string &path, const std::string &libName) {
+        void *handle = dlopen(path.c_str(), RTLD_LAZY);
+        if (!handle) {
+            throw DLLoaderException("Cannot open library: " + std::string(dlerror()));
+        }
+        dlerror();
+        const char *dlsym_error = dlerror();
+        if (dlsym_error) {
+            throw DLLoaderException("Cannot load symbol 'entryPoint': " + std::string(dlsym_error));
+        }
+        _handles.push_back(handle);
+        _handleNames.push_back(libName);
+    }
+
 }
