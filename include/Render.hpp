@@ -71,7 +71,8 @@ namespace render {
 
         private:
             void setupPipeline();
-            void showProgressBar(int progress, int total, std::string message = "");
+            void showProgressBar(int total, std::string message = "");
+            int _progress = 0;
             std::vector<std::shared_ptr<render::IObject>> _objects;
             Camera _camera;
             pp::Pipeline<render::Ray &, Renderer &, render::Ray &> _pipeline;
