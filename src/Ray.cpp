@@ -12,8 +12,8 @@
 #include "operations.hpp"
 
 namespace render {
-    Ray::Ray(const sf::Vector3f &origin, const sf::Vector3f &direction)
-    : _origin(origin), _direction(direction)
+    Ray::Ray(const sf::Vector3f &origin, const sf::Vector3f &direction, int reflectionDepth)
+    : _origin(origin), _direction(direction), _reflectionDepth(reflectionDepth)
     {
     }
 
@@ -76,15 +76,6 @@ namespace render {
 
     sf::Color Ray::blendMultiply(const sf::Color &color) const
     {
-        // int r = color.r * _color.r;
-        // int g = color.g * _color.g;
-        // int b = color.b * _color.b;
-        // sf::Color final = {
-        //     static_cast<sf::Uint8>((r > 255) ? 255 : r),
-        //     static_cast<sf::Uint8>((g > 255) ? 255 : g),
-        //     static_cast<sf::Uint8>((b > 255) ? 255 : b)
-        // };
-        // return final;
         sf::Color blendedColor;
         blendedColor.r = static_cast<sf::Uint8>((_color.r / 255.0f) * (color.r / 255.0f) * 255.0f);
         blendedColor.g = static_cast<sf::Uint8>((_color.g / 255.0f) * (color.g / 255.0f) * 255.0f);
@@ -95,15 +86,12 @@ namespace render {
 
     sf::Color Ray::blendMultiply(const sf::Color &color1, const sf::Color &color2)
     {
-        int r = color1.r * color2.r;
-        int g = color1.g * color2.g;
-        int b = color1.b * color2.b;
-        sf::Color final = {
-            static_cast<sf::Uint8>((r > 255) ? 255 : r),
-            static_cast<sf::Uint8>((g > 255) ? 255 : g),
-            static_cast<sf::Uint8>((b > 255) ? 255 : b)
-        };
-        return final;
+        sf::Color blendedColor;
+        blendedColor.r = static_cast<sf::Uint8>((color1.r / 255.0f) * (color2.r / 255.0f) * 255.0f);
+        blendedColor.g = static_cast<sf::Uint8>((color1.g / 255.0f) * (color2.g / 255.0f) * 255.0f);
+        blendedColor.b = static_cast<sf::Uint8>((color1.b / 255.0f) * (color2.b / 255.0f) * 255.0f);
+
+        return blendedColor;
     }
 
     bool Ray::hasIntersections() const
@@ -159,7 +147,6 @@ namespace render {
     bool Ray::isShadowed(const Renderer &rdr, sf::Vector3f lightPos, sf::Vector3f intersection)
     {
         sf::Vector3f lightDirection = lightPos - intersection;
-        // float lightDistance = std::sqrt(lightDirection.x * lightDirection.x + lightDirection.y * lightDirection.y + lightDirection.z * lightDirection.z);
         float lightDistance = getNorm(lightDirection);
         Ray shadowRay(intersection, lightDirection);
 
@@ -182,5 +169,34 @@ namespace render {
             _color = light.sample(*this, renderer);
         }
         return *this;
+    }
+
+    sf::Color Ray::getReflectionColor(const Renderer &renderer)
+    {
+        if (_intersections.size() == 0)
+            return sf::Color::Black;
+        sf::Vector3f normal = _intersections[0].getNormal();
+        sf::Vector3f reflection = _direction - 2 * normal * (normal.x * _direction.x + normal.y * _direction.y + normal.z * _direction.z);
+        Ray reflectionRay(_intersections[0].getPoint(), -reflection, _reflectionDepth - 1);
+        reflectionRay.findIntersections(renderer);
+
+        if (reflectionRay._intersections.size() == 0)
+            return sf::Color::Black;
+        if (Ray::getNorm(reflectionRay._intersections[0].getPoint() - _intersections[0].getPoint()) < 0.01f)
+            reflectionRay._intersections.erase(reflectionRay._intersections.begin());
+        if (reflectionRay._intersections.size() == 0)
+            return sf::Color::Black;
+        reflectionRay.applyLighting(renderer);
+        return reflectionRay.getColor();
+    }
+
+    sf::Color Ray::cast(const Renderer &renderer)
+    {
+        findIntersections(renderer);
+        applyLighting(renderer);
+        if (_reflectionDepth > 0) {
+            return blendAdd(getReflectionColor(renderer));
+        }
+        return getColor();
     }
 }

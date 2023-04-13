@@ -79,31 +79,30 @@ namespace render {
         addLight(Light({0, 5, -20}, sf::Color::White, 1, 10, _lightSamples));
     }
 
-    void Renderer::showProgressBar(int progress, int total, std::string message)
+    void Renderer::showProgressBar(int total, std::string message)
     {
         int barWidth = 70;
+        ++_progress;
         std::cout << message << " [";
-        int pos = barWidth * progress / total;
+        int pos = barWidth * _progress / total;
         for (int i = 0; i < barWidth; ++i) {
             if (i < pos) std::cout << "=";
             else if (i == pos) std::cout << ">";
             else std::cout << " ";
         }
-        std::cout << "] " << int(progress * 100.0 / total) << "%\r";
+        std::cout << "] " << int(_progress * 100.0 / total) << "%\r";
         std::cout.flush();
     }
 
     void Renderer::updatePixelLine(int i)
     {
         auto rays = _camera.getRays();
-
         for (unsigned int j = 0; j < _camera.getCaptor().getSize().y; j++) {
-            render::Ray ray = rays[i * _camera.getCaptor().getSize().y + j];
-            ray = ray.findIntersections(*this);
-            ray = ray.applyLighting(*this);
+            sf::Color tmp = rays[i * _camera.getCaptor().getSize().y + j].cast(*this);
             {
                 std::lock_guard<std::mutex> lock(_mutex);
-                _camera.getCaptor().setPixel(i, j, ray.getColor());
+                _camera.getCaptor().setPixel(i, j, tmp);
+                showProgressBar(_camera.getCaptor().getSize().x * _camera.getCaptor().getSize().y, "Rendering scene");
             }
         }
     }
@@ -114,15 +113,11 @@ namespace render {
         _logs.log("Rendering scene...");
         size_t k = 0;
         auto rays = _camera.getRays();
-        // for (unsigned int i = 0; i < _camera.getCaptor().getSize().x; i++) {
-        //     for (unsigned int j = 0; j < _camera.getCaptor().getSize().y; j++) {
-        //         render::Ray ray = rays[k++];
-        //         ray = _pipeline.run(ray, *this, ray);
-        //         _camera.getCaptor().setPixel(i, j, ray.getColor());
-        //     }
-        //     showProgressBar(i, _camera.getCaptor().getSize().x, "Rendering scene");
-        // }
         for (unsigned int i = 0; i < _camera.getCaptor().getSize().x; i++) {
+            while (threads.size() > std::thread::hardware_concurrency() / 2) {
+                threads[0].join();
+                threads.erase(threads.begin());
+            }
             threads.push_back(std::thread(&Renderer::updatePixelLine, this, i));
         }
 
@@ -130,7 +125,7 @@ namespace render {
             thread.join();
 
         _logs.log("Scene rendered, saving picture...");
-        _camera.getCaptor().saveToFile("test.png");
+        _camera.getCaptor().saveToFile("rendered.png");
         _logs.log("Picture saved");
     }
 

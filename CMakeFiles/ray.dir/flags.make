@@ -4,7 +4,7 @@
 # compile CXX with /usr/bin/c++
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/Amour/Documents/Epitech/Tech2/raytracer/./include
+CXX_INCLUDES = -I/home/Amour/Documents/Epitech/Tech2/ray/./include
 
 CXX_FLAGS = -Wall -Wextra
 
