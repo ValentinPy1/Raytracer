@@ -36,7 +36,7 @@ namespace render {
 
     void Renderer::init()
     {
-        auto initFuns = _pluginManager.getInitFunctions();
+        std::vector<init_t> initFuns = _pluginManager.getInitFunctions();
 
         for (auto &fun : initFuns) {
             fun(*this);
