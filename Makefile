@@ -177,6 +177,30 @@ src/Camera.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/Camera.cpp.s
 .PHONY : src/Camera.cpp.s
 
+src/DLLoader.o: src/DLLoader.cpp.o
+.PHONY : src/DLLoader.o
+
+# target to build an object file
+src/DLLoader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/DLLoader.cpp.o
+.PHONY : src/DLLoader.cpp.o
+
+src/DLLoader.i: src/DLLoader.cpp.i
+.PHONY : src/DLLoader.i
+
+# target to preprocess a source file
+src/DLLoader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/DLLoader.cpp.i
+.PHONY : src/DLLoader.cpp.i
+
+src/DLLoader.s: src/DLLoader.cpp.s
+.PHONY : src/DLLoader.s
+
+# target to generate assembly for a file
+src/DLLoader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/DLLoader.cpp.s
+.PHONY : src/DLLoader.cpp.s
+
 src/Intercection.o: src/Intercection.cpp.o
 .PHONY : src/Intercection.o
 
@@ -272,6 +296,54 @@ src/Plane.s: src/Plane.cpp.s
 src/Plane.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/Plane.cpp.s
 .PHONY : src/Plane.cpp.s
+
+src/Plugin.o: src/Plugin.cpp.o
+.PHONY : src/Plugin.o
+
+# target to build an object file
+src/Plugin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/Plugin.cpp.o
+.PHONY : src/Plugin.cpp.o
+
+src/Plugin.i: src/Plugin.cpp.i
+.PHONY : src/Plugin.i
+
+# target to preprocess a source file
+src/Plugin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/Plugin.cpp.i
+.PHONY : src/Plugin.cpp.i
+
+src/Plugin.s: src/Plugin.cpp.s
+.PHONY : src/Plugin.s
+
+# target to generate assembly for a file
+src/Plugin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/Plugin.cpp.s
+.PHONY : src/Plugin.cpp.s
+
+src/PluginManager.o: src/PluginManager.cpp.o
+.PHONY : src/PluginManager.o
+
+# target to build an object file
+src/PluginManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/PluginManager.cpp.o
+.PHONY : src/PluginManager.cpp.o
+
+src/PluginManager.i: src/PluginManager.cpp.i
+.PHONY : src/PluginManager.i
+
+# target to preprocess a source file
+src/PluginManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/PluginManager.cpp.i
+.PHONY : src/PluginManager.cpp.i
+
+src/PluginManager.s: src/PluginManager.cpp.s
+.PHONY : src/PluginManager.s
+
+# target to generate assembly for a file
+src/PluginManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/PluginManager.cpp.s
+.PHONY : src/PluginManager.cpp.s
 
 src/Ray.o: src/Ray.cpp.o
 .PHONY : src/Ray.o
@@ -408,6 +480,9 @@ help:
 	@echo "... src/Camera.o"
 	@echo "... src/Camera.i"
 	@echo "... src/Camera.s"
+	@echo "... src/DLLoader.o"
+	@echo "... src/DLLoader.i"
+	@echo "... src/DLLoader.s"
 	@echo "... src/Intercection.o"
 	@echo "... src/Intercection.i"
 	@echo "... src/Intercection.s"
@@ -420,6 +495,12 @@ help:
 	@echo "... src/Plane.o"
 	@echo "... src/Plane.i"
 	@echo "... src/Plane.s"
+	@echo "... src/Plugin.o"
+	@echo "... src/Plugin.i"
+	@echo "... src/Plugin.s"
+	@echo "... src/PluginManager.o"
+	@echo "... src/PluginManager.i"
+	@echo "... src/PluginManager.s"
 	@echo "... src/Ray.o"
 	@echo "... src/Ray.i"
 	@echo "... src/Ray.s"

@@ -21,7 +21,7 @@ std::tuple<std::string, int> splitArg(char *arg)
     std::string argStr = arg;
     std::string argName = "";
     std::string argValue = "";
-    int i = 0;
+    size_t i = 0;
     for (; i < argStr.size(); ++i) {
         if (argStr[i] == '=')
             break;
@@ -52,7 +52,7 @@ void runFromArgs(int argc, char **argv)
         }
     }
     render::Renderer renderer(lightSamples, imSide, focalPoint);
-    renderer.loadScene();
+    renderer.init();
     renderer.render();
 }
 

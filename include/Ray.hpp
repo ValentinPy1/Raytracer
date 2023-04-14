@@ -49,7 +49,7 @@ namespace render {
      */
     class Ray {
         public:
-            Ray(const sf::Vector3f &origin, const sf::Vector3f &direction, int reflectionDepth = 3);
+            Ray(const sf::Vector3f &origin, const sf::Vector3f &direction, int reflectionDepth = 5);
             /**
              * @brief Rotate a vector by a rotation vector in degrees
              *

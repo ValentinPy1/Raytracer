@@ -15,6 +15,9 @@ add_executable (
     src/Light.cpp
     src/Sphere.cpp
     src/Plane.cpp
+    src/PluginManager.cpp
+    src/Plugin.cpp
+    src/DLLoader.cpp
 )
 target_link_libraries(
     ray

@@ -223,6 +223,48 @@ CMakeFiles/ray.dir/src/Plane.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ray.dir/src/Plane.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Amour/Documents/Epitech/Tech2/ray/src/Plane.cpp -o CMakeFiles/ray.dir/src/Plane.cpp.s
 
+CMakeFiles/ray.dir/src/PluginManager.cpp.o: CMakeFiles/ray.dir/flags.make
+CMakeFiles/ray.dir/src/PluginManager.cpp.o: src/PluginManager.cpp
+CMakeFiles/ray.dir/src/PluginManager.cpp.o: CMakeFiles/ray.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CXX object CMakeFiles/ray.dir/src/PluginManager.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ray.dir/src/PluginManager.cpp.o -MF CMakeFiles/ray.dir/src/PluginManager.cpp.o.d -o CMakeFiles/ray.dir/src/PluginManager.cpp.o -c /home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp
+
+CMakeFiles/ray.dir/src/PluginManager.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ray.dir/src/PluginManager.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp > CMakeFiles/ray.dir/src/PluginManager.cpp.i
+
+CMakeFiles/ray.dir/src/PluginManager.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ray.dir/src/PluginManager.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp -o CMakeFiles/ray.dir/src/PluginManager.cpp.s
+
+CMakeFiles/ray.dir/src/Plugin.cpp.o: CMakeFiles/ray.dir/flags.make
+CMakeFiles/ray.dir/src/Plugin.cpp.o: src/Plugin.cpp
+CMakeFiles/ray.dir/src/Plugin.cpp.o: CMakeFiles/ray.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CXX object CMakeFiles/ray.dir/src/Plugin.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ray.dir/src/Plugin.cpp.o -MF CMakeFiles/ray.dir/src/Plugin.cpp.o.d -o CMakeFiles/ray.dir/src/Plugin.cpp.o -c /home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp
+
+CMakeFiles/ray.dir/src/Plugin.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ray.dir/src/Plugin.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp > CMakeFiles/ray.dir/src/Plugin.cpp.i
+
+CMakeFiles/ray.dir/src/Plugin.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ray.dir/src/Plugin.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp -o CMakeFiles/ray.dir/src/Plugin.cpp.s
+
+CMakeFiles/ray.dir/src/DLLoader.cpp.o: CMakeFiles/ray.dir/flags.make
+CMakeFiles/ray.dir/src/DLLoader.cpp.o: src/DLLoader.cpp
+CMakeFiles/ray.dir/src/DLLoader.cpp.o: CMakeFiles/ray.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CXX object CMakeFiles/ray.dir/src/DLLoader.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/ray.dir/src/DLLoader.cpp.o -MF CMakeFiles/ray.dir/src/DLLoader.cpp.o.d -o CMakeFiles/ray.dir/src/DLLoader.cpp.o -c /home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp
+
+CMakeFiles/ray.dir/src/DLLoader.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/ray.dir/src/DLLoader.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp > CMakeFiles/ray.dir/src/DLLoader.cpp.i
+
+CMakeFiles/ray.dir/src/DLLoader.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/ray.dir/src/DLLoader.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp -o CMakeFiles/ray.dir/src/DLLoader.cpp.s
+
 # Object files for target ray
 ray_OBJECTS = \
 "CMakeFiles/ray.dir/src/main.cpp.o" \
@@ -235,7 +277,10 @@ ray_OBJECTS = \
 "CMakeFiles/ray.dir/src/operations.cpp.o" \
 "CMakeFiles/ray.dir/src/Light.cpp.o" \
 "CMakeFiles/ray.dir/src/Sphere.cpp.o" \
-"CMakeFiles/ray.dir/src/Plane.cpp.o"
+"CMakeFiles/ray.dir/src/Plane.cpp.o" \
+"CMakeFiles/ray.dir/src/PluginManager.cpp.o" \
+"CMakeFiles/ray.dir/src/Plugin.cpp.o" \
+"CMakeFiles/ray.dir/src/DLLoader.cpp.o"
 
 # External object files for target ray
 ray_EXTERNAL_OBJECTS =
@@ -251,9 +296,12 @@ ray: CMakeFiles/ray.dir/src/operations.cpp.o
 ray: CMakeFiles/ray.dir/src/Light.cpp.o
 ray: CMakeFiles/ray.dir/src/Sphere.cpp.o
 ray: CMakeFiles/ray.dir/src/Plane.cpp.o
+ray: CMakeFiles/ray.dir/src/PluginManager.cpp.o
+ray: CMakeFiles/ray.dir/src/Plugin.cpp.o
+ray: CMakeFiles/ray.dir/src/DLLoader.cpp.o
 ray: CMakeFiles/ray.dir/build.make
 ray: CMakeFiles/ray.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Linking CXX executable ray"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Linking CXX executable ray"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/ray.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
