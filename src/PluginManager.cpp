@@ -19,6 +19,7 @@ namespace render {
 
     PluginManager::~PluginManager()
     {
+        std::cout << "plugin manager: destructor" << std::endl;
     }
 
     void PluginManager::loadPlugin(const std::string &path, const std::string &libName)

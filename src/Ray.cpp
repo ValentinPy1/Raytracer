@@ -179,7 +179,6 @@ namespace render {
         sf::Vector3f reflection = _direction - 2 * normal * (normal.x * _direction.x + normal.y * _direction.y + normal.z * _direction.z);
         Ray reflectionRay(_intersections[0].getPoint(), -reflection, _reflectionDepth - 1);
         reflectionRay.findIntersections(renderer);
-
         if (reflectionRay._intersections.size() == 0)
             return sf::Color::Black;
         if (Ray::getNorm(reflectionRay._intersections[0].getPoint() - _intersections[0].getPoint()) < 0.01f)
@@ -189,15 +188,26 @@ namespace render {
             return sf::Color::Black;
         }
         reflectionRay.applyLighting(renderer);
-        reflectionRay.blendAdd(reflectionRay.getReflectionColor(renderer));
-        return reflectionRay.getColor();
+        if (reflectionRay._reflectionDepth > 0)
+            reflectionRay.blendAdd(reflectionRay.getReflectionColor(renderer));
+        auto reflectivity = _intersections[0].getInterceptee()->getReflectivity();
+        auto tmp = reflectionRay.getColor();
+        tmp = (sf::Color) {
+            static_cast<sf::Uint8>(tmp.r * reflectivity),
+            static_cast<sf::Uint8>(tmp.g * reflectivity),
+            static_cast<sf::Uint8>(tmp.b * reflectivity)
+        };
+        return tmp;
+        // return reflectionRay.getColor();
     }
 
     sf::Color Ray::cast(const Renderer &renderer)
     {
         findIntersections(renderer);
+        if (_intersections.size() == 0)
+            return sf::Color::Black;
         applyLighting(renderer);
-        if (_reflectionDepth > 0) {
+        if (_intersections.size() > 0 && _reflectionDepth > 0) {
             return blendAdd(getReflectionColor(renderer));
         }
         return getColor();

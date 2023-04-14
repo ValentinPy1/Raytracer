@@ -17,13 +17,8 @@ namespace render {
         const sf::Vector3f &position, const sf::Vector3f &rotation)
         : _position(position), _rotation(rotation)
     {
-        std::cout << "captor w & h:" << captorWidth << " " << captorHeight << std::endl;
-        std::cout << "captor size:" << _captorSize.x << " " << _captorSize.y << std::endl;
-
         float pixHeight = (float) _captorSize.y / (float) captorHeight * scale;
         float pixWidth = (float) _captorSize.x / (float) captorWidth * scale;
-
-        std::cout << pixHeight << " " << pixWidth << std::endl;
         std::ofstream raySave("ray.txt");
 
         _focalPoint = computeFocalPoint(focalPoint);

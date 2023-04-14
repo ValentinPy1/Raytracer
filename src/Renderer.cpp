@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cmath>
 #include <functional>
+#include <ctime>
 #include "Sphere.hpp"
 #include "Pipeline.hpp"
 #include "Plane.hpp"
@@ -36,11 +37,11 @@ namespace render {
     void Renderer::init()
     {
         auto initFuns = _pluginManager.getInitFunctions();
+
         for (auto &fun : initFuns) {
             fun(*this);
         }
         loadScene();
-
         _rayProcess = _pluginManager.getProcessRayFunctions();
         _postProcess = _pluginManager.getPostProcessFunctions();
     }
@@ -81,7 +82,7 @@ namespace render {
         _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(-10, 5, -5), 4, sf::Color::Yellow));
         _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(0, 10, -7), 4, sf::Color::Blue));
         _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(0, 20, -15), 9, sf::Color::Red));
-        // _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(0, 5, -10), 4, sf::Color::Blue));
+        _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(0, 5, -10), 4, sf::Color::Blue));
         _objects.push_back(std::make_shared<Plane>(sf::Vector3f(0, 0, 10), sf::Vector3f(0, 0, 1), sf::Color::Green));
         addLight(Light({0, 5, -20}, sf::Color::White, 1, 10, _lightSamples));
     }
@@ -105,7 +106,8 @@ namespace render {
     {
         auto rays = _camera.getRays();
         for (unsigned int j = 0; j < _camera.getCaptor().getSize().y; j++) {
-            sf::Color tmp = rays[i * _camera.getCaptor().getSize().y + j].cast(*this);
+            Ray ray = rays[i * _camera.getCaptor().getSize().y + j];
+            sf::Color tmp = ray.cast(*this);
             {
                 std::lock_guard<std::mutex> lock(_mutex);
                 _camera.getCaptor().setPixel(i, j, tmp);
@@ -118,8 +120,10 @@ namespace render {
     {
         std::vector<std::thread> threads;
         _logs.log("Rendering scene...");
+        clock_t start = clock();
 
         auto rays = _camera.getRays();
+
         for (unsigned int i = 0; i < _camera.getCaptor().getSize().x; i++) {
             while (threads.size() > std::thread::hardware_concurrency() / 2) {
                 threads[0].join();
@@ -127,13 +131,13 @@ namespace render {
             }
             threads.push_back(std::thread(&Renderer::updatePixelLine, this, i));
         }
-
         for (auto &thread : threads)
             thread.join();
 
         _logs.log("Scene rendered, saving picture...");
         _camera.getCaptor().saveToFile("rendered.png");
         _logs.log("Picture saved");
+        std::cout << "\nDone rendering in " << (clock() - start) / (double) CLOCKS_PER_SEC << "s" << std::endl;
     }
 
     void Renderer::setAmbientLight(const sf::Color &color)
