@@ -17,13 +17,8 @@ namespace render {
         const sf::Vector3f &position, const sf::Vector3f &rotation)
         : _position(position), _rotation(rotation)
     {
-        std::cout << "captor w & h:" << captorWidth << " " << captorHeight << std::endl;
-        std::cout << "captor size:" << _captorSize.x << " " << _captorSize.y << std::endl;
-
         float pixHeight = (float) _captorSize.y / (float) captorHeight * scale;
         float pixWidth = (float) _captorSize.x / (float) captorWidth * scale;
-
-        std::cout << pixHeight << " " << pixWidth << std::endl;
         std::ofstream raySave("ray.txt");
 
         _focalPoint = computeFocalPoint(focalPoint);
@@ -71,15 +66,5 @@ namespace render {
     std::vector<render::Ray> &Camera::getRays()
     {
         return _rays;
-    }
-
-    void Camera::updatePixelLine(int i, std::vector<Ray> &rays, Renderer &rdr)
-    {
-        for (unsigned int j = 0; j < getCaptor().getSize().y; j++) {
-            render::Ray ray = rays[i * getCaptor().getSize().x + j];
-            ray = ray.findIntersections(rdr);
-            ray = ray.applyLighting(rdr);
-            getCaptor().setPixel(i, j, ray.getColor());
-        }
     }
 }

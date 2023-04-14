@@ -49,7 +49,7 @@ namespace render {
      */
     class Ray {
         public:
-            Ray(const sf::Vector3f &origin, const sf::Vector3f &direction);
+            Ray(const sf::Vector3f &origin, const sf::Vector3f &direction, int reflectionDepth = 5);
             /**
              * @brief Rotate a vector by a rotation vector in degrees
              *
@@ -61,8 +61,10 @@ namespace render {
             static float getNorm(const sf::Vector3f &vector);
             static sf::Vector3f rotateVector(const sf::Vector3f &vector, const sf::Vector3f &rotation);
 
+            sf::Color cast(const Renderer & renderer);
             Ray &findIntersections(const render::Renderer &renderer);
             Ray &applyLighting(const render::Renderer &renderer);
+            sf::Color getReflectionColor(const Renderer &renderer);
 
             bool hasIntersections() const;
             const std::vector<Intersection> &getIntersections() const;
@@ -80,7 +82,7 @@ namespace render {
             sf::Color blendAdd(const sf::Color &color) const;
             sf::Color blendColor(const sf::Color &color) const;
         private:
-
+            int _reflectionDepth;
             sf::Vector3f _origin;
             sf::Vector3f _direction;
             std::vector<Intersection> _intersections;

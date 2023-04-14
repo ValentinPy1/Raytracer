@@ -37,7 +37,7 @@ namespace render {
             sf::Color _color;
             std::map<std::string, float> _properties {
                 {"shininess", 0},
-                {"reflectivity", 0},
+                {"reflectivity", 0.5},
                 {"transparency", 0},
                 {"refractive_index", 1},
                 {"diffuse", 1},

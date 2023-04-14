@@ -10,8 +10,9 @@
 
 namespace render {
     Plane::Plane(const sf::Vector3f &positionVector, const sf::Vector3f &normal, const sf::Color &color)
-        : _origin(positionVector), _normal(normal), _color(color)
+        : _origin(positionVector), _normal(normal)
     {
+        _color = color;
     }
 
     bool Plane::solve(render::Ray &ray)
@@ -31,10 +32,8 @@ namespace render {
         return true;
     }
 
-    sf::Vector3f Plane::getNormal(const sf::Vector3f &point) const
+    sf::Vector3f Plane::getNormal(__attribute__((unused)) const sf::Vector3f &point) const
     {
-        if (point * _normal > 0)
-            return -_normal;
-        return _normal;
+        return -_normal;
     }
 }

@@ -8,6 +8,7 @@
 #include <iostream>
 #include <cmath>
 #include <functional>
+#include <ctime>
 #include "Sphere.hpp"
 #include "Pipeline.hpp"
 #include "Plane.hpp"
@@ -21,24 +22,6 @@ namespace render {
         : _camera(-focalPoint, imSide, imSide, sf::Vector3f(0, 0, 0), sf::Vector3f(90, 0, 0)), _lightSamples(lightSamples)
     {
         setupPipeline();
-        std::cout << "renderer created" << std::endl;
-        _logs.log("Renderer created");
-        _logs.log("Camera set to (" +
-            std::to_string(_camera.getPosition().x) + ", " +
-            std::to_string(_camera.getPosition().y) + ", " +
-            std::to_string(_camera.getPosition().z) + ")");
-        _logs.log("Camera is rotated by (" +
-            std::to_string(_camera.getRotation().x) + ", " +
-            std::to_string(_camera.getRotation().y) + ", " +
-            std::to_string(_camera.getRotation().z) + ")");
-        _logs.log("Camera focal point is (" +
-            std::to_string(_camera.getFocalPoint().x) + ", " +
-            std::to_string(_camera.getFocalPoint().y) + ", " +
-            std::to_string(_camera.getFocalPoint().z) + ")");
-        _logs.log("Deduced camera direction is (" +
-            std::to_string(Ray::normalize(_camera.getFocalPoint() - _camera.getPosition()).x) + ", " +
-            std::to_string(Ray::normalize(_camera.getFocalPoint() - _camera.getPosition()).y) + ", " +
-            std::to_string(Ray::normalize(_camera.getFocalPoint() - _camera.getPosition()).z) + ")");
     }
 
     void Renderer::setupPipeline()
@@ -49,6 +32,31 @@ namespace render {
         _pipeline.push_back([](__attribute__((unused)) render::Ray &self, Renderer &rdr, render::Ray &ray)->render::Ray &{
             return ray.applyLighting(rdr);
         });
+    }
+
+    void Renderer::init()
+    {
+        std::vector<init_t> initFuns = _pluginManager.getInitFunctions();
+
+        for (auto &fun : initFuns) {
+            fun(*this);
+        }
+        loadScene();
+        _rayProcess = _pluginManager.getProcessRayFunctions();
+        _postProcess = _pluginManager.getPostProcessFunctions();
+    }
+
+    sf::Color Renderer::processRay(Ray &ray) const
+    {
+        for (auto &fun : _rayProcess)
+            ray = fun(ray, *this);
+        return ray.getColor();
+    }
+
+    void Renderer::postProcess()
+    {
+        for (auto &fun : _postProcess)
+            fun(*this);
     }
 
     std::vector<std::shared_ptr<render::IObject>> Renderer::getObjects() const
@@ -74,36 +82,36 @@ namespace render {
         _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(-10, 5, -5), 4, sf::Color::Yellow));
         _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(0, 10, -7), 4, sf::Color::Blue));
         _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(0, 20, -15), 9, sf::Color::Red));
-        // _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(0, 5, -10), 4, sf::Color::Blue));
+        _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(0, 5, -10), 4, sf::Color::Blue));
         _objects.push_back(std::make_shared<Plane>(sf::Vector3f(0, 0, 10), sf::Vector3f(0, 0, 1), sf::Color::Green));
         addLight(Light({0, 5, -20}, sf::Color::White, 1, 10, _lightSamples));
     }
 
-    void Renderer::showProgressBar(int progress, int total, std::string message)
+    void Renderer::showProgressBar(int total, std::string message)
     {
         int barWidth = 70;
+        ++_progress;
         std::cout << message << " [";
-        int pos = barWidth * progress / total;
+        int pos = barWidth * _progress / total;
         for (int i = 0; i < barWidth; ++i) {
             if (i < pos) std::cout << "=";
             else if (i == pos) std::cout << ">";
             else std::cout << " ";
         }
-        std::cout << "] " << int(progress * 100.0 / total) << "%\r";
+        std::cout << "] " << int(_progress * 100.0 / total) << "%\r";
         std::cout.flush();
     }
 
     void Renderer::updatePixelLine(int i)
     {
         auto rays = _camera.getRays();
-
         for (unsigned int j = 0; j < _camera.getCaptor().getSize().y; j++) {
-            render::Ray ray = rays[i * _camera.getCaptor().getSize().y + j];
-            ray = ray.findIntersections(*this);
-            ray = ray.applyLighting(*this);
+            Ray ray = rays[i * _camera.getCaptor().getSize().y + j];
+            sf::Color tmp = ray.cast(*this);
             {
                 std::lock_guard<std::mutex> lock(_mutex);
-                _camera.getCaptor().setPixel(i, j, ray.getColor());
+                _camera.getCaptor().setPixel(i, j, tmp);
+                showProgressBar(_camera.getCaptor().getSize().x * _camera.getCaptor().getSize().y, "Rendering scene");
             }
         }
     }
@@ -112,26 +120,24 @@ namespace render {
     {
         std::vector<std::thread> threads;
         _logs.log("Rendering scene...");
-        size_t k = 0;
+        clock_t start = clock();
+
         auto rays = _camera.getRays();
-        // for (unsigned int i = 0; i < _camera.getCaptor().getSize().x; i++) {
-        //     for (unsigned int j = 0; j < _camera.getCaptor().getSize().y; j++) {
-        //         render::Ray ray = rays[k++];
-        //         ray = _pipeline.run(ray, *this, ray);
-        //         _camera.getCaptor().setPixel(i, j, ray.getColor());
-        //     }
-        //     showProgressBar(i, _camera.getCaptor().getSize().x, "Rendering scene");
-        // }
+
         for (unsigned int i = 0; i < _camera.getCaptor().getSize().x; i++) {
+            while (threads.size() > std::thread::hardware_concurrency() / 2) {
+                threads[0].join();
+                threads.erase(threads.begin());
+            }
             threads.push_back(std::thread(&Renderer::updatePixelLine, this, i));
         }
-
         for (auto &thread : threads)
             thread.join();
 
         _logs.log("Scene rendered, saving picture...");
-        _camera.getCaptor().saveToFile("test.png");
+        _camera.getCaptor().saveToFile("rendered.png");
         _logs.log("Picture saved");
+        std::cout << "\nDone rendering in " << (clock() - start) / (double) CLOCKS_PER_SEC << "s" << std::endl;
     }
 
     void Renderer::setAmbientLight(const sf::Color &color)

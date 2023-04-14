@@ -1,4 +1,4 @@
-# Install script for directory: /home/Amour/Documents/Epitech/Tech2/raytracer
+# Install script for directory: /home/Amour/Documents/Epitech/Tech2/ray
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/Amour/Documents/Epitech/Tech2/raytracer/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/Amour/Documents/Epitech/Tech2/ray/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

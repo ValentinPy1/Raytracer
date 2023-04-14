@@ -1,0 +1,24 @@
+var searchData=
+[
+  ['getambientlight_0',['getAmbientLight',['../classrender_1_1Renderer.html#ac4d8cec0eace6c87d120626323638e57',1,'render::Renderer']]],
+  ['getblinnphongcolor_1',['getBlinnPhongColor',['../classrender_1_1Light.html#a9a80c84a52564ce647d71369110606ca',1,'render::Light']]],
+  ['getcamera_2',['getCamera',['../classrender_1_1Renderer.html#aef7863dcd681dd61ef9512f57b837871',1,'render::Renderer']]],
+  ['getcaptor_3',['getCaptor',['../classrender_1_1Camera.html#a5d3b9f2157ea709363017c4b372a097b',1,'render::Camera']]],
+  ['getcolor_4',['getColor',['../classrender_1_1Light.html#afec176d7be576c4799aaeb5c9c1b24eb',1,'render::Light']]],
+  ['getcomponents_5',['getComponents',['../classecs_1_1Ecs.html#a6e1e78d3921e9e4e28f6038c89313c5f',1,'ecs::Ecs']]],
+  ['getdistanceto_6',['getDistanceTo',['../classrender_1_1Light.html#a91690e5abae1d32905b3af471e4bf6e5',1,'render::Light']]],
+  ['getfocalpoint_7',['getFocalPoint',['../classrender_1_1Camera.html#aa679d2b464d95496198d88de90b152d5',1,'render::Camera']]],
+  ['getinit_8',['getInit',['../classrender_1_1Plugin.html#a494c322e19cd31681f2c3e0b29b792fd',1,'render::Plugin']]],
+  ['getinitfunctions_9',['getInitFunctions',['../classrender_1_1PluginManager.html#a0b67ad43a8c602f53aa62a64a99f303d',1,'render::PluginManager']]],
+  ['getintensity_10',['getIntensity',['../classrender_1_1Light.html#a0f56b5cfcdd5a1e7ebf72b159ea458d6',1,'render::Light']]],
+  ['getlights_11',['getLights',['../classrender_1_1Renderer.html#a9a97b1eadbd096360e5db46c77fd3e00',1,'render::Renderer']]],
+  ['getobjects_12',['getObjects',['../classrender_1_1Renderer.html#aee6760a10bad0b6b458680553fb9409e',1,'render::Renderer']]],
+  ['getposition_13',['getPosition',['../classrender_1_1Light.html#a33276c79191b680412a4904b130cda65',1,'render::Light::getPosition()'],['../classrender_1_1Camera.html#a1e63557bf6ccc2fc6808a8672d7d681d',1,'render::Camera::getPosition()']]],
+  ['getpostprocess_14',['getPostProcess',['../classrender_1_1Plugin.html#a1e5a133e7edfd4313beca8fc3250e511',1,'render::Plugin']]],
+  ['getpostprocessfunctions_15',['getPostProcessFunctions',['../classrender_1_1PluginManager.html#a0c523f89943a7cb500768d4a82ef3206',1,'render::PluginManager']]],
+  ['getpriority_16',['getPriority',['../classrender_1_1Plugin.html#a08b0b00cb69fbf932414b6d95ac73b8f',1,'render::Plugin']]],
+  ['getprocessray_17',['getProcessRay',['../classrender_1_1Plugin.html#ab4dcd407930f761f8fd8e5c62f57a5f9',1,'render::Plugin']]],
+  ['getprocessrayfunctions_18',['getProcessRayFunctions',['../classrender_1_1PluginManager.html#a0832a5571d6c76a6368f52b67a477976',1,'render::PluginManager']]],
+  ['getrays_19',['getRays',['../classrender_1_1Camera.html#a3be7ce621f987ed74d6e2e4feb6bf3ce',1,'render::Camera']]],
+  ['getrotation_20',['getRotation',['../classrender_1_1Camera.html#add9d305c20a2809f6f3b947200a004fe',1,'render::Camera']]]
+];
