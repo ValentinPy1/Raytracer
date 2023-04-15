@@ -35,6 +35,7 @@ extern "C" {
                     color * colorIntensityFromNormal));
             },
             nullptr,
+            0
         );
     }
 }
