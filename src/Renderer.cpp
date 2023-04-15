@@ -42,7 +42,7 @@ namespace render {
             fun(*this);
         }
         // TODO clement! loadScene from config file
-        loadScene();
+        // loadScene();
         _rayProcess = _pluginManager.getProcessRayFunctions();
         _postProcess = _pluginManager.getPostProcessFunctions();
     }
@@ -72,6 +72,7 @@ namespace render {
 
     void Renderer::loadScene()
     {
+        // _configLoader->loadConfigFile("config/config.conf", *this);
         // _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(-20, 0, 0), 20, sf::Color::Red));
         // _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(-40, 10, 25), 10, sf::Color::Blue));
         // _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(10, 5, 10), 5, sf::Color::Red));
@@ -165,5 +166,10 @@ namespace render {
     {
         for (auto light : lights)
             addLight(light);
+    }
+
+    void Renderer::setCamera(Camera &camera)
+    {
+        _camera = camera;
     }
 }

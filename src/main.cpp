@@ -11,7 +11,7 @@
 #include <memory>
 #include <ctime>
 #include "Ray.hpp"
-
+#include "ConfigLoader.hpp"
 #include "operations.hpp"
 #include "Sphere.hpp"
 #include "Light.hpp"

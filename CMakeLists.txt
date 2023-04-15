@@ -18,6 +18,7 @@ add_executable (
     src/PluginManager.cpp
     src/Plugin.cpp
     src/DLLoader.cpp
+    src/Entity3D.cpp
 )
 target_link_libraries(
     ray

@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/ray.dir/src/Camera.cpp.o.d"
   "CMakeFiles/ray.dir/src/DLLoader.cpp.o"
   "CMakeFiles/ray.dir/src/DLLoader.cpp.o.d"
+  "CMakeFiles/ray.dir/src/Entity3D.cpp.o"
+  "CMakeFiles/ray.dir/src/Entity3D.cpp.o.d"
   "CMakeFiles/ray.dir/src/Intercection.cpp.o"
   "CMakeFiles/ray.dir/src/Intercection.cpp.o.d"
   "CMakeFiles/ray.dir/src/Light.cpp.o"

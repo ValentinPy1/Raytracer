@@ -1,3 +1,3 @@
-/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles/ray.dir
-/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles/edit_cache.dir
-/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles/rebuild_cache.dir
+/workdir/Epitech/2Tek/oop/raytracer/CMakeFiles/ray.dir
+/workdir/Epitech/2Tek/oop/raytracer/CMakeFiles/edit_cache.dir
+/workdir/Epitech/2Tek/oop/raytracer/CMakeFiles/rebuild_cache.dir
