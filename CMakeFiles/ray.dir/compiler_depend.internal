@@ -875,18 +875,22 @@ CMakeFiles/ray.dir/src/DLLoader.cpp.o
  /usr/include/c++/12/bits/ostream.tcc
  /usr/include/c++/12/istream
  /usr/include/c++/12/bits/istream.tcc
- /usr/include/c++/12/functional
+ /usr/include/c++/12/map
+ /usr/include/c++/12/bits/stl_tree.h
+ /usr/include/c++/12/ext/aligned_buffer.h
+ /usr/include/c++/12/bits/node_handle.h
+ /usr/include/c++/12/bits/stl_map.h
  /usr/include/c++/12/tuple
  /usr/include/c++/12/bits/uses_allocator.h
+ /usr/include/c++/12/bits/stl_multimap.h
+ /usr/include/c++/12/bits/erase_if.h
+ /usr/include/c++/12/functional
  /usr/include/c++/12/bits/std_function.h
  /usr/include/c++/12/unordered_map
- /usr/include/c++/12/ext/aligned_buffer.h
  /usr/include/c++/12/bits/hashtable.h
  /usr/include/c++/12/bits/hashtable_policy.h
  /usr/include/c++/12/bits/enable_special_members.h
- /usr/include/c++/12/bits/node_handle.h
  /usr/include/c++/12/bits/unordered_map.h
- /usr/include/c++/12/bits/erase_if.h
  /usr/include/c++/12/array
  /usr/include/c++/12/compare
  /usr/include/c++/12/bits/stl_algo.h
@@ -2475,18 +2479,22 @@ CMakeFiles/ray.dir/src/Plugin.cpp.o
  /usr/include/c++/12/bits/ostream.tcc
  /usr/include/c++/12/istream
  /usr/include/c++/12/bits/istream.tcc
- /usr/include/c++/12/functional
+ /usr/include/c++/12/map
+ /usr/include/c++/12/bits/stl_tree.h
+ /usr/include/c++/12/ext/aligned_buffer.h
+ /usr/include/c++/12/bits/node_handle.h
+ /usr/include/c++/12/bits/stl_map.h
  /usr/include/c++/12/tuple
  /usr/include/c++/12/bits/uses_allocator.h
+ /usr/include/c++/12/bits/stl_multimap.h
+ /usr/include/c++/12/bits/erase_if.h
+ /usr/include/c++/12/functional
  /usr/include/c++/12/bits/std_function.h
  /usr/include/c++/12/unordered_map
- /usr/include/c++/12/ext/aligned_buffer.h
  /usr/include/c++/12/bits/hashtable.h
  /usr/include/c++/12/bits/hashtable_policy.h
  /usr/include/c++/12/bits/enable_special_members.h
- /usr/include/c++/12/bits/node_handle.h
  /usr/include/c++/12/bits/unordered_map.h
- /usr/include/c++/12/bits/erase_if.h
  /usr/include/c++/12/array
  /usr/include/c++/12/compare
  /usr/include/c++/12/bits/stl_algo.h
@@ -2709,6 +2717,18 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o
  /usr/include/c++/12/ext/aligned_buffer.h
  /usr/include/c++/12/bits/fs_dir.h
  /usr/include/c++/12/bits/fs_ops.h
+ /usr/include/c++/12/memory
+ /usr/include/c++/12/bits/stl_uninitialized.h
+ /usr/include/c++/12/bits/stl_tempbuf.h
+ /usr/include/c++/12/bits/stl_raw_storage_iter.h
+ /usr/include/c++/12/bits/align.h
+ /usr/include/c++/12/bit
+ /usr/include/c++/12/bits/shared_ptr_atomic.h
+ /usr/include/c++/12/bits/atomic_base.h
+ /usr/include/c++/12/bits/atomic_lockfree_defines.h
+ /usr/include/c++/12/backward/auto_ptr.h
+ /usr/include/c++/12/pstl/glue_memory_defs.h
+ /usr/include/c++/12/pstl/execution_defs.h
  /usr/include/c++/12/functional
  /usr/include/c++/12/bits/std_function.h
  /usr/include/c++/12/unordered_map
@@ -2719,7 +2739,6 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o
  /usr/include/c++/12/bits/unordered_map.h
  /usr/include/c++/12/bits/erase_if.h
  /usr/include/c++/12/vector
- /usr/include/c++/12/bits/stl_uninitialized.h
  /usr/include/c++/12/bits/stl_vector.h
  /usr/include/c++/12/bits/stl_bvector.h
  /usr/include/c++/12/bits/vector.tcc
@@ -2728,7 +2747,6 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o
  /usr/include/c++/12/bits/stl_algo.h
  /usr/include/c++/12/bits/algorithmfwd.h
  /usr/include/c++/12/bits/stl_heap.h
- /usr/include/c++/12/bits/stl_tempbuf.h
  /usr/include/c++/12/bits/uniform_int_dist.h
  /home/Amour/Documents/Epitech/Tech2/ray/include/Render.hpp
  /usr/include/c++/12/fstream
@@ -2754,7 +2772,6 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o
  /usr/local/include/SFML/System/Utf.hpp
  /usr/include/c++/12/algorithm
  /usr/include/c++/12/pstl/glue_algorithm_defs.h
- /usr/include/c++/12/pstl/execution_defs.h
  /usr/local/include/SFML/System/Utf.inl
  /usr/include/c++/12/iterator
  /usr/include/c++/12/bits/stream_iterator.h
@@ -2818,15 +2835,6 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o
  /usr/local/include/SFML/Graphics/Sprite.hpp
  /usr/local/include/SFML/Graphics/Text.hpp
  /usr/local/include/SFML/Graphics/VertexBuffer.hpp
- /usr/include/c++/12/memory
- /usr/include/c++/12/bits/stl_raw_storage_iter.h
- /usr/include/c++/12/bits/align.h
- /usr/include/c++/12/bit
- /usr/include/c++/12/bits/shared_ptr_atomic.h
- /usr/include/c++/12/bits/atomic_base.h
- /usr/include/c++/12/bits/atomic_lockfree_defines.h
- /usr/include/c++/12/backward/auto_ptr.h
- /usr/include/c++/12/pstl/glue_memory_defs.h
  /usr/include/c++/12/thread
  /usr/include/c++/12/bits/std_thread.h
  /usr/include/c++/12/bits/this_thread_sleep.h

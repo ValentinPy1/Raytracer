@@ -203,13 +203,20 @@ namespace render {
 
     sf::Color Ray::cast(const Renderer &renderer)
     {
+        // plugin geometry::intersection
         findIntersections(renderer);
+
+        // plugin lights
         if (_intersections.size() == 0)
             return sf::Color::Black;
         applyLighting(renderer);
+
+        //plugin reflection
         if (_intersections.size() > 0 && _reflectionDepth > 0) {
             return blendAdd(getReflectionColor(renderer));
         }
+
+        // end of process loop
         return getColor();
     }
 }

@@ -13,7 +13,7 @@ namespace render {
         init_t initFun,
         processRay_t processRayFun,
         postProcess_t postProcessFun,
-        unsigned int priority) :
+        int priority) :
         _init(initFun),
         _processRay(processRayFun),
         _postProcess(postProcessFun),
@@ -39,7 +39,7 @@ namespace render {
             _postProcess(rdr);
     }
 
-    unsigned int Plugin::getPriority() const {
+    int Plugin::getPriority() const {
         return _priority;
     }
 

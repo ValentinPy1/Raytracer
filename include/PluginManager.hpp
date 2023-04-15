@@ -12,6 +12,7 @@
 #include <string>
 #include <dlfcn.h>
 #include <iostream>
+#include <map>
 #include <functional>
 // #include "Ray.hpp"
 // #include "Render.hpp"
@@ -48,20 +49,28 @@ namespace render {
              * @return T*
              */
             template <typename T>
-            T *loadInstance(const std::string &path, const std::string &libName) {
-                void *handle = dlopen(path.c_str(), RTLD_LAZY);
-                if (!handle) {
-                    throw DLLoaderException("Cannot open library: " + std::string(dlerror()));
+            T *loadInstance(const std::string &libName, const std::string &path = "") {
+                void *handle = nullptr;
+                if (_libHandles.find(libName) != _libHandles.end()) {
+                    handle = _libHandles[libName];
+                } else {
+                    handle = dlopen(path.c_str(), RTLD_LAZY);
+                    if (!handle) {
+                        throw DLLoaderException("Cannot open library: " + std::string(dlerror()));
+                    }
+                    dlerror();
+                    _libHandles[libName] = handle;
                 }
-                dlerror();
-                T *instance = reinterpret_cast<T *>(dlsym(handle, "entryPoint"));
-                const char *dlsym_error = dlerror();
-                if (dlsym_error) {
-                    throw DLLoaderException("Cannot load symbol 'entryPoint': " + std::string(dlsym_error));
+                try {
+                    T *(*entryPoint)() = reinterpret_cast<T *(*)()>(dlsym(handle, "entryPoint"));
+                    const char *dlsym_error = dlerror();
+                    if (dlsym_error) {
+                        throw DLLoaderException("Cannot load symbol 'entryPoint': " + std::string(dlsym_error));
+                    }
+                    return entryPoint();
+                } catch (const std::exception &e) {
+                    throw DLLoaderException("Cannot load symbol 'entryPoint': " + std::string(e.what()));
                 }
-                _handles.push_back(handle);
-                _handleNames.push_back(libName);
-                return instance;
             }
 
             /**
@@ -76,54 +85,104 @@ namespace render {
 
             template <typename T>
             T loadSymbol(const std::string &libName, const std::string &symbolName) {
-                for (size_t i = 0; i < _handleNames.size(); i++) {
-                    if (_handleNames[i] == libName) {
-                        T sym = reinterpret_cast<T>(dlsym(_handles[i], symbolName.c_str()));
-                        const char *dlsym_error = dlerror();
-                        if (dlsym_error) {
-                            throw DLLoaderException("Cannot load symbol '" + symbolName + "': " + std::string(dlsym_error));
-                        }
-                        return sym;
-                    }
+                if (_libHandles.find(libName) == _libHandles.end()) {
+                    throw DLLoaderException("Cannot find library " + libName);
                 }
-                throw DLLoaderException("Cannot find library " + libName);
+                try {
+                    T sym = reinterpret_cast<T>(dlsym(_libHandles[libName], symbolName.c_str()));
+                    const char *dlsym_error = dlerror();
+                    if (dlsym_error) {
+                        throw DLLoaderException("Cannot load symbol '" + symbolName + "': " + std::string(dlsym_error));
+                    }
+                    return sym;
+                } catch (const std::exception &e) {
+                    throw DLLoaderException("Cannot load symbol '" + symbolName + "': " + std::string(e.what()));
+                }
             }
         private:
             /**
              * @brief A vector containing the handles of the loaded libraries.
-             * These handles are stored for future reference, and are used to
-             * close the libraries when the DLLoader object is destroyed.
+             * This vector is used to close the libraries when the DLLoader object is destroyed.
+             * It can also be used to load new symbols from the libraries from
+             * the library name.
              *
              */
-            std::vector<void *> _handles;
-
-            /**
-             * @brief A vector containing the names of the loaded libraries.
-             * These names are used to find the correct library when a symbol
-             * is requested, from the index of the name of the library in this
-             * vector.
-             *
-             */
-            std::vector<std::string> _handleNames;
+            std::map<std::string, void *> _libHandles;
     };
 
-    typedef void (*init_t)(render::Renderer &rdr);
-    typedef Ray &(*processRay_t)(render::Ray &ray, const render::Renderer &rdr);
-    typedef void (*postProcess_t)(render::Renderer &rdr);
+    /**
+     * @brief and init_t function will be automatically called
+     * before the rendering process starts.
+     *
+     */
+    typedef std::function<void(render::Renderer &)> init_t;
+
+    /**
+     * @brief A processRay_t function will be called for each ray
+     * before it is casted, accounting for the priority of the plugin.
+     *
+     */
+    typedef std::function<render::Ray &(render::Ray &, const render::Renderer &)> processRay_t;
+
+    /**
+     * @brief A postProcess_t function will be called after the rendering
+     * process is finished, accounting for the priority of the plugin.
+     *
+     */
+    typedef std::function<void(render::Renderer &)> postProcess_t;
 
     /**
      * @brief A plugin is an object loaded from a dynamic library (.so file with an entryPoint function).
      * This object should have several function defined, which could be set to
-     * nullptr if needed:
-     *  - void (*init)(render::Renderer &rdr) (called when the plugin is loaded)
-     * - void (*processRay)(render::Ray &ray, const render::Renderer &rdr) (called when a ray is casted)
-     * - void (*postProcess)(render::Renderer &rdr) (called when the rendering is done
+     * nullptr if not needed:
      *
      * A plugin should also have an attribute "priority" which is an unsigned integer
      * loaded using the "getPriority" function of the library. This attribute
      * is used to determine the order in which the plugins are called, the lower
      * the priority, the sooner the plugin is called. If two plugins have the
      * same priority, the order is undefined.
+     *
+     * The plugin library must also provide a function entryPoint which
+     * returns a pointer to a Plugin object.
+     * This Instance would then have been set up manually by the developer.
+     * This allows for more flexibility, using one of the following design pattern:
+     *
+     * 1. Inheritance
+     * @code {.cpp}
+     *
+     * class MyPlugin : public Plugin {
+     *    public:
+     *     MyPlugin() : Plugin(customInit, customProcessRay, customPostProcess, 0) {}
+     *    ~MyPlugin() = default;
+     *  private:
+     *     // ...
+     *     Foo _customMemberFun();
+     *     Bar _customAttribute;
+     *  };
+     * @endcode
+     *
+     * 2. Use of lambda expressions to capture a helper class
+     * @code {.cpp}
+     *
+     * class HelperClass {
+     *  public:
+     *    HelperClass() = default;
+     *   ~HelperClass() = default;
+     *  void customMemberFun() {
+     *   // ...
+     * }
+     *
+     * Plugin *entryPoint() {
+     *   class MyPlugin : public Plugin {
+     *      std::shared_ptr<HelperClass> _helper;
+     *     init_t customInit = [helper](render::Renderer &rdr) {
+     *         helper->customMemberFun();
+     *         // ...
+     *    };
+     *     // similar process for processRay and postProcess
+     *    return new Plugin(customInit, customProcessRay, customPostProcess, 0);
+     * }
+     * @endcode
      */
     class Plugin {
         public:
@@ -132,7 +191,7 @@ namespace render {
                 init_t init,
                 processRay_t processRay,
                 postProcess_t postProcess,
-                unsigned int priority
+                int priority
             );
             ~Plugin() = default;
 
@@ -163,7 +222,7 @@ namespace render {
              *
              * @return unsigned int
              */
-            unsigned int getPriority() const;
+            int getPriority() const;
 
             /**
              * @brief Get the pointer to the function _init.
@@ -192,7 +251,7 @@ namespace render {
             init_t _init = nullptr;
             processRay_t _processRay = nullptr;
             postProcess_t _postProcess = nullptr;
-            unsigned int _priority;
+            int _priority;
     };
 
     /**

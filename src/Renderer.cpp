@@ -41,6 +41,7 @@ namespace render {
         for (auto &fun : initFuns) {
             fun(*this);
         }
+        // TODO clement! loadScene from config file
         loadScene();
         _rayProcess = _pluginManager.getProcessRayFunctions();
         _postProcess = _pluginManager.getPostProcessFunctions();
