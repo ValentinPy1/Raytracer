@@ -1,3 +1,0 @@
-/workdir/Epitech/2Tek/oop/raytracer/CMakeFiles/ray.dir
-/workdir/Epitech/2Tek/oop/raytracer/CMakeFiles/edit_cache.dir
-/workdir/Epitech/2Tek/oop/raytracer/CMakeFiles/rebuild_cache.dir
