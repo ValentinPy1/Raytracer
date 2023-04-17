@@ -19,13 +19,13 @@ namespace ogl
             ~PluginShader();
             std::string getShaderPath();
             unsigned int getShaderType();
-        private:
+        protected:
             render::init_t _init = nullptr;
             render::processRay_t _processRay = nullptr;
             render::postProcess_t _postProcess = nullptr;
             int _priority;
             std::string _path;
-            unsigned int type;
+            unsigned int _type;
     };
 } // namespace ogl
 

@@ -250,6 +250,33 @@ PluginOpenGL.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/PluginOpenGL.cpp.s
 .PHONY : PluginOpenGL.cpp.s
 
+PluginShader.gl.o: PluginShader.gl.cpp.o
+.PHONY : PluginShader.gl.o
+
+# target to build an object file
+PluginShader.gl.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/PluginShader.gl.cpp.o
+.PHONY : PluginShader.gl.cpp.o
+
+PluginShader.gl.i: PluginShader.gl.cpp.i
+.PHONY : PluginShader.gl.i
+
+# target to preprocess a source file
+PluginShader.gl.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/PluginShader.gl.cpp.i
+.PHONY : PluginShader.gl.cpp.i
+
+PluginShader.gl.s: PluginShader.gl.cpp.s
+.PHONY : PluginShader.gl.s
+
+# target to generate assembly for a file
+PluginShader.gl.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/PluginShader.gl.cpp.s
+.PHONY : PluginShader.gl.cpp.s
+
 PluginSpherePrimitive.gl.o: PluginSpherePrimitive.gl.cpp.o
 .PHONY : PluginSpherePrimitive.gl.o
 
@@ -426,6 +453,9 @@ help:
 	@echo "... PluginOpenGL.o"
 	@echo "... PluginOpenGL.i"
 	@echo "... PluginOpenGL.s"
+	@echo "... PluginShader.gl.o"
+	@echo "... PluginShader.gl.i"
+	@echo "... PluginShader.gl.s"
 	@echo "... PluginSpherePrimitive.gl.o"
 	@echo "... PluginSpherePrimitive.gl.i"
 	@echo "... PluginSpherePrimitive.gl.s"

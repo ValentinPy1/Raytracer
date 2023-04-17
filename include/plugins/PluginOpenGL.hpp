@@ -96,7 +96,8 @@ namespace ogl {
              * @param shaderType
              */
             void registerShader(const std::string &srcPath, const std::string &shaderName, int shaderType);
-            void registerShader(const PluginShader &shader);
+            void registerShader(PluginShader &shader);
+
 
             /**
              * @brief Register a shader program using the given name.

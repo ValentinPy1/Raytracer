@@ -97,10 +97,24 @@ CMakeFiles/pluginOpenGL.dir/PluginOpenGL.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pluginOpenGL.dir/PluginOpenGL.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/PluginOpenGL.cpp -o CMakeFiles/pluginOpenGL.dir/PluginOpenGL.cpp.s
 
+CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.o: CMakeFiles/pluginOpenGL.dir/flags.make
+CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.o: PluginShader.gl.cpp
+CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.o: CMakeFiles/pluginOpenGL.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.o -MF CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.o.d -o CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.o -c /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/PluginShader.gl.cpp
+
+CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/PluginShader.gl.cpp > CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.i
+
+CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/PluginShader.gl.cpp -o CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.s
+
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o: CMakeFiles/pluginOpenGL.dir/flags.make
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o: /home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o: CMakeFiles/pluginOpenGL.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o -MF CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o.d -o CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o -c /home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp
 
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i: cmake_force
@@ -114,7 +128,7 @@ CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginMan
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o: CMakeFiles/pluginOpenGL.dir/flags.make
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o: /home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o: CMakeFiles/pluginOpenGL.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o -MF CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o.d -o CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o -c /home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp
 
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i: cmake_force
@@ -128,7 +142,7 @@ CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cp
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o: CMakeFiles/pluginOpenGL.dir/flags.make
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o: /home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o: CMakeFiles/pluginOpenGL.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o -MF CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o.d -o CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o -c /home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp
 
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i: cmake_force
@@ -142,7 +156,7 @@ CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.
 CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.o: CMakeFiles/pluginOpenGL.dir/flags.make
 CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.o: glad/src/gl.c
 CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.o: CMakeFiles/pluginOpenGL.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building C object CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building C object CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.o"
 	/usr/bin/cc $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -MD -MT CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.o -MF CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.o.d -o CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.o -c /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/glad/src/gl.c
 
 CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.i: cmake_force
@@ -157,6 +171,7 @@ CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.s: cmake_force
 pluginOpenGL_OBJECTS = \
 "CMakeFiles/pluginOpenGL.dir/opgl_main_test.cpp.o" \
 "CMakeFiles/pluginOpenGL.dir/PluginOpenGL.cpp.o" \
+"CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.o" \
 "CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o" \
 "CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o" \
 "CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o" \
@@ -167,6 +182,7 @@ pluginOpenGL_EXTERNAL_OBJECTS =
 
 pluginOpenGL: CMakeFiles/pluginOpenGL.dir/opgl_main_test.cpp.o
 pluginOpenGL: CMakeFiles/pluginOpenGL.dir/PluginOpenGL.cpp.o
+pluginOpenGL: CMakeFiles/pluginOpenGL.dir/PluginShader.gl.cpp.o
 pluginOpenGL: CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o
 pluginOpenGL: CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o
 pluginOpenGL: CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o
@@ -178,7 +194,7 @@ pluginOpenGL: /usr/lib64/libm.so
 pluginOpenGL: /usr/lib64/libGLX.so
 pluginOpenGL: /usr/lib64/libOpenGL.so
 pluginOpenGL: CMakeFiles/pluginOpenGL.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX executable pluginOpenGL"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable pluginOpenGL"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/pluginOpenGL.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

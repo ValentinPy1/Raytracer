@@ -24,7 +24,7 @@ namespace ogl
     {
     }
 
-    void PluginShader::getShaderPath()
+    std::string PluginShader::getShaderPath()
     {
         return _path;
     }

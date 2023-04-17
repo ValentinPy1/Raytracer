@@ -264,7 +264,7 @@ namespace render {
              */
             postProcess_t getPostProcess() const noexcept override;
             const std::string &getName() const noexcept override;
-        private:
+        protected:
             init_t _init = nullptr;
             processRay_t _processRay = nullptr;
             postProcess_t _postProcess = nullptr;
