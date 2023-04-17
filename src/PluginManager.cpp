@@ -83,4 +83,18 @@ namespace render {
         }
         return ret;
     }
+
+    void PluginManager::loadPlugins(const std::vector<std::tuple<std::string, std::string>> &plugins)
+    {
+        for (const auto &plugin : plugins) {
+            try {
+                loadPlugin(std::get<0>(plugin), std::get<1>(plugin));
+                std::cout << render::green << "[INFO] Loaded plugin: " << render::no_color
+                    << std::get<0>(plugin) << std::endl;
+            } catch (DLLoader::DLLoaderException &e) {
+                std::cerr << render::red << "[ERROR] Failed to load plugin: " << render::no_color
+                    << std::get<0>(plugin) << e.what() << std::endl;
+            }
+        }
+    }
 }
