@@ -9,6 +9,7 @@
 #include <string>
 #include <memory>
 #include <functional>
+#include <exception>
 #include "Render.hpp"
 #include "PluginManager.hpp"
 
@@ -82,5 +83,19 @@ namespace render {
                 ret.push_back(plugin.getPostProcess());
         }
         return ret;
+    }
+
+    IPlugin *PluginManager::require(const std::string &name)
+    {
+        for (auto &plugin : _plugins) {
+            if (plugin.getName() == name)
+                return &plugin;
+        }
+        throw std::runtime_error("Plugin not found: " + name);
+    }
+
+    const std::vector<Plugin> &PluginManager::getPlugins() const noexcept
+    {
+        return _plugins;
     }
 }

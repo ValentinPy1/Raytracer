@@ -13,11 +13,13 @@ namespace render {
         init_t initFun,
         processRay_t processRayFun,
         postProcess_t postProcessFun,
-        int priority) :
+        int priority,
+        const std::string &name) :
         _init(initFun),
         _processRay(processRayFun),
         _postProcess(postProcessFun),
-        _priority(priority)
+        _priority(priority),
+        _name(name)
     {
     }
 
@@ -58,4 +60,8 @@ namespace render {
         return _postProcess;
     }
 
+    const std::string &Plugin::getName() const noexcept
+    {
+        return _name;
+    }
 }

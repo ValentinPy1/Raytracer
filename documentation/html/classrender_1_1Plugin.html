@@ -80,16 +80,25 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>A plugin is an object loaded from a dynamic library (.so file with an entryPoint function). This object should have several function defined, which could be set to nullptr if needed:  
+<p>A plugin is an object loaded from a dynamic library (.so file with an entryPoint function). This object should have several function defined, which could be set to nullptr if not needed:  
  <a href="classrender_1_1Plugin.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="PluginManager_8hpp_source.html">PluginManager.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for render::Plugin:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classrender_1_1Plugin.png" usemap="#render::Plugin_map" alt=""/>
+  <map id="render::Plugin_map" name="render::Plugin_map">
+<area href="classogl_1_1PluginOpenGL.html" title="A class to encapsulate the OpenGL plugin. This plugin is responsible for initializing the OpenGL cont..." alt="ogl::PluginOpenGL" shape="rect" coords="0,56,117,80"/>
+  </map>
+</div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a31fa72378b1957e7c9255e7dc9c90412"><td class="memItemLeft" align="right" valign="top"><a id="a31fa72378b1957e7c9255e7dc9c90412" name="a31fa72378b1957e7c9255e7dc9c90412"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Plugin</b> (init_t <a class="el" href="classrender_1_1Plugin.html#a041c0a4cc0e0d16b767f05b91180970c">init</a>, processRay_t <a class="el" href="classrender_1_1Plugin.html#a54df68eef7ce7d50c7ff0ef2f464b961">processRay</a>, postProcess_t <a class="el" href="classrender_1_1Plugin.html#aee192c07197eb94bea0b847084d3ebf3">postProcess</a>, unsigned int priority)</td></tr>
-<tr class="separator:a31fa72378b1957e7c9255e7dc9c90412"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51ac122ed123cec98f60588e85d5d45f"><td class="memItemLeft" align="right" valign="top"><a id="a51ac122ed123cec98f60588e85d5d45f" name="a51ac122ed123cec98f60588e85d5d45f"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Plugin</b> (init_t <a class="el" href="classrender_1_1Plugin.html#a041c0a4cc0e0d16b767f05b91180970c">init</a>, processRay_t <a class="el" href="classrender_1_1Plugin.html#a54df68eef7ce7d50c7ff0ef2f464b961">processRay</a>, postProcess_t <a class="el" href="classrender_1_1Plugin.html#aee192c07197eb94bea0b847084d3ebf3">postProcess</a>, int priority)</td></tr>
+<tr class="separator:a51ac122ed123cec98f60588e85d5d45f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a041c0a4cc0e0d16b767f05b91180970c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Plugin.html#a041c0a4cc0e0d16b767f05b91180970c">init</a> (<a class="el" href="classrender_1_1Renderer.html">render::Renderer</a> &amp;rdr) const</td></tr>
 <tr class="memdesc:a041c0a4cc0e0d16b767f05b91180970c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the init function if it is not nullptr.  <br /></td></tr>
 <tr class="separator:a041c0a4cc0e0d16b767f05b91180970c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -99,9 +108,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aee192c07197eb94bea0b847084d3ebf3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Plugin.html#aee192c07197eb94bea0b847084d3ebf3">postProcess</a> (<a class="el" href="classrender_1_1Renderer.html">render::Renderer</a> &amp;rdr) const</td></tr>
 <tr class="memdesc:aee192c07197eb94bea0b847084d3ebf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the postProcess function if it is not nullptr.  <br /></td></tr>
 <tr class="separator:aee192c07197eb94bea0b847084d3ebf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a08b0b00cb69fbf932414b6d95ac73b8f"><td class="memItemLeft" align="right" valign="top">unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Plugin.html#a08b0b00cb69fbf932414b6d95ac73b8f">getPriority</a> () const</td></tr>
-<tr class="memdesc:a08b0b00cb69fbf932414b6d95ac73b8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the priority of the plugin.  <br /></td></tr>
-<tr class="separator:a08b0b00cb69fbf932414b6d95ac73b8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a545bc3feed10c775e3f88dae9fb11460"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Plugin.html#a545bc3feed10c775e3f88dae9fb11460">getPriority</a> () const</td></tr>
+<tr class="memdesc:a545bc3feed10c775e3f88dae9fb11460"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the priority of the plugin.  <br /></td></tr>
+<tr class="separator:a545bc3feed10c775e3f88dae9fb11460"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a494c322e19cd31681f2c3e0b29b792fd"><td class="memItemLeft" align="right" valign="top">init_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrender_1_1Plugin.html#a494c322e19cd31681f2c3e0b29b792fd">getInit</a> () const noexcept</td></tr>
 <tr class="memdesc:a494c322e19cd31681f2c3e0b29b792fd"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the pointer to the function _init. Note that this function can be nullptr.  <br /></td></tr>
 <tr class="separator:a494c322e19cd31681f2c3e0b29b792fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -113,14 +122,42 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1e5a133e7edfd4313beca8fc3250e511"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A plugin is an object loaded from a dynamic library (.so file with an entryPoint function). This object should have several function defined, which could be set to nullptr if needed: </p>
-<ul>
-<li>void (*init)(<a class="el" href="classrender_1_1Renderer.html" title="The renderer class is the main class of the raytracer. It is responsible for the rendering of the sce...">render::Renderer</a> &amp;rdr) (called when the plugin is loaded)</li>
-</ul>
-<p>void (*processRay)(<a class="el" href="classrender_1_1Ray.html" title="Base class for all objects.">render::Ray</a> &amp;ray, const <a class="el" href="classrender_1_1Renderer.html" title="The renderer class is the main class of the raytracer. It is responsible for the rendering of the sce...">render::Renderer</a> &amp;rdr) (called when a ray is casted)</p><ul>
-<li>void (*postProcess)(<a class="el" href="classrender_1_1Renderer.html" title="The renderer class is the main class of the raytracer. It is responsible for the rendering of the sce...">render::Renderer</a> &amp;rdr) (called when the rendering is done</li>
-</ul>
-<p>A plugin should also have an attribute "priority" which is an unsigned integer loaded using the "getPriority" function of the library. This attribute is used to determine the order in which the plugins are called, the lower the priority, the sooner the plugin is called. If two plugins have the same priority, the order is undefined. </p>
+<div class="textblock"><p>A plugin is an object loaded from a dynamic library (.so file with an entryPoint function). This object should have several function defined, which could be set to nullptr if not needed: </p>
+<p>A plugin should also have an attribute "priority" which is an unsigned integer loaded using the "getPriority" function of the library. This attribute is used to determine the order in which the plugins are called, the lower the priority, the sooner the plugin is called. If two plugins have the same priority, the order is undefined.</p>
+<p>The plugin library must also provide a function entryPoint which returns a pointer to a <a class="el" href="classrender_1_1Plugin.html" title="A plugin is an object loaded from a dynamic library (.so file with an entryPoint function)....">Plugin</a> object. This Instance would then have been set up manually by the developer. This allows for more flexibility, using one of the following design pattern:</p>
+<ol type="1">
+<li>Inheritance <div class="fragment"><div class="line"><span class="keyword">class </span>MyPlugin : <span class="keyword">public</span> <a class="code hl_class" href="classrender_1_1Plugin.html">Plugin</a> {</div>
+<div class="line">   <span class="keyword">public</span>:</div>
+<div class="line">    MyPlugin() : <a class="code hl_class" href="classrender_1_1Plugin.html">Plugin</a>(customInit, customProcessRay, customPostProcess, 0) {}</div>
+<div class="line">   ~MyPlugin() = <span class="keywordflow">default</span>;</div>
+<div class="line"> <span class="keyword">private</span>:</div>
+<div class="line">    <span class="comment">// ...</span></div>
+<div class="line">    Foo _customMemberFun();</div>
+<div class="line">    Bar _customAttribute;</div>
+<div class="line"> };</div>
+<div class="ttc" id="aclassrender_1_1Plugin_html"><div class="ttname"><a href="classrender_1_1Plugin.html">render::Plugin</a></div><div class="ttdoc">A plugin is an object loaded from a dynamic library (.so file with an entryPoint function)....</div><div class="ttdef"><b>Definition:</b> PluginManager.hpp:187</div></div>
+</div><!-- fragment --></li>
+<li>Use of lambda expressions to capture a helper class <div class="fragment"><div class="line"><span class="keyword">class </span>HelperClass {</div>
+<div class="line"> <span class="keyword">public</span>:</div>
+<div class="line">   HelperClass() = <span class="keywordflow">default</span>;</div>
+<div class="line">  ~HelperClass() = <span class="keywordflow">default</span>;</div>
+<div class="line"> <span class="keywordtype">void</span> customMemberFun() {</div>
+<div class="line">  <span class="comment">// ...</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><a class="code hl_class" href="classrender_1_1Plugin.html">Plugin</a> *entryPoint() {</div>
+<div class="line">  <span class="keyword">class </span>MyPlugin : <span class="keyword">public</span> <a class="code hl_class" href="classrender_1_1Plugin.html">Plugin</a> {</div>
+<div class="line">     std::shared_ptr&lt;HelperClass&gt; _helper;</div>
+<div class="line">    init_t customInit = [helper](<a class="code hl_class" href="classrender_1_1Renderer.html">render::Renderer</a> &amp;rdr) {</div>
+<div class="line">        helper-&gt;customMemberFun();</div>
+<div class="line">        <span class="comment">// ...</span></div>
+<div class="line">   };</div>
+<div class="line">    <span class="comment">// similar process for processRay and postProcess</span></div>
+<div class="line">   <span class="keywordflow">return</span> <span class="keyword">new</span> Plugin(customInit, customProcessRay, customPostProcess, 0);</div>
+<div class="line">}</div>
+<div class="ttc" id="aclassrender_1_1Renderer_html"><div class="ttname"><a href="classrender_1_1Renderer.html">render::Renderer</a></div><div class="ttdoc">The renderer class is the main class of the raytracer. It is responsible for the rendering of the sce...</div><div class="ttdef"><b>Definition:</b> Render.hpp:174</div></div>
+</div><!-- fragment --> </li>
+</ol>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a494c322e19cd31681f2c3e0b29b792fd" name="a494c322e19cd31681f2c3e0b29b792fd"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a494c322e19cd31681f2c3e0b29b792fd">&#9670;&#160;</a></span>getInit()</h2>
@@ -178,14 +215,14 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a08b0b00cb69fbf932414b6d95ac73b8f" name="a08b0b00cb69fbf932414b6d95ac73b8f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a08b0b00cb69fbf932414b6d95ac73b8f">&#9670;&#160;</a></span>getPriority()</h2>
+<a id="a545bc3feed10c775e3f88dae9fb11460" name="a545bc3feed10c775e3f88dae9fb11460"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a545bc3feed10c775e3f88dae9fb11460">&#9670;&#160;</a></span>getPriority()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">unsigned int render::Plugin::getPriority </td>
+          <td class="memname">int render::Plugin::getPriority </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td> const</td>

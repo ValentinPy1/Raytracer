@@ -150,6 +150,12 @@ namespace ogl {
         _shaderMap[shaderName] = std::shared_ptr<Shader>(new Shader(shaderType, srcPath));
     }
 
+    void PluginOpenGL::registerShader(PluginShader shader)
+    {
+        glfwMakeContextCurrent(_window.get());
+        _shaderMap[shader->name] = std::shared_ptr<Shader>(new Shader(shader.getShaderType(), shader.getShaderPath()));
+    }
+
     void PluginOpenGL::registerProgram(
         const std::string &programName,
         std::initializer_list<std::string> shaderNames)

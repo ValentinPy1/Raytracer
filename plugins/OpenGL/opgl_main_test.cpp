@@ -42,7 +42,6 @@ int main()
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glfwSwapBuffers(opgl.getWindow());
 
-
     std::this_thread::sleep_for(std::chrono::seconds(5));
     std::cout << "Exiting" << std::endl;
     return 0;

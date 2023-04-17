@@ -128,6 +128,7 @@ CMakeFiles/ray.dir/src/AObject.cpp.o: src/AObject.cpp \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -137,6 +138,7 @@ CMakeFiles/ray.dir/src/AObject.cpp.o: src/AObject.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -485,6 +487,7 @@ CMakeFiles/ray.dir/src/Camera.cpp.o: src/Camera.cpp \
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -494,6 +497,7 @@ CMakeFiles/ray.dir/src/Camera.cpp.o: src/Camera.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -803,6 +807,7 @@ CMakeFiles/ray.dir/src/DLLoader.cpp.o: src/DLLoader.cpp \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -812,6 +817,7 @@ CMakeFiles/ray.dir/src/DLLoader.cpp.o: src/DLLoader.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -894,7 +900,22 @@ CMakeFiles/ray.dir/src/DLLoader.cpp.o: src/DLLoader.cpp \
   /usr/include/c++/12/bits/algorithmfwd.h \
   /usr/include/c++/12/bits/stl_heap.h \
   /usr/include/c++/12/bits/stl_tempbuf.h \
-  /usr/include/c++/12/bits/uniform_int_dist.h
+  /usr/include/c++/12/bits/uniform_int_dist.h \
+  /usr/include/c++/12/memory \
+  /usr/include/c++/12/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/12/bits/align.h \
+  /usr/include/c++/12/bit \
+  /usr/include/c++/12/bits/unique_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr_base.h \
+  /usr/include/c++/12/bits/allocated_ptr.h \
+  /usr/include/c++/12/ext/concurrence.h \
+  /usr/include/c++/12/bits/shared_ptr_atomic.h \
+  /usr/include/c++/12/bits/atomic_base.h \
+  /usr/include/c++/12/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/12/backward/auto_ptr.h \
+  /usr/include/c++/12/pstl/glue_memory_defs.h \
+  /usr/include/c++/12/pstl/execution_defs.h
 
 CMakeFiles/ray.dir/src/Intercection.cpp.o: src/Intercection.cpp \
   /usr/include/stdc-predef.h \
@@ -1041,6 +1062,7 @@ CMakeFiles/ray.dir/src/Intercection.cpp.o: src/Intercection.cpp \
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -1050,6 +1072,7 @@ CMakeFiles/ray.dir/src/Intercection.cpp.o: src/Intercection.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -1301,6 +1324,7 @@ CMakeFiles/ray.dir/src/Light.cpp.o: src/Light.cpp \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/specfun.h \
   /usr/include/c++/12/bits/stl_algobase.h \
@@ -1422,6 +1446,7 @@ CMakeFiles/ray.dir/src/Light.cpp.o: src/Light.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -1748,6 +1773,7 @@ CMakeFiles/ray.dir/src/Logger.cpp.o: src/Logger.cpp \
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -1757,6 +1783,7 @@ CMakeFiles/ray.dir/src/Logger.cpp.o: src/Logger.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2092,6 +2119,7 @@ CMakeFiles/ray.dir/src/Plane.cpp.o: src/Plane.cpp \
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -2101,6 +2129,7 @@ CMakeFiles/ray.dir/src/Plane.cpp.o: src/Plane.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2402,6 +2431,7 @@ CMakeFiles/ray.dir/src/Plugin.cpp.o: src/Plugin.cpp \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -2411,6 +2441,7 @@ CMakeFiles/ray.dir/src/Plugin.cpp.o: src/Plugin.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -2493,7 +2524,22 @@ CMakeFiles/ray.dir/src/Plugin.cpp.o: src/Plugin.cpp \
   /usr/include/c++/12/bits/algorithmfwd.h \
   /usr/include/c++/12/bits/stl_heap.h \
   /usr/include/c++/12/bits/stl_tempbuf.h \
-  /usr/include/c++/12/bits/uniform_int_dist.h
+  /usr/include/c++/12/bits/uniform_int_dist.h \
+  /usr/include/c++/12/memory \
+  /usr/include/c++/12/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/12/bits/align.h \
+  /usr/include/c++/12/bit \
+  /usr/include/c++/12/bits/unique_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr_base.h \
+  /usr/include/c++/12/bits/allocated_ptr.h \
+  /usr/include/c++/12/ext/concurrence.h \
+  /usr/include/c++/12/bits/shared_ptr_atomic.h \
+  /usr/include/c++/12/bits/atomic_base.h \
+  /usr/include/c++/12/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/12/backward/auto_ptr.h \
+  /usr/include/c++/12/pstl/glue_memory_defs.h \
+  /usr/include/c++/12/pstl/execution_defs.h
 
 CMakeFiles/ray.dir/src/PluginManager.cpp.o: src/PluginManager.cpp \
   /usr/include/stdc-predef.h \
@@ -2630,6 +2676,7 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o: src/PluginManager.cpp \
   /usr/include/bits/struct_mutex.h \
   /usr/include/bits/struct_rwlock.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -2639,6 +2686,7 @@ CMakeFiles/ray.dir/src/PluginManager.cpp.o: src/PluginManager.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/bits/charconv.h \
   /usr/include/c++/12/bits/basic_string.tcc \
   /usr/include/c++/12/bits/chrono.h \
@@ -2993,6 +3041,7 @@ CMakeFiles/ray.dir/src/Ray.cpp.o: src/Ray.cpp \
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -3002,6 +3051,7 @@ CMakeFiles/ray.dir/src/Ray.cpp.o: src/Ray.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -3350,6 +3400,7 @@ CMakeFiles/ray.dir/src/Renderer.cpp.o: src/Renderer.cpp \
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -3359,6 +3410,7 @@ CMakeFiles/ray.dir/src/Renderer.cpp.o: src/Renderer.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -3718,6 +3770,7 @@ CMakeFiles/ray.dir/src/Sphere.cpp.o: src/Sphere.cpp \
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -3727,6 +3780,7 @@ CMakeFiles/ray.dir/src/Sphere.cpp.o: src/Sphere.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -4086,6 +4140,7 @@ CMakeFiles/ray.dir/src/main.cpp.o: src/main.cpp \
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -4095,6 +4150,7 @@ CMakeFiles/ray.dir/src/main.cpp.o: src/main.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -4436,6 +4492,7 @@ CMakeFiles/ray.dir/src/operations.cpp.o: src/operations.cpp \
   /usr/include/bits/select.h \
   /usr/include/bits/types/sigset_t.h \
   /usr/include/alloca.h \
+  /usr/include/bits/stdlib-bsearch.h \
   /usr/include/bits/stdlib-float.h \
   /usr/include/c++/12/bits/std_abs.h \
   /usr/include/c++/12/cstdio \
@@ -4445,6 +4502,7 @@ CMakeFiles/ray.dir/src/operations.cpp.o: src/operations.cpp \
   /usr/include/bits/types/struct_FILE.h \
   /usr/include/bits/types/cookie_io_functions_t.h \
   /usr/include/bits/stdio_lim.h \
+  /usr/include/bits/stdio.h \
   /usr/include/c++/12/cerrno \
   /usr/include/errno.h \
   /usr/include/bits/errno.h \
@@ -4703,8 +4761,6 @@ include/Camera.hpp:
 
 /usr/local/include/SFML/Graphics/Sprite.hpp:
 
-/usr/local/include/SFML/Graphics/Glsl.inl:
-
 /usr/local/include/SFML/Graphics/Shader.hpp:
 
 /usr/local/include/SFML/Graphics/RenderTexture.hpp:
@@ -4752,6 +4808,10 @@ include/Camera.hpp:
 /usr/include/c++/12/mutex:
 
 /usr/local/include/SFML/Window/WindowHandle.hpp:
+
+/usr/local/include/SFML/Graphics/View.hpp:
+
+/usr/include/c++/12/bits/stl_bvector.h:
 
 /usr/include/alloca.h:
 
@@ -4855,6 +4915,10 @@ include/Render.hpp:
 
 /usr/include/bits/pthreadtypes-arch.h:
 
+/usr/include/c++/12/bits/vector.tcc:
+
+/usr/include/c++/12/ext/string_conversions.h:
+
 /usr/include/stdc-predef.h:
 
 /usr/include/c++/12/bits/move.h:
@@ -4882,10 +4946,6 @@ include/Render.hpp:
 /usr/include/bits/types/__fpos_t.h:
 
 /usr/include/c++/12/bits/functexcept.h:
-
-/usr/include/c++/12/ext/string_conversions.h:
-
-/usr/include/c++/12/bits/vector.tcc:
 
 /usr/local/include/SFML/Window/Touch.hpp:
 
@@ -5105,6 +5165,8 @@ src/Plane.cpp:
 
 /usr/include/c++/12/bits/char_traits.h:
 
+/usr/include/bits/stdlib-bsearch.h:
+
 /usr/include/c++/12/cstdio:
 
 /usr/local/include/SFML/System/Vector3.hpp:
@@ -5114,6 +5176,10 @@ src/Plane.cpp:
 /usr/local/include/SFML/Graphics/Texture.hpp:
 
 /usr/include/bits/types/cookie_io_functions_t.h:
+
+/usr/local/include/SFML/Graphics/Glsl.inl:
+
+/usr/include/bits/stdio.h:
 
 /usr/include/bits/errno.h:
 
@@ -5350,7 +5416,3 @@ include/Ray.hpp:
 /usr/include/c++/12/bits/stl_uninitialized.h:
 
 /usr/include/c++/12/bits/stl_vector.h:
-
-/usr/local/include/SFML/Graphics/View.hpp:
-
-/usr/include/c++/12/bits/stl_bvector.h:
