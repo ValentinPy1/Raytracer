@@ -53,13 +53,13 @@ namespace ogl {
             return a->getPriority() < b->getPriority();
         });
         for (auto &plugin : shaders) {
-            // _opengl.registerShader(*plugin);
+            _opengl.registerShader(*plugin);
         }
 
         std::vector <std::string> shaderNames;
         for (auto &plugin : shaders) {
             shaderNames.push_back(plugin->getName());
         }
-        // opgl.registerProgram("renderPipeline.gl", shaderNames);
+        opgl.registerProgram("renderPipeline.gl", shaderNames);
     }
 }
