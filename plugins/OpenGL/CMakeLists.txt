@@ -6,6 +6,7 @@ add_executable (
     pluginOpenGL
     opgl_main_test.cpp
     PluginOpenGL.cpp
+    PluginShader.gl.cpp
     ../../src/PluginManager.cpp
     ../../src/Plugin.cpp
     ../../src/DLLoader.cpp
@@ -30,6 +31,7 @@ add_library(PluginSpherePrimitive.gl SHARED
 
     PluginSpherePrimitive.gl.cpp
     glad/src/gl.c
+    PluginShader.gl.cpp
     ../../src/PluginManager.cpp
     ../../src/Plugin.cpp
     ../../src/DLLoader.cpp

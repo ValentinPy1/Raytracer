@@ -12,10 +12,6 @@ namespace ogl {
     class Wrapper_gl : public render::AWrapper {
         public:
             Wrapper_gl(
-                render::init_t initFun,
-                render::processRay_t processRayFun,
-                render::postProcess_t postProcessFun,
-                int priority,
                 const std::string &name);
             ~Wrapper_gl() = default;
             void run(render::Renderer &rdr) override;

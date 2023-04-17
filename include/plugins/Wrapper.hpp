@@ -14,9 +14,8 @@ namespace render {
     class AWrapper : public Plugin {
         public:
             ~AWrapper() = default;
-            ~AWrapper() = default;
             virtual void run(render::Renderer &rdr) = 0;
-        private:
+        protected:
             render::init_t _init = nullptr;
             render::processRay_t _processRay = nullptr;
             render::postProcess_t _postProcess = nullptr;
