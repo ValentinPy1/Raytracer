@@ -21,9 +21,29 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_subdirectory(glfw)
-
-target_link_libraries(pluginOpenGL glfw)
-
 find_package(OpenGL REQUIRED)
 
+target_link_libraries(pluginOpenGL glfw)
 target_link_libraries(pluginOpenGL OpenGL::GL)
+
+add_library(PluginSpherePrimitive.gl SHARED
+
+    PluginSpherePrimitive.gl.cpp
+    glad/src/gl.c
+    ../../src/PluginManager.cpp
+    ../../src/Plugin.cpp
+    ../../src/DLLoader.cpp
+)
+
+target_link_libraries(
+    PluginSpherePrimitive.gl
+    -lm -lGLEW -lGL -lX11 -lpthread -lXrandr -lXi -ldl
+)
+
+set_target_properties(
+    PluginSpherePrimitive.gl
+    PROPERTIES COMPILE_FLAGS "-fPIC -shared -Wall -Wextra -O3 -g3"
+)
+
+target_link_libraries(PluginSpherePrimitive.gl glfw)
+target_link_libraries(PluginSpherePrimitive.gl OpenGL::GL)

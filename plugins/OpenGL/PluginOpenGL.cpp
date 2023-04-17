@@ -73,7 +73,7 @@ namespace ogl {
         }
     }
 
-    PluginOpenGL::PluginOpenGL() : render::Plugin(nullptr, nullptr, nullptr, 0)
+    PluginOpenGL::PluginOpenGL() : render::Plugin(nullptr, nullptr, nullptr, 0, "OpenGL")
     {
         _init = [this](render::Renderer &rdr) {
             initOpenGL(rdr);

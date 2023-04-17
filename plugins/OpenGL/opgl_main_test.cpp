@@ -17,7 +17,7 @@ int main()
     opgl.registerShader("./shaders/vs_learn_triangle.glsl", "vertex", GL_VERTEX_SHADER);
     opgl.registerShader("./shaders/fs_learn_triangle.glsl", "fragment", GL_FRAGMENT_SHADER);
     opgl.registerProgram("triangle", {"vertex", "fragment"});
-    // callgl(glfwMakeContextCurrent)(opgl.getWindow());
+
     glfwMakeContextCurrent(opgl.getWindow());
     unsigned int VAO;
     callgl(glGenVertexArrays)(1, &VAO);

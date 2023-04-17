@@ -287,7 +287,7 @@ CMakeFiles/pluginOpenGL.dir/PluginOpenGL.cpp.o: PluginOpenGL.cpp \
   /usr/include/c++/12/cstddef \
   /usr/include/GL/glu.h \
   /usr/include/GL/gl.h \
-  glfw_src/include/GLFW/glfw3.h \
+  glfw/include/GLFW/glfw3.h \
   /home/Amour/Documents/Epitech/Tech2/ray/include/PluginManager.hpp
 
 CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.o: glad/src/gl.c \
@@ -573,7 +573,22 @@ CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.
   /usr/include/c++/12/bits/algorithmfwd.h \
   /usr/include/c++/12/bits/stl_heap.h \
   /usr/include/c++/12/bits/stl_tempbuf.h \
-  /usr/include/c++/12/bits/uniform_int_dist.h
+  /usr/include/c++/12/bits/uniform_int_dist.h \
+  /usr/include/c++/12/memory \
+  /usr/include/c++/12/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/12/bits/align.h \
+  /usr/include/c++/12/bit \
+  /usr/include/c++/12/bits/unique_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr_base.h \
+  /usr/include/c++/12/bits/allocated_ptr.h \
+  /usr/include/c++/12/ext/concurrence.h \
+  /usr/include/c++/12/bits/shared_ptr_atomic.h \
+  /usr/include/c++/12/bits/atomic_base.h \
+  /usr/include/c++/12/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/12/backward/auto_ptr.h \
+  /usr/include/c++/12/pstl/glue_memory_defs.h \
+  /usr/include/c++/12/pstl/execution_defs.h
 
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o: /home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp \
   /usr/include/stdc-predef.h \
@@ -791,7 +806,22 @@ CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cp
   /usr/include/c++/12/bits/algorithmfwd.h \
   /usr/include/c++/12/bits/stl_heap.h \
   /usr/include/c++/12/bits/stl_tempbuf.h \
-  /usr/include/c++/12/bits/uniform_int_dist.h
+  /usr/include/c++/12/bits/uniform_int_dist.h \
+  /usr/include/c++/12/memory \
+  /usr/include/c++/12/bits/stl_raw_storage_iter.h \
+  /usr/include/c++/12/bits/align.h \
+  /usr/include/c++/12/bit \
+  /usr/include/c++/12/bits/unique_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr.h \
+  /usr/include/c++/12/bits/shared_ptr_base.h \
+  /usr/include/c++/12/bits/allocated_ptr.h \
+  /usr/include/c++/12/ext/concurrence.h \
+  /usr/include/c++/12/bits/shared_ptr_atomic.h \
+  /usr/include/c++/12/bits/atomic_base.h \
+  /usr/include/c++/12/bits/atomic_lockfree_defines.h \
+  /usr/include/c++/12/backward/auto_ptr.h \
+  /usr/include/c++/12/pstl/glue_memory_defs.h \
+  /usr/include/c++/12/pstl/execution_defs.h
 
 CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o: /home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp \
   /usr/include/stdc-predef.h \
@@ -1369,7 +1399,7 @@ CMakeFiles/pluginOpenGL.dir/opgl_main_test.cpp.o: opgl_main_test.cpp \
   /usr/include/c++/12/cstddef \
   /usr/include/GL/glu.h \
   /usr/include/GL/gl.h \
-  glfw_src/include/GLFW/glfw3.h \
+  glfw/include/GLFW/glfw3.h \
   /home/Amour/Documents/Epitech/Tech2/ray/include/PluginManager.hpp \
   /usr/include/c++/12/vector \
   /usr/include/c++/12/bits/stl_vector.h \
@@ -1516,8 +1546,6 @@ glad/include/glad/gl.h:
 /usr/include/string.h:
 
 glad/src/gl.c:
-
-glfw_src/include/GLFW/glfw3.h:
 
 /usr/include/GL/glu.h:
 
@@ -2014,6 +2042,8 @@ PluginOpenGL.cpp:
 /usr/local/include/SFML/System/FileInputStream.hpp:
 
 /usr/include/bits/types/sigset_t.h:
+
+glfw/include/GLFW/glfw3.h:
 
 /usr/include/alloca.h:
 

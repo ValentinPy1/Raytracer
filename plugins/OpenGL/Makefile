@@ -175,6 +175,19 @@ pluginOpenGL/fast:
 .PHONY : pluginOpenGL/fast
 
 #=============================================================================
+# Target rules for targets named PluginSpherePrimitive.gl
+
+# Build rule for target.
+PluginSpherePrimitive.gl: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PluginSpherePrimitive.gl
+.PHONY : PluginSpherePrimitive.gl
+
+# fast build rule for target.
+PluginSpherePrimitive.gl/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/build
+.PHONY : PluginSpherePrimitive.gl/fast
+
+#=============================================================================
 # Target rules for targets named uninstall
 
 # Build rule for target.
@@ -237,12 +250,37 @@ PluginOpenGL.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/PluginOpenGL.cpp.s
 .PHONY : PluginOpenGL.cpp.s
 
+PluginSpherePrimitive.gl.o: PluginSpherePrimitive.gl.cpp.o
+.PHONY : PluginSpherePrimitive.gl.o
+
+# target to build an object file
+PluginSpherePrimitive.gl.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/PluginSpherePrimitive.gl.cpp.o
+.PHONY : PluginSpherePrimitive.gl.cpp.o
+
+PluginSpherePrimitive.gl.i: PluginSpherePrimitive.gl.cpp.i
+.PHONY : PluginSpherePrimitive.gl.i
+
+# target to preprocess a source file
+PluginSpherePrimitive.gl.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/PluginSpherePrimitive.gl.cpp.i
+.PHONY : PluginSpherePrimitive.gl.cpp.i
+
+PluginSpherePrimitive.gl.s: PluginSpherePrimitive.gl.cpp.s
+.PHONY : PluginSpherePrimitive.gl.s
+
+# target to generate assembly for a file
+PluginSpherePrimitive.gl.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/PluginSpherePrimitive.gl.cpp.s
+.PHONY : PluginSpherePrimitive.gl.cpp.s
+
 glad/src/gl.o: glad/src/gl.c.o
 .PHONY : glad/src/gl.o
 
 # target to build an object file
 glad/src/gl.c.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/glad/src/gl.c.o
 .PHONY : glad/src/gl.c.o
 
 glad/src/gl.i: glad/src/gl.c.i
@@ -251,6 +289,7 @@ glad/src/gl.i: glad/src/gl.c.i
 # target to preprocess a source file
 glad/src/gl.c.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/glad/src/gl.c.i
 .PHONY : glad/src/gl.c.i
 
 glad/src/gl.s: glad/src/gl.c.s
@@ -259,6 +298,7 @@ glad/src/gl.s: glad/src/gl.c.s
 # target to generate assembly for a file
 glad/src/gl.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/glad/src/gl.c.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/glad/src/gl.c.s
 .PHONY : glad/src/gl.c.s
 
 home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.o: home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o
@@ -267,6 +307,7 @@ home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.o: home/Amour/Documents/Epit
 # target to build an object file
 home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o
 .PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o
 
 home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.i: home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i
@@ -275,6 +316,7 @@ home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.i: home/Amour/Documents/Epit
 # target to preprocess a source file
 home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i
 .PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i
 
 home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.s: home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.s
@@ -283,6 +325,7 @@ home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.s: home/Amour/Documents/Epit
 # target to generate assembly for a file
 home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.s
 .PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.s
 
 home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.o: home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o
@@ -291,6 +334,7 @@ home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.o: home/Amour/Documents/Epitec
 # target to build an object file
 home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o
 .PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o
 
 home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.i: home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i
@@ -299,6 +343,7 @@ home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.i: home/Amour/Documents/Epitec
 # target to preprocess a source file
 home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i
 .PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i
 
 home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.s: home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.s
@@ -307,6 +352,7 @@ home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.s: home/Amour/Documents/Epitec
 # target to generate assembly for a file
 home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.s
 .PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.s
 
 home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.o: home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o
@@ -315,6 +361,7 @@ home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.o: home/Amour/Documents
 # target to build an object file
 home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o
 .PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o
 
 home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.i: home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i
@@ -323,6 +370,7 @@ home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.i: home/Amour/Documents
 # target to preprocess a source file
 home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i
 .PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i
 
 home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.s: home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.s
@@ -331,6 +379,7 @@ home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.s: home/Amour/Documents
 # target to generate assembly for a file
 home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.s
 .PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.s
 
 opgl_main_test.o: opgl_main_test.cpp.o
@@ -371,11 +420,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... uninstall"
 	@echo "... update_mappings"
+	@echo "... PluginSpherePrimitive.gl"
 	@echo "... glfw"
 	@echo "... pluginOpenGL"
 	@echo "... PluginOpenGL.o"
 	@echo "... PluginOpenGL.i"
 	@echo "... PluginOpenGL.s"
+	@echo "... PluginSpherePrimitive.gl.o"
+	@echo "... PluginSpherePrimitive.gl.i"
+	@echo "... PluginSpherePrimitive.gl.s"
 	@echo "... glad/src/gl.o"
 	@echo "... glad/src/gl.i"
 	@echo "... glad/src/gl.s"

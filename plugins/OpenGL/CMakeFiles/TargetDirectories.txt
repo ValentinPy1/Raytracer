@@ -1,4 +1,5 @@
 /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles/pluginOpenGL.dir
+/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles/PluginSpherePrimitive.gl.dir
 /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles/edit_cache.dir
 /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles/rebuild_cache.dir
 /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles/list_install_components.dir

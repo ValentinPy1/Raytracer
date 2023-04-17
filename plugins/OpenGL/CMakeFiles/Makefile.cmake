@@ -74,6 +74,7 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/pluginOpenGL.dir/DependInfo.cmake"
+  "CMakeFiles/PluginSpherePrimitive.gl.dir/DependInfo.cmake"
   "glfw/CMakeFiles/uninstall.dir/DependInfo.cmake"
   "glfw/src/CMakeFiles/glfw.dir/DependInfo.cmake"
   "glfw/src/CMakeFiles/update_mappings.dir/DependInfo.cmake"
