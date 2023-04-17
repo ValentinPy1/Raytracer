@@ -73,6 +73,7 @@ namespace render {
     void Renderer::loadScene()
     {
         // _configLoader->loadConfigFile("config/config.conf", *this);
+
         // _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(-20, 0, 0), 20, sf::Color::Red));
         // _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(-40, 10, 25), 10, sf::Color::Blue));
         // _objects.push_back(std::make_shared<Sphere>(sf::Vector3f(10, 5, 10), 5, sf::Color::Red));
@@ -170,6 +171,12 @@ namespace render {
 
     void Renderer::setCamera(Camera &camera)
     {
-        _camera = camera;
+        _camera.setPosition(camera.getPosition());
     }
+
+    void Renderer::pushObject(std::shared_ptr<IObject> object)
+    {
+        _objects.push_back(object);
+    }
+
 }

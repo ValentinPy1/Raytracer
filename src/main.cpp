@@ -40,7 +40,7 @@ void runFromArgs(int argc, char **argv)
     int lightSamples = 100;
     int imSide = 500;
     int focalPoint = 50;
-
+    render::ConfigLoader configLoader;
     for (int i = 0; i < argc; ++i ) {
         std::tuple<std::string, int> arg = splitArg(argv[i]);
         if (std::get<0>(arg) == "--lightSamples") {
@@ -53,6 +53,8 @@ void runFromArgs(int argc, char **argv)
     }
     render::Renderer renderer(lightSamples, imSide, focalPoint);
     renderer.init();
+    configLoader.loadConfigFile("./config/config.cfg", renderer);
+    // renderer.loadScene();
     renderer.render();
 }
 

@@ -19,6 +19,7 @@ add_executable (
     src/Plugin.cpp
     src/DLLoader.cpp
     src/Entity3D.cpp
+    src/ConfigLoader.cpp
 )
 target_link_libraries(
     ray
@@ -26,4 +27,5 @@ target_link_libraries(
     -lsfml-window
     -lsfml-system
     -lm
+    -lconfig++
 )

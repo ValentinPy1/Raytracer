@@ -48,8 +48,10 @@ namespace render {
     {
         public:
             ConfigLoader();
-            ~ConfigLoader() = default;
+            ~ConfigLoader();
             void loadConfigFile(std::string path, Renderer &rdr);
+            void loadCamera(Renderer &rdr);
+            void loadPrimitive(Renderer &rdr);
 
         private:
             libconfig::Config _cfg;

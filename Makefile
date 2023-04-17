@@ -177,6 +177,30 @@ src/Camera.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/Camera.cpp.s
 .PHONY : src/Camera.cpp.s
 
+src/ConfigLoader.o: src/ConfigLoader.cpp.o
+.PHONY : src/ConfigLoader.o
+
+# target to build an object file
+src/ConfigLoader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/ConfigLoader.cpp.o
+.PHONY : src/ConfigLoader.cpp.o
+
+src/ConfigLoader.i: src/ConfigLoader.cpp.i
+.PHONY : src/ConfigLoader.i
+
+# target to preprocess a source file
+src/ConfigLoader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/ConfigLoader.cpp.i
+.PHONY : src/ConfigLoader.cpp.i
+
+src/ConfigLoader.s: src/ConfigLoader.cpp.s
+.PHONY : src/ConfigLoader.s
+
+# target to generate assembly for a file
+src/ConfigLoader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/ConfigLoader.cpp.s
+.PHONY : src/ConfigLoader.cpp.s
+
 src/DLLoader.o: src/DLLoader.cpp.o
 .PHONY : src/DLLoader.o
 
@@ -504,6 +528,9 @@ help:
 	@echo "... src/Camera.o"
 	@echo "... src/Camera.i"
 	@echo "... src/Camera.s"
+	@echo "... src/ConfigLoader.o"
+	@echo "... src/ConfigLoader.i"
+	@echo "... src/ConfigLoader.s"
 	@echo "... src/DLLoader.o"
 	@echo "... src/DLLoader.i"
 	@echo "... src/DLLoader.s"

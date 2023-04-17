@@ -20,7 +20,6 @@
 namespace render {
     class Ray;
     class IObject;
-    class ConfigLoader;
 
     static const std::string red = "\033[31m";
     static const std::string green = "\033[32m";
@@ -217,7 +216,6 @@ namespace render {
         public:
             Renderer(int lightSamples = 10, int imSide = 1000, int focalPoint = 50);
             ~Renderer() = default;
-
             /**
              * @brief returns all the objects in the scene, without the lights.
              *
@@ -303,6 +301,14 @@ namespace render {
             * @param position
             */
             void setCamera(Camera &camera);
+
+
+            /**
+             * @brief Adds an object to the scene.
+             *
+             * @param object
+             */
+            void pushObject(std::shared_ptr<render::IObject> object);
 
         private:
             /**
