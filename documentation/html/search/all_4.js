@@ -18,9 +18,10 @@ var searchData=
   ['getposition_15',['getPosition',['../classrender_1_1Light.html#a33276c79191b680412a4904b130cda65',1,'render::Light::getPosition()'],['../classrender_1_1Camera.html#a1e63557bf6ccc2fc6808a8672d7d681d',1,'render::Camera::getPosition()']]],
   ['getpostprocess_16',['getPostProcess',['../classrender_1_1Plugin.html#a1e5a133e7edfd4313beca8fc3250e511',1,'render::Plugin']]],
   ['getpostprocessfunctions_17',['getPostProcessFunctions',['../classrender_1_1PluginManager.html#a0c523f89943a7cb500768d4a82ef3206',1,'render::PluginManager']]],
-  ['getpriority_18',['getPriority',['../classrender_1_1Plugin.html#a08b0b00cb69fbf932414b6d95ac73b8f',1,'render::Plugin']]],
+  ['getpriority_18',['getPriority',['../classrender_1_1Plugin.html#a545bc3feed10c775e3f88dae9fb11460',1,'render::Plugin']]],
   ['getprocessray_19',['getProcessRay',['../classrender_1_1Plugin.html#ab4dcd407930f761f8fd8e5c62f57a5f9',1,'render::Plugin']]],
   ['getprocessrayfunctions_20',['getProcessRayFunctions',['../classrender_1_1PluginManager.html#a0832a5571d6c76a6368f52b67a477976',1,'render::PluginManager']]],
   ['getrays_21',['getRays',['../classrender_1_1Camera.html#a3be7ce621f987ed74d6e2e4feb6bf3ce',1,'render::Camera']]],
-  ['getrotation_22',['getRotation',['../classrender_1_1Camera.html#add9d305c20a2809f6f3b947200a004fe',1,'render::Camera']]]
+  ['getrotation_22',['getRotation',['../classrender_1_1Camera.html#add9d305c20a2809f6f3b947200a004fe',1,'render::Camera']]],
+  ['getwindow_23',['getWindow',['../classogl_1_1PluginOpenGL.html#aa5222207fc8596d3c1c8de763dbb364b',1,'ogl::PluginOpenGL']]]
 ];

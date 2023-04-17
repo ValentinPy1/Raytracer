@@ -176,4 +176,9 @@ namespace render {
         for (auto light : lights)
             addLight(light);
     }
+
+    PluginManager &Renderer::getPluginManager()
+    {
+        return _pluginManager;
+    }
 }
