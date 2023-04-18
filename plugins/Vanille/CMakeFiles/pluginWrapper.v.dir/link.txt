@@ -1,0 +1,2 @@
+/usr/bin/ar qc libpluginWrapper.v.a CMakeFiles/pluginWrapper.v.dir/__/__/src/PluginManager.cpp.o CMakeFiles/pluginWrapper.v.dir/__/__/src/Plugin.cpp.o CMakeFiles/pluginWrapper.v.dir/__/__/src/DLLoader.cpp.o CMakeFiles/pluginWrapper.v.dir/Wrapper.v.cpp.o
+/usr/bin/ranlib libpluginWrapper.v.a

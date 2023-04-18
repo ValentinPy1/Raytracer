@@ -1,3 +1,6 @@
-/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles/ray.dir
-/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles/edit_cache.dir
-/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles/rebuild_cache.dir
+/home/vpy/delivery/2year/OOP/raytracer/CMakeFiles/ray.dir
+/home/vpy/delivery/2year/OOP/raytracer/CMakeFiles/edit_cache.dir
+/home/vpy/delivery/2year/OOP/raytracer/CMakeFiles/rebuild_cache.dir
+/home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille/CMakeFiles/pluginWrapper.v.dir
+/home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille/CMakeFiles/edit_cache.dir
+/home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille/CMakeFiles/rebuild_cache.dir

@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL
+CMAKE_SOURCE_DIR = /home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL
+CMAKE_BINARY_DIR = /home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -132,9 +132,9 @@ install/strip/fast: preinstall/fast
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL/CMakeFiles /home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -328,86 +328,86 @@ glad/src/gl.c.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/glad/src/gl.c.s
 .PHONY : glad/src/gl.c.s
 
-home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.o: home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.o
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.o: home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.o
 
 # target to build an object file
-home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.o
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.o
 
-home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.i: home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.i
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.i: home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.i
 
 # target to preprocess a source file
-home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.i
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.i
 
-home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.s: home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.s
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.s
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.s: home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.s
 
 # target to generate assembly for a file
-home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.s
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.cpp.s
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.s
 
-home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.o: home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.o
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.o: home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.o
 
 # target to build an object file
-home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.o
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.o
 
-home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.i: home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.i
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.i: home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.i
 
 # target to preprocess a source file
-home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.i
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.i
 
-home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.s: home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.s
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.s
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.s: home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.s
 
 # target to generate assembly for a file
-home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.s
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.cpp.s
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.s
 
-home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.o: home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.o
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.o: home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.o
 
 # target to build an object file
-home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.o
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.o
 
-home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.i: home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.i
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.i: home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.i
 
 # target to preprocess a source file
-home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.i
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.i
 
-home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.s: home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.s
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.s
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.s: home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.s
 
 # target to generate assembly for a file
-home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.s
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.s
-.PHONY : home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.cpp.s
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginOpenGL.dir/build.make CMakeFiles/pluginOpenGL.dir/home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/PluginSpherePrimitive.gl.dir/build.make CMakeFiles/PluginSpherePrimitive.gl.dir/home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.s
 
 opgl_main_test.o: opgl_main_test.cpp.o
 .PHONY : opgl_main_test.o
@@ -462,15 +462,15 @@ help:
 	@echo "... glad/src/gl.o"
 	@echo "... glad/src/gl.i"
 	@echo "... glad/src/gl.s"
-	@echo "... home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.o"
-	@echo "... home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.i"
-	@echo "... home/Amour/Documents/Epitech/Tech2/ray/src/DLLoader.s"
-	@echo "... home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.o"
-	@echo "... home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.i"
-	@echo "... home/Amour/Documents/Epitech/Tech2/ray/src/Plugin.s"
-	@echo "... home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.o"
-	@echo "... home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.i"
-	@echo "... home/Amour/Documents/Epitech/Tech2/ray/src/PluginManager.s"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.o"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.i"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.s"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/Plugin.o"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/Plugin.i"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/Plugin.s"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.o"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.i"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.s"
 	@echo "... opgl_main_test.o"
 	@echo "... opgl_main_test.i"
 	@echo "... opgl_main_test.s"

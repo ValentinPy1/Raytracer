@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/Amour/Documents/Epitech/Tech2/ray
+CMAKE_SOURCE_DIR = /home/vpy/delivery/2year/OOP/raytracer
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/Amour/Documents/Epitech/Tech2/ray
+CMAKE_BINARY_DIR = /home/vpy/delivery/2year/OOP/raytracer
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles /home/Amour/Documents/Epitech/Tech2/ray//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vpy/delivery/2year/OOP/raytracer/CMakeFiles /home/vpy/delivery/2year/OOP/raytracer//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vpy/delivery/2year/OOP/raytracer/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -128,6 +128,19 @@ ray: cmake_check_build_system
 ray/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/build
 .PHONY : ray/fast
+
+#=============================================================================
+# Target rules for targets named pluginWrapper.v
+
+# Build rule for target.
+pluginWrapper.v: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pluginWrapper.v
+.PHONY : pluginWrapper.v
+
+# fast build rule for target.
+pluginWrapper.v/fast:
+	$(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build
+.PHONY : pluginWrapper.v/fast
 
 src/AObject.o: src/AObject.cpp.o
 .PHONY : src/AObject.o
@@ -473,6 +486,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... pluginWrapper.v"
 	@echo "... ray"
 	@echo "... src/AObject.o"
 	@echo "... src/AObject.i"

@@ -1,4 +1,4 @@
-# Install script for directory: /home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL
+# Install script for directory: /home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -44,7 +44,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/glfw/cmake_install.cmake")
+  include("/home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL/glfw/cmake_install.cmake")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -55,5 +55,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

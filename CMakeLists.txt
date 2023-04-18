@@ -26,3 +26,4 @@ target_link_libraries(
     -lsfml-system
     -lm
 )
+add_subdirectory(plugins/Vanille)

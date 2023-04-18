@@ -5,13 +5,13 @@
 # compile CXX with /usr/bin/c++
 C_DEFINES = 
 
-C_INCLUDES = -I/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/../../include -I/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/glfw/include
+C_INCLUDES = -I/home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL/../../include -I/home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL/glfw/include
 
 C_FLAGS = -Wall -Wextra -O3 -g3
 
 CXX_DEFINES = 
 
-CXX_INCLUDES = -I/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/../../include -I/home/Amour/Documents/Epitech/Tech2/ray/plugins/OpenGL/glfw/include
+CXX_INCLUDES = -I/home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL/../../include -I/home/vpy/delivery/2year/OOP/raytracer/plugins/OpenGL/glfw/include
 
 CXX_FLAGS = -Wall -Wextra -O3 -g3
 
