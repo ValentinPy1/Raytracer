@@ -38,7 +38,7 @@ cmake_install.cmake
 Makefile
 
 # command to remove file in gitignore
-# git rm -r --cached .
+# git rm --cached `git ls-files -i -c --exclude-from=.gitignore`
 
-# command to rm files contained in gitignore
-# rm -rf $(git ls-files -i --exclude-from=.gitignore)
+# command to rm recursively files contained in gitignore
+# rm -rf `cat .gitignore`
