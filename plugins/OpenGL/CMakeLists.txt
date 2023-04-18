@@ -28,7 +28,6 @@ target_link_libraries(pluginOpenGL glfw)
 target_link_libraries(pluginOpenGL OpenGL::GL)
 
 add_library(PluginSpherePrimitive.gl SHARED
-
     PluginSpherePrimitive.gl.cpp
     glad/src/gl.c
     PluginShader.gl.cpp

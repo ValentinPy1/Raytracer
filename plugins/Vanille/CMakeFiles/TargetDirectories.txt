@@ -1,0 +1,3 @@
+/home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille/CMakeFiles/pluginWrapper.v.dir
+/home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille/CMakeFiles/edit_cache.dir
+/home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille/CMakeFiles/rebuild_cache.dir

@@ -57,10 +57,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/vpy/delivery/2year/OOP/raytracer
+CMAKE_SOURCE_DIR = /home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/vpy/delivery/2year/OOP/raytracer
+CMAKE_BINARY_DIR = /home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -87,14 +87,14 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(CMAKE_COMMAND) -E cmake_progress_start /home/vpy/delivery/2year/OOP/raytracer/CMakeFiles /home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille//CMakeFiles/progress.marks
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plugins/Vanille/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/vpy/delivery/2year/OOP/raytracer/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille/CMakeFiles /home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille//CMakeFiles/progress.marks
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/vpy/delivery/2year/OOP/raytracer/plugins/Vanille/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plugins/Vanille/clean
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 clean
 .PHONY : clean
 
 # The main clean target
@@ -103,31 +103,30 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plugins/Vanille/preinstall
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plugins/Vanille/preinstall
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 preinstall
 .PHONY : preinstall/fast
 
 # clear depends
 depend:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 1
 .PHONY : depend
 
-# Convenience name for target.
-plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/rule:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/rule
-.PHONY : plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/rule
+#=============================================================================
+# Target rules for targets named pluginWrapper.v
 
-# Convenience name for target.
-pluginWrapper.v: plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/rule
+# Build rule for target.
+pluginWrapper.v: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pluginWrapper.v
 .PHONY : pluginWrapper.v
 
 # fast build rule for target.
 pluginWrapper.v/fast:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/build
 .PHONY : pluginWrapper.v/fast
 
 Wrapper.v.o: Wrapper.v.cpp.o
@@ -135,7 +134,7 @@ Wrapper.v.o: Wrapper.v.cpp.o
 
 # target to build an object file
 Wrapper.v.cpp.o:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/Wrapper.v.cpp.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/Wrapper.v.cpp.o
 .PHONY : Wrapper.v.cpp.o
 
 Wrapper.v.i: Wrapper.v.cpp.i
@@ -143,7 +142,7 @@ Wrapper.v.i: Wrapper.v.cpp.i
 
 # target to preprocess a source file
 Wrapper.v.cpp.i:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/Wrapper.v.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/Wrapper.v.cpp.i
 .PHONY : Wrapper.v.cpp.i
 
 Wrapper.v.s: Wrapper.v.cpp.s
@@ -151,80 +150,80 @@ Wrapper.v.s: Wrapper.v.cpp.s
 
 # target to generate assembly for a file
 Wrapper.v.cpp.s:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/Wrapper.v.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/Wrapper.v.cpp.s
 .PHONY : Wrapper.v.cpp.s
 
-__/__/src/DLLoader.o: __/__/src/DLLoader.cpp.o
-.PHONY : __/__/src/DLLoader.o
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.o: home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.o
 
 # target to build an object file
-__/__/src/DLLoader.cpp.o:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/__/__/src/DLLoader.cpp.o
-.PHONY : __/__/src/DLLoader.cpp.o
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.o
 
-__/__/src/DLLoader.i: __/__/src/DLLoader.cpp.i
-.PHONY : __/__/src/DLLoader.i
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.i: home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.i
 
 # target to preprocess a source file
-__/__/src/DLLoader.cpp.i:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/__/__/src/DLLoader.cpp.i
-.PHONY : __/__/src/DLLoader.cpp.i
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.i
 
-__/__/src/DLLoader.s: __/__/src/DLLoader.cpp.s
-.PHONY : __/__/src/DLLoader.s
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.s: home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.s
 
 # target to generate assembly for a file
-__/__/src/DLLoader.cpp.s:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/__/__/src/DLLoader.cpp.s
-.PHONY : __/__/src/DLLoader.cpp.s
+home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.cpp.s
 
-__/__/src/Plugin.o: __/__/src/Plugin.cpp.o
-.PHONY : __/__/src/Plugin.o
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.o: home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.o
 
 # target to build an object file
-__/__/src/Plugin.cpp.o:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/__/__/src/Plugin.cpp.o
-.PHONY : __/__/src/Plugin.cpp.o
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.o
 
-__/__/src/Plugin.i: __/__/src/Plugin.cpp.i
-.PHONY : __/__/src/Plugin.i
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.i: home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.i
 
 # target to preprocess a source file
-__/__/src/Plugin.cpp.i:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/__/__/src/Plugin.cpp.i
-.PHONY : __/__/src/Plugin.cpp.i
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.i
 
-__/__/src/Plugin.s: __/__/src/Plugin.cpp.s
-.PHONY : __/__/src/Plugin.s
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.s: home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.s
 
 # target to generate assembly for a file
-__/__/src/Plugin.cpp.s:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/__/__/src/Plugin.cpp.s
-.PHONY : __/__/src/Plugin.cpp.s
+home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/Plugin.cpp.s
 
-__/__/src/PluginManager.o: __/__/src/PluginManager.cpp.o
-.PHONY : __/__/src/PluginManager.o
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.o: home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.o
 
 # target to build an object file
-__/__/src/PluginManager.cpp.o:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/__/__/src/PluginManager.cpp.o
-.PHONY : __/__/src/PluginManager.cpp.o
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.o
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.o
 
-__/__/src/PluginManager.i: __/__/src/PluginManager.cpp.i
-.PHONY : __/__/src/PluginManager.i
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.i: home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.i
 
 # target to preprocess a source file
-__/__/src/PluginManager.cpp.i:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/__/__/src/PluginManager.cpp.i
-.PHONY : __/__/src/PluginManager.cpp.i
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.i
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.i
 
-__/__/src/PluginManager.s: __/__/src/PluginManager.cpp.s
-.PHONY : __/__/src/PluginManager.s
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.s: home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.s
 
 # target to generate assembly for a file
-__/__/src/PluginManager.cpp.s:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/__/__/src/PluginManager.cpp.s
-.PHONY : __/__/src/PluginManager.cpp.s
+home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/pluginWrapper.v.dir/build.make CMakeFiles/pluginWrapper.v.dir/home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.s
+.PHONY : home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.cpp.s
 
 # Help Target
 help:
@@ -238,15 +237,15 @@ help:
 	@echo "... Wrapper.v.o"
 	@echo "... Wrapper.v.i"
 	@echo "... Wrapper.v.s"
-	@echo "... __/__/src/DLLoader.o"
-	@echo "... __/__/src/DLLoader.i"
-	@echo "... __/__/src/DLLoader.s"
-	@echo "... __/__/src/Plugin.o"
-	@echo "... __/__/src/Plugin.i"
-	@echo "... __/__/src/Plugin.s"
-	@echo "... __/__/src/PluginManager.o"
-	@echo "... __/__/src/PluginManager.i"
-	@echo "... __/__/src/PluginManager.s"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.o"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.i"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/DLLoader.s"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/Plugin.o"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/Plugin.i"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/Plugin.s"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.o"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.i"
+	@echo "... home/vpy/delivery/2year/OOP/raytracer/src/PluginManager.s"
 .PHONY : help
 
 
@@ -258,6 +257,6 @@ help:
 # No rule that depends on this can have commands that come from listfiles
 # because they might be regenerated.
 cmake_check_build_system:
-	cd /home/vpy/delivery/2year/OOP/raytracer && $(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
+	$(CMAKE_COMMAND) -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR) --check-build-system CMakeFiles/Makefile.cmake 0
 .PHONY : cmake_check_build_system
 

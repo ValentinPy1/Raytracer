@@ -2,8 +2,7 @@ cmake_minimum_required(VERSION 3.16.3)
 project(vanille)
 include_directories(../../include)
 add_compile_options(-Wall -Wextra -O3 -g3)
-add_library (
-    pluginWrapper.v
+add_library ( pluginWrapper.v SHARED
     ../../src/PluginManager.cpp
     ../../src/Plugin.cpp
     ../../src/DLLoader.cpp
