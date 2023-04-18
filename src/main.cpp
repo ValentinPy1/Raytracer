@@ -53,7 +53,7 @@ void runFromArgs(int argc, char **argv)
     }
     render::Renderer renderer(lightSamples, imSide, focalPoint);
     renderer.init();
-    configLoader.loadConfigFile("./config/config.cfg", renderer);
+    configLoader.loadConfigFile("./config/config_v1.cfg", renderer);
     // renderer.loadScene();
     renderer.render();
 }

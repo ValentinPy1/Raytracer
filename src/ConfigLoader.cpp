@@ -63,8 +63,8 @@ namespace render {
         }
         loadCamera(rdr);
         loadPrimitive(rdr);
-        libconfig::Setting &objects = _cfg.lookup("primitives");
-        std::cout << "Objects: " << objects.getLength() << std::endl;
+        // libconfig::Setting &objects = _cfg.lookup("objects");
+        // std::cout << "Objects: " << objects.getLength() << std::endl;
 
     // for (int i = 0; i < objects.getLength(); i++) {
     //     libconfig::Setting &object = objects[i];
