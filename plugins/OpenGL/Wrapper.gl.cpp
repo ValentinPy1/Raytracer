@@ -61,5 +61,12 @@ namespace ogl {
             shaderNames.push_back(plugin->getName());
         }
         opgl.registerProgram("renderPipeline.gl", shaderNames);
+        opgl.useProgram("renderPipeline.gl");
+    }
+}
+
+extern "C" {
+    render::Plugin *entryPoint() {
+        return new ogl::Wrapper_gl("OpenGL");
     }
 }

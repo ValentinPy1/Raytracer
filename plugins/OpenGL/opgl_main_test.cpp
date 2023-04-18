@@ -38,7 +38,7 @@ int main()
     callgl(glEnableVertexAttribArray)(0);
 
     // unbind VAO to configure other objects if needed, and bind it again to draw
-    opgl.startProgram("triangle");
+    opgl.useProgram("triangle");
     glDrawArrays(GL_TRIANGLES, 0, 3);
     glfwSwapBuffers(opgl.getWindow());
 

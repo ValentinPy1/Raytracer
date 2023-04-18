@@ -9,6 +9,15 @@
 
 namespace render {
 
+    Plugin::Plugin() :
+        _init(nullptr),
+        _processRay(nullptr),
+        _postProcess(nullptr),
+        _priority(0),
+        _name("")
+    {
+    }
+
     Plugin::Plugin(
         init_t initFun,
         processRay_t processRayFun,

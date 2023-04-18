@@ -39,7 +39,7 @@ add_library(PluginSpherePrimitive.gl SHARED
 
 target_link_libraries(
     PluginSpherePrimitive.gl
-    -lm -lGLEW -lGL -lX11 -lpthread -lXrandr -lXi -ldl
+    -lm -lGLEW -lGL -lX11 -lpthread -lXrandr -lXi -ldl -lconfig++
 )
 
 set_target_properties(

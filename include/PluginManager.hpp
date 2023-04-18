@@ -199,9 +199,9 @@ namespace render {
      * }
      * @endcode
      */
-    class Plugin : public IPlugin {
+    class Plugin : public virtual IPlugin {
         public:
-            Plugin() = delete;
+            Plugin();
             Plugin(
                 init_t init,
                 processRay_t processRay,
