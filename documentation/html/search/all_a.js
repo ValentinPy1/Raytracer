@@ -6,5 +6,5 @@ var searchData=
   ['shader_3',['Shader',['../classogl_1_1Shader.html',1,'ogl']]],
   ['shaderprogram_4',['ShaderProgram',['../classogl_1_1ShaderProgram.html',1,'ogl']]],
   ['sphere_5',['Sphere',['../classrender_1_1Sphere.html',1,'render']]],
-  ['startprogram_6',['startProgram',['../classogl_1_1PluginOpenGL.html#ab5c7ccbd987728a902f195e230f56ad9',1,'ogl::PluginOpenGL']]]
+  ['startprogram_6',['useProgram',['../classogl_1_1PluginOpenGL.html#ab5c7ccbd987728a902f195e230f56ad9',1,'ogl::PluginOpenGL']]]
 ];

@@ -81,7 +81,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 
-<p>A class to encapsulate the OpenGL plugin. This plugin is responsible for initializing the OpenGL context, as well as creating and managing the shaders and programs used by the renderer.  
+<p>A class to encapsulate the OpenGL plugin. This plugin is responsible for initializing the OpenGL context, as well as creating and managing the shaders and programs used by the renderer.
  <a href="classogl_1_1PluginOpenGL.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="PluginOpenGL_8hpp_source.html">PluginOpenGL.hpp</a>&gt;</code></p>
@@ -107,9 +107,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:acc0e748bc0a734a871ce1c35b73ee175"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a shader using the given name. The shader will be loaded from the file at srcPath, and deleted when the plugin is destroyed.  <br /></td></tr>
 <tr class="separator:acc0e748bc0a734a871ce1c35b73ee175"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac561b5f39b261cf8123df9433120f0a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classogl_1_1PluginOpenGL.html#aac561b5f39b261cf8123df9433120f0a">registerProgram</a> (const std::string &amp;programName, std::initializer_list&lt; std::string &gt; shaderNames)</td></tr>
-<tr class="memdesc:aac561b5f39b261cf8123df9433120f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a shader program using the given name. The program is created from the shaders with the given names which will be chained and linked together. This program will be used as the render pipeline for OpenGL if the startProgram function is called with the name of this program.  <br /></td></tr>
+<tr class="memdesc:aac561b5f39b261cf8123df9433120f0a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Register a shader program using the given name. The program is created from the shaders with the given names which will be chained and linked together. This program will be used as the render pipeline for OpenGL if the useProgram function is called with the name of this program.  <br /></td></tr>
 <tr class="separator:aac561b5f39b261cf8123df9433120f0a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab5c7ccbd987728a902f195e230f56ad9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classogl_1_1PluginOpenGL.html#ab5c7ccbd987728a902f195e230f56ad9">startProgram</a> (const std::string &amp;programName)</td></tr>
+<tr class="memitem:ab5c7ccbd987728a902f195e230f56ad9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classogl_1_1PluginOpenGL.html#ab5c7ccbd987728a902f195e230f56ad9">useProgram</a> (const std::string &amp;programName)</td></tr>
 <tr class="memdesc:ab5c7ccbd987728a902f195e230f56ad9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Start the program with the given name. This means that the program will be used as the render pipeline for OpenGL, when the glDrawArrays function is called.  <br /></td></tr>
 <tr class="separator:ab5c7ccbd987728a902f195e230f56ad9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5222207fc8596d3c1c8de763dbb364b"><td class="memItemLeft" align="right" valign="top">GLFWwindow *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classogl_1_1PluginOpenGL.html#aa5222207fc8596d3c1c8de763dbb364b">getWindow</a> () const</td></tr>
@@ -225,7 +225,7 @@ template&lt;typename T &gt; </td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Register a shader program using the given name. The program is created from the shaders with the given names which will be chained and linked together. This program will be used as the render pipeline for OpenGL if the startProgram function is called with the name of this program. </p>
+<p>Register a shader program using the given name. The program is created from the shaders with the given names which will be chained and linked together. This program will be used as the render pipeline for OpenGL if the useProgram function is called with the name of this program. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">programName</td><td></td></tr>
@@ -281,13 +281,13 @@ template&lt;typename T &gt; </td></tr>
 </div>
 </div>
 <a id="ab5c7ccbd987728a902f195e230f56ad9" name="ab5c7ccbd987728a902f195e230f56ad9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab5c7ccbd987728a902f195e230f56ad9">&#9670;&#160;</a></span>startProgram()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab5c7ccbd987728a902f195e230f56ad9">&#9670;&#160;</a></span>useProgram()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void ogl::PluginOpenGL::startProgram </td>
+          <td class="memname">void ogl::PluginOpenGL::useProgram </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>programName</em></td><td>)</td>

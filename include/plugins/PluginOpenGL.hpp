@@ -103,7 +103,7 @@ namespace ogl {
              * @brief Register a shader program using the given name.
              * The program is created from the shaders with the given names which
              * will be chained and linked together. This program will be
-             * used as the render pipeline for OpenGL if the startProgram function
+             * used as the render pipeline for OpenGL if the useProgram function
              * is called with the name of this program.
              *
              * @param programName
@@ -118,7 +118,7 @@ namespace ogl {
              *
              * @param programName
              */
-            void startProgram(const std::string &programName);
+            void useProgram(const std::string &programName);
 
             /**
              * @brief Get the Window object from the plugin, which can be used

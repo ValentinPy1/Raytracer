@@ -1,20 +1,19 @@
-    /*
+/*
 ** EPITECH PROJECT, 2022
 ** ray
 ** File description:
-** Wrapper.cpp
+** PluginPrimitive.hpp
 */
 
-#ifndef WRAPPER_HPP
-    #define WRAPPER_HPP
+#ifndef PLUGINPRIMITIVE_HPP
+    #define PLUGINPRIMITIVE_HPP
+    #include <libconfig.h++>
     #include "PluginManager.hpp"
-    #include "Render.hpp"
 
 namespace render {
-    class AWrapper : public Plugin {
+    class APluginPrimitive : public virtual Plugin {
         public:
-            ~AWrapper() = default;
-            virtual void run(render::Renderer &rdr) = 0;
+            virtual void selfInit(libconfig::Setting setting) = 0;
         protected:
             render::init_t _init = nullptr;
             render::processRay_t _processRay = nullptr;
@@ -23,4 +22,5 @@ namespace render {
     };
 }
 
-#endif // WRAPPER_HPP
+
+#endif // PLUGINPRIMITIVE_HPP

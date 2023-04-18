@@ -9,13 +9,15 @@
     #define PLUGINSPHEREPRIMITIVE_GL_HPP
     #include "./PluginOpenGL.hpp"
     #include "../PluginManager.hpp"
+    #include "APluginPrimitive.hpp"
 
 namespace ogl {
-    class SpherePrimitive_gl : public render::Plugin {
+    class SpherePrimitive_gl : public virtual render::APluginPrimitive {
         public:
             SpherePrimitive_gl();
             ~SpherePrimitive_gl();
             void initSpherePrimitive_gl(render::Renderer &rdr);
+            void selfInit(libconfig::Setting setting) override;
         private:
             render::init_t _init = nullptr;
             render::processRay_t _processRay = nullptr;

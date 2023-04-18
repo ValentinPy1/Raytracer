@@ -5,19 +5,14 @@
 ** PluginSpherePrimitive.gl.cpp
 */
 
+#include <string>
 #include "plugins/PluginOpenGL.hpp"
 #include "plugins/PluginSpherePrimitive.gl.hpp"
 #include "../../include/Render.hpp"
 
 namespace ogl {
     SpherePrimitive_gl::SpherePrimitive_gl() :
-        render::Plugin(
-            nullptr,
-            nullptr,
-            nullptr,
-            0,
-            "SpherePrimitive_gl"
-        )
+        render::APluginPrimitive()
     {
         _init = [this](render::Renderer &rdr) {
             initSpherePrimitive_gl(rdr);
@@ -37,6 +32,10 @@ namespace ogl {
             return;
         }
 
+    }
+
+    void SpherePrimitive_gl::selfInit(libconfig::Setting setting)
+    {
     }
 }
 

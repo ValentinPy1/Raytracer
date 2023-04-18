@@ -167,7 +167,7 @@ namespace ogl {
         _programMap[programName] = std::shared_ptr<ShaderProgram>(new ShaderProgram(shaders));
     }
 
-    void PluginOpenGL::startProgram(const std::string &programName)
+    void PluginOpenGL::useProgram(const std::string &programName)
     {
         _mutex.lock();
         glfwMakeContextCurrent(_window.get());
