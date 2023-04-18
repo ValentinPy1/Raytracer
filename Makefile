@@ -225,30 +225,6 @@ src/DLLoader.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/DLLoader.cpp.s
 .PHONY : src/DLLoader.cpp.s
 
-src/Entity3D.o: src/Entity3D.cpp.o
-.PHONY : src/Entity3D.o
-
-# target to build an object file
-src/Entity3D.cpp.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/Entity3D.cpp.o
-.PHONY : src/Entity3D.cpp.o
-
-src/Entity3D.i: src/Entity3D.cpp.i
-.PHONY : src/Entity3D.i
-
-# target to preprocess a source file
-src/Entity3D.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/Entity3D.cpp.i
-.PHONY : src/Entity3D.cpp.i
-
-src/Entity3D.s: src/Entity3D.cpp.s
-.PHONY : src/Entity3D.s
-
-# target to generate assembly for a file
-src/Entity3D.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/src/Entity3D.cpp.s
-.PHONY : src/Entity3D.cpp.s
-
 src/Intercection.o: src/Intercection.cpp.o
 .PHONY : src/Intercection.o
 
@@ -534,9 +510,6 @@ help:
 	@echo "... src/DLLoader.o"
 	@echo "... src/DLLoader.i"
 	@echo "... src/DLLoader.s"
-	@echo "... src/Entity3D.o"
-	@echo "... src/Entity3D.i"
-	@echo "... src/Entity3D.s"
 	@echo "... src/Intercection.o"
 	@echo "... src/Intercection.i"
 	@echo "... src/Intercection.s"

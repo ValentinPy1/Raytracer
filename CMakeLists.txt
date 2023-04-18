@@ -18,7 +18,6 @@ add_executable (
     src/PluginManager.cpp
     src/Plugin.cpp
     src/DLLoader.cpp
-    src/Entity3D.cpp
     src/ConfigLoader.cpp
 )
 target_link_libraries(

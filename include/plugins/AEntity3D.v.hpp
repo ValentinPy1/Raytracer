@@ -25,7 +25,4 @@ namespace render
     };
 } // namespace render
 
-
-
-
 #endif // ENTITY_V_HPP
