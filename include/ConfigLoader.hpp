@@ -25,7 +25,7 @@ namespace render {
             ~ConfigLoader();
             void loadConfigFile(std::string path, Renderer &rdr);
             void loadCamera(Renderer &rdr);
-            void loadPrimitive(Renderer &rdr);
+            void loadPlugins(Renderer &rdr);
 
         private:
             libconfig::Config _cfg;

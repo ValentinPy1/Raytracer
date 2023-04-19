@@ -47,9 +47,23 @@ namespace render {
         rdr.setCamera(camera);
     }
 
-    void ConfigLoader::loadPrimitive(Renderer &rdr)
+    void ConfigLoader::loadPlugins(Renderer &rdr)
     {
+        const libconfig::Setting &plugins = _cfg.lookup("plugins");
+        //get value of wrapper
 
+        std::string wrapper;
+        plugins.lookupValue("wrapper", wrapper);
+        const libconfig::Setting &pluginsValue = plugins.lookup("plugins");
+        std::cout << "Wrapper: " << wrapper << std::endl;
+        for (int i = 0; i < pluginsValue.getLength(); i++) {
+            const libconfig::Setting &plugin = pluginsValue[i];
+            std::string name;
+            std::string path;
+            plugin.lookupValue("name", name);
+            plugin.lookupValue("path", path);
+            std::cout << "name: " << name << " " << path << std::endl;
+        }
     }
 
     void ConfigLoader::loadConfigFile(std::string path, Renderer &rdr)
@@ -57,71 +71,14 @@ namespace render {
         try {
             _cfg.readFile(path.c_str());
         } catch (std::exception &e) {
-            std::cout << "ERROR CHACAL"<< std::endl;
+            std::cout << "ERROR CHACAL" << std::endl;
             std::cerr << e.what() << std::endl;
             exit(84);
         }
         loadCamera(rdr);
-        loadPrimitive(rdr);
+        loadPlugins(rdr);
         // libconfig::Setting &objects = _cfg.lookup("objects");
         // std::cout << "Objects: " << objects.getLength() << std::endl;
-
-    // for (int i = 0; i < objects.getLength(); i++) {
-    //     libconfig::Setting &object = objects[i];
-    //     std::string type;
-    //     object.lookupValue("type", type);
-    //     if (type == "sphere") {
-    //         libconfig::Setting &position = object.lookup("position");
-    //         float x, y, z;
-    //         position.lookupValue("x", x);
-    //         position.lookupValue("y", y);
-    //         position.lookupValue("z", z);
-    //         sf::Vector3f pos = sf::Vector3f(x, y, z);
-    //         float radius;
-    //         object.lookupValue("radius", radius);
-    //         std::string color;
-    //         object.lookupValue("color", color);
-    //         sf::Color col;
-    //         if (color == "red")
-    //             col = sf::Color::Red;
-    //         else if (color == "green")
-    //             col = sf::Color::Green;
-    //         else if (color == "blue")
-    //             col = sf::Color::Blue;
-    //         else if (color == "yellow")
-    //             col = sf::Color::Yellow;
-    //         else if (color == "magenta")
-    //             col = sf::Color::Magenta;
-    //         else if (color == "cyan")
-    //             col = sf::Color::Cyan;
-    //         else if (color == "white")
-    //             col = sf::Color::White;
-    //         else if (color == "black")
-    //             col = sf::Color::Black;
-    //         else if (color == "transparent")
-    //             col = sf::Color::Transparent;
-    //         else
-    //             col = sf::Color::Black;
-    //         rdr.pushObject(std::make_shared<Sphere>(pos, radius, col));
-    //     } else if (type == "plane") {
-    //         libconfig::Setting &position = object.lookup("position");
-    //         float x, y, z;
-    //         position.lookupValue("x", x);
-    //         position.lookupValue("y", y);
-    //         position.lookupValue("z", z);
-    //         sf::Vector3f pos = sf::Vector3f(x, y, z);
-    //         libconfig::Setting &normal = object.lookup("normal");
-    //         float nx, ny, nz;
-    //         normal.lookupValue("x", nx);
-    //         normal.lookupValue("y", ny);
-    //         normal.lookupValue("z", nz);
-    //         sf::Vector3f norm = sf::Vector3f(nx, ny, nz);
-    //         std::string color;
-    //         object.lookupValue("color", color);
-    //         sf::Color col;
-    //     }
-
-    // rdr.pushObject(std::make_shared<Plane>(sf::Vector3f(0, 0, 10), sf::Vector3f(0, 0, 1), sf::Color::Green));
 
     }
 }
