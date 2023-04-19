@@ -11,10 +11,85 @@
 #include <iostream>
 #include <sstream>
 #include <csignal>
+#include <stdlib.h>
+#include <string>
+#include <string.h>
 #include "PluginManager.hpp"
 #include "plugins/PluginOpenGL.hpp"
 
 namespace ogl {
+    // VBO
+    PluginOpenGL::VBO::VBO()
+    {
+        callgl(glGenBuffers)(1, &_id);
+    }
+
+    PluginOpenGL::VBO::~VBO()
+    {
+        try {
+            callgl(glDeleteBuffers)(1, &_id);
+        } catch (std::exception &e) {
+        }
+    }
+
+    GLuint PluginOpenGL::VBO::getId() const
+    {
+        return _id;
+    }
+
+    void PluginOpenGL::VBO::bind()
+    {
+        callgl(glBindBuffer)(GL_ARRAY_BUFFER, _id);
+    }
+
+    // VAO
+
+    PluginOpenGL::VAO::VAO()
+    {
+        callgl(glGenVertexArrays)(1, &_id);
+    }
+
+    PluginOpenGL::VAO::~VAO()
+    {
+        //TODO
+    }
+
+    GLuint PluginOpenGL::VAO::getId() const
+    {
+        return _id;
+    }
+
+    void PluginOpenGL::VAO::bind()
+    {
+        callgl(glBindVertexArray)(_id);
+    }
+
+    // UBO
+    PluginOpenGL::UBO::UBO(const size_t size, GLenum usage)
+    {
+        _size = size;
+        callgl(glGenBuffers)(1, &_id);
+        callgl(glBindBuffer)(GL_UNIFORM_BUFFER, _id);
+        callgl(glBufferData)(GL_UNIFORM_BUFFER, _size, NULL, usage);
+    }
+
+    PluginOpenGL::UBO::~UBO()
+    {
+
+    }
+
+    GLuint PluginOpenGL::UBO::getId() const
+    {
+        return _id;
+    }
+
+    void PluginOpenGL::UBO::bind()
+    {
+        callgl(glBindBuffer)(GL_UNIFORM_BUFFER, _id);
+    }
+
+    // SHADERS
+
     Shader::Shader(int shaderType, std::string srcPath) : type(shaderType)
     {
         std::ifstream f(srcPath);
@@ -174,6 +249,75 @@ namespace ogl {
         callgl(glUseProgram)(_programMap[programName]->id);
         _mutex.unlock();
     }
+
+    std::shared_ptr<ShaderProgram> PluginOpenGL::getProgram(const std::string &programName)
+    {
+        return _programMap[programName];
+    }
+
+    GLuint PluginOpenGL::createBuffer()
+    {
+        std::shared_ptr<VBO> vbo(new VBO());
+        _vboMap[vbo->getId()] = vbo;
+        return vbo->getId();
+    }
+
+    void PluginOpenGL::bindBuffer(GLuint id)
+    {
+        _vboMap[id]->bind();
+    }
+
+    GLuint PluginOpenGL::createVertexArray()
+    {
+        std::shared_ptr<VAO> vao(new VAO());
+        _vaoMap[vao->getId()] = vao;
+        return vao->getId();
+    }
+
+    void PluginOpenGL::bindVertexArray(GLuint id)
+    {
+        _vaoMap[id]->bind();
+    }
+
+    void PluginOpenGL::setUniform3f(const std::string &uniformName, const std::string &progName, float x, float y, float z) {
+        GLuint progId = getProgram(progName)->id;
+        GLuint loc = callgl(glGetUniformLocation)(progId, uniformName.c_str());
+        callgl(glUniform3f)(loc, x, y, z);
+    }
+
+    void PluginOpenGL::setBufferData(size_t size, void *data, int usage)
+    {
+        callgl(glBufferData)(GL_ARRAY_BUFFER, size, data, usage);
+    }
+
+    void PluginOpenGL::setVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer)
+    {
+        callgl(glVertexAttribPointer)(index, size, type, normalized, stride, pointer);
+        callgl(glEnableVertexAttribArray)(index);
+    }
+
+    GLuint PluginOpenGL::createUniformBuffer(size_t size, GLenum usage)
+    {
+        std::shared_ptr<UBO> ubo(new UBO(size, usage));
+        _uboMap[ubo->getId()] = ubo;
+        return ubo->getId();
+    }
+
+    void PluginOpenGL::bindUniformBuffer(GLuint id)
+    {
+        _uboMap[id]->bind();
+    }
+
+    void PluginOpenGL::setUniformBufferData(size_t size, void *data, GLuint bufferIndex, GLuint uboId, const std::string &uboName, const std::string &programName)
+    {
+        void *buffPtr = callgl(glMapBuffer)(GL_UNIFORM_BUFFER, GL_WRITE_ONLY);
+        GLuint programId = getProgram(programName)->id;
+        memcpy(buffPtr, data, size);
+
+        callgl(glBindBufferBase)(GL_UNIFORM_BUFFER, bufferIndex, uboId);
+        int uniformIndex = callgl(glGetUniformBlockIndex)(programId, uboName.c_str());
+        callgl(glUniformBlockBinding)(programId, uniformIndex, bufferIndex);
+    }
 }
 
 extern "C" {
@@ -182,3 +326,4 @@ extern "C" {
         return new ogl::PluginOpenGL();
     }
 }
+//
