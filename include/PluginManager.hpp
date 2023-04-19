@@ -15,6 +15,7 @@
 #include <map>
 #include <functional>
 #include <tuple>
+#include <memory>
 // #include "Ray.hpp"
 // #include "Render.hpp"
 
@@ -132,6 +133,20 @@ namespace render {
      */
     typedef std::function<void(render::Renderer &)> postProcess_t;
 
+    class IPlugin {
+    public:
+        virtual void init(render::Renderer &rdr) const = 0;
+        virtual void processRay(render::Ray &ray, const render::Renderer &rdr) const = 0;
+        virtual void postProcess(render::Renderer &rdr) const = 0;
+        virtual int getPriority() const = 0;
+        virtual init_t getInit() const noexcept = 0;
+        virtual processRay_t getProcessRay() const noexcept = 0;
+        virtual postProcess_t getPostProcess() const noexcept = 0;
+        virtual const std::string &getName() const = 0;
+    };
+
+
+
     /**
      * @brief A plugin is an object loaded from a dynamic library (.so file with an entryPoint function).
      * This object should have several function defined, which could be set to
@@ -185,14 +200,15 @@ namespace render {
      * }
      * @endcode
      */
-    class Plugin {
+    class Plugin : public virtual IPlugin {
         public:
-            Plugin() = delete;
+            Plugin();
             Plugin(
                 init_t init,
                 processRay_t processRay,
                 postProcess_t postProcess,
-                int priority
+                int priority,
+                const std::string &name
             );
             ~Plugin() = default;
 
@@ -201,7 +217,7 @@ namespace render {
              *
              * @param rdr
              */
-            void init(render::Renderer &rdr) const;
+            void init(render::Renderer &rdr) const override;
 
             /**
              * @brief Calls the processRay function if it is not nullptr.
@@ -209,21 +225,21 @@ namespace render {
              * @param ray
              * @param rdr
              */
-            void processRay(render::Ray &ray, const render::Renderer &rdr) const;
+            void processRay(render::Ray &ray, const render::Renderer &rdr) const override;
 
             /**
              * @brief Calls the postProcess function if it is not nullptr.
              *
              * @param rdr
              */
-            void postProcess(render::Renderer &rdr) const;
+            void postProcess(render::Renderer &rdr) const override;
 
             /**
              * @brief Returns the priority of the plugin.
              *
              * @return unsigned int
              */
-            int getPriority() const;
+            int getPriority() const override;
 
             /**
              * @brief Get the pointer to the function _init.
@@ -231,7 +247,7 @@ namespace render {
              *
              * @return init_t
              */
-            init_t getInit() const noexcept;
+            init_t getInit() const noexcept override;
 
             /**
              * @brief Get the pointer to the function _processRay.
@@ -239,7 +255,7 @@ namespace render {
              *
              * @return processRay_t
              */
-            processRay_t getProcessRay() const noexcept;
+            processRay_t getProcessRay() const noexcept override;
 
             /**
              * @brief Get the pointer to the function _postProcess.
@@ -247,12 +263,14 @@ namespace render {
              *
              * @return postProcess_t
              */
-            postProcess_t getPostProcess() const noexcept;
-        private:
+            postProcess_t getPostProcess() const noexcept override;
+            const std::string &getName() const noexcept override;
+        protected:
             init_t _init = nullptr;
             processRay_t _processRay = nullptr;
             postProcess_t _postProcess = nullptr;
             int _priority;
+            std::string _name;
     };
 
     /**
@@ -311,6 +329,21 @@ namespace render {
              * @return std::vector<Plugin::postProcess_t>
              */
             std::vector<postProcess_t> getPostProcessFunctions() const;
+
+            /**
+             * @brief Given a string, returns a pointer to the plugin with the same name.
+             *
+             * @param libName
+             * @return IPlugin*
+             */
+            IPlugin *require(const std::string &libName);
+
+            /**
+             * @brief Returns a vector of all the plugins.
+             *
+             * @return std::vector<Plugin>
+             */
+            const std::vector<Plugin> &getPlugins() const noexcept;
         private:
 
             DLLoader _loader;

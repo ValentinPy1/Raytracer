@@ -310,6 +310,12 @@ namespace render {
              */
             void pushObject(std::shared_ptr<render::IObject> object);
 
+            /**
+             * @brief Returns a reference to the renderer's plugin manager.
+             *
+             * @return PluginManager&
+             */
+            PluginManager &getPluginManager();
         private:
             /**
              * @brief Processes a ray and returns the color of the object it hits.

@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.16.3)
 project(testproject)
 include_directories(./include)
-add_compile_options(-Wall -Wextra)
+add_compile_options(-Wall -Wextra -O3)
 add_executable (
     ray
     src/main.cpp
@@ -28,3 +28,4 @@ target_link_libraries(
     -lm
     -lconfig++
 )
+add_subdirectory(plugins/Vanille)

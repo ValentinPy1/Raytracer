@@ -129,6 +129,19 @@ ray/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ray.dir/build.make CMakeFiles/ray.dir/build
 .PHONY : ray/fast
 
+#=============================================================================
+# Target rules for targets named pluginWrapper.v
+
+# Build rule for target.
+pluginWrapper.v: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pluginWrapper.v
+.PHONY : pluginWrapper.v
+
+# fast build rule for target.
+pluginWrapper.v/fast:
+	$(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build.make plugins/Vanille/CMakeFiles/pluginWrapper.v.dir/build
+.PHONY : pluginWrapper.v/fast
+
 src/AObject.o: src/AObject.cpp.o
 .PHONY : src/AObject.o
 
@@ -497,6 +510,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... pluginWrapper.v"
 	@echo "... ray"
 	@echo "... src/AObject.o"
 	@echo "... src/AObject.i"

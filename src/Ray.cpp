@@ -203,38 +203,28 @@ namespace render {
 
     sf::Color Ray::cast(const Renderer &renderer)
     {
-        findIntersections(renderer);
-        if (getIntersections().size() == 0) {
-            setColor(sf::Color {33, 33, 33});
-            return getColor();
-        }
-        sf::Vector3f intersectionPoint = getIntersections()[0]
-            .getPoint();
-        // float colorIntensityFromNormal =
-        //     (90.0 - getDirection() * getIntersections()[0].getInterceptee()->getNormal(intersectionPoint)) / 90.0;
-                // getNormal(intersectionPoint)) / 90.0;
-        sf::Color color = sf::Color {
-            200, 200, 200
-        };
-        // _color = (sf::Color(
-        //     color.r * colorIntensityFromNormal,
-        //     color.g * colorIntensityFromNormal,
-        //     color.b * colorIntensityFromNormal));
-        return getColor();
-        // // plugin geometry::intersection
         // findIntersections(renderer);
-
-        // // plugin lights
-        // if (_intersections.size() == 0)
-        //     return sf::Color::Black;
-        // applyLighting(renderer);
-
-        // //plugin reflection
-        // if (_intersections.size() > 0 && _reflectionDepth > 0) {
-        //     return blendAdd(getReflectionColor(renderer));
+        // if (getIntersections().size() == 0) {
+        //     setColor(sf::Color {33, 33, 33});
+        //     return getColor();
         // }
-
-        // // end of process loop
         // return getColor();
+
+        // real pipeline to convert to plugins
+        // plugin geometry::intersection
+        findIntersections(renderer);
+
+        // plugin lights
+        if (_intersections.size() == 0)
+            return sf::Color::Black;
+        applyLighting(renderer);
+
+        //plugin reflection
+        if (_intersections.size() > 0 && _reflectionDepth > 0) {
+            return blendAdd(getReflectionColor(renderer));
+        }
+
+        // end of process loop
+        return getColor();
     }
 }
