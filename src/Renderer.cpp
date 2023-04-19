@@ -41,6 +41,7 @@ namespace render {
         for (auto &fun : initFuns) {
             fun(*this);
         }
+        // TODO clement! loadScene from config file
         loadScene();
         _rayProcess = _pluginManager.getProcessRayFunctions();
         _postProcess = _pluginManager.getPostProcessFunctions();
@@ -124,15 +125,25 @@ namespace render {
 
         auto rays = _camera.getRays();
 
+        // for (unsigned int i = 0; i < _camera.getCaptor().getSize().x; i++) {
+        //     while (threads.size() > std::thread::hardware_concurrency() / 2) {
+        //         threads[0].join();
+        //         threads.erase(threads.begin());
+        //     }
+        //     threads.push_back(std::thread(&Renderer::updatePixelLine, this, i));
+        // }
+        // for (auto &thread : threads)
+        //     thread.join();
+
+        // Sequential is faster? TODO benchmark for small & large scenes
         for (unsigned int i = 0; i < _camera.getCaptor().getSize().x; i++) {
-            while (threads.size() > std::thread::hardware_concurrency() / 2) {
-                threads[0].join();
-                threads.erase(threads.begin());
+            for (unsigned int j = 0; j < _camera.getCaptor().getSize().y; j++) {
+                Ray ray = rays[i * _camera.getCaptor().getSize().y + j];
+                sf::Color tmp = ray.cast(*this);
+                _camera.getCaptor().setPixel(i, j, tmp);
+                showProgressBar(_camera.getCaptor().getSize().x * _camera.getCaptor().getSize().y, "Rendering scene");
             }
-            threads.push_back(std::thread(&Renderer::updatePixelLine, this, i));
         }
-        for (auto &thread : threads)
-            thread.join();
 
         _logs.log("Scene rendered, saving picture...");
         _camera.getCaptor().saveToFile("rendered.png");
@@ -164,5 +175,10 @@ namespace render {
     {
         for (auto light : lights)
             addLight(light);
+    }
+
+    PluginManager &Renderer::getPluginManager()
+    {
+        return _pluginManager;
     }
 }

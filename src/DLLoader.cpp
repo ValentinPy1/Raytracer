@@ -21,10 +21,10 @@ namespace render {
     }
 
     DLLoader::~DLLoader() {
-        for (auto &handle : _handles) {
-            dlclose(handle);
+        for (auto &handle : _libHandles) {
+            dlclose(handle.second);
         }
-        _handles.clear();
+        _libHandles.clear();
     }
 
     void DLLoader::load(const std::string &path, const std::string &libName) {
@@ -37,8 +37,7 @@ namespace render {
         if (dlsym_error) {
             throw DLLoaderException("Cannot load symbol 'entryPoint': " + std::string(dlsym_error));
         }
-        _handles.push_back(handle);
-        _handleNames.push_back(libName);
+        _libHandles[libName] = handle;
     }
 
 }

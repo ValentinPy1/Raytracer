@@ -1,3 +1,0 @@
-/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles/ray.dir
-/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles/edit_cache.dir
-/home/Amour/Documents/Epitech/Tech2/ray/CMakeFiles/rebuild_cache.dir

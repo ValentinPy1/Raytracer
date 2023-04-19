@@ -9,15 +9,26 @@
 
 namespace render {
 
+    Plugin::Plugin() :
+        _init(nullptr),
+        _processRay(nullptr),
+        _postProcess(nullptr),
+        _priority(0),
+        _name("")
+    {
+    }
+
     Plugin::Plugin(
         init_t initFun,
         processRay_t processRayFun,
         postProcess_t postProcessFun,
-        unsigned int priority) :
+        int priority,
+        const std::string &name) :
         _init(initFun),
         _processRay(processRayFun),
         _postProcess(postProcessFun),
-        _priority(priority)
+        _priority(priority),
+        _name(name)
     {
     }
 
@@ -39,7 +50,7 @@ namespace render {
             _postProcess(rdr);
     }
 
-    unsigned int Plugin::getPriority() const {
+    int Plugin::getPriority() const {
         return _priority;
     }
 
@@ -58,4 +69,8 @@ namespace render {
         return _postProcess;
     }
 
+    const std::string &Plugin::getName() const noexcept
+    {
+        return _name;
+    }
 }

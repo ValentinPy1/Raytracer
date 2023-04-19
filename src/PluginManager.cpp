@@ -7,7 +7,9 @@
 
 #include <filesystem>
 #include <string>
+#include <memory>
 #include <functional>
+#include <exception>
 #include "Render.hpp"
 #include "PluginManager.hpp"
 
@@ -24,34 +26,11 @@ namespace render {
 
     void PluginManager::loadPlugin(const std::string &path, const std::string &libName)
     {
-        init_t init = nullptr;
-        processRay_t processRay = nullptr;
-        postProcess_t postProcess= nullptr;
-        unsigned int (*getPriority)() = nullptr;
-        unsigned int priority = 0;
-
-        try {
-            _loader.load(path, libName);
-        } catch (DLLoader::DLLoaderException &e) {
-            std::cerr << e.what() << std::endl;
-            throw e;
-        }
-        try {
-            init = _loader.loadSymbol<decltype(init)>(libName, "init");
-        } catch (DLLoader::DLLoaderException &e) {}
-        try {
-            processRay = _loader.loadSymbol<decltype(processRay)>(libName, "processRay");
-        } catch (DLLoader::DLLoaderException &e) {}
-        try {
-            postProcess = _loader.loadSymbol<decltype(postProcess)>(libName, "postProcess");
-        } catch (DLLoader::DLLoaderException &e) {}
-        try {
-            getPriority = _loader.loadSymbol<decltype(getPriority)>(libName, "getPriority");
-            if (getPriority)
-                priority = getPriority();
-
-        } catch (DLLoader::DLLoaderException &e) {}
-        _plugins.emplace_back(init, processRay, postProcess, priority);
+        _loader.load(path, libName);
+        Plugin plugin = *std::unique_ptr<Plugin>(_loader.loadInstance<Plugin>(libName));
+        if (plugin.getPriority() < 0)
+            return;
+        _plugins.push_back(plugin);
         std::sort(_plugins.begin(), _plugins.end(), [](const Plugin &a, const Plugin &b) {
             return a.getPriority() < b.getPriority();
         });
@@ -104,5 +83,19 @@ namespace render {
                 ret.push_back(plugin.getPostProcess());
         }
         return ret;
+    }
+
+    IPlugin *PluginManager::require(const std::string &name)
+    {
+        for (auto &plugin : _plugins) {
+            if (plugin.getName() == name)
+                return &plugin;
+        }
+        throw std::runtime_error("Plugin not found: " + name);
+    }
+
+    const std::vector<Plugin> &PluginManager::getPlugins() const noexcept
+    {
+        return _plugins;
     }
 }
