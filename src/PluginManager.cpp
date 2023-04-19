@@ -27,12 +27,12 @@ namespace render {
     void PluginManager::loadPlugin(const std::string &path, const std::string &libName)
     {
         _loader.load(path, libName);
-        Plugin plugin = *std::unique_ptr<Plugin>(_loader.loadInstance<Plugin>(libName));
-        if (plugin.getPriority() < 0)
+        auto plugin = std::shared_ptr<Plugin>(_loader.loadInstance<Plugin>(libName));
+        if (plugin->getPriority() < 0)
             return;
         _plugins.push_back(plugin);
-        std::sort(_plugins.begin(), _plugins.end(), [](const Plugin &a, const Plugin &b) {
-            return a.getPriority() < b.getPriority();
+        std::sort(_plugins.begin(), _plugins.end(), [](const std::shared_ptr<Plugin> &a, const std::shared_ptr<Plugin> &b) {
+            return a->getPriority() < b->getPriority();
         });
     }
 
@@ -57,8 +57,8 @@ namespace render {
         std::vector<init_t> ret;
 
         for (const auto &plugin : _plugins) {
-            if (plugin.getInit())
-                ret.push_back(plugin.getInit());
+            if (plugin->getInit())
+                ret.push_back(plugin->getInit());
         }
         return ret;
     }
@@ -68,8 +68,8 @@ namespace render {
         std::vector<processRay_t> ret;
 
         for (const auto &plugin : _plugins) {
-            if (plugin.getProcessRay())
-                ret.push_back(plugin.getProcessRay());
+            if (plugin->getProcessRay())
+                ret.push_back(plugin->getProcessRay());
         }
         return ret;
     }
@@ -79,8 +79,8 @@ namespace render {
         std::vector<postProcess_t> ret;
 
         for (const auto &plugin : _plugins) {
-            if (plugin.getPostProcess())
-                ret.push_back(plugin.getPostProcess());
+            if (plugin->getPostProcess())
+                ret.push_back(plugin->getPostProcess());
         }
         return ret;
     }
@@ -102,13 +102,13 @@ namespace render {
     IPlugin *PluginManager::require(const std::string &name)
     {
         for (auto &plugin : _plugins) {
-            if (plugin.getName() == name)
-                return &plugin;
+            if (plugin->getName() == name)
+                return plugin.get();
         }
         throw std::runtime_error("Plugin not found: " + name);
     }
 
-    const std::vector<Plugin> &PluginManager::getPlugins() const noexcept
+    const std::vector<std::shared_ptr<Plugin>> &PluginManager::getPlugins() const noexcept
     {
         return _plugins;
     }

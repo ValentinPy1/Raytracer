@@ -48,3 +48,7 @@ set_target_properties(
 
 target_link_libraries(PluginSpherePrimitive.gl glfw)
 target_link_libraries(PluginSpherePrimitive.gl OpenGL::GL)
+
+add_custom_command(TARGET PluginSpherePrimitive.gl POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:PluginSpherePrimitive.gl> ${CMAKE_CURRENT_SOURCE_DIR}/../
+)

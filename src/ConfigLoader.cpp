@@ -58,11 +58,13 @@ namespace render {
         std::cout << "Wrapper: " << wrapper << std::endl;
         for (int i = 0; i < pluginsValue.getLength(); i++) {
             const libconfig::Setting &plugin = pluginsValue[i];
-            std::string name;
             std::string path;
-            plugin.lookupValue("name", name);
+            std::string name;
             plugin.lookupValue("path", path);
-            std::cout << "name: " << name << " " << path << std::endl;
+            plugin.lookupValue("name", name);
+            path = path + _mode + ".so";
+            std::cout << "path: " << path << std::endl;
+            _pluginManager.loadPlugin(path, name);
         }
     }
 
@@ -75,6 +77,10 @@ namespace render {
             std::cerr << e.what() << std::endl;
             exit(84);
         }
+        const libconfig::Setting &extention = _cfg.lookup("extensions");
+        // const libconfig::Setting &mode = _cfg.lookupValue("mode", mode);
+        extention.lookupValue("mode", _mode);
+
         loadCamera(rdr);
         loadPlugins(rdr);
         // libconfig::Setting &objects = _cfg.lookup("objects");

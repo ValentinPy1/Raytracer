@@ -29,3 +29,4 @@ target_link_libraries(
     -lconfig++
 )
 add_subdirectory(plugins/Vanille)
+add_subdirectory(plugins/OpenGL)
