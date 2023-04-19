@@ -31,6 +31,11 @@
 *.out
 *.app
 
+
+
+CMakeFiles
+.vscode
+ray
 #cmake
 CMakeCache.txt
 CMakeFiles

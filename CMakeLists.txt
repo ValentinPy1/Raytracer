@@ -18,6 +18,7 @@ add_executable (
     src/PluginManager.cpp
     src/Plugin.cpp
     src/DLLoader.cpp
+    src/ConfigLoader.cpp
 )
 target_link_libraries(
     ray
@@ -25,5 +26,6 @@ target_link_libraries(
     -lsfml-window
     -lsfml-system
     -lm
+    -lconfig++
 )
 add_subdirectory(plugins/Vanille)
