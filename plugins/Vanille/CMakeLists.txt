@@ -22,11 +22,11 @@ add_library (
     Wrapper.v.cpp
 )
 
-add_library (
-    Sphere.primitive.v SHARED
-    ${COMMON_SRC}
-    Sphere.primitive.v.cpp
-)
+# add_library (
+#     Sphere.primitive.v SHARED
+#     ${COMMON_SRC}
+#     Sphere.primitive.v.cpp
+# )
 
 target_link_libraries(
     pluginWrapper.v

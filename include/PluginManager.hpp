@@ -14,6 +14,7 @@
 #include <iostream>
 #include <map>
 #include <functional>
+#include <tuple>
 #include <memory>
 // #include "Ray.hpp"
 // #include "Render.hpp"
@@ -299,6 +300,13 @@ namespace render {
             void autoLoadPlugins(const std::string &pluginsDir = "./plugins");
 
             /**
+             * @brief Load all plugins from a list of paths and library names.
+             *
+             * @param plugins A vector of tuples containing the path and the library name, in that order.
+             */
+            void loadPlugins(const std::vector<std::tuple<std::string, std::string>> &plugins);
+
+            /**
              * @brief Returns all of the non null init functions of the plugins,
              * sorted by priority of execution.
              *
@@ -335,11 +343,10 @@ namespace render {
              *
              * @return std::vector<Plugin>
              */
-            const std::vector<Plugin> &getPlugins() const noexcept;
+            const std::vector<std::shared_ptr<Plugin>> &getPlugins() const noexcept;
         private:
-
             DLLoader _loader;
-            std::vector<Plugin> _plugins;
+            std::vector<std::shared_ptr<Plugin>> _plugins;
     };
 }
 

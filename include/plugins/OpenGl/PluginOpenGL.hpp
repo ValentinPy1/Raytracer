@@ -70,6 +70,37 @@ namespace ogl {
      */
     class PluginOpenGL : public render::Plugin {
         public:
+            class VBO {
+                public:
+                    VBO();
+                    ~VBO();
+                    GLuint getId() const;
+                    void bind();
+                private:
+                    GLuint _id;
+            };
+
+            class VAO {
+                public:
+                    VAO();
+                    ~VAO();
+                    GLuint getId() const;
+                    void bind();
+                private:
+                    GLuint _id;
+            };
+
+            class UBO {
+                public:
+                    UBO(const size_t size, GLenum usage);
+                    ~UBO();
+                    GLuint getId() const;
+                    void bind();
+                private:
+                    GLuint _id;
+                    size_t _size;
+            };
+
             PluginOpenGL();
             ~PluginOpenGL();
             /**
@@ -135,6 +166,19 @@ namespace ogl {
                     throw std::runtime_error("Failed to get function " + name);
                 return var;
             }
+
+            std::shared_ptr<ShaderProgram> getProgram(const std::string &programName);
+            GLuint createBuffer();
+            void bindBuffer(GLuint id);
+            GLuint createVertexArray();
+            void bindVertexArray(GLuint id);
+            void setUniform3f(const std::string &uniformName, const std::string &progName, float x, float y, float z);
+            void setBufferData(size_t size, void *data, int usage);
+            void setVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer);
+            GLuint createUniformBuffer(size_t size, GLenum usage);
+            void bindUniformBuffer(GLuint id);
+            void setUniformBufferData(size_t size, void *data, GLuint bufferIndex, GLuint uboId, const std::string &uboName, const std::string &programName);
+
         private:
             /**
              * @brief The main loop of the plugin, which is run in a separate thread.
@@ -157,6 +201,9 @@ namespace ogl {
 
             std::map<std::string, std::shared_ptr<Shader>> _shaderMap;
             std::map<std::string, std::shared_ptr<ShaderProgram>> _programMap;
+            std::map<GLuint, std::shared_ptr<VAO>> _vaoMap;
+            std::map<GLuint, std::shared_ptr<VBO>> _vboMap;
+            std::map<GLuint, std::shared_ptr<UBO>> _uboMap;
     };
 }
 
