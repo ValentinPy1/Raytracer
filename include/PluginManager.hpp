@@ -343,11 +343,10 @@ namespace render {
              *
              * @return std::vector<Plugin>
              */
-            const std::vector<Plugin> &getPlugins() const noexcept;
+            const std::vector<std::shared_ptr<Plugin>> &getPlugins() const noexcept;
         private:
-
             DLLoader _loader;
-            std::vector<Plugin> _plugins;
+            std::vector<std::shared_ptr<Plugin>> _plugins;
     };
 }
 

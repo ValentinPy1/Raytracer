@@ -15,6 +15,7 @@
 #include <iostream>
 #include <functional>
 #include "Render.hpp"
+#include "PluginManager.hpp"
 
 namespace render {
     class Renderer;
@@ -29,5 +30,8 @@ namespace render {
 
         private:
             libconfig::Config _cfg;
+            std::string _mode;
+            PluginManager _pluginManager;
+            std::string current_plugin;
     };
 }
