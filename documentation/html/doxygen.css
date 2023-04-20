@@ -1,4 +1,4 @@
-/* The standard CSS for doxygen 1.9.7*/
+/* The standard CSS for doxygen 1.9.6*/
 
 html {
 /* page base colors */
@@ -125,7 +125,6 @@ html {
 --code-preprocessor-color: #806020;
 --code-string-literal-color: #002080;
 --code-char-literal-color: #008080;
---code-xml-cdata-color: black;
 --code-vhdl-digit-color: #FF00FF;
 --code-vhdl-char-color: #000000;
 --code-vhdl-keyword-color: #700070;
@@ -290,7 +289,6 @@ html {
 --code-preprocessor-color: #65CABE;
 --code-string-literal-color: #7EC699;
 --code-char-literal-color: #00E0F0;
---code-xml-cdata-color: #C9D1D9;
 --code-vhdl-digit-color: #FF00FF;
 --code-vhdl-char-color: #000000;
 --code-vhdl-keyword-color: #700070;
@@ -810,10 +808,6 @@ span.charliteral {
 	color: var(--code-char-literal-color);
 }
 
-span.xmlcdata {
-	color: var(--code-xml-cdata-color);
-}
-
 span.vhdldigit { 
 	color: var(--code-vhdl-digit-color);
 }
@@ -1229,6 +1223,7 @@ div.directory {
     height: 18px;
     margin-bottom: 4px;
     background-image:url('folderopen.png');
+    background-position: 0px -4px;
     background-repeat: repeat-y;
     vertical-align:top;
     display: inline-block;
@@ -1239,6 +1234,7 @@ div.directory {
     height: 18px;
     margin-bottom: 4px;
     background-image:url('folderclosed.png');
+    background-position: 0px -4px;
     background-repeat: repeat-y;
     vertical-align:top;
     display: inline-block;

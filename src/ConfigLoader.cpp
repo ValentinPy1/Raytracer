@@ -77,7 +77,6 @@ namespace render {
             libconfig::Setting &args = objectsValue[i].lookup("args");
             APluginPrimitive *obj;
             obj->selfInit(args);
-            // free(obj);
         }
     }
 
