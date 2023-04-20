@@ -88,6 +88,35 @@ namespace ogl {
         callgl(glBindBuffer)(GL_UNIFORM_BUFFER, _id);
     }
 
+    // SSBO
+    PluginOpenGL::SSBO::SSBO(const size_t size, GLenum usage)
+    {
+        _size = size;
+        callgl(glGenBuffers)(1, &_id);
+        bind();
+        setData(size, nullptr);
+    }
+
+    PluginOpenGL::SSBO::~SSBO()
+    {
+    }
+
+    GLuint PluginOpenGL::SSBO::getId() const
+    {
+        return _id;
+    }
+
+    void PluginOpenGL::SSBO::bind(GLuint bindingIndex)
+    {
+        callgl(glBindBufferRange)(GL_SHADER_STORAGE_BUFFER, bindingIndex, _id, 0, _size);
+    }
+
+    void PluginOpenGL::SSBO::setData(const size_t size, void *data)
+    {
+        bind();
+        callgl(glBufferData)(GL_SHADER_STORAGE_BUFFER, size, data, GL_DYNAMIC_DRAW);
+    }
+
     // SHADERS
 
     Shader::Shader(int shaderType, std::string srcPath) : type(shaderType)
@@ -317,6 +346,29 @@ namespace ogl {
         callgl(glBindBufferBase)(GL_UNIFORM_BUFFER, bufferIndex, uboId);
         int uniformIndex = callgl(glGetUniformBlockIndex)(programId, uboName.c_str());
         callgl(glUniformBlockBinding)(programId, uniformIndex, bufferIndex);
+    }
+
+    GLuint PluginOpenGL::createShaderStorageBuffer(size_t size, GLenum usage)
+    {
+        std::shared_ptr<SSBO> ssbo(new SSBO(size, usage));
+        _ssboMap[ssbo->getId()] = ssbo;
+        return ssbo->getId();
+    }
+
+    void PluginOpenGL::bindShaderStorageBuffer(GLuint id, GLuint bufferIndex)
+    {
+        _ssboMap[id]->bind(bufferIndex);
+    }
+
+    void PluginOpenGL::setShaderStorageBufferData(size_t size, void *data, GLuint bufferIndex, GLuint ssboId, const std::string &ssboName, const std::string &programName)
+    {
+        void *buffPtr = callgl(glMapBuffer)(GL_SHADER_STORAGE_BUFFER, GL_WRITE_ONLY);
+        GLuint programId = getProgram(programName)->id;
+        memcpy(buffPtr, data, size);
+
+        callgl(glBindBufferBase)(GL_SHADER_STORAGE_BUFFER, bufferIndex, ssboId);
+        int uniformIndex = callgl(glGetProgramResourceIndex)(programId, GL_SHADER_STORAGE_BLOCK, ssboName.c_str());
+        callgl(glShaderStorageBlockBinding)(programId, uniformIndex, bufferIndex);
     }
 }
 
