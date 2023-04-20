@@ -201,6 +201,19 @@ pluginOpenGL/fast:
 .PHONY : pluginOpenGL/fast
 
 #=============================================================================
+# Target rules for targets named PluginOpenGL.gl
+
+# Build rule for target.
+PluginOpenGL.gl: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PluginOpenGL.gl
+.PHONY : PluginOpenGL.gl
+
+# fast build rule for target.
+PluginOpenGL.gl/fast:
+	$(MAKE) $(MAKESILENT) -f plugins/OpenGL/CMakeFiles/PluginOpenGL.gl.dir/build.make plugins/OpenGL/CMakeFiles/PluginOpenGL.gl.dir/build
+.PHONY : PluginOpenGL.gl/fast
+
+#=============================================================================
 # Target rules for targets named PluginSpherePrimitive.gl
 
 # Build rule for target.
@@ -212,6 +225,19 @@ PluginSpherePrimitive.gl: cmake_check_build_system
 PluginSpherePrimitive.gl/fast:
 	$(MAKE) $(MAKESILENT) -f plugins/OpenGL/CMakeFiles/PluginSpherePrimitive.gl.dir/build.make plugins/OpenGL/CMakeFiles/PluginSpherePrimitive.gl.dir/build
 .PHONY : PluginSpherePrimitive.gl/fast
+
+#=============================================================================
+# Target rules for targets named Wrapper.gl
+
+# Build rule for target.
+Wrapper.gl: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Wrapper.gl
+.PHONY : Wrapper.gl
+
+# fast build rule for target.
+Wrapper.gl/fast:
+	$(MAKE) $(MAKESILENT) -f plugins/OpenGL/CMakeFiles/Wrapper.gl.dir/build.make plugins/OpenGL/CMakeFiles/Wrapper.gl.dir/build
+.PHONY : Wrapper.gl/fast
 
 #=============================================================================
 # Target rules for targets named uninstall
@@ -626,7 +652,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... uninstall"
 	@echo "... update_mappings"
+	@echo "... PluginOpenGL.gl"
 	@echo "... PluginSpherePrimitive.gl"
+	@echo "... Wrapper.gl"
 	@echo "... glfw"
 	@echo "... pluginOpenGL"
 	@echo "... pluginWrapper.v"

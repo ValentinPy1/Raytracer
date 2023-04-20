@@ -16,7 +16,7 @@
 #include <functional>
 #include "Render.hpp"
 #include "PluginManager.hpp"
-
+#include "plugins/APluginPrimitive.hpp"
 namespace render {
     class Renderer;
     class ConfigLoader
@@ -27,6 +27,7 @@ namespace render {
             void loadConfigFile(std::string path, Renderer &rdr);
             void loadCamera(Renderer &rdr);
             void loadPlugins(Renderer &rdr);
+            void loadObjects(Renderer &rdr);
 
         private:
             libconfig::Config _cfg;

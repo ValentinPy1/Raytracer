@@ -28,7 +28,7 @@ namespace render {
     class AEntity3D : public IEntity {
         public:
             virtual ~AEntity3D() = default;
-            virtual void selfInit(PluginManager &pm, libconfig::Settings settings) = 0;
+            virtual void selfInit(PluginManager &pm, libconfig::Settings &settings) = 0;
             void *getFunPtr(const std::string &name);
             void setFunPtr(const std::string &name, void *ptr);
         protected:

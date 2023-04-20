@@ -12,6 +12,7 @@
 #include "Sphere.hpp"
 #include "Plane.hpp"
 
+
 namespace render {
     ConfigLoader::ConfigLoader()
     {
@@ -68,6 +69,18 @@ namespace render {
         }
     }
 
+    void ConfigLoader::loadObjects(Renderer &rdr)
+    {
+        const libconfig::Setting &objects = _cfg.lookup("objects");
+        const libconfig::Setting &objectsValue = objects.lookup("objects");
+        for (int i = 0; i < objectsValue.getLength(); i++) {
+            libconfig::Setting &args = objectsValue[i].lookup("args");
+            APluginPrimitive *obj;
+            obj->selfInit(args);
+            // free(obj);
+        }
+    }
+
     void ConfigLoader::loadConfigFile(std::string path, Renderer &rdr)
     {
         try {
@@ -83,6 +96,7 @@ namespace render {
 
         loadCamera(rdr);
         loadPlugins(rdr);
+        loadObjects(rdr);
         // libconfig::Setting &objects = _cfg.lookup("objects");
         // std::cout << "Objects: " << objects.getLength() << std::endl;
 
