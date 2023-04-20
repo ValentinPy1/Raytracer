@@ -5,6 +5,9 @@
 ** Wrapper.gl.cpp
 */
 
+#include "Render.hpp"
+#include "PluginManager.hpp"
+#include "plugins/PluginShader.gl.hpp"
 #include "plugins/Wrapper.gl.hpp"
 
 namespace ogl {
@@ -30,7 +33,7 @@ namespace ogl {
     void Wrapper_gl::initWrapper_gl(render::Renderer &rdr)
     {
         try {
-            _opengl = dynamic_cast<render::PluginOpenGL *>(rdr.getPluginManager().require("OpenGL"));
+            _opengl = dynamic_cast<ogl::PluginOpenGL *>(rdr.getPluginManager().require("OpenGL"));
         } catch (const std::exception &e) {
             std::cerr << e.what() << std::endl;
             throw std::runtime_error("OpenGL plugin not found");
@@ -38,30 +41,19 @@ namespace ogl {
         buildShaders(rdr);
     }
 
+
     void Wrapper_gl::buildShaders(render::Renderer &rdr)
     {
         std::vector<PluginShader *> shaders;
-
+        auto endsWith = [](const std::string &str, const std::string &suffix) {
+            return str.size() >= suffix.size() and
+                   str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
+        };
         for (auto &plugin : rdr.getPluginManager().getPlugins()) {
-            if (!(plugin->getName().ends_with("_gl") or plugin->getName().ends_with(".gl")))
+            if (!(endsWith(plugin.getName(), "_gl") or endsWith(plugin.getName(), ".gl")))
                 continue;
-            auto tmp = dynamic_cast<render::PluginShader *>(plugin);
-            if (tmp)
-                shaders.push_back(tmp);
-        }
-        std::sort(plugins.begin(), plugins.end(), [](IPlugin *a, IPlugin *b) {
-            return a->getPriority() < b->getPriority();
-        });
-        for (auto &plugin : shaders) {
-            _opengl.registerShader(*plugin);
         }
 
-        std::vector <std::string> shaderNames;
-        for (auto &plugin : shaders) {
-            shaderNames.push_back(plugin->getName());
-        }
-        opgl.registerProgram("renderPipeline.gl", shaderNames);
-        opgl.useProgram("renderPipeline.gl");
     }
 }
 
