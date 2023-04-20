@@ -5,7 +5,7 @@
 ** Wrapper.v.cpp
 */
 
-#include "plugins/Wrapper.v.hpp"
+#include "Wrapper.v.hpp"
 #include "Ray.hpp"
 
 namespace vanille {
@@ -59,9 +59,6 @@ namespace vanille {
 
     void Wrapper_v::render() const
     {
-        //  _logs.log("Rendering scene...");
-        // clock_t start = clock();
-
         render::Camera &camera = _rdr->getCamera();
         sf::Image &captor = camera.getCaptor();
         std::vector<render::Ray> rays = camera.getRays();
@@ -77,11 +74,6 @@ namespace vanille {
         }
 
         postProcess();
-
-        // _logs.log("Scene rendered, saving picture...");
-        // camera.getCaptor().saveToFile("rendered.png");
-        // _logs.log("Picture saved");
-        // std::cout << "\nDone rendering in " << (clock() - start) / (double) CLOCKS_PER_SEC << "s" << std::endl;
     }
 
     void Wrapper_v::run(render::Renderer &rdr)
