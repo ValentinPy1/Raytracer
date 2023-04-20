@@ -50,8 +50,10 @@ namespace ogl {
                    str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
         };
         for (auto &plugin : rdr.getPluginManager().getPlugins()) {
-            if (!(endsWith(plugin.getName(), "_gl") or endsWith(plugin.getName(), ".gl")))
+            if (!(endsWith(plugin->getName(), "_gl") or endsWith(plugin->getName(), ".gl")))
                 continue;
+            auto shader = dynamic_cast<PluginShader *>(plugin.get());
+
         }
 
     }
