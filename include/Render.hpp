@@ -74,7 +74,7 @@ namespace render {
      */
     class Camera {
     public:
-        Camera(float focalPoint, int captorWidth, int captorHeight, const sf::Vector3f &position, const sf::Vector3f &rotation);
+        Camera(float focalPoint = 10, int captorWidth = 0, int captorHeight = 0, const sf::Vector3f &position = sf::Vector3f(0, 0, 0), const sf::Vector3f &rotation = sf::Vector3f(0, 0, 0));
         ~Camera() = default;
 
         /**
@@ -112,7 +112,48 @@ namespace render {
          */
         std::vector<render::Ray> &getRays();
 
+        /**
+         * @brief Sets the position of the camera in the 3D space.
+         *
+         * @param position
+         */
+        void setPosition(const sf::Vector3f &position);
+
+        /**
+         * @brief Sets the rotation of the camera in the 3D space.
+         *
+         * @param rotation
+         */
+        void setRotation(const sf::Vector3f &rotation);
+
+        /**
+         * @brief Sets the focal point of the camera.
+         *
+         * @param focalPoint
+         */
+        void setFocalPoint(float focalPoint);
+
+        /**
+         * @brief Sets the size of the captor in world unit.
+         *
+         * @param size
+         */
+        void setCaptorSize(const sf::Vector2i &size);
+
+        /**
+         * @brief Sets the focal scale of the world.
+         *
+         * @param scale
+         */
+        void setScale(float scale);
+
     private:
+        /**
+         * @brief Generates the rays from the focal point to the captor.
+         *
+         */
+        void generateRays();
+
         /**
          * @brief Computes the position of the focal point from the specified
          * focal distance and the position of the camera.
@@ -175,7 +216,6 @@ namespace render {
         public:
             Renderer(int lightSamples = 10, int imSide = 1000, int focalPoint = 50);
             ~Renderer() = default;
-
             /**
              * @brief returns all the objects in the scene, without the lights.
              *
@@ -254,7 +294,23 @@ namespace render {
              */
             void init();
 
-             /**
+
+            /**
+            * @brief Sets the position of the camera in the 3D space.
+            *
+            * @param position
+            */
+            void setCamera(Camera &camera);
+
+
+            /**
+             * @brief Adds an object to the scene.
+             *
+             * @param object
+             */
+            void pushObject(std::shared_ptr<render::IObject> object);
+
+            /**
              * @brief Returns a reference to the renderer's plugin manager.
              *
              * @return PluginManager&

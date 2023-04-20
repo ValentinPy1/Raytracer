@@ -22,6 +22,7 @@ namespace render {
 
     DLLoader::~DLLoader() {
         for (auto &handle : _libHandles) {
+            std::cout << "Closing " << handle.first << std::endl;
             dlclose(handle.second);
         }
         _libHandles.clear();

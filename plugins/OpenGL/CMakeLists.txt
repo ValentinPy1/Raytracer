@@ -67,6 +67,7 @@ set_target_properties(
 target_link_libraries(PluginSpherePrimitive.gl glfw)
 target_link_libraries(PluginSpherePrimitive.gl OpenGL::GL)
 
+
 add_library(
     Wrapper.gl SHARED
     Wrapper.gl.cpp
@@ -76,3 +77,8 @@ add_library(
 )
 
 target_link_libraries(Wrapper.gl -lconfig++ PluginOpenGL.gl)
+
+add_custom_command(TARGET PluginSpherePrimitive.gl POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy $<TARGET_FILE:PluginSpherePrimitive.gl> ${CMAKE_CURRENT_SOURCE_DIR}/../
+)
+
