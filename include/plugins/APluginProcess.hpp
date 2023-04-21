@@ -1,17 +1,16 @@
 /*
 ** EPITECH PROJECT, 2022
-** ray
+** raytracer
 ** File description:
-** PluginPrimitive.hpp
+** APluginProcess.hpp
 */
 
-#ifndef PLUGINPRIMITIVE_HPP
-    #define PLUGINPRIMITIVE_HPP
-    #include <libconfig.h++>
-    #include "PluginManager.hpp"
+#pragma once
+
+#include "PluginManager.hpp"
 
 namespace render {
-    class APluginPrimitive : public virtual Plugin {
+    class APluginProcess : public virtual Plugin {
         public:
             virtual void selfInit(libconfig::Setting setting) = 0;
         protected:
@@ -21,5 +20,3 @@ namespace render {
             int _priority;
     };
 }
-
-#endif // PLUGINPRIMITIVE_HPP
