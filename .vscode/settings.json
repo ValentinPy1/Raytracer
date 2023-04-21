@@ -90,6 +90,7 @@
         "__nullptr": "cpp",
         "__string": "cpp",
         "filesystem": "cpp",
-        "csignal": "cpp"
+        "csignal": "cpp",
+        "*.h++": "cpp"
     }
 }

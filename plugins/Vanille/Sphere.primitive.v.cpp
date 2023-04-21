@@ -15,6 +15,7 @@
 namespace vanille {
     SpherePrimitive_v::SpherePrimitive_v() : render::APluginPrimitive()
     {
+        _priority = 0;
         _origin = sf::Vector3f(0, 0, 0);
         _radius = 1;
         _processRay = [this](render::Ray &ray, const render::Renderer &rdr) -> render::Ray & {
