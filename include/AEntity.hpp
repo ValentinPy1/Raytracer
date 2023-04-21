@@ -15,10 +15,13 @@
 #include <functional>
 #include "ConfigLoader.hpp"
 #include "PluginManager.hpp"
+#include "plugins/IPrimitive.hpp"
 
 namespace render {
     class Entity {
         public:
+            Entity();
+            void setPrimitive(IPrimitive *primitive);
             void setPlugin(std::shared_ptr<IPlugin> plugin);
 
             template <typename P>
@@ -32,5 +35,6 @@ namespace render {
             }
         private:
             std::vector<std::shared_ptr<IPlugin>> _plugins;
+            std::shared_ptr<IPrimitive> _primitive;
     };
 } // namespace render

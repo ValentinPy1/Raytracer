@@ -262,7 +262,7 @@ namespace ogl {
 
     void PluginOpenGL::registerProgram(
         const std::string &programName,
-        std::initializer_list<std::string> shaderNames)
+        std::vector<std::string> shaderNames)
     {
         std::vector<std::shared_ptr<Shader>> shaders;
         for (auto &shaderName : shaderNames) {

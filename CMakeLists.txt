@@ -19,6 +19,7 @@ add_executable (
     src/Plugin.cpp
     src/DLLoader.cpp
     src/ConfigLoader.cpp
+    src/Entity.cpp
 )
 target_link_libraries(
     ray

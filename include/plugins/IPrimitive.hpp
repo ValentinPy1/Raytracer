@@ -11,7 +11,7 @@
     #include "PluginManager.hpp"
 
 namespace render {
-    class APluginPrimitive : public virtual Plugin {
+    class IPrimitive {
         public:
             virtual void selfInit(libconfig::Setting &setting) = 0;
     };

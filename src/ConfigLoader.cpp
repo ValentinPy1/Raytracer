@@ -11,8 +11,7 @@
 
 #include "Sphere.hpp"
 #include "Plane.hpp"
-
-
+#include <iostream>
 namespace render {
     ConfigLoader::ConfigLoader()
     {
@@ -64,7 +63,7 @@ namespace render {
             plugin.lookupValue("path", path);
             plugin.lookupValue("name", name);
             path = path + _mode + ".so";
-            std::cout << "path: " << path << std::endl;
+            // std::cout << "path: " << path << std::endl;
             _pluginManager.loadPlugin(path, name);
         }
     }
@@ -73,10 +72,27 @@ namespace render {
     {
         const libconfig::Setting &objects = _cfg.lookup("objects");
         const libconfig::Setting &objectsValue = objects.lookup("objects");
+        bool wasError = false;
         for (int i = 0; i < objectsValue.getLength(); i++) {
-            libconfig::Setting &args = objectsValue[i].lookup("args");
-            APluginPrimitive *obj;
-            obj->selfInit(args);
+            try {
+                libconfig::Setting &args = objectsValue[i].lookup("args");
+                libconfig::Setting &primitive = objectsValue[i].lookup("primitive");
+                std::string name = primitive;
+                name = name + _mode;
+                name = _path + name + ".so";
+                IPrimitive *obj = _loader.loadInstance<IPrimitive>(primitive, name);
+                obj->selfInit(args);
+            } catch (std::exception &e) {
+                wasError = true;
+                std::cerr << "Failed to load object: " << e.what() << std::endl;
+            }
+        }
+        if (wasError) {
+            char tmp = '\0';
+            std::cout << "There has been errors loading the objects. Continue anyway? (y/n)" << std::endl;
+            std::cin >> tmp;
+            if (tmp != 'y')
+                exit(84);
         }
     }
 

@@ -28,6 +28,18 @@ add_library (
 #     Sphere.primitive.v.cpp
 # )
 
+# add_librairie (
+#     Lighting.process.v SHARED
+#     ${COMMON_SRC}
+#     Lighting.process.v.cpp
+# )
+
+# add_library (
+#     Flat.texture.v SHARED
+#     ${COMMON_SRC}
+#     Flat.texture.v.cpp
+# )
+
 target_link_libraries(
     pluginWrapper.v
     -lm -lpthread -lsfml-graphics -lsfml-window -lsfml-system

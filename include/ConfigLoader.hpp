@@ -16,7 +16,8 @@
 #include <functional>
 #include "Render.hpp"
 #include "PluginManager.hpp"
-#include "plugins/APluginPrimitive.hpp"
+#include "plugins/IPrimitive.hpp"
+#include "PluginManager.hpp"
 namespace render {
     class Renderer;
     class ConfigLoader
@@ -34,5 +35,7 @@ namespace render {
             std::string _mode;
             PluginManager _pluginManager;
             std::string current_plugin;
+            DLLoader _loader;
+            std::string _path = "./plugins/";
     };
 }
