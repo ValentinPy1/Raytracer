@@ -4,10 +4,14 @@ layout (std140, binding = 1) buffer ObjectsBlock {
     int type;
     vec3 args[];
 } objectsBlock;
+uniform vec3 focalPoint;
+out vec3 rayDir;
+
 
 void main()
 {
     // gl_Position is a special variable used to store the final position,
     // outputed by the vertex shader.
-    gl_Position = vec4(objectsBlock.args[0].x, objectsBlock.args[0].y, objectsBlock.args[0].z, 1.0);
+    rayDir = normalize(aPos - focalPoint);
+    gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);
 }

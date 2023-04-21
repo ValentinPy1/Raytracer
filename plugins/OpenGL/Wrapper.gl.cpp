@@ -41,10 +41,10 @@ namespace ogl {
         buildShaders(rdr);
     }
 
-
     void Wrapper_gl::buildShaders(render::Renderer &rdr)
     {
-        std::vector<PluginShader *> shaders;
+        std::vector<std::string> shaderNames;
+
         auto endsWith = [](const std::string &str, const std::string &suffix) {
             return str.size() >= suffix.size() and
                    str.compare(str.size() - suffix.size(), suffix.size(), suffix) == 0;
@@ -53,9 +53,19 @@ namespace ogl {
             if (!(endsWith(plugin->getName(), "_gl") or endsWith(plugin->getName(), ".gl")))
                 continue;
             auto shader = dynamic_cast<PluginShader *>(plugin.get());
-
+            if (shader == nullptr or shader->getPriority() < 0)
+                continue;
+            _shaders.push_back(shader);
         }
-
+        std::sort(_shaders.begin(), _shaders.end(), [](PluginShader *a, PluginShader *b) {
+            return a->getPriority() > b->getPriority();
+        });
+        for (auto &shader : _shaders) {
+            shaderNames.push_back(shader->getName());
+            _opengl->registerShader(*shader);
+        }
+        _opengl->registerProgram("render", shaderNames);
+        _opengl->useProgram("render");
     }
 }
 
