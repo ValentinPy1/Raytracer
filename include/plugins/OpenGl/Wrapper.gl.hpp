@@ -5,6 +5,7 @@
 ** Wrapper.gl.hpp
 */
 
+#include "PluginOpenGL.hpp"
 #include "PluginManager.hpp"
 #include "Wrapper.hpp"
 
@@ -18,6 +19,7 @@ namespace ogl {
         private:
             void initWrapper_gl(render::Renderer &rdr);
             void buildShaders(render::Renderer &rdr);
-            render::PluginOpenGL *_opengl = nullptr;
+            ogl::PluginOpenGL *_opengl = nullptr;
+            std::map<int, std::string> _shaderPaths;
     };
 }

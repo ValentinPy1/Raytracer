@@ -17,7 +17,7 @@ namespace ogl {
             SpherePrimitive_gl();
             ~SpherePrimitive_gl();
             void initSpherePrimitive_gl(render::Renderer &rdr);
-            void selfInit(libconfig::Setting setting) override;
+            void selfInit(libconfig::Setting &setting) override;
         private:
             render::init_t _init = nullptr;
             render::processRay_t _processRay = nullptr;

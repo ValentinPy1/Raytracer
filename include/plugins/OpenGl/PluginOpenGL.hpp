@@ -101,6 +101,18 @@ namespace ogl {
                     size_t _size;
             };
 
+            class SSBO {
+                public:
+                    SSBO(const size_t size, GLenum usage);
+                    ~SSBO();
+                    GLuint getId() const;
+                    void bind(GLuint bindingIndex = 0);
+                    void setData(const size_t size, void *data);
+                private:
+                    GLuint _id;
+                    size_t _size;
+            };
+
             PluginOpenGL();
             ~PluginOpenGL();
             /**
@@ -170,14 +182,21 @@ namespace ogl {
             std::shared_ptr<ShaderProgram> getProgram(const std::string &programName);
             GLuint createBuffer();
             void bindBuffer(GLuint id);
+            void setBufferData(size_t size, void *data, int usage);
+
             GLuint createVertexArray();
             void bindVertexArray(GLuint id);
-            void setUniform3f(const std::string &uniformName, const std::string &progName, float x, float y, float z);
-            void setBufferData(size_t size, void *data, int usage);
             void setVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer);
-            GLuint createUniformBuffer(size_t size, GLenum usage);
+
+            void setUniform3f(const std::string &uniformName, const std::string &progName, float x, float y, float z);
+
+            GLuint createUniformBuffer(size_t size, GLenum usage = GL_DYNAMIC_DRAW);
             void bindUniformBuffer(GLuint id);
             void setUniformBufferData(size_t size, void *data, GLuint bufferIndex, GLuint uboId, const std::string &uboName, const std::string &programName);
+
+            GLuint createShaderStorageBuffer(size_t size, GLenum usage = GL_DYNAMIC_DRAW);
+            void bindShaderStorageBuffer(GLuint id, GLuint bindingIndex = 0);
+            void setShaderStorageBufferData(size_t size, void *data, GLuint bufferIndex, GLuint ssboId, const std::string &ssboName, const std::string &programName);
 
         private:
             /**
@@ -204,6 +223,7 @@ namespace ogl {
             std::map<GLuint, std::shared_ptr<VAO>> _vaoMap;
             std::map<GLuint, std::shared_ptr<VBO>> _vboMap;
             std::map<GLuint, std::shared_ptr<UBO>> _uboMap;
+            std::map<GLuint, std::shared_ptr<SSBO>> _ssboMap;
     };
 }
 

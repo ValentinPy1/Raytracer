@@ -34,7 +34,7 @@ namespace ogl {
 
     }
 
-    void SpherePrimitive_gl::selfInit(libconfig::Setting setting)
+    void SpherePrimitive_gl::selfInit(libconfig::Setting &setting)
     {
     }
 }

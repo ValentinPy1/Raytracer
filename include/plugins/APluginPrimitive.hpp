@@ -13,7 +13,7 @@
 namespace render {
     class APluginPrimitive : public virtual Plugin {
         public:
-            virtual void selfInit(libconfig::Setting setting) = 0;
+            virtual void selfInit(libconfig::Setting &setting) = 0;
         protected:
             render::init_t _init = nullptr;
             render::processRay_t _processRay = nullptr;

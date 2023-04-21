@@ -17,21 +17,20 @@
 #include "PluginManager.hpp"
 
 namespace render {
-    class IEntity {
+    class Entity {
         public:
-            virtual ~IEntity() = default;
-            virtual void selfInit(PluginManager &pm) = 0;
-            virtual void *getFunPtr(const std::string &name) = 0;
-            virtual void setFunPtr(const std::string &name, void *ptr) = 0;
-    };
+            void setPlugin(std::shared_ptr<IPlugin> plugin);
 
-    class AEntity3D : public IEntity {
-        public:
-            virtual ~AEntity3D() = default;
-            virtual void selfInit(PluginManager &pm, libconfig::Settings settings) = 0;
-            void *getFunPtr(const std::string &name);
-            void setFunPtr(const std::string &name, void *ptr);
-        protected:
-            std::map<std::string, void *> _funPtrs;
+            template <typename P>
+            std::shared_ptr<P> getPlugin(const std::string &name) {
+                for (auto &plugin : _plugins) {
+                    if (plugin->getName() == name) {
+                        return std::dynamic_pointer_cast<P>(plugin);
+                    }
+                }
+                return nullptr;
+            }
+        private:
+            std::vector<std::shared_ptr<IPlugin>> _plugins;
     };
 } // namespace render
