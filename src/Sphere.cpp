@@ -41,7 +41,6 @@ bool render::Sphere::solve(render::Ray &ray)
     return true;
 }
 
-
 sf::Vector3f render::Sphere::getNormal(const sf::Vector3f &point) const
 {
     return (point - _origin) / _radius;

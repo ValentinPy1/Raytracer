@@ -20,6 +20,6 @@ namespace ogl {
             void initWrapper_gl(render::Renderer &rdr);
             void buildShaders(render::Renderer &rdr);
             ogl::PluginOpenGL *_opengl = nullptr;
-            std::map<int, std::string> _shaderPaths;
+            std::vector<PluginShader *> _shaders;
     };
 }

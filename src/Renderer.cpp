@@ -193,4 +193,14 @@ namespace render {
     {
         return _pluginManager;
     }
+
+    void Renderer::addEntity(std::shared_ptr<Entity> en)
+    {
+        _entities.push_back(en);
+    }
+
+    std::vector<std::shared_ptr<Entity>> Renderer::getEntities(std::vector<std::shared_ptr<Entity>> &entities) const
+    {
+        return _entities;
+    }
 }

@@ -10,6 +10,7 @@
 #include <memory>
 #include <functional>
 #include <exception>
+#include <algorithm>
 #include "Render.hpp"
 #include "PluginManager.hpp"
 

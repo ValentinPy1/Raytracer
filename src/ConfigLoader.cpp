@@ -11,6 +11,7 @@
 
 #include "Sphere.hpp"
 #include "Plane.hpp"
+#include "AEntity.hpp"
 #include <iostream>
 namespace render {
     ConfigLoader::ConfigLoader()
@@ -74,6 +75,7 @@ namespace render {
         const libconfig::Setting &objectsValue = objects.lookup("objects");
         bool wasError = false;
         for (int i = 0; i < objectsValue.getLength(); i++) {
+            std::shared_ptr<Entity> en = std::make_shared<Entity>();
             try {
                 libconfig::Setting &args = objectsValue[i].lookup("args");
                 libconfig::Setting &primitive = objectsValue[i].lookup("primitive");
@@ -82,6 +84,9 @@ namespace render {
                 name = _path + name + ".so";
                 IPrimitive *obj = _loader.loadInstance<IPrimitive>(primitive, name);
                 obj->selfInit(args);
+                en->setPrimitive(obj);
+                // TODO load the texture as well
+                rdr.addEntity(en);
             } catch (std::exception &e) {
                 wasError = true;
                 std::cerr << "Failed to load object: " << e.what() << std::endl;

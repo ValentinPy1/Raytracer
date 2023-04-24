@@ -93,12 +93,11 @@ namespace ogl {
     {
         _size = size;
         callgl(glGenBuffers)(1, &_id);
-        bind();
-        setData(size, nullptr);
     }
 
     PluginOpenGL::SSBO::~SSBO()
     {
+
     }
 
     GLuint PluginOpenGL::SSBO::getId() const
@@ -106,15 +105,15 @@ namespace ogl {
         return _id;
     }
 
-    void PluginOpenGL::SSBO::bind(GLuint bindingIndex)
+    void PluginOpenGL::SSBO::bind(GLuint bindingIndex, GLuint offset, size_t size)
     {
-        callgl(glBindBufferRange)(GL_SHADER_STORAGE_BUFFER, bindingIndex, _id, 0, _size);
+        callgl(glBindBufferRange)(GL_SHADER_STORAGE_BUFFER, bindingIndex, _id, offset, size);
     }
 
-    void PluginOpenGL::SSBO::setData(const size_t size, void *data)
+    void PluginOpenGL::SSBO::setData(size_t size, GLuint bindingIndex, void *data, GLenum usage)
     {
-        bind();
-        callgl(glBufferData)(GL_SHADER_STORAGE_BUFFER, size, data, GL_DYNAMIC_DRAW);
+        callgl(glBufferData)(GL_SHADER_STORAGE_BUFFER, size, data, usage);
+        callgl(glBindBufferBase)(GL_SHADER_STORAGE_BUFFER, bindingIndex, _id);
     }
 
     // SHADERS
@@ -189,6 +188,7 @@ namespace ogl {
         try {
             terminate();
         } catch (std::exception &e) {
+            std::cerr << "Error while attempting to close the window: " << e.what() << std::endl;
         }
     }
 
@@ -204,7 +204,7 @@ namespace ogl {
         if (!glfwInit())
             throw std::runtime_error("Failed to init glfw");
 
-        _window = std::shared_ptr<GLFWwindow>(glfwCreateWindow(640, 480, "opgl_plugin", NULL, NULL), [](GLFWwindow *window) {
+        _window = std::shared_ptr<GLFWwindow>(glfwCreateWindow(600, 600, "opgl_plugin", NULL, NULL), [](GLFWwindow *window) {
             glfwDestroyWindow(window);
         });
         if (_window.get() == nullptr) {
@@ -314,6 +314,12 @@ namespace ogl {
         callgl(glUniform3f)(loc, x, y, z);
     }
 
+    void PluginOpenGL::setUniform2f(const std::string &uniformName, const std::string &progName, float x, float y) {
+        GLuint progId = getProgram(progName)->id;
+        GLuint loc = callgl(glGetUniformLocation)(progId, uniformName.c_str());
+        callgl(glUniform2f)(loc, x, y);
+    }
+
     void PluginOpenGL::setBufferData(size_t size, void *data, int usage)
     {
         callgl(glBufferData)(GL_ARRAY_BUFFER, size, data, usage);
@@ -355,20 +361,14 @@ namespace ogl {
         return ssbo->getId();
     }
 
-    void PluginOpenGL::bindShaderStorageBuffer(GLuint id, GLuint bufferIndex)
+    void PluginOpenGL::bindShaderStorageBuffer(GLuint id, GLuint bindingIndex, GLuint offset, size_t size)
     {
-        _ssboMap[id]->bind(bufferIndex);
+        _ssboMap[id]->bind(bindingIndex, offset, size);
     }
 
-    void PluginOpenGL::setShaderStorageBufferData(size_t size, void *data, GLuint bufferIndex, GLuint ssboId, const std::string &ssboName, const std::string &programName)
+    void PluginOpenGL::setShaderStorageBufferData(GLuint id, size_t size, GLuint bindingIndex, void *data, GLenum usage)
     {
-        void *buffPtr = callgl(glMapBuffer)(GL_SHADER_STORAGE_BUFFER, GL_WRITE_ONLY);
-        GLuint programId = getProgram(programName)->id;
-        memcpy(buffPtr, data, size);
-
-        callgl(glBindBufferBase)(GL_SHADER_STORAGE_BUFFER, bufferIndex, ssboId);
-        int uniformIndex = callgl(glGetProgramResourceIndex)(programId, GL_SHADER_STORAGE_BLOCK, ssboName.c_str());
-        callgl(glShaderStorageBlockBinding)(programId, uniformIndex, bufferIndex);
+        _ssboMap[id]->setData(size, bindingIndex, data, usage);
     }
 }
 

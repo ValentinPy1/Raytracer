@@ -15,6 +15,7 @@
     #include <mutex>
     #include "Pipeline.hpp"
     #include "Light.hpp"
+    #include "AEntity.hpp"
     #include "PluginManager.hpp"
 
 namespace render {
@@ -316,6 +317,20 @@ namespace render {
              * @return PluginManager&
              */
             PluginManager &getPluginManager();
+
+            /**
+             * @brief registers an entity in the scene.
+             *
+             */
+            void addEntity(std::shared_ptr<Entity>);
+
+            /**
+             * @brief Returns the vector containing all the entities of the scene.
+             *
+             * @param entities
+             */
+            std::vector<std::shared_ptr<Entity>> getEntities(std::vector<std::shared_ptr<Entity>> &entities) const;
+
         private:
             /**
              * @brief Processes a ray and returns the color of the object it hits.
@@ -367,7 +382,7 @@ namespace render {
              * @brief The plugin manager that will load all the plugins.
              *
              */
-            PluginManager _pluginManager;
+            PluginManager _pluginManager = PluginManager();
 
             /**
              * @brief The progress of the rendering. This value is incremented
@@ -432,6 +447,12 @@ namespace render {
              *
              */
             std::mutex _mutex;
+
+            /**
+             * @brief A list of all the entities of the scene.
+             *
+             */
+            std::vector<std::shared_ptr<Entity>> _entities;
     };
 }
 

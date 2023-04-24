@@ -13,10 +13,10 @@
 int main()
 {
     // CREATING THE VERTEX VALUES
-    float vertices[640 * 480 * 3];
+    int h = 600;
+    int w = 600;
+    float vertices[w * h * 3];
 
-    int h = 480;
-    int w = 640;
     int index = 0;
     for(float i = -h / 2.0 ; i < h / 2.0; i++) {
         for(float j = -w / 2.0; j < w / 2.0; j++) {
@@ -25,21 +25,16 @@ int main()
             vertices[index++] = 0; // z coordinate
         }
     }
-
-    std::cout << "wrote vertices" << std::endl;
     struct vec3 {
         float x;
         float y;
         float z;
     };
     struct Objects {
-        int type;
         struct vec3 pos[1];
     };
 
-    struct Objects arr[] = {
-        {0,  {(struct vec3){0.0f, 0.0f, 0.0f}}}
-    };
+    struct vec3 arr[1] = {{(struct vec3){0.7f, 0.0f, 0.0f}}};
 
     // COMPILING THE SHADERS
     ogl::PluginOpenGL opgl;
@@ -53,18 +48,34 @@ int main()
     glfwMakeContextCurrent(opgl.getWindow());
     GLuint VBO = opgl.createBuffer();
     opgl.bindBuffer(VBO);
-    GLuint SSBO = opgl.createShaderStorageBuffer(sizeof(arr));
-    opgl.bindShaderStorageBuffer(SSBO);
-
-    // FILLING IN THE OBJECTS DATA
-    opgl.setShaderStorageBufferData(sizeof(arr), arr, 0, SSBO, "ObjectsBlock", "render");
+    // GLuint SSBO = opgl.createShaderStorageBuffer(sizeof(arr));
 
     // FILLING IN THE VERTEX DATA
+    opgl.bindBuffer(VBO);
     opgl.setBufferData(sizeof(vertices), vertices, GL_STATIC_DRAW);
     opgl.setVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), vertices);
 
+    // adding the lights
+    struct Light {
+        struct vec3 position;
+        struct vec3 color;
+        float radius;
+    };
+
+    struct Light lights[1] = {{(struct vec3){0.0f, 0.1f, 0.0f}, (struct vec3){1.0f, 1.0f, 1.0f}, 1.0f}};
+    GLuint bindingPoint = 2;
+    GLuint sslights = opgl.createShaderStorageBuffer(sizeof(lights), GL_DYNAMIC_COPY);
+    opgl.bindShaderStorageBuffer(sslights, bindingPoint, 0, sizeof(lights));
+    opgl.setShaderStorageBufferData(sslights, sizeof(lights), bindingPoint, lights, GL_DYNAMIC_COPY);
+
+    // adding the objects
+    GLuint ssbo = opgl.createShaderStorageBuffer(sizeof(arr), GL_DYNAMIC_COPY);
+    opgl.bindShaderStorageBuffer(ssbo, 1, 0, sizeof(arr));
+    opgl.setShaderStorageBufferData(ssbo, sizeof(arr), 1, arr, GL_DYNAMIC_COPY);
+
     //SETTING UP THE UNIFORMS
-    opgl.setUniform3f("focalPoint", "render", 0.0f, 0.0f, -10.0f);
+    opgl.setUniform3f("focalPoint", "render", 0.0f, 0.0f, -1.0f);
+    opgl.setUniform2f("u_resolution", "render", w, h);
 
     // DRAWING
     glDrawArrays(GL_POINTS, 0, sizeof(vertices) / sizeof(float) / 3);
