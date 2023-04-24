@@ -13,11 +13,12 @@
 #include "operations.hpp"
 
 namespace vanille {
-    SpherePrimitive_v::SpherePrimitive_v()
+    SpherePrimitive_v::SpherePrimitive_v() : render::IPrimitive(), render::APlugin()
     {
-        _priority = 0;
         _origin = sf::Vector3f(0, 0, 0);
         _radius = 1;
+        _name = "SpherePrimitive_v";
+        _priority = 0;
         _processRay = [this](render::Ray &ray, const render::Renderer &rdr) -> render::Ray & {
             return processRay(ray, rdr);
         };
@@ -57,7 +58,7 @@ namespace vanille {
 }
 
 extern "C" {
-    render::Plugin *entryPoint() {
+    render::APlugin *entryPoint() {
         return new vanille::SpherePrimitive_v();
     }
 }

@@ -19,7 +19,7 @@
 // }
 
 namespace vanille {
-    class SpherePrimitive_v : public render::IPrimitive, public APlugin {
+    class SpherePrimitive_v : public render::IPrimitive, public render::APlugin {
         public:
             SpherePrimitive_v();
             ~SpherePrimitive_v();
