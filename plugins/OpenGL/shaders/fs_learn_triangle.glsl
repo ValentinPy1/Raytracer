@@ -1,7 +1,6 @@
 #version 430 core
 out vec4 FragColor;
 layout (std140, binding = 1) buffer ObjectsBlock {
-    int type;
     vec3 args[];
 } objectsBlock;
 uniform vec3 focalPoint;
@@ -29,20 +28,18 @@ float solveSphere(vec3 orig, vec3 dir, Sphere sphere)
     return t;
 }
 
-// float findClosestIntersectionAndSetColor(vec3 orig, vec3 dir) {
-//     float min = -1;
-
-//     // for (int i = 0; i < objectsBlock)
-// }
-
 void main()
 {
-    // Sphere sphere = Sphere(objectsBlock.args[0], 0.5);
 
-    // if (solveSphere(focalPoint, rayDir, sphere) > 0.0) {
-    //     FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
-    // } else {
-    //     FragColor = vec4(0.0f, 0.0f, 0.0f, 1.0f);
-    // }
-    // findClosestIntersectionAndSetColor(focalPoint, rayDir);
+
+    // Sphere sphere = Sphere(vec3(0.7, 0.0, 0.0), 0.5);
+
+    // Sphere sphere = Sphere(objectsBlock.args[0].xyz, 0.5);
+    Sphere sphere = Sphere(objectsBlock.args[0], 0.5);
+
+    if (solveSphere(focalPoint, rayDir, sphere) > 0.0) {
+        FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
+    } else {
+        FragColor = vec4(0.0f, 0.0f, 0.0f, 1.0f);
+    }
 }

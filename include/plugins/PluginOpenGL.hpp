@@ -152,7 +152,7 @@ namespace ogl {
              * @param programName
              * @param shaderNames
              */
-            void registerProgram(const std::string &programName, std::initializer_list<std::string> shaderNames);
+            void registerProgram(const std::string &programName, std::vector<std::string> shaderNames);
 
             /**
              * @brief Start the program with the given name.

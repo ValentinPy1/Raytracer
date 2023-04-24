@@ -1,7 +1,6 @@
 #version 430 core
 layout (location = 0) in vec3 aPos;
 layout (std140, binding = 1) buffer ObjectsBlock {
-    int type;
     vec3 args[];
 } objectsBlock;
 uniform vec3 focalPoint;

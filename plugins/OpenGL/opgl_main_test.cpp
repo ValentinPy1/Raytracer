@@ -8,6 +8,7 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
+#include <cstring>
 #include "plugins/PluginOpenGL.hpp"
 
 int main()
@@ -33,13 +34,10 @@ int main()
         float z;
     };
     struct Objects {
-        int type;
         struct vec3 pos[1];
     };
 
-    struct Objects arr[] = {
-        {0,  {(struct vec3){0.0f, 0.0f, 0.0f}}}
-    };
+    struct vec3 arr[1] = {{(struct vec3){0.5f, 0.0f, 0.0f}}};
 
     // COMPILING THE SHADERS
     ogl::PluginOpenGL opgl;
@@ -53,18 +51,22 @@ int main()
     glfwMakeContextCurrent(opgl.getWindow());
     GLuint VBO = opgl.createBuffer();
     opgl.bindBuffer(VBO);
-    GLuint SSBO = opgl.createShaderStorageBuffer(sizeof(arr));
-    opgl.bindShaderStorageBuffer(SSBO);
-
-    // FILLING IN THE OBJECTS DATA
-    opgl.setShaderStorageBufferData(sizeof(arr), arr, 0, SSBO, "ObjectsBlock", "render");
+    // GLuint SSBO = opgl.createShaderStorageBuffer(sizeof(arr));
 
     // FILLING IN THE VERTEX DATA
+    opgl.bindBuffer(VBO);
     opgl.setBufferData(sizeof(vertices), vertices, GL_STATIC_DRAW);
     opgl.setVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), vertices);
 
+    // adding the objects
+    GLuint ssbo;
+    callgl(glCreateBuffers)(1, &ssbo);
+    callgl(glBindBuffer)(GL_SHADER_STORAGE_BUFFER, ssbo);
+    callgl(glBufferData)(GL_SHADER_STORAGE_BUFFER, sizeof(arr), arr, GL_DYNAMIC_COPY);
+    callgl(glBindBufferBase)(GL_SHADER_STORAGE_BUFFER, 1, ssbo);
+
     //SETTING UP THE UNIFORMS
-    opgl.setUniform3f("focalPoint", "render", 0.0f, 0.0f, -10.0f);
+    opgl.setUniform3f("focalPoint", "render", 0.0f, 0.0f, -1.0f);
 
     // DRAWING
     glDrawArrays(GL_POINTS, 0, sizeof(vertices) / sizeof(float) / 3);

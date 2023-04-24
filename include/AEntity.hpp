@@ -13,7 +13,6 @@
 #include <map>
 #include <memory>
 #include <functional>
-#include "ConfigLoader.hpp"
 #include "PluginManager.hpp"
 #include "plugins/IPrimitive.hpp"
 

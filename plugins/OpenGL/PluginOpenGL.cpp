@@ -108,7 +108,8 @@ namespace ogl {
 
     void PluginOpenGL::SSBO::bind(GLuint bindingIndex)
     {
-        callgl(glBindBufferRange)(GL_SHADER_STORAGE_BUFFER, bindingIndex, _id, 0, _size);
+        callgl(glBindBuffer)(GL_SHADER_STORAGE_BUFFER, bindingIndex);
+        // callgl(glBindBufferRange)(GL_SHADER_STORAGE_BUFFER, bindingIndex, _id, 0, _size);
     }
 
     void PluginOpenGL::SSBO::setData(const size_t size, void *data)
