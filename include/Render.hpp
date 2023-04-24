@@ -329,7 +329,7 @@ namespace render {
              *
              * @param entities
              */
-            void getEntities(std::vector<std::shared_ptr<Entity>> &entities);
+            std::vector<std::shared_ptr<Entity>> getEntities(std::vector<std::shared_ptr<Entity>> &entities) const;
 
         private:
             /**

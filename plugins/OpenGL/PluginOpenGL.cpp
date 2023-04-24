@@ -97,6 +97,7 @@ namespace ogl {
 
     PluginOpenGL::SSBO::~SSBO()
     {
+
     }
 
     GLuint PluginOpenGL::SSBO::getId() const
@@ -187,6 +188,7 @@ namespace ogl {
         try {
             terminate();
         } catch (std::exception &e) {
+            std::cerr << "Error while attempting to close the window: " << e.what() << std::endl;
         }
     }
 
@@ -202,7 +204,7 @@ namespace ogl {
         if (!glfwInit())
             throw std::runtime_error("Failed to init glfw");
 
-        _window = std::shared_ptr<GLFWwindow>(glfwCreateWindow(640, 480, "opgl_plugin", NULL, NULL), [](GLFWwindow *window) {
+        _window = std::shared_ptr<GLFWwindow>(glfwCreateWindow(600, 600, "opgl_plugin", NULL, NULL), [](GLFWwindow *window) {
             glfwDestroyWindow(window);
         });
         if (_window.get() == nullptr) {
@@ -310,6 +312,12 @@ namespace ogl {
         GLuint progId = getProgram(progName)->id;
         GLuint loc = callgl(glGetUniformLocation)(progId, uniformName.c_str());
         callgl(glUniform3f)(loc, x, y, z);
+    }
+
+    void PluginOpenGL::setUniform2f(const std::string &uniformName, const std::string &progName, float x, float y) {
+        GLuint progId = getProgram(progName)->id;
+        GLuint loc = callgl(glGetUniformLocation)(progId, uniformName.c_str());
+        callgl(glUniform2f)(loc, x, y);
     }
 
     void PluginOpenGL::setBufferData(size_t size, void *data, int usage)

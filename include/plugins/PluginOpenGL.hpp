@@ -106,8 +106,8 @@ namespace ogl {
                     SSBO(const size_t size, GLenum usage);
                     ~SSBO();
                     GLuint getId() const;
-                    void bind(GLuint bindingIndex = 0);
-                    void setData(const size_t size, void *data);
+                    void bind(GLuint bindingIndex, GLuint offset, size_t size);
+                    void setData(size_t size, GLuint bindingIndex, void *data, GLenum usage);
                 private:
                     GLuint _id;
                     size_t _size;
@@ -189,14 +189,16 @@ namespace ogl {
             void setVertexAttribPointer(GLuint index, GLint size, GLenum type, GLboolean normalized, GLsizei stride, const void *pointer);
 
             void setUniform3f(const std::string &uniformName, const std::string &progName, float x, float y, float z);
+            void setUniform2f(const std::string &uniformName, const std::string &progName, float x, float y);
 
             GLuint createUniformBuffer(size_t size, GLenum usage = GL_DYNAMIC_DRAW);
             void bindUniformBuffer(GLuint id);
             void setUniformBufferData(size_t size, void *data, GLuint bufferIndex, GLuint uboId, const std::string &uboName, const std::string &programName);
 
             GLuint createShaderStorageBuffer(size_t size, GLenum usage = GL_DYNAMIC_DRAW);
-            void bindShaderStorageBuffer(GLuint id, GLuint bindingIndex = 0);
-            void setShaderStorageBufferData(size_t size, void *data, GLuint bufferIndex, GLuint ssboId, const std::string &ssboName, const std::string &programName);
+            // void bindShaderStorageBuffer(GLuint id, GLuint bindingIndex = 0);
+            void bindShaderStorageBuffer(GLuint id, GLuint bindingIndex, GLuint offset, size_t size);
+            void setShaderStorageBufferData(GLuint id, size_t size, GLuint bindingIndex, void *data, GLenum usage);
 
         private:
             /**
