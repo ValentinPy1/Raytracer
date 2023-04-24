@@ -93,8 +93,6 @@ namespace ogl {
     {
         _size = size;
         callgl(glGenBuffers)(1, &_id);
-        bind();
-        setData(size, nullptr);
     }
 
     PluginOpenGL::SSBO::~SSBO()
@@ -106,16 +104,15 @@ namespace ogl {
         return _id;
     }
 
-    void PluginOpenGL::SSBO::bind(GLuint bindingIndex)
+    void PluginOpenGL::SSBO::bind(GLuint bindingIndex, GLuint offset, size_t size)
     {
-        callgl(glBindBuffer)(GL_SHADER_STORAGE_BUFFER, bindingIndex);
-        // callgl(glBindBufferRange)(GL_SHADER_STORAGE_BUFFER, bindingIndex, _id, 0, _size);
+        callgl(glBindBufferRange)(GL_SHADER_STORAGE_BUFFER, bindingIndex, _id, offset, size);
     }
 
-    void PluginOpenGL::SSBO::setData(const size_t size, void *data)
+    void PluginOpenGL::SSBO::setData(size_t size, GLuint bindingIndex, void *data, GLenum usage)
     {
-        bind();
-        callgl(glBufferData)(GL_SHADER_STORAGE_BUFFER, size, data, GL_DYNAMIC_DRAW);
+        callgl(glBufferData)(GL_SHADER_STORAGE_BUFFER, size, data, usage);
+        callgl(glBindBufferBase)(GL_SHADER_STORAGE_BUFFER, bindingIndex, _id);
     }
 
     // SHADERS
@@ -356,20 +353,14 @@ namespace ogl {
         return ssbo->getId();
     }
 
-    void PluginOpenGL::bindShaderStorageBuffer(GLuint id, GLuint bufferIndex)
+    void PluginOpenGL::bindShaderStorageBuffer(GLuint id, GLuint bindingIndex, GLuint offset, size_t size)
     {
-        _ssboMap[id]->bind(bufferIndex);
+        _ssboMap[id]->bind(bindingIndex, offset, size);
     }
 
-    void PluginOpenGL::setShaderStorageBufferData(size_t size, void *data, GLuint bufferIndex, GLuint ssboId, const std::string &ssboName, const std::string &programName)
+    void PluginOpenGL::setShaderStorageBufferData(GLuint id, size_t size, GLuint bindingIndex, void *data, GLenum usage)
     {
-        void *buffPtr = callgl(glMapBuffer)(GL_SHADER_STORAGE_BUFFER, GL_WRITE_ONLY);
-        GLuint programId = getProgram(programName)->id;
-        memcpy(buffPtr, data, size);
-
-        callgl(glBindBufferBase)(GL_SHADER_STORAGE_BUFFER, bufferIndex, ssboId);
-        int uniformIndex = callgl(glGetProgramResourceIndex)(programId, GL_SHADER_STORAGE_BLOCK, ssboName.c_str());
-        callgl(glShaderStorageBlockBinding)(programId, uniformIndex, bufferIndex);
+        _ssboMap[id]->setData(size, bindingIndex, data, usage);
     }
 }
 

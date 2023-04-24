@@ -37,7 +37,7 @@ int main()
         struct vec3 pos[1];
     };
 
-    struct vec3 arr[1] = {{(struct vec3){0.5f, 0.0f, 0.0f}}};
+    struct vec3 arr[1] = {{(struct vec3){0.7f, 0.0f, 0.0f}}};
 
     // COMPILING THE SHADERS
     ogl::PluginOpenGL opgl;
@@ -59,11 +59,15 @@ int main()
     opgl.setVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), vertices);
 
     // adding the objects
-    GLuint ssbo;
-    callgl(glCreateBuffers)(1, &ssbo);
-    callgl(glBindBuffer)(GL_SHADER_STORAGE_BUFFER, ssbo);
-    callgl(glBufferData)(GL_SHADER_STORAGE_BUFFER, sizeof(arr), arr, GL_DYNAMIC_COPY);
-    callgl(glBindBufferBase)(GL_SHADER_STORAGE_BUFFER, 1, ssbo);
+    // GLuint ssbo;
+    // callgl(glCreateBuffers)(1, &ssbo);
+    // callgl(glBindBufferRange)(GL_SHADER_STORAGE_BUFFER, 1, ssbo, 0, sizeof(arr));
+    // callgl(glBufferData)(GL_SHADER_STORAGE_BUFFER, sizeof(arr), arr, GL_DYNAMIC_COPY);
+    // callgl(glBindBufferBase)(GL_SHADER_STORAGE_BUFFER, 1, ssbo);
+
+    GLuint ssbo = opgl.createShaderStorageBuffer(sizeof(arr), GL_DYNAMIC_COPY);
+    opgl.bindShaderStorageBuffer(ssbo, 1, 0, sizeof(arr));
+    opgl.setShaderStorageBufferData(ssbo, sizeof(arr), 1, arr, GL_DYNAMIC_COPY);
 
     //SETTING UP THE UNIFORMS
     opgl.setUniform3f("focalPoint", "render", 0.0f, 0.0f, -1.0f);
