@@ -14,6 +14,7 @@ set(COMMON_SRC
     ../../src/PluginManager.cpp
     ../../src/Plugin.cpp
     ../../src/DLLoader.cpp
+    ../../src/Intercection.cpp
 )
 
 add_library (

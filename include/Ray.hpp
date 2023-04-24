@@ -11,6 +11,7 @@
     #include "AObject.hpp"
     #include "Render.hpp"
     #include "Light.hpp"
+    #include "plugins/IPrimitive.hpp"
 
 namespace render {
     class Ray;
@@ -19,11 +20,14 @@ namespace render {
     class Intersection {
         public:
             Intersection(AObject *interceptee, Ray &ray, float distance);
+            Intersection(Ray &ray, float distance);
             Intersection(const Intersection &other);
             ~Intersection() = default;
 
             Intersection &operator=(const Intersection &other);
 
+            Intersection &addNormal(IPrimitive *primitive);
+            Intersection &addColor(sf::Color color);
             float getDistance() const;
             bool isFacingCamera(const Camera &) const;
             sf::Vector3f getNormal() const;

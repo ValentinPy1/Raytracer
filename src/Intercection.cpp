@@ -20,11 +20,29 @@ namespace render {
         _normal = _interceptee->getNormal(_point);
     }
 
+    Intersection::Intersection(Ray &ray, float distance)
+        : _distance(distance), _ray(ray)
+    {
+        _point = _ray.getOrigin() + _ray.getDirection() * (_distance);
+    }
+
     Intersection::Intersection(const Intersection &other)
         : _distance(other._distance), _point(other._point),
         _normal(other._normal), _color(other._color),
         _ray(other._ray), _interceptee(other._interceptee)
     {
+    }
+
+    Intersection &Intersection::addNormal(IPrimitive *primitive)
+    {
+        _normal = primitive->getNormalAt(_point);
+        return *this;
+    }
+
+    Intersection &Intersection::addColor(sf::Color color)
+    {
+        _color = color;
+        return *this;
     }
 
     float Intersection::getDistance() const

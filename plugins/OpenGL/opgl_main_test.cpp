@@ -8,7 +8,7 @@
 #include <thread>
 #include <chrono>
 #include <iostream>
-#include "plugins/PluginOpenGL.hpp"
+#include "plugins/OpenGl/PluginOpenGL.hpp"
 
 int main()
 {

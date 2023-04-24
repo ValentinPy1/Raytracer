@@ -85,51 +85,6 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target list_install_components
-list_install_components:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
-.PHONY : list_install_components
-
-# Special rule for the target list_install_components
-list_install_components/fast: list_install_components
-.PHONY : list_install_components/fast
-
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target install/local
-install/local: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local
-
-# Special rule for the target install/local
-install/local/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
-	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
-.PHONY : install/local/fast
-
-# Special rule for the target install/strip
-install/strip: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip
-
-# Special rule for the target install/strip
-install/strip/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
-	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
-.PHONY : install/strip/fast
-
 # The main all target
 all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/vpy/delivery/2year/OOP/raytracer/CMakeFiles /home/vpy/delivery/2year/OOP/raytracer//CMakeFiles/progress.marks
@@ -225,97 +180,6 @@ Flat.texture.v: cmake_check_build_system
 Flat.texture.v/fast:
 	$(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/Flat.texture.v.dir/build.make plugins/Vanille/CMakeFiles/Flat.texture.v.dir/build
 .PHONY : Flat.texture.v/fast
-
-#=============================================================================
-# Target rules for targets named pluginOpenGL
-
-# Build rule for target.
-pluginOpenGL: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 pluginOpenGL
-.PHONY : pluginOpenGL
-
-# fast build rule for target.
-pluginOpenGL/fast:
-	$(MAKE) $(MAKESILENT) -f plugins/OpenGL/CMakeFiles/pluginOpenGL.dir/build.make plugins/OpenGL/CMakeFiles/pluginOpenGL.dir/build
-.PHONY : pluginOpenGL/fast
-
-#=============================================================================
-# Target rules for targets named PluginOpenGL.gl
-
-# Build rule for target.
-PluginOpenGL.gl: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 PluginOpenGL.gl
-.PHONY : PluginOpenGL.gl
-
-# fast build rule for target.
-PluginOpenGL.gl/fast:
-	$(MAKE) $(MAKESILENT) -f plugins/OpenGL/CMakeFiles/PluginOpenGL.gl.dir/build.make plugins/OpenGL/CMakeFiles/PluginOpenGL.gl.dir/build
-.PHONY : PluginOpenGL.gl/fast
-
-#=============================================================================
-# Target rules for targets named SpherePrimitive.gl
-
-# Build rule for target.
-SpherePrimitive.gl: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 SpherePrimitive.gl
-.PHONY : SpherePrimitive.gl
-
-# fast build rule for target.
-SpherePrimitive.gl/fast:
-	$(MAKE) $(MAKESILENT) -f plugins/OpenGL/CMakeFiles/SpherePrimitive.gl.dir/build.make plugins/OpenGL/CMakeFiles/SpherePrimitive.gl.dir/build
-.PHONY : SpherePrimitive.gl/fast
-
-#=============================================================================
-# Target rules for targets named Wrapper.gl
-
-# Build rule for target.
-Wrapper.gl: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Wrapper.gl
-.PHONY : Wrapper.gl
-
-# fast build rule for target.
-Wrapper.gl/fast:
-	$(MAKE) $(MAKESILENT) -f plugins/OpenGL/CMakeFiles/Wrapper.gl.dir/build.make plugins/OpenGL/CMakeFiles/Wrapper.gl.dir/build
-.PHONY : Wrapper.gl/fast
-
-#=============================================================================
-# Target rules for targets named uninstall
-
-# Build rule for target.
-uninstall: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 uninstall
-.PHONY : uninstall
-
-# fast build rule for target.
-uninstall/fast:
-	$(MAKE) $(MAKESILENT) -f plugins/OpenGL/glfw/CMakeFiles/uninstall.dir/build.make plugins/OpenGL/glfw/CMakeFiles/uninstall.dir/build
-.PHONY : uninstall/fast
-
-#=============================================================================
-# Target rules for targets named glfw
-
-# Build rule for target.
-glfw: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 glfw
-.PHONY : glfw
-
-# fast build rule for target.
-glfw/fast:
-	$(MAKE) $(MAKESILENT) -f plugins/OpenGL/glfw/src/CMakeFiles/glfw.dir/build.make plugins/OpenGL/glfw/src/CMakeFiles/glfw.dir/build
-.PHONY : glfw/fast
-
-#=============================================================================
-# Target rules for targets named update_mappings
-
-# Build rule for target.
-update_mappings: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 update_mappings
-.PHONY : update_mappings
-
-# fast build rule for target.
-update_mappings/fast:
-	$(MAKE) $(MAKESILENT) -f plugins/OpenGL/glfw/src/CMakeFiles/update_mappings.dir/build.make plugins/OpenGL/glfw/src/CMakeFiles/update_mappings.dir/build
-.PHONY : update_mappings/fast
 
 src/AObject.o: src/AObject.cpp.o
 .PHONY : src/AObject.o
@@ -708,21 +572,10 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... edit_cache"
-	@echo "... install"
-	@echo "... install/local"
-	@echo "... install/strip"
-	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... uninstall"
-	@echo "... update_mappings"
 	@echo "... Flat.texture.v"
 	@echo "... Lighting.process.v"
-	@echo "... PluginOpenGL.gl"
 	@echo "... Sphere.primitive.v"
-	@echo "... SpherePrimitive.gl"
-	@echo "... Wrapper.gl"
-	@echo "... glfw"
-	@echo "... pluginOpenGL"
 	@echo "... pluginWrapper.v"
 	@echo "... ray"
 	@echo "... src/AObject.o"
