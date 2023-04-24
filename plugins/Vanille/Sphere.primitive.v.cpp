@@ -13,7 +13,7 @@
 #include "operations.hpp"
 
 namespace vanille {
-    SpherePrimitive_v::SpherePrimitive_v() : render::APluginPrimitive()
+    SpherePrimitive_v::SpherePrimitive_v()
     {
         _priority = 0;
         _origin = sf::Vector3f(0, 0, 0);
@@ -49,7 +49,7 @@ namespace vanille {
         return ray;
     }
 
-    void SpherePrimitive_v::selfInit(libconfig::Setting setting)
+    void SpherePrimitive_v::selfInit(libconfig::Setting &setting)
     {
         _origin = sf::Vector3f(setting["origin"][0], setting["origin"][1], setting["origin"][2]);
         _radius = setting["radius"];

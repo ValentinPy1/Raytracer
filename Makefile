@@ -188,6 +188,45 @@ pluginWrapper.v/fast:
 .PHONY : pluginWrapper.v/fast
 
 #=============================================================================
+# Target rules for targets named Sphere.primitive.v
+
+# Build rule for target.
+Sphere.primitive.v: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Sphere.primitive.v
+.PHONY : Sphere.primitive.v
+
+# fast build rule for target.
+Sphere.primitive.v/fast:
+	$(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/Sphere.primitive.v.dir/build.make plugins/Vanille/CMakeFiles/Sphere.primitive.v.dir/build
+.PHONY : Sphere.primitive.v/fast
+
+#=============================================================================
+# Target rules for targets named Lighting.process.v
+
+# Build rule for target.
+Lighting.process.v: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Lighting.process.v
+.PHONY : Lighting.process.v
+
+# fast build rule for target.
+Lighting.process.v/fast:
+	$(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/Lighting.process.v.dir/build.make plugins/Vanille/CMakeFiles/Lighting.process.v.dir/build
+.PHONY : Lighting.process.v/fast
+
+#=============================================================================
+# Target rules for targets named Flat.texture.v
+
+# Build rule for target.
+Flat.texture.v: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 Flat.texture.v
+.PHONY : Flat.texture.v
+
+# fast build rule for target.
+Flat.texture.v/fast:
+	$(MAKE) $(MAKESILENT) -f plugins/Vanille/CMakeFiles/Flat.texture.v.dir/build.make plugins/Vanille/CMakeFiles/Flat.texture.v.dir/build
+.PHONY : Flat.texture.v/fast
+
+#=============================================================================
 # Target rules for targets named pluginOpenGL
 
 # Build rule for target.
@@ -676,7 +715,10 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... uninstall"
 	@echo "... update_mappings"
+	@echo "... Flat.texture.v"
+	@echo "... Lighting.process.v"
 	@echo "... PluginOpenGL.gl"
+	@echo "... Sphere.primitive.v"
 	@echo "... SpherePrimitive.gl"
 	@echo "... Wrapper.gl"
 	@echo "... glfw"
