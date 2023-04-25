@@ -7,7 +7,10 @@
 
 #pragma once
 
-
+#include <functional>
+#include <string>
+#include <memory>
+#include <vector>
 
 namespace render {
     class Renderer;
@@ -33,7 +36,7 @@ namespace render {
      *
      */
     typedef std::function<void(render::Renderer &)> postProcess_t;
-     
+
     class IPlugin {
         public:
             virtual void init(render::Renderer &rdr) const = 0;

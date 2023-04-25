@@ -8,16 +8,6 @@
 #include "Renderer.hpp"
 
 namespace render {
-    Renderer::Renderer()
-    {
-
-    }
-
-    Renderer::~Renderer()
-    {
-
-    }
-
     PluginManager &Renderer::getPluginManager()
     {
         return _pluginManager;
@@ -33,7 +23,7 @@ namespace render {
         _camera = camera;
     }
 
-    void Renderer::addEntity(std::shared_ptr<Entity> entity);
+    void Renderer::addEntity(std::shared_ptr<Entity> entity)
     {
         _entities.push_back(entity);
     }

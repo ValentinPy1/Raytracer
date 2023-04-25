@@ -9,13 +9,16 @@ add_compile_options(-Wall -Wextra -O3)
 
 add_executable (
     ray
-    src/main.cpp
     src/Renderer.cpp
     src/ConfigLoader.cpp
     src/PluginManagement/Plugin.cpp
     src/PluginManagement/PluginManager.cpp
     src/Entity.cpp
-    src/Camera.hpp
+    src/Camera.cpp
+    src/DLLoader.cpp
+    src/main.cpp
+    src/Ray.cpp
+    src/operations.cpp
 )
 
 target_link_libraries(

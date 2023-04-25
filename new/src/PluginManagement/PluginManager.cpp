@@ -11,7 +11,7 @@
 #include <functional>
 #include <exception>
 #include <algorithm>
-#include "Render.hpp"
+#include "Renderer.hpp"
 #include "PluginManager.hpp"
 #include "Plugin.hpp"
 

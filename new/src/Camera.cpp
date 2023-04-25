@@ -8,7 +8,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <ctime>
-#include "Render.hpp"
+#include "Camera.hpp"
 #include "Ray.hpp"
 
 namespace render {

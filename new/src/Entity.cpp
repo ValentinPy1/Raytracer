@@ -5,16 +5,17 @@
 ** Entity.cpp
 */
 
+#include "IPlugin.hpp"
 #include "Entity.hpp"
 
 namespace render
 {
-    std::vector<std::shared_ptr<IPrimitive>> Entity::getPrimitive() const
+    std::shared_ptr<IPrimitive> Entity::getPrimitive() const
     {
         return _primitive;
     }
 
-    void Entity::setPrimitive(std::vector<std::shared_ptr<IPrimitive>> primitive)
+    void Entity::setPrimitive(std::shared_ptr<IPrimitive> primitive)
     {
         _primitive = primitive;
     }
@@ -29,12 +30,12 @@ namespace render
         return _texture;
     }
 
-    std::shared_ptr<IPlugin> Entity::getPlugin(const std::string &name) const
+    std::shared_ptr<IPlugin> Entity::getPlugin(const std::string &name)
     {
         return _plugins[name];
     }
 
-    void Entity::setPlugin(std::shared_ptr<IPlugin> plugin)
+    void Entity::addPlugin(std::shared_ptr<IPlugin> plugin)
     {
         _plugins[plugin->getName()] = plugin;
     }

@@ -5,7 +5,9 @@
 ** ConfigLoader.hpp
 */
 
-#pragma once
+
+#ifndef CONFIGLOADER_HPP
+#define CONFIGLOADER_HPP
 
 #include <SFML/Graphics.hpp>
 #include <string>
@@ -39,3 +41,5 @@ namespace render {
             std::string _path = "./plugins/";
     };
 }
+
+#endif // CONFIGLOADER_HPP

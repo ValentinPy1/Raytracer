@@ -6,17 +6,17 @@
 */
 
 #include <string>
-#include "Renderer.cpp"
-#include "ConfigLoader.cpp"
+#include "ConfigLoader.hpp"
+#include "Renderer.hpp"
 
 int main(int argc, char **argv)
 {
     if (argc != 2)
         return 84;
 
-    ConfigLoader configLoader;
-    Renderer renderer;
+    render::ConfigLoader configLoader;
+    render::Renderer renderer;
 
-    configLoader.loadConfig(std::string(argv[1]), renderer);
+    configLoader.loadConfigFile(std::string(argv[1]), renderer);
     renderer.render();
 }

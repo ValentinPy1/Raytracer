@@ -22,26 +22,31 @@ namespace render {
     void ConfigLoader::loadCamera(Renderer &rdr)
     {
         const libconfig::Setting &cameraSettings = _cfg.lookup("camera");
-        int width, height;
-        cameraSettings.lookupValue("resolution.width", width);
-        cameraSettings.lookupValue("resolution.height", height);
-        double fieldOfView;
-        cameraSettings.lookupValue("fieldOfView", fieldOfView);
+        int focalPoint;
+        int captorWidth;
+        int captorHeight;
+        sf::Vector3f position;
+        sf::Vector3f rotation;
 
-        libconfig::Setting &position = cameraSettings.lookup("position");
-        float x, y, z;
-        position.lookupValue("x", x);
-        position.lookupValue("y", y);
-        position.lookupValue("z", z);
-        sf::Vector3f pos = sf::Vector3f(x, y, z);
+        cameraSettings.lookupValue("focalPoint", focalPoint);
+        cameraSettings.lookupValue("captorWidth", captorWidth);
+        cameraSettings.lookupValue("captorHeight", captorHeight);
+        libconfig::Setting &positionSetting = cameraSettings.lookup("position");
+        positionSetting.lookupValue("x", position.x);
+        positionSetting.lookupValue("y", position.y);
+        positionSetting.lookupValue("z", position.z);
+        libconfig::Setting &rotationSetting = cameraSettings.lookup("rotation");
+        rotationSetting.lookupValue("x", rotation.x);
+        rotationSetting.lookupValue("y", rotation.y);
+        rotationSetting.lookupValue("z", rotation.z);
 
-        libconfig::Setting &rotation = cameraSettings.lookup("rotation");
-        float rx, ry, rz;
-        rotation.lookupValue("x", rx);
-        rotation.lookupValue("y", ry);
-        rotation.lookupValue("z", rz);
-
-        // std::shared_ptr<Camera> cam = std::make_shared<Camera>() // TODO make a camera with the real arguments of the constructor and add it to the renderer
+        std::shared_ptr<Camera> cam = std::make_shared<Camera>(
+            focalPoint,
+            captorWidth,
+            captorHeight,
+            position,
+            rotation
+        );
     }
 
     void ConfigLoader::loadPlugins(Renderer &rdr)
