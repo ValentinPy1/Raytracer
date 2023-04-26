@@ -24,3 +24,8 @@ add_library(
     ${COMMON_SRC}
     Wrapper.v.cpp
 )
+
+add_library(AmbientLight.v SHARED
+    ${COMMON_SRC}
+    AmbientLight.v.cpp
+)
