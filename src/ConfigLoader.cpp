@@ -100,12 +100,8 @@ namespace render {
                 std::string materialName = material;
                 materialName = materialName + _mode;
                 materialName = _path + materialName + ".so";
-                // std::shared_ptr<IMaterial> mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(material, materialName));
-                IMaterial *mat = _loader.loadInstance<IMaterial>(material, materialName);
-                std::cout << mat << std::endl;
-                delete mat;
-                std::cout << "mat: " << std::endl;
-                // en->setMaterial(mat);
+                std::shared_ptr<IMaterial> mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(material, materialName));
+                en->setMaterial(mat);
                 rdr.addEntity(en);
             } catch (std::exception &e) {
                 wasError = true;

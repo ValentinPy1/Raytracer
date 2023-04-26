@@ -54,6 +54,11 @@ add_library(
 )
 
 add_custom_command(
+    TARGET Wrapper.v POST_BUILD
+    COMMAND mv libWrapper.v.so ..
+)
+
+add_custom_command(
     TARGET Sphere.primitive.v POST_BUILD
     COMMAND mv libSphere.primitive.v.so ..
 )
@@ -62,12 +67,3 @@ add_custom_command(
     TARGET Flat.material.v POST_BUILD
     COMMAND mv libFlat.material.v.so ..
 )
-<<<<<<< HEAD
-
-# add_library(
-#     Lighting.process.v SHARED
-#     ${COMMON_SRC}
-#     Lighting.process.v.cpp
-# )
-=======
->>>>>>> 5d298da (add : flat material compiling but not rendering)
