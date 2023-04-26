@@ -5,7 +5,7 @@
 ** Flat.texture.v.cpp
 */
 
-#include "Flat.texture.v.hpp"
+#include "Flat.material.v.hpp"
 
 FlatTexture_v::FlatTexture_v(const sf::Color &color) : _color(color)
 {

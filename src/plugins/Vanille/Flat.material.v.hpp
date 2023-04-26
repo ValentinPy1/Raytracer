@@ -8,6 +8,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include "Renderer.hpp"
 
 class FlatTexture_v : public render::ITexture, public render::Plugin  {
     public:

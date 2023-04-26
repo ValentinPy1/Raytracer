@@ -28,9 +28,10 @@ namespace render {
         sf::Vector3f position;
         sf::Vector3f rotation;
 
-        cameraSettings.lookupValue("focalPoint", focalPoint);
-        cameraSettings.lookupValue("captorWidth", captorWidth);
-        cameraSettings.lookupValue("captorHeight", captorHeight);
+        cameraSettings.lookupValue("focal", focalPoint);
+        libconfig::Setting &captorSetting = cameraSettings.lookup("captor");
+        captorSetting.lookupValue("width", captorWidth);
+        captorSetting.lookupValue("height", captorHeight);
         libconfig::Setting &positionSetting = cameraSettings.lookup("position");
         positionSetting.lookupValue("x", position.x);
         positionSetting.lookupValue("y", position.y);
@@ -47,6 +48,7 @@ namespace render {
             position,
             rotation
         );
+        rdr.setCamera(cam);
     }
 
     void ConfigLoader::loadPlugins(Renderer &rdr)
