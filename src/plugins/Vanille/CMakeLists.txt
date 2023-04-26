@@ -32,6 +32,19 @@ add_library(
     Sphere.primitive.v.cpp
 )
 
+
+add_library(
+    Cercle.primitive.v SHARED
+    ${COMMON_SRC}
+    Cercle.primitive.v.cpp
+)
+
+add_library(
+    Cylinder.primitive.v SHARED
+    ${COMMON_SRC}
+    Cylinder.primitive.v.cpp
+)
+
 add_library(
     Flat.material.v SHARED
     ${COMMON_SRC}
@@ -42,6 +55,7 @@ add_custom_command(
     TARGET Sphere.primitive.v POST_BUILD
     COMMAND cp *.so ..
 )
+
 # add_library(
 #     Lighting.process.v SHARED
 #     ${COMMON_SRC}
