@@ -1,6 +1,0 @@
-[submodule "plugins/OpenGL/glfw"]
-	path = plugins/OpenGL/glfw
-	url = https://github.com/glfw/glfw.git
-[submodule "plugins/OpenGL/glad_src"]
-	path = plugins/OpenGL/glad_src
-	url = https://github.com/Dav1dde/glad.git

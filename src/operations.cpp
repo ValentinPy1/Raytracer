@@ -7,9 +7,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <iostream>
-#include "../include/operations.hpp"
-
-
+#include "operations.hpp"
 #include <SFML/System/Vector3.hpp>
 
 // member to member multiplication
