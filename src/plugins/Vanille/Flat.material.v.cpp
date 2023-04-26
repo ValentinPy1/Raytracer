@@ -2,17 +2,28 @@
 ** EPITECH PROJECT, 2022
 ** raytracer
 ** File description:
-** Flat.texture.v.cpp
+** Flat.material.v.cpp
 */
 
 #include "Flat.material.v.hpp"
 
-FlatTexture_v::FlatTexture_v(const sf::Color &color) : _color(color)
-{
+namespace vanille {
+    FlatMaterial_v::FlatMaterial_v(const sf::Color &color) : render::AMaterial()
+    {
+        _color = color;
+    }
+
+    void FlatMaterial_v::getColor(int &r, int &g, int &b, geo::vec3 point) const
+    {
+        r = _color.r;
+        g = _color.g;
+        b = _color.b;
+    }
 }
 
-sf::Color FlatTexture_v::getColor(const sf::Vector2f &point) const
-{
-    (void)point;
-    return _color;
+extern "C" {
+    render::IMaterial *entryPoint()
+    {
+        return new vanille::FlatMaterial_v(sf::Color::White);
+    }
 }

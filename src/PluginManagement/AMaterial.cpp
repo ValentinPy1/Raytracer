@@ -2,14 +2,14 @@
 ** EPITECH PROJECT, 2022
 ** ray
 ** File description:
-** ATexture.cpp
+** AMaterial.cpp
 */
 
-#include "ITexture.hpp"
+#include "IMaterial.hpp"
 
 namespace render
 {
-    float ATexture::getProperty(const std::string &name) const {
+    float AMaterial::getProperty(const std::string &name) const {
         return _properties.at(name);
     }
 }

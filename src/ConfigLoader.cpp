@@ -95,7 +95,17 @@ namespace render {
                 std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
                 obj->selfInit(args);
                 en->setPrimitive(obj);
-                // TODO load the texture as well
+                // load the material
+                libconfig::Setting &material = objectsValue[i].lookup("material");
+                std::string materialName = material;
+                materialName = materialName + _mode;
+                materialName = _path + materialName + ".so";
+                // std::shared_ptr<IMaterial> mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(material, materialName));
+                IMaterial *mat = _loader.loadInstance<IMaterial>(material, materialName);
+                std::cout << mat << std::endl;
+                delete mat;
+                std::cout << "mat: " << std::endl;
+                // en->setMaterial(mat);
                 rdr.addEntity(en);
             } catch (std::exception &e) {
                 wasError = true;

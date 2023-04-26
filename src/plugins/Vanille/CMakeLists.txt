@@ -3,15 +3,17 @@ project(vanille)
 
 include_directories(
     ../../
-    ../../PluginManagement
+    ../../PluginManagement/
     ../
     ./
 )
+
 add_compile_options(-Wall -Wextra -O3 -g3)
 
 set(COMMON_SRC
     ../../PluginManagement/PluginManager.cpp
     ../../PluginManagement/Plugin.cpp
+    ../../PluginManagement/AMaterial.cpp
     ../../DLLoader.cpp
     ../../Intersection.cpp
     ../../geometry.cpp
@@ -53,11 +55,19 @@ add_library(
 
 add_custom_command(
     TARGET Sphere.primitive.v POST_BUILD
-    COMMAND cp *.so ..
+    COMMAND mv libSphere.primitive.v.so ..
 )
+
+add_custom_command(
+    TARGET Flat.material.v POST_BUILD
+    COMMAND mv libFlat.material.v.so ..
+)
+<<<<<<< HEAD
 
 # add_library(
 #     Lighting.process.v SHARED
 #     ${COMMON_SRC}
 #     Lighting.process.v.cpp
 # )
+=======
+>>>>>>> 5d298da (add : flat material compiling but not rendering)
