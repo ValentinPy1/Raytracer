@@ -15,6 +15,8 @@ set(COMMON_SRC
     ../../Intersection.cpp
     ../../geometry.cpp
     ../../Renderer.cpp
+    ../../Camera.cpp
+    ../../Ray.cpp
 )
 
 add_library(
