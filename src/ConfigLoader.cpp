@@ -5,13 +5,10 @@
 ** ConfigLoader.cpp
 */
 
-#include "Ray.hpp"
 #include "ConfigLoader.hpp"
+#include "Camera.hpp"
 #include <fstream>
 
-#include "Sphere.hpp"
-#include "Plane.hpp"
-#include "AEntity.hpp"
 #include <iostream>
 namespace render {
     ConfigLoader::ConfigLoader()
@@ -24,28 +21,32 @@ namespace render {
 
     void ConfigLoader::loadCamera(Renderer &rdr)
     {
-        Camera camera;
         const libconfig::Setting &cameraSettings = _cfg.lookup("camera");
-        int width, height;
-        cameraSettings.lookupValue("resolution.width", width);
-        cameraSettings.lookupValue("resolution.height", height);
-        double fieldOfView;
-        cameraSettings.lookupValue("fieldOfView", fieldOfView);
+        int focalPoint;
+        int captorWidth;
+        int captorHeight;
+        sf::Vector3f position;
+        sf::Vector3f rotation;
 
-        libconfig::Setting &position = cameraSettings.lookup("position");
-        float x, y, z;
-        position.lookupValue("x", x);
-        position.lookupValue("y", y);
-        position.lookupValue("z", z);
-        sf::Vector3f pos = sf::Vector3f(x, y, z);
+        cameraSettings.lookupValue("focalPoint", focalPoint);
+        cameraSettings.lookupValue("captorWidth", captorWidth);
+        cameraSettings.lookupValue("captorHeight", captorHeight);
+        libconfig::Setting &positionSetting = cameraSettings.lookup("position");
+        positionSetting.lookupValue("x", position.x);
+        positionSetting.lookupValue("y", position.y);
+        positionSetting.lookupValue("z", position.z);
+        libconfig::Setting &rotationSetting = cameraSettings.lookup("rotation");
+        rotationSetting.lookupValue("x", rotation.x);
+        rotationSetting.lookupValue("y", rotation.y);
+        rotationSetting.lookupValue("z", rotation.z);
 
-        libconfig::Setting &rotation = cameraSettings.lookup("rotation");
-        float rx, ry, rz;
-        rotation.lookupValue("x", rx);
-        rotation.lookupValue("y", ry);
-        rotation.lookupValue("z", rz);
-        camera.setPosition(pos);
-        rdr.setCamera(camera);
+        std::shared_ptr<Camera> cam = std::make_shared<Camera>(
+            focalPoint,
+            captorWidth,
+            captorHeight,
+            position,
+            rotation
+        );
     }
 
     void ConfigLoader::loadPlugins(Renderer &rdr)
@@ -55,8 +56,15 @@ namespace render {
 
         std::string wrapper;
         plugins.lookupValue("wrapper", wrapper);
+        try {
+            rdr.setWrapper(_loader.loadInstance<IWrapper>("wrapper", wrapper));
+            std::cout << render::green << "[INFO] " << render::no_color << "loaded wrapper: " << wrapper << std::endl;
+        } catch (const std::exception &e) {
+            std::cerr << render::red << "[ERROR] " << render::no_color << "could not load the wrapper: " << e.what() << std::endl;
+            exit(84);
+        }
+
         const libconfig::Setting &pluginsValue = plugins.lookup("plugins");
-        std::cout << "Wrapper: " << wrapper << std::endl;
         for (int i = 0; i < pluginsValue.getLength(); i++) {
             const libconfig::Setting &plugin = pluginsValue[i];
             std::string path;
@@ -82,19 +90,19 @@ namespace render {
                 std::string name = primitive;
                 name = name + _mode;
                 name = _path + name + ".so";
-                IPrimitive *obj = _loader.loadInstance<IPrimitive>(primitive, name);
+                std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
                 obj->selfInit(args);
                 en->setPrimitive(obj);
                 // TODO load the texture as well
                 rdr.addEntity(en);
             } catch (std::exception &e) {
                 wasError = true;
-                std::cerr << "Failed to load object: " << e.what() << std::endl;
+                std::cerr << render::red << "[ERROR] " << render::no_color << "Failed to load object: " << e.what() << std::endl;
             }
         }
         if (wasError) {
             char tmp = '\0';
-            std::cout << "There has been errors loading the objects. Continue anyway? (y/n)" << std::endl;
+            std::cout << render::blue << "\n[QUESTION] " << render::no_color << "There has been errors loading the objects. Continue anyway? (y/n)" << std::endl;
             std::cin >> tmp;
             if (tmp != 'y')
                 exit(84);
