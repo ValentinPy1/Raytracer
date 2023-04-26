@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.16.3)
-project(testproject)
+project(raytracer)
 include_directories(
     src
     src/PluginManagement
@@ -19,6 +19,7 @@ add_executable (
     src/main.cpp
     src/Ray.cpp
     src/operations.cpp
+    src/geometry.cpp
 )
 
 target_link_libraries(
@@ -29,5 +30,5 @@ target_link_libraries(
     -lm
     -lconfig++
 )
-# add_subdirectory(plugins/Vanille)
+add_subdirectory(src/plugins/Vanille)
 # add_subdirectory(plugins/OpenGL)

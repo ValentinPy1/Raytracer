@@ -15,7 +15,7 @@ namespace render {
 
     void Renderer::render()
     {
-        // TODO CALL WRAPPER
+        _wrapper->run(*this);
     }
 
     void Renderer::setCamera(std::shared_ptr<Camera> camera)
@@ -27,4 +27,16 @@ namespace render {
     {
         _entities.push_back(entity);
     }
+
+    void Renderer::setWrapper(IWrapper *wrapper)
+    {
+        _wrapper = std::shared_ptr<IWrapper>(wrapper);
+    }
+
+    Camera &Renderer::getCamera() const
+    {
+        return *_camera;
+    }
+
+
 }

@@ -56,8 +56,15 @@ namespace render {
 
         std::string wrapper;
         plugins.lookupValue("wrapper", wrapper);
+        try {
+            rdr.setWrapper(_loader.loadInstance<IWrapper>("wrapper", wrapper));
+            std::cout << render::green << "[INFO] " << render::no_color << "loaded wrapper: " << wrapper << std::endl;
+        } catch (const std::exception &e) {
+            std::cerr << render::red << "[ERROR] " << render::no_color << "could not load the wrapper: " << e.what() << std::endl;
+            exit(84);
+        }
+
         const libconfig::Setting &pluginsValue = plugins.lookup("plugins");
-        std::cout << "Wrapper: " << wrapper << std::endl;
         for (int i = 0; i < pluginsValue.getLength(); i++) {
             const libconfig::Setting &plugin = pluginsValue[i];
             std::string path;
@@ -90,12 +97,12 @@ namespace render {
                 rdr.addEntity(en);
             } catch (std::exception &e) {
                 wasError = true;
-                std::cerr << "Failed to load object: " << e.what() << std::endl;
+                std::cerr << render::red << "[ERROR] " << render::no_color << "Failed to load object: " << e.what() << std::endl;
             }
         }
         if (wasError) {
             char tmp = '\0';
-            std::cout << "There has been errors loading the objects. Continue anyway? (y/n)" << std::endl;
+            std::cout << render::blue << "\n[QUESTION] " << render::no_color << "There has been errors loading the objects. Continue anyway? (y/n)" << std::endl;
             std::cin >> tmp;
             if (tmp != 'y')
                 exit(84);

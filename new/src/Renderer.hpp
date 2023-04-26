@@ -12,6 +12,7 @@
     #include <memory>
     #include "Entity.hpp"
     #include "PluginManager.hpp"
+    #include "Wrapper.hpp"
 
 namespace render {
 
@@ -31,12 +32,14 @@ namespace render {
             PluginManager &getPluginManager();
             void addEntity(std::shared_ptr<Entity> entity);
             void setCamera(std::shared_ptr<render::Camera> camera);
+            void setWrapper(IWrapper *wrapper);
 
+            Camera &getCamera() const;
             void render();
         private:
             PluginManager _pluginManager;
             std::vector<std::shared_ptr<Entity>> _entities;
-            // std::shared_ptr<IWrapper> _wrapper;
+            std::shared_ptr<IWrapper> _wrapper;
             std::shared_ptr<Camera> _camera;
             // std::vector <Light> _lights;
 
