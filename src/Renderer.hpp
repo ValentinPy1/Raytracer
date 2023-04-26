@@ -35,6 +35,7 @@ namespace render {
             void setWrapper(IWrapper *wrapper);
 
             Camera &getCamera() const;
+            std::vector<std::shared_ptr<Entity>> getEntities() const;
             void render();
         private:
             PluginManager _pluginManager;

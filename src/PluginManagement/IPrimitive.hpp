@@ -16,6 +16,7 @@ namespace render {
         public:
             virtual void selfInit(libconfig::Setting &setting) = 0;
             virtual ~IPrimitive() = default;
+            virtual void solve(Ray &ray);
             virtual sf::Vector3f getNormalAt(sf::Vector3f &point) = 0;
     };
 }

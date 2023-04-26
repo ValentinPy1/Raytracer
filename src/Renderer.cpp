@@ -38,5 +38,8 @@ namespace render {
         return *_camera;
     }
 
-
+    std::vector<std::shared_ptr<Entity>> Renderer::getEntities() const
+    {
+        return _entities;
+    }
 }

@@ -24,3 +24,10 @@ add_library(
     ${COMMON_SRC}
     Wrapper.v.cpp
 )
+
+add_library(
+    Directional.light.v SHARED
+    ${COMMON_SRC}
+    Directional.light.v.cpp
+    ../../LightModel.hpp
+)
