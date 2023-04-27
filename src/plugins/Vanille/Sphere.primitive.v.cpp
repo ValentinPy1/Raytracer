@@ -39,10 +39,10 @@ namespace vanille {
 
         float sqrtDelta = std::sqrt(delta);
         ray.addIntersection(
-            render::Intersection(_parent, ray, (-b - sqrtDelta) / (2 * a)).addNormal(this)
+            render::Intersection(_parent, ray, (-b - sqrtDelta) / (2 * a))
         );
         ray.addIntersection(
-            render::Intersection(_parent,ray, (-b + sqrtDelta) / (2 * a)).addNormal(this)
+            render::Intersection(_parent, ray, (-b + sqrtDelta) / (2 * a))
         );
     }
 
@@ -58,6 +58,7 @@ namespace vanille {
         setting.lookupValue("z", _origin.z);
         setting.lookupValue("radius", _radius);
         _parent = parent;
+        std::cout << "create a sphere: " << _origin.x << " " << _origin.y << " " << _origin.z << " - " << _radius << std::endl;
     }
 }
 

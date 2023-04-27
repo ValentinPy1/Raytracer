@@ -20,19 +20,12 @@ extern "C" {
                 for (auto &e : rdr.getEntities()) {
                     e->getPrimitive()->solve(ray);
                 }
-                std::sort(ray.getIntersections().begin(), ray.getIntersections().end(), [](const render::Intersection &a, const render::Intersection &b) {
+                auto intersections = ray.getIntersections();
+                std::sort(intersections.begin(), intersections.end(), [](const render::Intersection &a, const render::Intersection &b) {
                     return a.getDistance() < b.getDistance();
                 });
-                if (ray.getIntersections().size() > 0) {
-                    auto intersection = ray.getIntersections()[0];
-                    int r, g, b;
-                    sf::Vector3f point = intersection.getPoint();
-
-                    intersection.getInterceptee()->getMaterial()->getColor(
-                        r, g, b, (geo::vec3) {
-                            point.x, point.y, point.z}
-                    );
-                    ray.setColor(sf::Color(r, g, b));
+                if (intersections.size() > 0) {
+                    ray.setColor(intersections[0].getColor());
                 }
                 return ray;
             },

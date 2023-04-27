@@ -20,12 +20,12 @@ namespace render
         _primitive = primitive;
     }
 
-    void Entity::setMaterial(std::shared_ptr<IMaterial> material)
+    void Entity::setMaterial(std::shared_ptr<IMaterial>material)
     {
         _material = material;
     }
 
-    std::shared_ptr<IMaterial> Entity::getMaterial() const
+    std::shared_ptr<IMaterial>Entity::getMaterial() const
     {
         return _material;
     }

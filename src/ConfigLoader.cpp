@@ -42,13 +42,21 @@ namespace render {
         rotationSetting.lookupValue("y", rotation.y);
         rotationSetting.lookupValue("z", rotation.z);
 
-        std::shared_ptr<Camera> cam = std::make_shared<Camera>(
+        std::shared_ptr<Camera> cam = std::shared_ptr<Camera>(
+            new Camera(
             focalPoint,
             captorWidth,
             captorHeight,
             position,
-            rotation
+            rotation)
         );
+
+        std::cout << render::green << "[INFO] " << render::no_color << "Loaded camera:" << std::endl;
+        std::cout << render::yellow << "\tfocal: " << focalPoint << std::endl;
+        std::cout << render::yellow << "\tcaptor: " << captorWidth << "x" << captorHeight << std::endl;
+        std::cout << render::yellow << "\tposition: (" << position.x << ", " << position.y << ", " << position.z << ")" << render::no_color << std::endl;
+        std::cout << render::yellow << "\trotation: (" << rotation.x << ", " << rotation.y << ", " << rotation.z << ")" << render::no_color << std::endl;
+
         rdr.setCamera(cam);
     }
 
@@ -96,12 +104,13 @@ namespace render {
                 std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
                 obj->selfInit(args, en.get());
                 en->setPrimitive(obj);
-                // load the material
+
                 libconfig::Setting &material = objectsValue[i].lookup("material");
                 std::string materialName = material;
                 materialName = materialName + _mode;
                 materialName = _path + materialName + ".so";
-                std::shared_ptr<IMaterial> mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(material, materialName));
+                std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(material, materialName));
+                std::cout << "material " << mat << std::endl;
                 en->setMaterial(mat);
                 rdr.addEntity(en);
             } catch (std::exception &e) {

@@ -20,6 +20,6 @@ namespace vanille {
             float getProperty(const std::string &name) const override;
         private:
             std::map<std::string, float> _properties;
-            sf::Color _color;
+            sf::Color _color = sf::Color::Red;
     };
 }

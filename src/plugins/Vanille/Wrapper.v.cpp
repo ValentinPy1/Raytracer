@@ -30,8 +30,9 @@ namespace vanille {
 
     sf::Color Wrapper_v::processRay(render::Ray &ray, render::PluginManager &pm, render::Renderer &rdr, std::vector<render::processRay_t> &processFuns) const
     {
-        for (auto &fun : processFuns)
-            fun(ray, rdr);
+        for (auto &fun : processFuns) {
+            ray = fun(ray, rdr);
+        }
         return ray.getColor();
     }
 
@@ -55,13 +56,22 @@ namespace vanille {
         unsigned int height = captorSize.y;
 
         std::cout << render::green << "[INFO] " << render::yellow << "Rendering... " << render::no_color << std::endl;
+        // int i = 0;
+        // for (unsigned int x = 0; x < width; x++) {
+        //     for (unsigned int y = 0; y < height; y++) {
+        //         sf::Color color = processRay(rays[i++], pm, rdr, processFuns);
+        //         captor.setPixel(y, x, color);
+        //     }
+        // }
 
-        for (unsigned int y = 0; y < height; y++) {
-            for (unsigned int x = 0; x < width; x++) {
-                sf::Color color = processRay(rays[y * width + x], pm, rdr, processFuns);
-                captor.setPixel(x, y, color);
+        for (unsigned int i = 0; i < camera.getCaptor().getSize().x; i++) {
+            for (unsigned int j = 0; j < camera.getCaptor().getSize().y; j++) {
+            render::Ray ray = rays[i * camera.getCaptor().getSize().y + j];
+            sf::Color tmp = processRay(ray, pm, rdr, processFuns);
+            camera.getCaptor().setPixel(i, j, tmp);
             }
         }
+
         std::cout << render::green << "[INFO] " << render::yellow << "Applying post process to the image... " << render::no_color << std::endl;
         postProcess(rdr, pm);
         std::cout << render::green << "[INFO] " << render::yellow << "Done in " << (double) (clock() - start) / CLOCKS_PER_SEC << " seconds."  << render::no_color << std::endl;

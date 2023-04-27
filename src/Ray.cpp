@@ -15,6 +15,7 @@ namespace render {
     Ray::Ray(const sf::Vector3f &origin, const sf::Vector3f &direction, int reflectionDepth)
     : _reflectionDepth(reflectionDepth), _origin(origin), _direction(direction)
     {
+        _color = sf::Color::Black;
     }
 
     sf::Vector3f Ray::rotateVector(const sf::Vector3f& vector, const sf::Vector3f& rotation) {
@@ -121,9 +122,6 @@ namespace render {
 
     sf::Color Ray::getColor() const
     {
-        if (hasIntersections()) {
-            return sf::Color::Black;
-        }
         return _color;
     }
 

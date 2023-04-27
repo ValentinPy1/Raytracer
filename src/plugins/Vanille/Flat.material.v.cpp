@@ -29,6 +29,6 @@ namespace vanille {
 extern "C" {
     render::IMaterial *entryPoint()
     {
-        return new vanille::FlatMaterial_v(sf::Color::White);
+        return new vanille::FlatMaterial_v(sf::Color::Red);
     }
 }

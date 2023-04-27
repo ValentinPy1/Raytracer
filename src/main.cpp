@@ -6,6 +6,7 @@
 */
 
 #include <string>
+#include <ctime>
 #include "ConfigLoader.hpp"
 #include "Renderer.hpp"
 
@@ -15,7 +16,7 @@ int main(int argc, char **argv)
         std::cerr << render::red << "[ERROR] " << render::no_color << "Usage: ./pipeline config_file" << std::endl;
         return 84;
     }
-
+    srand(time(NULL));
     render::ConfigLoader configLoader;
     render::Renderer renderer;
 
