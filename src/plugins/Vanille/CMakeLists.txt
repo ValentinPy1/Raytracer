@@ -28,6 +28,12 @@ add_library(
     Wrapper.v.cpp
 )
 
+
+add_library(AmbientLight.v SHARED
+    ${COMMON_SRC}
+    AmbientLight.v.cpp
+)
+
 add_library(
     Sphere.primitive.v SHARED
     ${COMMON_SRC}
