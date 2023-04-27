@@ -99,7 +99,7 @@ namespace render {
         return _intersections.size() > 0;
     }
 
-    const std::vector<Intersection> &Ray::getIntersections() const
+    std::vector<Intersection> &Ray::getIntersections()
     {
         return _intersections;
     }
@@ -114,10 +114,10 @@ namespace render {
         return _direction;
     }
 
-    // void Ray::addIntersection(const Intersection &intersection)
-    // {
-    //     _intersections.push_back(intersection);
-    // }
+    void Ray::addIntersection(const Intersection &intersection)
+    {
+        _intersections.push_back(intersection);
+    }
 
     sf::Color Ray::getColor() const
     {
@@ -127,10 +127,10 @@ namespace render {
         return _color;
     }
 
-    // void Ray::setColor(const sf::Color &color)
-    // {
-    //     _color = color;
-    // }
+    void Ray::setColor(const sf::Color &color)
+    {
+        _color = color;
+    }
 
     // sf::Color Ray::blendAdd(const sf::Color &color) const
     // {

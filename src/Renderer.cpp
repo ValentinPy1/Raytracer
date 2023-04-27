@@ -44,4 +44,9 @@ namespace render {
     {
         _ambientLight = color;
     }
+
+    std::vector<std::shared_ptr<Entity >> Renderer::getEntities() const
+    {
+        return _entities;
+    }
 }

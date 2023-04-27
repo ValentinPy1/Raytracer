@@ -25,8 +25,8 @@ namespace render {
             void addPlugin(std::shared_ptr<IPlugin> plugin);
 
         private:
-            std::shared_ptr<IPrimitive> _primitive;
-            std::shared_ptr<IMaterial> _material;
+            std::shared_ptr<IPrimitive> _primitive = nullptr;
+            std::shared_ptr<IMaterial> _material = nullptr;
             std::map<std::string, std::shared_ptr<IPlugin>> _plugins;
     };
 }

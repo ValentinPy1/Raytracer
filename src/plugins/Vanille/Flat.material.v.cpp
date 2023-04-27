@@ -8,7 +8,7 @@
 #include "Flat.material.v.hpp"
 
 namespace vanille {
-    FlatMaterial_v::FlatMaterial_v(const sf::Color &color) : render::AMaterial()
+    FlatMaterial_v::FlatMaterial_v(const sf::Color &color) : render::IMaterial()
     {
         _color = color;
     }
@@ -18,6 +18,11 @@ namespace vanille {
         r = _color.r;
         g = _color.g;
         b = _color.b;
+    }
+
+    float FlatMaterial_v::getProperty(const std::string &name) const
+    {
+        return _properties.at(name);
     }
 }
 

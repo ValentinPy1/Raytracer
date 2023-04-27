@@ -5,6 +5,7 @@
 ** DLLoader.cpp
 */
 
+#include "Renderer.hpp"
 #include "PluginManager.hpp"
 
 namespace render {
@@ -22,8 +23,9 @@ namespace render {
 
     DLLoader::~DLLoader() {
         for (auto &handle : _libHandles) {
-            std::cout << "Closing " << handle.first << std::endl;
+            std::cout << render::green << "[INFO] " << render::no_color <<"Closing " << handle.first << ": \r\t\t\t\t\t\t" << std::flush;
             dlclose(handle.second);
+            std::cout << render::green << "OK" << render::no_color << std::endl;
         }
         _libHandles.clear();
     }

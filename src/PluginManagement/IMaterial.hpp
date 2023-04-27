@@ -18,14 +18,14 @@ namespace render {
             virtual void getColor(int &r, int &g, int &b, geo::vec3 point) const = 0;
     };
 
-    class AMaterial : public IMaterial {
-        public:
-            AMaterial() = default;
-            ~AMaterial() = default;
-            float getProperty(const std::string &name) const override;
-        protected:
-            std::map<std::string, float> _properties;
-    };
+    // class AMaterial : public IMaterial {
+    //     public:
+    //         AMaterial() = default;
+    //         ~AMaterial() = default;
+    //         float getProperty(const std::string &name) const override;
+    //     protected:
+    //         std::map<std::string, float> _properties;
+    // };
 }
 
 #endif /* CD083D2B_2A78_484C_BB7C_288689F106B1 */

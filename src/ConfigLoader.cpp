@@ -5,9 +5,10 @@
 ** ConfigLoader.cpp
 */
 
+#include <fstream>
 #include "ConfigLoader.hpp"
 #include "Camera.hpp"
-#include <fstream>
+#include "geometry.hpp"
 
 #include <iostream>
 namespace render {
@@ -56,11 +57,12 @@ namespace render {
         const libconfig::Setting &plugins = _cfg.lookup("plugins");
         //get value of wrapper
 
+        render::PluginManager &pm = rdr.getPluginManager();
         std::string wrapper;
         plugins.lookupValue("wrapper", wrapper);
         try {
             rdr.setWrapper(_loader.loadInstance<IWrapper>("wrapper", wrapper));
-            std::cout << render::green << "[INFO] " << render::no_color << "loaded wrapper: " << wrapper << std::endl;
+            std::cout << render::green << "[INFO] " << render::no_color << "Loaded wrapper: " << wrapper << std::endl;
         } catch (const std::exception &e) {
             std::cerr << render::red << "[ERROR] " << render::no_color << "could not load the wrapper: " << e.what() << std::endl;
             exit(84);
@@ -74,8 +76,7 @@ namespace render {
             plugin.lookupValue("path", path);
             plugin.lookupValue("name", name);
             path = path + _mode + ".so";
-            // std::cout << "path: " << path << std::endl;
-            _pluginManager.loadPlugin(path, name);
+            pm.loadPlugin(path, name);
         }
     }
 
@@ -93,7 +94,7 @@ namespace render {
                 name = name + _mode;
                 name = _path + name + ".so";
                 std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
-                obj->selfInit(args);
+                obj->selfInit(args, en.get());
                 en->setPrimitive(obj);
                 // load the material
                 libconfig::Setting &material = objectsValue[i].lookup("material");

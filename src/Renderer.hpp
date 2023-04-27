@@ -36,6 +36,7 @@ namespace render {
             void setAmbientLight(const sf::Color &color);
             Camera &getCamera() const;
             sf::Color getAmbientLight() const;
+            std::vector<std::shared_ptr<Entity>> getEntities() const;
             void render();
         private:
             PluginManager _pluginManager;

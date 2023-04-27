@@ -13,22 +13,17 @@
 #include "operations.hpp"
 
 namespace vanille {
-    CerclePrimitive_v::CerclePrimitive_v() : render::IPrimitive(), render::Plugin()
+    CerclePrimitive_v::CerclePrimitive_v() : render::IPrimitive()
     {
         _origin = sf::Vector3f(0, 0, 0);
         _radius = 1;
-        _name = "CerclePrimitive_v";
-        _priority = 0;
-        _processRay = [this](render::Ray &ray, const render::Renderer &rdr) -> render::Ray & {
-            return processRay(ray, rdr);
-        };
     }
 
     CerclePrimitive_v::~CerclePrimitive_v()
     {
     }
 
-    render::Ray &CerclePrimitive_v::processRay(render::Ray &ray, const render::Renderer &rdr)
+    void CerclePrimitive_v::solve(render::Ray &ray)
     {
         sf::Vector3f vo = ray.getOrigin();
         sf::Vector3f vd = ray.getDirection();
@@ -40,7 +35,7 @@ namespace vanille {
         auto delta = b * b - 4 * a * c;
 
         if (delta < 0)
-            return ray;
+            return;
 
         float t = (-b - std::sqrt(delta)) / (2.0f * a);
         ray.addIntersection(
@@ -50,8 +45,6 @@ namespace vanille {
         ray.addIntersection(
             render::Intersection(ray, (-b + std::sqrt(delta)) / (2 * a)).addNormal(this)
         );
-
-        return ray;
     }
 
     sf::Vector3f CerclePrimitive_v::getNormalAt(sf::Vector3f &point)
@@ -59,7 +52,7 @@ namespace vanille {
         return (point - _origin);
     }
 
-    void CerclePrimitive_v::selfInit(libconfig::Setting &setting)
+    void CerclePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
         _origin = sf::Vector3f(setting["origin"][0], setting["origin"][1], setting["origin"][2]);
         // _radius = setting["radius"];
@@ -68,7 +61,7 @@ namespace vanille {
 }
 
 extern "C" {
-    render::Plugin *entryPoint() {
+    render::IPrimitive *entryPoint() {
         return new vanille::CerclePrimitive_v();
     }
 }

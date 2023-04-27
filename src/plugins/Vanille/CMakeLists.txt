@@ -28,7 +28,6 @@ add_library(
     Wrapper.v.cpp
 )
 
-
 add_library(AmbientLight.v SHARED
     ${COMMON_SRC}
     AmbientLight.v.cpp
@@ -38,8 +37,17 @@ add_library(
     Sphere.primitive.v SHARED
     ${COMMON_SRC}
     Sphere.primitive.v.cpp
+    ../../operations.cpp
+    ../../Intersection.cpp
+    ../../Entity.cpp
 )
 
+target_link_libraries(
+    Sphere.primitive.v
+    -lsfml-graphics
+    -lsfml-system
+    -lsfml-window
+)
 
 add_library(
     Cercle.primitive.v SHARED
@@ -59,9 +67,20 @@ add_library(
     Flat.material.v.cpp
 )
 
+add_library(ApplyIntersect.process.v SHARED
+    ${COMMON_SRC}
+    ApplyIntersect.process.v.cpp
+    ../../Entity.cpp
+)
+
 add_custom_command(
     TARGET Wrapper.v POST_BUILD
     COMMAND mv libWrapper.v.so ..
+)
+
+add_custom_command(
+    TARGET ApplyIntersect.process.v POST_BUILD
+    COMMAND mv libApplyIntersect.process.v.so ..
 )
 
 add_custom_command(
@@ -73,3 +92,4 @@ add_custom_command(
     TARGET Flat.material.v POST_BUILD
     COMMAND mv libFlat.material.v.so ..
 )
+

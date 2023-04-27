@@ -16,11 +16,12 @@ namespace vanille {
         public:
             CylinderPrimitive_v();
             ~CylinderPrimitive_v();
-            void selfInit(libconfig::Setting &setting) override;
+            void selfInit(libconfig::Setting &setting, render::Entity *parent) override;
             sf::Vector3f getNormalAt(sf::Vector3f &point) override;
+            void solve(render::Ray &ray) override;
         private:
-            render::Ray &processRay(render::Ray &ray, const render::Renderer &rdr);
             sf::Vector3f _origin;
             float _radius;
+            render::Entity *_parent;
     };
 }
