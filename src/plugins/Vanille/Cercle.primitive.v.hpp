@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** raytracer
 ** File description:
-** Sphere.primitive.v.hpp
+** Cercle.primitive.v.hpp
 */
 
 #pragma once
@@ -12,10 +12,10 @@
 #include "SFML/System/Vector3.hpp"
 
 namespace vanille {
-    class SpherePrimitive_v : public render::IPrimitive, public render::Plugin {
+    class CerclePrimitive_v : public render::IPrimitive, public render::Plugin {
         public:
-            SpherePrimitive_v();
-            ~SpherePrimitive_v();
+            CerclePrimitive_v();
+            ~CerclePrimitive_v();
             void selfInit(libconfig::Setting &setting) override;
             sf::Vector3f getNormalAt(sf::Vector3f &point) override;
         private:

@@ -34,7 +34,7 @@ namespace render {
             PluginManager _pluginManager;
             std::string current_plugin;
             DLLoader _loader;
-            std::string _path = "./plugins/";
+            std::string _path = "./src/plugins/";
     };
 }
 

@@ -8,12 +8,12 @@
 #include <string>
 #include <cmath>
 #include "Sphere.primitive.v.hpp"
-#include "Render.hpp"
+#include "Renderer.hpp"
 #include "Ray.hpp"
 #include "operations.hpp"
 
 namespace vanille {
-    SpherePrimitive_v::SpherePrimitive_v() : render::IPrimitive(), render::APlugin()
+    SpherePrimitive_v::SpherePrimitive_v() : render::IPrimitive(), render::Plugin()
     {
         _origin = sf::Vector3f(0, 0, 0);
         _radius = 1;
@@ -63,7 +63,7 @@ namespace vanille {
 }
 
 extern "C" {
-    render::APlugin *entryPoint() {
+    render::Plugin *entryPoint() {
         return new vanille::SpherePrimitive_v();
     }
 }

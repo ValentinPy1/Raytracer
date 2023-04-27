@@ -28,9 +28,10 @@ namespace render {
         sf::Vector3f position;
         sf::Vector3f rotation;
 
-        cameraSettings.lookupValue("focalPoint", focalPoint);
-        cameraSettings.lookupValue("captorWidth", captorWidth);
-        cameraSettings.lookupValue("captorHeight", captorHeight);
+        cameraSettings.lookupValue("focal", focalPoint);
+        libconfig::Setting &captorSetting = cameraSettings.lookup("captor");
+        captorSetting.lookupValue("width", captorWidth);
+        captorSetting.lookupValue("height", captorHeight);
         libconfig::Setting &positionSetting = cameraSettings.lookup("position");
         positionSetting.lookupValue("x", position.x);
         positionSetting.lookupValue("y", position.y);
@@ -47,6 +48,7 @@ namespace render {
             position,
             rotation
         );
+        rdr.setCamera(cam);
     }
 
     void ConfigLoader::loadPlugins(Renderer &rdr)
@@ -93,7 +95,13 @@ namespace render {
                 std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
                 obj->selfInit(args);
                 en->setPrimitive(obj);
-                // TODO load the texture as well
+                // load the material
+                libconfig::Setting &material = objectsValue[i].lookup("material");
+                std::string materialName = material;
+                materialName = materialName + _mode;
+                materialName = _path + materialName + ".so";
+                std::shared_ptr<IMaterial> mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(material, materialName));
+                en->setMaterial(mat);
                 rdr.addEntity(en);
             } catch (std::exception &e) {
                 wasError = true;

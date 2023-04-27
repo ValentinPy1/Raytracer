@@ -9,6 +9,7 @@
 #include "../plugins/Vanille/Wrapper.v.hpp"
 #include "Ray.hpp"
 #include "Camera.hpp"
+#include "Renderer.hpp"
 
 namespace vanille {
     Wrapper_v::Wrapper_v(const std::string &name)
@@ -41,10 +42,11 @@ namespace vanille {
     {
         render::Camera &camera = _rdr->getCamera();
         sf::Image &captor = camera.getCaptor();
-        std::vector<render::Ray> rays = camera.getRays();
-        unsigned int width = captor.getSize().x;
-        unsigned int height = captor.getSize().y;
+        std::vector<render::Ray> &rays = camera.getRays();
 
+        sf::Vector2u captorSize = captor.getSize();
+        unsigned int width = captorSize.x;
+        unsigned int height = captorSize.y;
         for (unsigned int y = 0; y < height; y++) {
             for (unsigned int x = 0; x < width; x++) {
                 sf::Color color = processRay(rays[y * width + x]);
@@ -52,6 +54,7 @@ namespace vanille {
             }
         }
         postProcess();
+        captor.saveToFile("test.png");
     }
 
     void Wrapper_v::run(render::Renderer &rdr)

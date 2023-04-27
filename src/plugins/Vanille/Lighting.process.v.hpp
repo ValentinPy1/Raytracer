@@ -7,7 +7,6 @@
 
 #pragma once
 
-#include "APlugin.hpp"
 #include "SFML/System/Vector3.hpp"
 #include "Ray.hpp"
 #include "Plugin.hpp"

@@ -96,35 +96,36 @@ namespace render {
 
     bool Ray::hasIntersections() const
     {
-        return _intersections.size() == 0;
+        return _intersections.size() > 0;
     }
 
-    // const std::vector<Intersection> &Ray::getIntersections() const
-    // {
-    //     return _intersections;
-    // }
+    const std::vector<Intersection> &Ray::getIntersections() const
+    {
+        return _intersections;
+    }
 
-    // const sf::Vector3f &Ray::getOrigin() const
-    // {
-    //     return _origin;
-    // }
+    const sf::Vector3f &Ray::getOrigin() const
+    {
+        return _origin;
+    }
 
-    // const sf::Vector3f &Ray::getDirection() const
-    // {
-    //     return _direction;
-    // }
+    const sf::Vector3f &Ray::getDirection() const
+    {
+        return _direction;
+    }
 
     // void Ray::addIntersection(const Intersection &intersection)
     // {
     //     _intersections.push_back(intersection);
     // }
 
-    // sf::Color Ray::getColor() const
-    // {
-    //     if (_intersections.size() == 0)
-    //         return sf::Color::Black;
-    //     return _color;
-    // }
+    sf::Color Ray::getColor() const
+    {
+        if (hasIntersections()) {
+            return sf::Color::Black;
+        }
+        return _color;
+    }
 
     // void Ray::setColor(const sf::Color &color)
     // {
