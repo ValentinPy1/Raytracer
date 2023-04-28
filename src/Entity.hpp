@@ -7,7 +7,7 @@
 
 #pragma once
 
-#include "ITexture.hpp"
+#include "IMaterial.hpp"
 #include "IPrimitive.hpp"
 #include "PluginManager.hpp"
 
@@ -16,17 +16,17 @@ namespace render {
         public:
             Entity() = default;
             std::shared_ptr<IPrimitive> getPrimitive() const;
-            std::shared_ptr<ITexture> getTexture() const;
+            std::shared_ptr<IMaterial>getMaterial() const;
 
             void setPrimitive(std::shared_ptr<IPrimitive> primitive);
-            void setTexture(std::shared_ptr<ITexture> texture);
+            void setMaterial(std::shared_ptr<IMaterial>material);
 
             std::shared_ptr<IPlugin> getPlugin(const std::string &name);
             void addPlugin(std::shared_ptr<IPlugin> plugin);
 
         private:
-            std::shared_ptr<IPrimitive> _primitive;
-            std::shared_ptr<ITexture> _texture;
+            std::shared_ptr<IPrimitive> _primitive = nullptr;
+            std::shared_ptr<IMaterial>_material = nullptr;
             std::map<std::string, std::shared_ptr<IPlugin>> _plugins;
     };
 }

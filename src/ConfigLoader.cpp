@@ -5,9 +5,10 @@
 ** ConfigLoader.cpp
 */
 
+#include <fstream>
 #include "ConfigLoader.hpp"
 #include "Camera.hpp"
-#include <fstream>
+#include "geometry.hpp"
 
 #include <iostream>
 namespace render {
@@ -28,9 +29,10 @@ namespace render {
         sf::Vector3f position;
         sf::Vector3f rotation;
 
-        cameraSettings.lookupValue("focalPoint", focalPoint);
-        cameraSettings.lookupValue("captorWidth", captorWidth);
-        cameraSettings.lookupValue("captorHeight", captorHeight);
+        cameraSettings.lookupValue("focal", focalPoint);
+        libconfig::Setting &captorSetting = cameraSettings.lookup("captor");
+        captorSetting.lookupValue("width", captorWidth);
+        captorSetting.lookupValue("height", captorHeight);
         libconfig::Setting &positionSetting = cameraSettings.lookup("position");
         positionSetting.lookupValue("x", position.x);
         positionSetting.lookupValue("y", position.y);
@@ -40,13 +42,22 @@ namespace render {
         rotationSetting.lookupValue("y", rotation.y);
         rotationSetting.lookupValue("z", rotation.z);
 
-        std::shared_ptr<Camera> cam = std::make_shared<Camera>(
+        std::shared_ptr<Camera> cam = std::shared_ptr<Camera>(
+            new Camera(
             focalPoint,
             captorWidth,
             captorHeight,
             position,
-            rotation
+            rotation)
         );
+
+        std::cout << render::green << "[INFO] " << render::no_color << "Loaded camera:" << std::endl;
+        std::cout << render::yellow << "\tfocal: " << focalPoint << std::endl;
+        std::cout << render::yellow << "\tcaptor: " << captorWidth << "x" << captorHeight << std::endl;
+        std::cout << render::yellow << "\tposition: (" << position.x << ", " << position.y << ", " << position.z << ")" << render::no_color << std::endl;
+        std::cout << render::yellow << "\trotation: (" << rotation.x << ", " << rotation.y << ", " << rotation.z << ")" << render::no_color << std::endl;
+
+        rdr.setCamera(cam);
     }
 
     void ConfigLoader::loadPlugins(Renderer &rdr)
@@ -54,11 +65,12 @@ namespace render {
         const libconfig::Setting &plugins = _cfg.lookup("plugins");
         //get value of wrapper
 
+        render::PluginManager &pm = rdr.getPluginManager();
         std::string wrapper;
         plugins.lookupValue("wrapper", wrapper);
         try {
             rdr.setWrapper(_loader.loadInstance<IWrapper>("wrapper", wrapper));
-            std::cout << render::green << "[INFO] " << render::no_color << "loaded wrapper: " << wrapper << std::endl;
+            std::cout << render::green << "[INFO] " << render::no_color << "Loaded wrapper: " << wrapper << std::endl;
         } catch (const std::exception &e) {
             std::cerr << render::red << "[ERROR] " << render::no_color << "could not load the wrapper: " << e.what() << std::endl;
             exit(84);
@@ -72,8 +84,7 @@ namespace render {
             plugin.lookupValue("path", path);
             plugin.lookupValue("name", name);
             path = path + _mode + ".so";
-            // std::cout << "path: " << path << std::endl;
-            _pluginManager.loadPlugin(path, name);
+            pm.loadPlugin(path, name);
         }
     }
 
@@ -91,9 +102,16 @@ namespace render {
                 name = name + _mode;
                 name = _path + name + ".so";
                 std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
-                obj->selfInit(args);
+                obj->selfInit(args, en.get());
                 en->setPrimitive(obj);
-                // TODO load the texture as well
+
+                libconfig::Setting &material = objectsValue[i].lookup("material");
+                std::string materialName = material;
+                materialName = materialName + _mode;
+                materialName = _path + materialName + ".so";
+                std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(material, materialName));
+                std::cout << "material " << mat << std::endl;
+                en->setMaterial(mat);
                 rdr.addEntity(en);
             } catch (std::exception &e) {
                 wasError = true;

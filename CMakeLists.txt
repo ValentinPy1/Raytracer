@@ -20,6 +20,7 @@ add_executable (
     src/Ray.cpp
     src/operations.cpp
     src/geometry.cpp
+    src/Intersection.cpp
 )
 
 target_link_libraries(

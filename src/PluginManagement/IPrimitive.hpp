@@ -12,12 +12,13 @@
     #include "SFML/System/Vector3.hpp"
 
 namespace render {
+    class Entity;
     class IPrimitive {
         public:
-            virtual void selfInit(libconfig::Setting &setting) = 0;
             virtual ~IPrimitive() = default;
-            virtual void solve(Ray &ray);
+            virtual void selfInit(libconfig::Setting &setting, Entity *parent) = 0;
             virtual sf::Vector3f getNormalAt(sf::Vector3f &point) = 0;
+            virtual void solve(render::Ray &ray) = 0;
     };
 }
 

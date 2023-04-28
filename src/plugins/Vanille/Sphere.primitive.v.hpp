@@ -8,19 +8,20 @@
 #pragma once
 
 #include "IPrimitive.hpp"
-#include "APlugin.hpp"
+#include "Plugin.hpp"
 #include "SFML/System/Vector3.hpp"
 
 namespace vanille {
-    class SpherePrimitive_v : public render::IPrimitive, public render::Plugin {
+    class SpherePrimitive_v : public render::IPrimitive {
         public:
             SpherePrimitive_v();
             ~SpherePrimitive_v();
-            void selfInit(libconfig::Setting &setting) override;
+            void selfInit(libconfig::Setting &setting, render::Entity *parent) override;
             sf::Vector3f getNormalAt(sf::Vector3f &point) override;
+            void solve(render::Ray &ray) override;
         private:
-            render::Ray &processRay(render::Ray &ray, const render::Renderer &rdr);
             sf::Vector3f _origin;
             float _radius;
+            render::Entity *_parent;
     };
 }

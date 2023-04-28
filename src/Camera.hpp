@@ -154,6 +154,8 @@ namespace render
          *
          */
         float scale = 10;
+
+        float _focalDistance = 10;
     };
 } // namespace render
 

@@ -5,62 +5,85 @@
 ** Wrapper.v.cpp
 */
 
+#include <ctime>
 #include "Plugin.hpp"
 #include "../plugins/Vanille/Wrapper.v.hpp"
 #include "Ray.hpp"
 #include "Camera.hpp"
+#include "Renderer.hpp"
 
 namespace vanille {
     Wrapper_v::Wrapper_v(const std::string &name)
     {
     }
 
-    void Wrapper_v::init() const
-    {
-        std::vector<render::init_t> initFuns = _pm->getInitFunctions();
-        for (auto &fun : initFuns)
-            fun(*_rdr);
+    Wrapper_v::~Wrapper_v() {
+        std::cout << "destroying wrapper" << std::endl;
     }
 
-    sf::Color Wrapper_v::processRay(render::Ray &ray) const
+    void Wrapper_v::init(render::PluginManager &pm, render::Renderer &rdr) const
     {
-        std::vector<render::processRay_t> processFuns = _pm->getProcessRayFunctions();
-        for (auto &fun : processFuns)
-            fun(ray, *_rdr);
+        std::vector<render::init_t> initFuns = pm.getInitFunctions();
+        for (auto &fun : initFuns)
+            fun(rdr);
+    }
+
+    sf::Color Wrapper_v::processRay(render::Ray &ray, render::PluginManager &pm, render::Renderer &rdr, std::vector<render::processRay_t> &processFuns) const
+    {
+        for (auto &fun : processFuns) {
+            ray = fun(ray, rdr);
+        }
         return ray.getColor();
     }
 
-    void Wrapper_v::postProcess() const
+    void Wrapper_v::postProcess(render::Renderer &rdr, render::PluginManager &pm) const
     {
-        std::vector<render::postProcess_t> postFuns = _pm->getPostProcessFunctions();
+        std::vector<render::postProcess_t> postFuns = pm.getPostProcessFunctions();
         for (auto &fun : postFuns)
-            fun(*_rdr);
+            fun(rdr);
     }
 
-    void Wrapper_v::render() const
+    void Wrapper_v::render(render::Renderer &rdr, render::PluginManager &pm) const
     {
-        render::Camera &camera = _rdr->getCamera();
+        clock_t start = clock();
+        render::Camera &camera = rdr.getCamera();
         sf::Image &captor = camera.getCaptor();
-        std::vector<render::Ray> rays = camera.getRays();
-        unsigned int width = captor.getSize().x;
-        unsigned int height = captor.getSize().y;
+        std::vector<render::Ray> &rays = camera.getRays();
+        std::vector<render::processRay_t> processFuns = pm.getProcessRayFunctions();
 
-        for (unsigned int y = 0; y < height; y++) {
-            for (unsigned int x = 0; x < width; x++) {
-                sf::Color color = processRay(rays[y * width + x]);
-                captor.setPixel(x, y, color);
+        sf::Vector2u captorSize = captor.getSize();
+        unsigned int width = captorSize.x;
+        unsigned int height = captorSize.y;
+
+        std::cout << render::green << "[INFO] " << render::yellow << "Rendering... " << render::no_color << std::endl;
+        // int i = 0;
+        // for (unsigned int x = 0; x < width; x++) {
+        //     for (unsigned int y = 0; y < height; y++) {
+        //         sf::Color color = processRay(rays[i++], pm, rdr, processFuns);
+        //         captor.setPixel(y, x, color);
+        //     }
+        // }
+
+        for (unsigned int i = 0; i < camera.getCaptor().getSize().x; i++) {
+            for (unsigned int j = 0; j < camera.getCaptor().getSize().y; j++) {
+            render::Ray ray = rays[i * camera.getCaptor().getSize().y + j];
+            sf::Color tmp = processRay(ray, pm, rdr, processFuns);
+            camera.getCaptor().setPixel(i, j, tmp);
             }
         }
-        postProcess();
+
+        std::cout << render::green << "[INFO] " << render::yellow << "Applying post process to the image... " << render::no_color << std::endl;
+        postProcess(rdr, pm);
+        std::cout << render::green << "[INFO] " << render::yellow << "Done in " << (double) (clock() - start) / CLOCKS_PER_SEC << " seconds."  << render::no_color << std::endl;
+        captor.saveToFile("test.png");
     }
 
     void Wrapper_v::run(render::Renderer &rdr)
     {
-        _rdr = &rdr;
-        _pm = &_rdr->getPluginManager();
+        auto pm = rdr.getPluginManager();
 
-        init();
-        render();
+        init(pm, rdr);
+        render(rdr, pm);
     }
 
     extern "C" {

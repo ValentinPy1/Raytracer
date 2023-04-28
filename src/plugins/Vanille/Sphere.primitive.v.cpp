@@ -7,28 +7,25 @@
 
 #include <string>
 #include <cmath>
+#include <SFML/Graphics.hpp>
+#include <SFML/System/Vector3.hpp>
 #include "Sphere.primitive.v.hpp"
-#include "Render.hpp"
+#include "Renderer.hpp"
 #include "Ray.hpp"
 #include "operations.hpp"
 
 namespace vanille {
-    SpherePrimitive_v::SpherePrimitive_v() : render::IPrimitive(), render::APlugin()
+    SpherePrimitive_v::SpherePrimitive_v() : render::IPrimitive()
     {
         _origin = sf::Vector3f(0, 0, 0);
         _radius = 1;
-        _name = "SpherePrimitive_v";
-        _priority = 0;
-        _processRay = [this](render::Ray &ray, const render::Renderer &rdr) -> render::Ray & {
-            return processRay(ray, rdr);
-        };
     }
 
     SpherePrimitive_v::~SpherePrimitive_v()
     {
     }
 
-    render::Ray &SpherePrimitive_v::processRay(render::Ray &ray, const render::Renderer &rdr)
+    void SpherePrimitive_v::solve(render::Ray &ray)
     {
         sf::Vector3f vo = ray.getOrigin();
         sf::Vector3f vd = ray.getDirection();
@@ -38,16 +35,15 @@ namespace vanille {
         auto delta = b * b - 4 * a * c;
 
         if (delta < 0)
-            return ray;
+            return;
 
         float sqrtDelta = std::sqrt(delta);
         ray.addIntersection(
-            render::Intersection(ray, (-b - sqrtDelta) / (2 * a)).addNormal(this)
+            render::Intersection(_parent, ray, (-b - sqrtDelta) / (2 * a))
         );
         ray.addIntersection(
-            render::Intersection(ray, (-b + sqrtDelta) / (2 * a)).addNormal(this)
+            render::Intersection(_parent, ray, (-b + sqrtDelta) / (2 * a))
         );
-        return ray;
     }
 
     sf::Vector3f SpherePrimitive_v::getNormalAt(sf::Vector3f &point)
@@ -55,15 +51,19 @@ namespace vanille {
         return (point - _origin) / _radius;
     }
 
-    void SpherePrimitive_v::selfInit(libconfig::Setting &setting)
+    void SpherePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
-        _origin = sf::Vector3f(setting["origin"][0], setting["origin"][1], setting["origin"][2]);
-        _radius = setting["radius"];
+        setting.lookupValue("x", _origin.x);
+        setting.lookupValue("y", _origin.y);
+        setting.lookupValue("z", _origin.z);
+        setting.lookupValue("radius", _radius);
+        _parent = parent;
+        std::cout << "create a sphere: " << _origin.x << " " << _origin.y << " " << _origin.z << " - " << _radius << std::endl;
     }
 }
 
 extern "C" {
-    render::APlugin *entryPoint() {
+    render::IPrimitive *entryPoint() {
         return new vanille::SpherePrimitive_v();
     }
 }

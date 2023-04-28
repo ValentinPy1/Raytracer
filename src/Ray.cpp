@@ -15,6 +15,7 @@ namespace render {
     Ray::Ray(const sf::Vector3f &origin, const sf::Vector3f &direction, int reflectionDepth)
     : _reflectionDepth(reflectionDepth), _origin(origin), _direction(direction)
     {
+        _color = sf::Color::Black;
     }
 
     sf::Vector3f Ray::rotateVector(const sf::Vector3f& vector, const sf::Vector3f& rotation) {
@@ -94,42 +95,40 @@ namespace render {
         return blendedColor;
     }
 
-    // bool Ray::hasIntersections() const
-    // {
-    //     return _intersections.size() == 0;
-    // }
+    bool Ray::hasIntersections() const
+    {
+        return _intersections.size() > 0;
+    }
 
-    // const std::vector<Intersection> &Ray::getIntersections() const
-    // {
-    //     return _intersections;
-    // }
+    std::vector<Intersection> &Ray::getIntersections()
+    {
+        return _intersections;
+    }
 
-    // const sf::Vector3f &Ray::getOrigin() const
-    // {
-    //     return _origin;
-    // }
+    const sf::Vector3f &Ray::getOrigin() const
+    {
+        return _origin;
+    }
 
-    // const sf::Vector3f &Ray::getDirection() const
-    // {
-    //     return _direction;
-    // }
+    const sf::Vector3f &Ray::getDirection() const
+    {
+        return _direction;
+    }
 
-    // void Ray::addIntersection(const Intersection &intersection)
-    // {
-    //     _intersections.push_back(intersection);
-    // }
+    void Ray::addIntersection(const Intersection &intersection)
+    {
+        _intersections.push_back(intersection);
+    }
 
-    // sf::Color Ray::getColor() const
-    // {
-    //     if (_intersections.size() == 0)
-    //         return sf::Color::Black;
-    //     return _color;
-    // }
+    sf::Color Ray::getColor() const
+    {
+        return _color;
+    }
 
-    // void Ray::setColor(const sf::Color &color)
-    // {
-    //     _color = color;
-    // }
+    void Ray::setColor(const sf::Color &color)
+    {
+        _color = color;
+    }
 
     // sf::Color Ray::blendAdd(const sf::Color &color) const
     // {
