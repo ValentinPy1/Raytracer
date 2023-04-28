@@ -25,21 +25,25 @@ namespace vanille {
 
     void CylinderPrimitive_v::solve(render::Ray &ray)
     {
-        sf::Vector3f vo = ray.getOrigin();
-        sf::Vector3f vd = ray.getDirection();
+        (void) ray;
+        // sf::Vector3f vo = ray.getOrigin();
+        // sf::Vector3f vd = ray.getDirection();
 
-        auto a = vd * vd;
+        // auto a = vd * vd;
         return;
     }
 
     sf::Vector3f CylinderPrimitive_v::getNormalAt(sf::Vector3f &point)
     {
         // return (point - _origin) / _radius;
+
+        return (point);
     }
 
     void CylinderPrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
         _parent = parent;
+        (void) setting;
         // _origin = sf::Vector3f(setting["origin"][0], setting["origin"][1], setting["origin"][2]);
         // _radius = setting["radius"];
     }

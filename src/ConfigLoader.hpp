@@ -24,11 +24,13 @@ namespace render {
             ConfigLoader();
             ~ConfigLoader();
             void loadConfigFile(std::string path, Renderer &rdr);
+
+        private:
             void loadCamera(Renderer &rdr);
             void loadPlugins(Renderer &rdr);
             void loadObjects(Renderer &rdr);
+            void loadLights(Renderer &rdr);
 
-        private:
             libconfig::Config _cfg;
             std::string _mode;
             PluginManager _pluginManager;

@@ -97,5 +97,37 @@ add_library(
     Directional.light.v SHARED
     ${COMMON_SRC}
     Directional.light.v.cpp
-    ../../LightModel.hpp
+    ../../LightModel.cpp
+    ../../Entity.cpp
+    ../../operations.cpp
+)
+
+target_link_libraries(
+    Directional.light.v
+    -lsfml-graphics
+    -lsfml-system
+    -lsfml-window
+)
+
+add_custom_command(
+    TARGET Directional.light.v POST_BUILD
+    COMMAND mv libDirectional.light.v.so ..
+)
+
+add_library(
+    ApplyPointLights.process.v SHARED
+    ${COMMON_SRC}
+    applyPointLights.process.v.cpp
+)
+
+target_link_libraries(
+    ApplyPointLights.process.v
+    -lsfml-graphics
+    -lsfml-system
+    -lsfml-window
+)
+
+add_custom_command(
+    TARGET ApplyPointLights.process.v POST_BUILD
+    COMMAND mv libApplyPointLights.process.v.so ..
 )

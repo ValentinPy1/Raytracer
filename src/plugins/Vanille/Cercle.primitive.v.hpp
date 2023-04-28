@@ -9,7 +9,7 @@
 
 #include "IPrimitive.hpp"
 #include "Plugin.hpp"
-#include "SFML/System/Vector3.hpp"
+#include "Entity.hpp"
 
 namespace vanille {
     class CerclePrimitive_v : public render::IPrimitive {
@@ -22,5 +22,6 @@ namespace vanille {
         private:
             sf::Vector3f _origin;
             float _radius;
+            render::Entity *_parent;
     };
 }

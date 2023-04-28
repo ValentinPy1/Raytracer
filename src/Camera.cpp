@@ -35,8 +35,8 @@ namespace render {
         for (int x = -captorWidth / 2.0f; x < captorWidth / 2.0f; x++) {
             for (int y = -captorHeight / 2.0f; y < captorHeight / 2.0f; y++) {
                 sf::Vector3f direction = Ray::normalize(sf::Vector3f(
-                    (float) x,
-                    (float) y ,
+                    (float) x * pixWidth,
+                    (float) y * pixHeight,
                     _focalDistance
                 ));
                 _rays.emplace_back(_focalPoint, direction);

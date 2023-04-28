@@ -5,6 +5,7 @@
 ** Flat.material.v.cpp
 */
 
+#include "Renderer.hpp"
 #include "Flat.material.v.hpp"
 
 namespace vanille {
@@ -13,7 +14,8 @@ namespace vanille {
         _color = color;
     }
 
-    void FlatMaterial_v::getColor(int &r, int &g, int &b, geo::vec3 point) const
+    void FlatMaterial_v::getColor(int &r, int &g, int &b,
+        __attribute__((unused)) geo::vec3 point) const
     {
         r = _color.r;
         g = _color.g;
@@ -22,7 +24,13 @@ namespace vanille {
 
     float FlatMaterial_v::getProperty(const std::string &name) const
     {
-        return _properties.at(name);
+        try {
+            return _properties.at(name);
+        } catch (std::out_of_range &e) {
+            std::cerr << render::yellow << "[WARNING] " << render::no_color
+                << "Property " << name << " not found in material" << std::endl;
+            return 0;
+        }
     }
 }
 

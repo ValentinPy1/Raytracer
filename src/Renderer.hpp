@@ -13,6 +13,7 @@
 #include "Entity.hpp"
 #include "PluginManager.hpp"
 #include "Wrapper.hpp"
+#include "ILight.hpp"
 
 namespace render {
 
@@ -34,8 +35,11 @@ namespace render {
             void setCamera(std::shared_ptr<render::Camera> camera);
             void setWrapper(IWrapper *wrapper);
             void setAmbientLight(const sf::Color &color);
+            void addLight(std::shared_ptr<ILight> light);
+
             Camera &getCamera() const;
             sf::Color getAmbientLight() const;
+            std::vector<std::shared_ptr<ILight>> getLights() const;
             std::vector<std::shared_ptr<Entity>> getEntities() const;
             void render();
         private:
@@ -44,6 +48,6 @@ namespace render {
             std::shared_ptr<IWrapper> _wrapper;
             std::shared_ptr<Camera> _camera;
             sf::Color _ambientLight;
-            // std::vector<Light> _lights;
+            std::vector<std::shared_ptr<ILight>> _lights;
     };
 }

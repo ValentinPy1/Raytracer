@@ -23,7 +23,8 @@ namespace render {
         };
     }
 
-    void AmbientLight_v::applyAmbientLight(render::Ray &ray, const render::Renderer &rdr) {
+    void AmbientLight_v::applyAmbientLight(render::Ray &ray,
+        __attribute__((unused)) const render::Renderer &rdr) {
         if (!ray.hasIntersections())
             return;
         ray.setColor(ray.blendMultiply(ray.getColor(), _color));

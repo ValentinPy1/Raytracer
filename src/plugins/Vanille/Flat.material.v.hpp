@@ -19,7 +19,9 @@ namespace vanille {
             void getColor(int &r, int &g, int &b, geo::vec3 point) const override;
             float getProperty(const std::string &name) const override;
         private:
-            std::map<std::string, float> _properties;
+            std::map<std::string, float> _properties = {
+                {"shininess", 0},
+            };
             sf::Color _color = sf::Color::Red;
     };
 }

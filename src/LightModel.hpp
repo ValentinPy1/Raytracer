@@ -42,17 +42,13 @@ namespace render {
                 const sf::Vector3f lightDirection,
                 const sf::Vector3f &surfaceNormal,
                 const sf::Vector3f &viewDirection,
-                const float lightDistance,
+                float lightDistance,
                 const float shininess,
                 const float intensity
             );
 
         typedef decltype(&LightModel::applyBlinnPhong) lightModelApplier_t;
         static const std::map<std::string, lightModelApplier_t> models;
-    };
-
-    static const std::map<std::string, LightModel::lightModelApplier_t> models = {
-           {"BlinnPhong", &LightModel::applyBlinnPhong}
     };
 }
 

@@ -6,6 +6,7 @@
 */
 
 #include "LightModel.hpp"
+#include "operations.hpp"
 #include "Directional.light.v.hpp"
 
 namespace vanille {
@@ -14,7 +15,7 @@ namespace vanille {
         const libconfig::Setting &colorSetting = setting.lookup("color");
         const libconfig::Setting &directionSetting = setting.lookup("direction");
         int r, g, b;
-        int x, y, z;
+        float x, y, z;
 
         colorSetting.lookupValue("r", r);
         colorSetting.lookupValue("g", g);
@@ -24,7 +25,6 @@ namespace vanille {
         directionSetting.lookupValue("z", z);
         _color = sf::Color(r, g, b);
         _direction = sf::Vector3f(x, y, z);
-
         setting.lookupValue("applyMode", _applyMode);
         setting.lookupValue("shadowSamples", _shadowSamples);
     }
@@ -33,25 +33,24 @@ namespace vanille {
     {
         if (!ray.hasIntersections())
             return;
+        (void) rdr; // TODO: REMOVE ONCE CASTSHADOW IS OK
         render::Intersection intersect = ray.getIntersections().front();
         render::Entity *interceptee = intersect.getInterceptee();
         sf::Vector3f normal = intersect.getNormal();
         sf::Vector3f viewDirection = ray.getDirection();
-
         sf::Color color = render::LightModel::apply(
             "BlinnPhong",
             _color,
             -_direction,
             normal,
             viewDirection,
-            0,
-            interceptee->getTexture()->getProperty("shininess"),
+            -1,
+            interceptee->getMaterial()->getProperty("shininess"),
             1
         );
 
-        castShadow(color, intersect, rdr);
-
-        ray.blendMultiply(color);
+        // castShadow(color, intersect, rdr);
+        ray.setColor(ray.blendMultiply(color));
     }
 
     void DirectionalLight_v::castShadow(sf::Color &color, render::Intersection &intersect, const render::Renderer &rdr)
@@ -86,5 +85,12 @@ namespace vanille {
             color.b * hitNbr / _shadowSamples
         );
         color = finalColor;
+    }
+}
+
+extern "C" {
+    vanille::DirectionalLight_v *entryPoint()
+    {
+        return new vanille::DirectionalLight_v();
     }
 }
