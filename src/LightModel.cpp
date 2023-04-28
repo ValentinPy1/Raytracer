@@ -11,43 +11,37 @@
 #include <cmath>
 
 namespace render {
-sf::Color LightModel::applyBlinnPhong(
+
+    sf::Color LightModel::applyBlinnPhong(
                 const sf::Color &lightColor,
-                const sf::Vector3f lightDirection,
+                const sf::Vector3f lightDir,
                 const sf::Vector3f &normal,
                 const sf::Vector3f &viewDirection,
-                const float lightDistance,
+                float lightDistance,
                 const float shininess,
                 const float intensity
             )
         {
-            sf::Vector3f buffer = {0, 0, 0};
-            sf::Vector3f halfVector = Ray::normalize(lightDirection + viewDirection);
-            float lightDistance = std::sqrt(lightDirection.x * lightDirection.x + lightDirection.y * lightDirection.y + lightDirection.z * lightDirection.z);
+            float diffuse = std::max(0.0f, normal * Ray::normalize(lightDir));
+            if (diffuse > 255)
+                diffuse = 255;
+            sf::Vector3f halfwayDir = Ray::normalize(Ray::normalize(lightDir) + viewDirection);
+            float specular = std::pow(std::max(0.0f, normal * halfwayDir), shininess);
+            float attenuation = 1.0f / (1.0f + 0.01f * lightDistance * lightDistance);
 
-            float diffuse = std::min(std::max(0.0f, normal * lightDirection), 255.0f);
-            buffer = diffuse * (sf::Vector3f) {
-                static_cast<float>(lightColor.r),
-                static_cast<float>(lightColor.g),
-                static_cast<float>(lightColor.b)
-            } / lightDistance;
-            float specular = std::pow(std::min(std::max(0.0f, normal * halfVector), 255.0f), shininess);
-            buffer += specular * (sf::Vector3f) {
-                static_cast<float>(lightColor.r),
-                static_cast<float>(lightColor.g),
-                static_cast<float>(lightColor.b)
-            } / lightDistance;
-            if (buffer.x > 255)
-                buffer.x = 255;
-            if (buffer.y > 255)
-                buffer.y = 255;
-            if (buffer.z > 255)
-                buffer.z = 255;
-            buffer = buffer * intensity;
+            float r = static_cast<int>((diffuse + specular) * attenuation * lightColor.r);
+            float g = static_cast<int>((diffuse + specular) * attenuation * lightColor.g);
+            float b = static_cast<int>((diffuse + specular) * attenuation * lightColor.b);
+            if (r > 255)
+                r = 255;
+            if (g > 255)
+                g = 255;
+            if (b > 255)
+                b = 255;
             sf::Color out = {
-                static_cast<sf::Uint8>(buffer.x),
-                static_cast<sf::Uint8>(buffer.y),
-                static_cast<sf::Uint8>(buffer.z)
+                static_cast<sf::Uint8>(r),
+                static_cast<sf::Uint8>(g),
+                static_cast<sf::Uint8>(b)
             };
             return out;
         }
@@ -63,6 +57,9 @@ sf::Color LightModel::applyBlinnPhong(
         const float intensity
     )
     {
+        static const std::map<std::string, LightModel::lightModelApplier_t> models = {
+           {"BlinnPhong", &LightModel::applyBlinnPhong}
+        };
         return models.at(S)(
             lightColor,
             lightDirection,

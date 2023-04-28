@@ -13,7 +13,7 @@
 #include "Renderer.hpp"
 
 namespace vanille {
-    Wrapper_v::Wrapper_v(const std::string &name)
+    Wrapper_v::Wrapper_v()
     {
     }
 
@@ -28,7 +28,7 @@ namespace vanille {
             fun(rdr);
     }
 
-    sf::Color Wrapper_v::processRay(render::Ray &ray, render::PluginManager &pm, render::Renderer &rdr, std::vector<render::processRay_t> &processFuns) const
+    sf::Color Wrapper_v::processRay(render::Ray &ray, render::Renderer &rdr, std::vector<render::processRay_t> &processFuns) const
     {
         for (auto &fun : processFuns) {
             ray = fun(ray, rdr);
@@ -51,23 +51,11 @@ namespace vanille {
         std::vector<render::Ray> &rays = camera.getRays();
         std::vector<render::processRay_t> processFuns = pm.getProcessRayFunctions();
 
-        sf::Vector2u captorSize = captor.getSize();
-        unsigned int width = captorSize.x;
-        unsigned int height = captorSize.y;
-
         std::cout << render::green << "[INFO] " << render::yellow << "Rendering... " << render::no_color << std::endl;
-        // int i = 0;
-        // for (unsigned int x = 0; x < width; x++) {
-        //     for (unsigned int y = 0; y < height; y++) {
-        //         sf::Color color = processRay(rays[i++], pm, rdr, processFuns);
-        //         captor.setPixel(y, x, color);
-        //     }
-        // }
-
         for (unsigned int i = 0; i < camera.getCaptor().getSize().x; i++) {
             for (unsigned int j = 0; j < camera.getCaptor().getSize().y; j++) {
             render::Ray ray = rays[i * camera.getCaptor().getSize().y + j];
-            sf::Color tmp = processRay(ray, pm, rdr, processFuns);
+            sf::Color tmp = processRay(ray, rdr, processFuns);
             camera.getCaptor().setPixel(i, j, tmp);
             }
         }
@@ -89,7 +77,7 @@ namespace vanille {
     extern "C" {
         render::IWrapper *entryPoint()
         {
-            return new Wrapper_v("wrapper");
+            return new Wrapper_v();
         }
     }
 }

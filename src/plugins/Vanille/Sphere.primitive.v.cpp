@@ -58,7 +58,6 @@ namespace vanille {
         setting.lookupValue("z", _origin.z);
         setting.lookupValue("radius", _radius);
         _parent = parent;
-        std::cout << "create a sphere: " << _origin.x << " " << _origin.y << " " << _origin.z << " - " << _radius << std::endl;
     }
 }
 

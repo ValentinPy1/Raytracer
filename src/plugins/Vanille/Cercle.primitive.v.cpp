@@ -54,6 +54,7 @@ namespace vanille {
 
     void CerclePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
+        _parent = parent;
         _origin = sf::Vector3f(setting["origin"][0], setting["origin"][1], setting["origin"][2]);
         // _radius = setting["radius"];
         _radius = 1;

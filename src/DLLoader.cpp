@@ -22,10 +22,9 @@ namespace render {
     }
 
     DLLoader::~DLLoader() {
-        std::cout << render::green << "[INFO] " << render::no_color << "Closing libraries: " << std::flush;
         for (auto &handle : _libHandles) {
             std::cout << render::green << "[INFO] " << render::no_color <<"Closing " << handle.first << ": \r\t\t\t\t\t\t" << std::flush;
-            // dlclose(handle.second);
+            dlclose(handle.second);
             std::cout << render::green << "OK" << render::no_color << std::endl;
         }
         _libHandles.clear();

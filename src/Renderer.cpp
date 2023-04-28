@@ -49,4 +49,14 @@ namespace render {
     {
         return _entities;
     }
+
+    void Renderer::addLight(std::shared_ptr<ILight> light)
+    {
+        _lights.push_back(light);
+    }
+
+    std::vector<std::shared_ptr<ILight>> Renderer::getLights() const
+    {
+        return _lights;
+    }
 }
