@@ -93,3 +93,9 @@ add_custom_command(
     COMMAND mv libFlat.material.v.so ..
 )
 
+add_library(
+    Directional.light.v SHARED
+    ${COMMON_SRC}
+    Directional.light.v.cpp
+    ../../LightModel.hpp
+)

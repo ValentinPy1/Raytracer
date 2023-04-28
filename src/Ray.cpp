@@ -75,15 +75,15 @@ namespace render {
     //     return final;
     // }
 
-    // sf::Color Ray::blendMultiply(const sf::Color &color) const
-    // {
-    //     sf::Color blendedColor;
-    //     blendedColor.r = static_cast<sf::Uint8>((_color.r / 255.0f) * (color.r / 255.0f) * 255.0f);
-    //     blendedColor.g = static_cast<sf::Uint8>((_color.g / 255.0f) * (color.g / 255.0f) * 255.0f);
-    //     blendedColor.b = static_cast<sf::Uint8>((_color.b / 255.0f) * (color.b / 255.0f) * 255.0f);
+    sf::Color Ray::blendMultiply(const sf::Color &color) const
+    {
+        sf::Color blendedColor;
+        blendedColor.r = static_cast<sf::Uint8>((_color.r / 255.0f) * (color.r / 255.0f) * 255.0f);
+        blendedColor.g = static_cast<sf::Uint8>((_color.g / 255.0f) * (color.g / 255.0f) * 255.0f);
+        blendedColor.b = static_cast<sf::Uint8>((_color.b / 255.0f) * (color.b / 255.0f) * 255.0f);
 
-    //     return blendedColor;
-    // }
+        return blendedColor;
+    }
 
     sf::Color Ray::blendMultiply(const sf::Color &color1, const sf::Color &color2)
     {
