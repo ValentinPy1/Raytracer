@@ -23,19 +23,20 @@ namespace render {
 
     PluginManager::~PluginManager()
     {
-        std::cout << "plugin manager: destructor" << std::endl;
+        std::cout << render::green << "[INFO] " << render::no_color << "Unloading plugins..." << std::endl;
     }
 
     void PluginManager::loadPlugin(const std::string &path, const std::string &libName)
     {
         _loader.load(path, libName);
-        auto plugin = std::shared_ptr<Plugin>(_loader.loadInstance<Plugin>(libName));
+        auto plugin = std::shared_ptr<IPlugin>(_loader.loadInstance<IPlugin>(libName));
         if (plugin->getPriority() < 0)
             return;
         _plugins.push_back(plugin);
-        std::sort(_plugins.begin(), _plugins.end(), [](const std::shared_ptr<Plugin> &a, const std::shared_ptr<Plugin> &b) {
+        std::sort(_plugins.begin(), _plugins.end(), [](const std::shared_ptr<IPlugin> &a, const std::shared_ptr<IPlugin> &b) {
             return a->getPriority() < b->getPriority();
         });
+        std::cout << render::green << "[INFO] " << render::no_color << "Loaded plugin: " << libName << std::endl;
     }
 
     void PluginManager::autoLoadPlugins(const std::string &pluginsDir)
@@ -68,7 +69,6 @@ namespace render {
     std::vector<processRay_t> PluginManager::getProcessRayFunctions() const
     {
         std::vector<processRay_t> ret;
-
         for (const auto &plugin : _plugins) {
             if (plugin->getProcessRay())
                 ret.push_back(plugin->getProcessRay());
@@ -92,8 +92,6 @@ namespace render {
         for (const auto &plugin : plugins) {
             try {
                 loadPlugin(std::get<0>(plugin), std::get<1>(plugin));
-                std::cout << render::green << "[INFO] Loaded plugin: " << render::no_color
-                    << std::get<0>(plugin) << std::endl;
             } catch (DLLoader::DLLoaderException &e) {
                 std::cerr << render::red << "[ERROR] Failed to load plugin: " << render::no_color
                     << std::get<0>(plugin) << e.what() << std::endl;
@@ -110,7 +108,7 @@ namespace render {
         throw std::runtime_error("Plugin not found: " + name);
     }
 
-    const std::vector<std::shared_ptr<Plugin>> &PluginManager::getPlugins() const noexcept
+    const std::vector<std::shared_ptr<IPlugin>> &PluginManager::getPlugins() const noexcept
     {
         return _plugins;
     }

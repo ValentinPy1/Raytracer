@@ -69,7 +69,7 @@ namespace render {
             sf::Color getReflectionColor(const Renderer &renderer);
 
             bool hasIntersections() const;
-            const std::vector<Intersection> &getIntersections() const;
+            std::vector<Intersection> &getIntersections();
             const sf::Vector3f &getOrigin() const;
             const sf::Vector3f &getDirection() const;
             void addIntersection(const Intersection &intersection);

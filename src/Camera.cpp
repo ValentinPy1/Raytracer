@@ -8,6 +8,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include <ctime>
+#include <random>
 #include "Camera.hpp"
 #include "Ray.hpp"
 
@@ -18,6 +19,7 @@ namespace render {
         : _position(position), _rotation(rotation)
     {
         _focalPoint = computeFocalPoint(focalPoint);
+        _focalDistance = -focalPoint;
         _captor.create(captorWidth, captorHeight, sf::Color::Black);
 
         generateRays();
@@ -30,12 +32,27 @@ namespace render {
         float pixHeight = (float) _captorSize.y / (float) captorHeight * scale;
         float pixWidth = (float) _captorSize.x / (float) captorWidth * scale;
 
-        for (int w = -captorWidth / 2.0f; w < captorWidth / 2.0f; w++) {
-            for (int h = -captorHeight / 2.0f; h < captorHeight / 2.0f; h++) {
-                sf::Vector3f direction = Ray::normalize(sf::Vector3f(w * pixWidth, 0, h * pixHeight) - _focalPoint);
+        for (int x = -captorWidth / 2.0f; x < captorWidth / 2.0f; x++) {
+            for (int y = -captorHeight / 2.0f; y < captorHeight / 2.0f; y++) {
+                sf::Vector3f direction = Ray::normalize(sf::Vector3f(
+                    (float) x * pixWidth,
+                    (float) y * pixHeight,
+                    _focalDistance
+                ));
                 _rays.emplace_back(_focalPoint, direction);
+                // std::cerr << direction.x << " " << direction.y << " " << direction.z << " " << _focalPoint.x << " " << _focalPoint.y << " " << _focalPoint.z << std::endl;
             }
         }
+
+
+        // for (int w = -captorWidth / 2.0f; w < captorWidth / 2.0f; w++) {
+        //     for (int h = -captorHeight / 2.0f; h < captorHeight / 2.0f; h++) {
+        //         sf::Vector3f direction = Ray::normalize(sf::Vector3f(w * pixWidth, 0, h * pixHeight) - _focalPoint);
+        //         _rays.emplace_back(_focalPoint, direction);
+        //     }
+        // }
+
+
     }
 
     sf::Vector3f Camera::computeFocalPoint(float focalPoint) const

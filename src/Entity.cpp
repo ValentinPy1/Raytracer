@@ -20,14 +20,14 @@ namespace render
         _primitive = primitive;
     }
 
-    void Entity::setTexture(std::shared_ptr<ITexture> texture)
+    void Entity::setMaterial(std::shared_ptr<IMaterial>material)
     {
-        _texture = texture;
+        _material = material;
     }
 
-    std::shared_ptr<ITexture> Entity::getTexture() const
+    std::shared_ptr<IMaterial>Entity::getMaterial() const
     {
-        return _texture;
+        return _material;
     }
 
     std::shared_ptr<IPlugin> Entity::getPlugin(const std::string &name)

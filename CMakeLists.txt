@@ -20,6 +20,7 @@ add_executable (
     src/Ray.cpp
     src/operations.cpp
     src/geometry.cpp
+    src/Intersection.cpp
 )
 
 target_link_libraries(
@@ -30,5 +31,6 @@ target_link_libraries(
     -lm
     -lconfig++
 )
+
 add_subdirectory(src/plugins/Vanille)
 # add_subdirectory(plugins/OpenGL)

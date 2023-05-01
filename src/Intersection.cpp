@@ -19,7 +19,7 @@ namespace render {
         int r, g, b;
 
         _point = _ray.getOrigin() + _ray.getDirection() * (_distance);
-        _interceptee->getTexture()->getColor(r, g, b, (geo::vec3) {_point.x, _point.y, _point.z});
+        _interceptee->getMaterial()->getColor(r, g, b, (geo::vec3) {_point.x, _point.y, _point.z});
         _color = sf::Color(r, g, b);
         _normal = _interceptee->getPrimitive()->getNormalAt(_point);
     }

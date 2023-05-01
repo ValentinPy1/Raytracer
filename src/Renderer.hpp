@@ -5,14 +5,15 @@
 ** Renderer.hpp
 */
 
-#ifndef RENDERER_HPP
-#define RENDERER_HPP
+#pragma once
 
 #include <vector>
-    #include <memory>
-    #include "Entity.hpp"
-    #include "PluginManager.hpp"
-    #include "Wrapper.hpp"
+#include <memory>
+#include <SFML/Graphics.hpp>
+#include "Entity.hpp"
+#include "PluginManager.hpp"
+#include "Wrapper.hpp"
+#include "ILight.hpp"
 
 namespace render {
 
@@ -33,18 +34,20 @@ namespace render {
             void addEntity(std::shared_ptr<Entity> entity);
             void setCamera(std::shared_ptr<render::Camera> camera);
             void setWrapper(IWrapper *wrapper);
+            void setAmbientLight(const sf::Color &color);
+            void addLight(std::shared_ptr<ILight> light);
 
             Camera &getCamera() const;
+            sf::Color getAmbientLight() const;
+            std::vector<std::shared_ptr<ILight>> getLights() const;
+            std::vector<std::shared_ptr<Entity>> getEntities() const;
             void render();
         private:
             PluginManager _pluginManager;
             std::vector<std::shared_ptr<Entity>> _entities;
             std::shared_ptr<IWrapper> _wrapper;
             std::shared_ptr<Camera> _camera;
-            // std::vector <Light> _lights;
-
+            sf::Color _ambientLight;
+            std::vector<std::shared_ptr<ILight>> _lights;
     };
 }
-
-
-#endif // RENDERER_HPP
