@@ -33,4 +33,4 @@ target_link_libraries(
 )
 
 add_subdirectory(src/plugins/Vanille)
-# add_subdirectory(plugins/OpenGL)
+add_subdirectory(src/plugins/OpenGL)

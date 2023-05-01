@@ -32,7 +32,9 @@ namespace render
 
     std::shared_ptr<IPlugin> Entity::getPlugin(const std::string &name)
     {
-        return _plugins[name];
+        if (_plugins.find(name) != _plugins.end())
+            return _plugins[name];
+        return nullptr;
     }
 
     void Entity::addPlugin(std::shared_ptr<IPlugin> plugin)

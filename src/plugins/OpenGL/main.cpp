@@ -1,4 +1,4 @@
-/*
+up and/*
 ** EPITECH PROJECT, 2022
 ** tests
 ** File description:
@@ -15,8 +15,8 @@
 #include <GL/glew.h>
 #include "glfw/include/GLFW/glfw3.h"
 #include <stdexcept>
-
 #define callgl(fun) getGl<decltype(fun)>(#fun)
+
 template <typename T>
 static T getGl(const std::string &name) {
     T var = (T) glfwGetProcAddress(name.c_str());
@@ -57,6 +57,7 @@ class Opgl {
         void clearScr() {
             glClear(GL_COLOR_BUFFER_BIT);
         }
+
         GLFWwindow *getWindow() const { return _window; }
     private:
         GLFWwindow *_window;
@@ -199,7 +200,6 @@ int main()
             index += 2;
         }
     }
-
 
     struct vec3 {
         float x;
