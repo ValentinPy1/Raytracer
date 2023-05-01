@@ -9,9 +9,31 @@
 #include "Flat.material.v.hpp"
 
 namespace vanille {
-    FlatMaterial_v::FlatMaterial_v(const sf::Color &color) : render::IMaterial()
+    FlatMaterial_v::FlatMaterial_v() : render::IMaterial()
     {
-        _color = color;
+        _color = sf::Color::White;
+    }
+
+    void FlatMaterial_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
+    {
+        _parent = parent;
+        if (setting.exists("color")) {
+            libconfig::Setting &color = setting["color"];
+            int r = color["r"];
+            int g = color["g"];
+            int b = color["b"];
+            _color = sf::Color(r, g, b);
+        } else {
+            std::cout << render::yellow << "[WARNING] " << render::no_color
+                << "No color found in material" << std::endl;
+        }
+        if (setting.exists("shininess")) {
+            libconfig::Setting &shininess = setting["shininess"];
+            _properties["shininess"] = shininess;
+        } else {
+            std::cout << render::yellow << "[WARNING] " << render::no_color
+                << "No shininess found in material" << std::endl;
+        }
     }
 
     void FlatMaterial_v::getColor(int &r, int &g, int &b,
@@ -37,6 +59,6 @@ namespace vanille {
 extern "C" {
     render::IMaterial *entryPoint()
     {
-        return new vanille::FlatMaterial_v(sf::Color::Red);
+        return new vanille::FlatMaterial_v();
     }
 }

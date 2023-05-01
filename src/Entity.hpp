@@ -16,7 +16,7 @@ namespace render {
         public:
             Entity() = default;
             std::shared_ptr<IPrimitive> getPrimitive() const;
-            std::shared_ptr<IMaterial>getMaterial() const;
+            std::shared_ptr<IMaterial> getMaterial() const;
 
             void setPrimitive(std::shared_ptr<IPrimitive> primitive);
             void setMaterial(std::shared_ptr<IMaterial>material);
@@ -26,7 +26,7 @@ namespace render {
 
         private:
             std::shared_ptr<IPrimitive> _primitive = nullptr;
-            std::shared_ptr<IMaterial>_material = nullptr;
+            std::shared_ptr<IMaterial> _material = nullptr;
             std::map<std::string, std::shared_ptr<IPlugin>> _plugins;
     };
 }

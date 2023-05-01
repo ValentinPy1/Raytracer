@@ -52,10 +52,10 @@ namespace render {
         );
 
         std::cout << render::green << "[INFO] " << render::no_color << "Loaded camera:" << std::endl;
-        std::cout << render::yellow << "\tfocal: " << focalPoint << std::endl;
-        std::cout << render::yellow << "\tcaptor: " << captorWidth << "x" << captorHeight << std::endl;
-        std::cout << render::yellow << "\tposition: (" << position.x << ", " << position.y << ", " << position.z << ")" << render::no_color << std::endl;
-        std::cout << render::yellow << "\trotation: (" << rotation.x << ", " << rotation.y << ", " << rotation.z << ")" << render::no_color << std::endl;
+        std::cout << render::green << "\tfocal: " << focalPoint << std::endl;
+        std::cout << render::green << "\tcaptor: " << captorWidth << "x" << captorHeight << std::endl;
+        std::cout << render::green << "\tposition: (" << position.x << ", " << position.y << ", " << position.z << ")" << render::no_color << std::endl;
+        std::cout << render::green << "\trotation: (" << rotation.x << ", " << rotation.y << ", " << rotation.z << ")" << render::no_color << std::endl;
 
         rdr.setCamera(cam);
     }
@@ -109,25 +109,37 @@ namespace render {
         for (int i = 0; i < objectsValue.getLength(); i++) {
             std::shared_ptr<Entity> en = std::make_shared<Entity>();
             try {
-                libconfig::Setting &args = objectsValue[i].lookup("args");
                 libconfig::Setting &primitive = objectsValue[i].lookup("primitive");
-                std::string name = primitive;
-                name = name + _mode;
-                name = _path + name + ".so";
-                std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
-                obj->selfInit(args, en.get());
-                en->setPrimitive(obj);
+                libconfig::Setting &pArgs = primitive.lookup("args");
+                libconfig ::Setting &pType = primitive.lookup("type");
+                std::string pName = pType;
 
-                libconfig::Setting &material = objectsValue[i].lookup("material");
-                std::string materialName = material;
-                materialName = materialName + _mode;
-                materialName = _path + materialName + ".so";
-                std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(material, materialName));
-                en->setMaterial(mat);
-                rdr.addEntity(en);
+                pName = pName + _mode;
+                pName = _path + pName + ".so";
+                std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(pName, pName));
+                std::cout << render::green << "[INFO] " << render::no_color << "Loaded primitive: " << pName << std::endl;
+                obj->selfInit(pArgs, en.get());
+                en->setPrimitive(obj);
             } catch (std::exception &e) {
                 wasError = true;
-                std::cerr << render::red << "[ERROR] " << render::no_color << "Failed to load object: " << e.what() << std::endl;
+                std::cerr << render::red << "[ERROR] " << render::no_color << "Failed to load primitive: " << e.what() << std::endl;
+            }
+            try {
+                libconfig::Setting &material = objectsValue[i].lookup("material");
+                libconfig::Setting &mArgs = material.lookup("args");
+                libconfig::Setting &mType = material.lookup("type");
+                std::string mName = mType;
+
+                mName = mName + _mode;
+                mName = _path + mName + ".so";
+                std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(mName, mName));
+                mat->selfInit(mArgs, en.get());
+                en->setMaterial(mat);
+                rdr.addEntity(en);
+                std::cout << render::green << "[INFO] " << render::no_color << "Loaded material: " << mName << std::endl;
+            } catch (std::exception &e) {
+                wasError = true;
+                std::cerr << render::red << "[ERROR] " << render::no_color << "Failed to load material: " << e.what() << std::endl;
             }
         }
         if (wasError) {
