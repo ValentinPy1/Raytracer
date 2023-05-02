@@ -159,3 +159,23 @@ add_custom_command(
     TARGET ApplyReflections.process.v POST_BUILD
     COMMAND mv libApplyReflections.process.v.so ..
 )
+
+
+add_library(
+    Disk.light.v SHARED
+    ${COMMON_SRC}
+    Disk.light.v.cpp
+    ../../Entity.cpp
+    ../../operations.cpp
+    ../../LightModel.cpp
+)
+
+target_link_libraries(
+    Disk.light.v
+    -lsfml-system
+)
+
+add_custom_command(
+    TARGET Disk.light.v POST_BUILD
+    COMMAND mv libDisk.light.v.so ..
+)

@@ -48,12 +48,12 @@ extern "C" {
                 dynamic_cast<vanille::Wrapper_v *>(&(rdr.getWrapper()))->processRay(newRay, rdr);
                 sf::Color reflColor = newRay.getColor();
                 reflColor = (sf::Color) {
-                    static_cast<sf::Uint8>(reflColor.r * reflectivity),
-                    static_cast<sf::Uint8>(reflColor.g * reflectivity),
-                    static_cast<sf::Uint8>(reflColor.b * reflectivity)
+                    static_cast<sf::Uint8>(reflColor.r),
+                    static_cast<sf::Uint8>(reflColor.g),
+                    static_cast<sf::Uint8>(reflColor.b)
                 };
-                // ray.setColor(ray.blendLerp(reflColor, reflectivity));
-                ray.setColor(ray.blendAdd(reflColor));
+                ray.setColor(ray.blendLerp(reflColor, reflectivity));
+                // ray.setColor(ray.blendAdd(reflColor));
                 return ray;
             },
 
