@@ -37,6 +37,7 @@ namespace render {
             void setAmbientLight(const sf::Color &color);
             void addLight(std::shared_ptr<ILight> light);
 
+            std::shared_ptr<Camera> getCamera() const;
             std::shared_ptr<Camera> getCamera();
             sf::Color getAmbientLight() const;
             std::vector<std::shared_ptr<ILight>> getLights() const;

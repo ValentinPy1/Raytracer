@@ -18,12 +18,12 @@ namespace vanille {
     }
 
     Wrapper_v::~Wrapper_v() {
-        std::cout << "destroying wrapper" << std::endl;
     }
 
     void Wrapper_v::init(render::PluginManager &pm, render::Renderer &rdr) const
     {
         std::vector<render::init_t> initFuns = pm.getInitFunctions();
+
         for (auto &fun : initFuns)
             fun(rdr);
     }

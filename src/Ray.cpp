@@ -130,18 +130,27 @@ namespace render {
         _color = color;
     }
 
-    // sf::Color Ray::blendAdd(const sf::Color &color) const
-    // {
-    //     int r = color.r + _color.r;
-    //     int g = color.g + _color.g;
-    //     int b = color.b + _color.b;
-    //     sf::Color final = {
-    //         static_cast<sf::Uint8>((r > 255) ? 255 : r),
-    //         static_cast<sf::Uint8>((g > 255) ? 255 : g),
-    //         static_cast<sf::Uint8>((b > 255) ? 255 : b)
-    //     };
-    //     return final;
-    // }
+    sf::Color Ray::blendAdd(const sf::Color &color) const
+    {
+        int r = color.r + _color.r;
+        int g = color.g + _color.g;
+        int b = color.b + _color.b;
+        sf::Color final = {
+            static_cast<sf::Uint8>((r > 255) ? 255 : r),
+            static_cast<sf::Uint8>((g > 255) ? 255 : g),
+            static_cast<sf::Uint8>((b > 255) ? 255 : b)
+        };
+        return final;
+    }
+
+    sf::Color Ray::blendLerp(const sf::Color &color, float t) const {
+        sf::Color final = {
+            static_cast<sf::Uint8>((_color.r * (1 - t)) + (color.r * t)),
+            static_cast<sf::Uint8>((_color.g * (1 - t)) + (color.g * t)),
+            static_cast<sf::Uint8>((_color.b * (1 - t)) + (color.b * t))
+        };
+        return final;
+    }
 
     // bool Ray::isShadowed(const Renderer &rdr, sf::Vector3f lightPos, sf::Vector3f intersection)
     // {

@@ -83,6 +83,7 @@ namespace render {
             sf::Color blendMultiply(const sf::Color &color) const;
             sf::Color blendAdd(const sf::Color &color) const;
             sf::Color blendColor(const sf::Color &color) const;
+            sf::Color blendLerp(const sf::Color &color, float t) const;
 
             void setRecursionParameter(const std::string &name, int initialValue);
             int getRecursionParameter(const std::string &name) const;

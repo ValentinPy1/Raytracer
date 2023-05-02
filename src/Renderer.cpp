@@ -47,6 +47,13 @@ namespace render {
         return _camera;
     }
 
+    std::shared_ptr<Camera> Renderer::getCamera() const
+    {
+        if (_camera == nullptr)
+            throw std::runtime_error("No camera set");
+        return _camera;
+    }
+
     void Renderer::setAmbientLight(const sf::Color &color)
     {
         _ambientLight = color;

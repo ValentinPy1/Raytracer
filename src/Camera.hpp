@@ -61,6 +61,7 @@ namespace render
          * @return std::vector<render::Ray>&
          */
         std::vector<render::Ray> &getRays();
+        std::vector<render::Ray> getRays() const;
 
         /**
          * @brief Sets the position of the camera in the 3D space.

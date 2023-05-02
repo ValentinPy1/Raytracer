@@ -25,14 +25,15 @@ extern "C" {
                 for (auto &r : rdr.getCamera()->getRays()) {
                     r.setRecursionParameter("reflectionDepth", reflectionDepth);
                 }
-                rdr.getCamera()->getRays()[0].getRecursionParameter("reflectionDepth");
-                std::string a;
-                std::cin >> a;
             },
 
             [](render::Ray &ray, const render::Renderer &rdr) -> render::Ray & {
-                if (ray.getRecursionParameter("reflectionDepth") <= 0 || !ray.hasIntersections())
+                if (ray.getRecursionParameter("reflectionDepth") <= 0)
                     return ray;
+                if (!ray.hasIntersections()) {
+                    ray.setColor(ray.blendLerp(sf::Color::Black, 0.1f));
+                    return ray;
+                }
                 auto intersection = ray.getIntersections()[0];
                 float reflectivity = intersection.getInterceptee()->getMaterial()->getProperty("reflectivity");
                 if (reflectivity <= 0)
@@ -40,9 +41,10 @@ extern "C" {
                 sf::Vector3f normal = intersection.getNormal();
                 sf::Vector3f direction = ray.getDirection();
                 sf::Vector3f reflection = direction - 2.0f * normal * (normal.x * direction.x + normal.y * direction.y + normal.z * direction.z);
-                sf::Vector3f origin = intersection.getPoint() + reflection * 0.001f;
+                sf::Vector3f origin = intersection.getPoint() + reflection * 0.1f;
 
                 render::Ray newRay(origin, reflection, ray.getRecursionParameter("reflectionDepth") - 1);
+                newRay.setRecursionParameter("reflectionDepth", ray.getRecursionParameter("reflectionDepth") - 1);
                 dynamic_cast<vanille::Wrapper_v *>(&(rdr.getWrapper()))->processRay(newRay, rdr);
                 sf::Color reflColor = newRay.getColor();
                 reflColor = (sf::Color) {
@@ -50,7 +52,8 @@ extern "C" {
                     static_cast<sf::Uint8>(reflColor.g * reflectivity),
                     static_cast<sf::Uint8>(reflColor.b * reflectivity)
                 };
-                ray.blendColor(reflColor);
+                ray.setColor(ray.blendLerp(reflColor, reflectivity));
+                // ray.setColor(ray.blendAdd(reflColor));
                 return ray;
             },
 

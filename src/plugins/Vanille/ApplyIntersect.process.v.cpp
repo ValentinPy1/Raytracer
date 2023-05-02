@@ -24,6 +24,9 @@ extern "C" {
                 std::sort(intersections.begin(), intersections.end(), [](const render::Intersection &a, const render::Intersection &b) {
                     return a.getDistance() < b.getDistance();
                 });
+                if (intersections.size() > 0 && intersections[0].getDistance() < 0.1) {
+                    intersections.erase(intersections.begin());
+                }
                 if (intersections.size() > 0) {
                     ray.setColor(intersections[0].getColor());
                 }

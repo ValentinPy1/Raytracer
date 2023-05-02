@@ -71,6 +71,11 @@ namespace render {
         return _focalPoint;
     }
 
+    std::vector<render::Ray> Camera::getRays() const
+    {
+        return _rays;
+    }
+
     std::vector<render::Ray> &Camera::getRays()
     {
         return _rays;
