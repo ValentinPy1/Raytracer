@@ -29,7 +29,7 @@ namespace vanille {
         const render::Renderer &renderer, const sf::Vector3f &lightpos)
         {
             sf::Vector3f lightDirection;
-            sf::Vector3f intersection = ray.getIntersections()[0].getPoint();
+            sf::Vector3f intersection = ray.getIntersections()[0].getPoint() + ray.getIntersections()[0].getNormal() * 0.1f;
             sf::Vector3f normal = ray.getIntersections()[0].getNormal();
             sf::Color color;
             lightDirection = lightpos - intersection;
@@ -46,7 +46,7 @@ namespace vanille {
                 ray.getDirection(),
                 render::Ray::getNorm(lightDirection),
                 0,
-                0.5   // TODO INTENSITY & SHININESS
+                ray.getIntersections()[0].getInterceptee()->getMaterial()->getProperty("shininess")
             );
             return color;
         }
