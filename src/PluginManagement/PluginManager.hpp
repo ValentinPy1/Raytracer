@@ -70,7 +70,7 @@ namespace render {
              *
              * @return std::vector<Plugin::processRay_t>
              */
-            std::vector<processRay_t> getProcessRayFunctions() const;
+            std::vector<processRay_t> getProcessRayFunctions();
 
             /**
              * @brief Returns all of the non null postProcess functions of the plugins,

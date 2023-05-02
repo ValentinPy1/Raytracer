@@ -9,24 +9,24 @@
 
 #include <vector>
 #include <memory>
+#include <stdexcept>
 #include <SFML/Graphics.hpp>
 #include "Entity.hpp"
 #include "PluginManager.hpp"
 #include "Wrapper.hpp"
 #include "ILight.hpp"
+#include "renderColors.hpp"
 
 namespace render {
-
-    static const std::string red = "\033[31m";
-    static const std::string green = "\033[32m";
-    static const std::string yellow = "\033[33m";
-    static const std::string blue = "\033[34m";
-    static const std::string magenta = "\033[35m";
-    static const std::string no_color = "\033[0m";
 
     class Camera;
     class Renderer {
         public:
+            class IncompatibleException : public std::runtime_error {
+                public:
+                    IncompatibleException(const std::string &what) : std::runtime_error(what) {}
+            };
+
             Renderer() = default;
             ~Renderer() = default;
 
@@ -37,10 +37,12 @@ namespace render {
             void setAmbientLight(const sf::Color &color);
             void addLight(std::shared_ptr<ILight> light);
 
-            Camera &getCamera() const;
+            std::shared_ptr<Camera> getCamera() const;
+            std::shared_ptr<Camera> getCamera();
             sf::Color getAmbientLight() const;
             std::vector<std::shared_ptr<ILight>> getLights() const;
             std::vector<std::shared_ptr<Entity>> getEntities() const;
+            IWrapper &getWrapper() const;
             void render();
         private:
             PluginManager _pluginManager;

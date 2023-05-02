@@ -5,6 +5,7 @@
 ** ConfigLoader.cpp
 */
 
+#include <ctime>
 #include <fstream>
 #include "ConfigLoader.hpp"
 #include "Camera.hpp"
@@ -28,6 +29,7 @@ namespace render {
         int captorHeight;
         sf::Vector3f position;
         sf::Vector3f rotation;
+        unsigned int recursionDepth;
 
         cameraSettings.lookupValue("focal", focalPoint);
         libconfig::Setting &captorSetting = cameraSettings.lookup("captor");
@@ -41,6 +43,7 @@ namespace render {
         rotationSetting.lookupValue("x", rotation.x);
         rotationSetting.lookupValue("y", rotation.y);
         rotationSetting.lookupValue("z", rotation.z);
+        cameraSettings.lookupValue("recursionDepth", recursionDepth);
 
         std::shared_ptr<Camera> cam = std::shared_ptr<Camera>(
             new Camera(
@@ -48,7 +51,8 @@ namespace render {
             captorWidth,
             captorHeight,
             position,
-            rotation)
+            rotation,
+            recursionDepth)
         );
 
         std::cout << render::green << "[INFO] " << render::no_color << "Loaded camera:" << std::endl;
@@ -110,15 +114,11 @@ namespace render {
             std::shared_ptr<Entity> en = std::make_shared<Entity>();
             try {
                 libconfig::Setting &primitive = objectsValue[i].lookup("primitive");
-                libconfig::Setting &pArgs = primitive.lookup("args");
-                libconfig ::Setting &pType = primitive.lookup("type");
-                std::string pName = pType;
-
-                pName = pName + _mode;
-                pName = _path + pName + ".so";
-                std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(pName, pName));
-                std::cout << render::green << "[INFO] " << render::no_color << "Loaded primitive: " << pName << std::endl;
-                obj->selfInit(pArgs, en.get());
+                std::string name = primitive;
+                name = "lib" + name + ".primitive" + _mode;
+                name = _path + name + ".so";
+                std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
+                obj->selfInit(args, en.get());
                 en->setPrimitive(obj);
             } catch (std::exception &e) {
                 wasError = true;
@@ -126,14 +126,13 @@ namespace render {
             }
             try {
                 libconfig::Setting &material = objectsValue[i].lookup("material");
-                libconfig::Setting &mArgs = material.lookup("args");
-                libconfig::Setting &mType = material.lookup("type");
-                std::string mName = mType;
-
-                mName = mName + _mode;
-                mName = _path + mName + ".so";
-                std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(mName, mName));
-                mat->selfInit(mArgs, en.get());
+                std::string materialName;
+                material.lookupValue("src", materialName);
+                materialName = "lib" + materialName + ".material" + _mode;
+                materialName = _path + materialName + ".so";
+                libconfig::Setting &materialArgs = material.lookup("args");
+                std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(materialName + "_" + std::to_string(clock()), materialName));
+                mat->selfInit(materialArgs);
                 en->setMaterial(mat);
                 rdr.addEntity(en);
                 std::cout << render::green << "[INFO] " << render::no_color << "Loaded material: " << mName << std::endl;

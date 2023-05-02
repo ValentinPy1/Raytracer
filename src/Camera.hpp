@@ -24,7 +24,7 @@ namespace render
      */
     class Camera {
     public:
-        Camera(float focalPoint = 10, int captorWidth = 0, int captorHeight = 0, const sf::Vector3f &position = sf::Vector3f(0, 0, 0), const sf::Vector3f &rotation = sf::Vector3f(0, 0, 0));
+        Camera(float focalPoint = 10, int captorWidth = 0, int captorHeight = 0, const sf::Vector3f &position = sf::Vector3f(0, 0, 0), const sf::Vector3f &rotation = sf::Vector3f(0, 0, 0), unsigned int recursionDepth = 0);
         ~Camera() = default;
 
         /**
@@ -61,6 +61,7 @@ namespace render
          * @return std::vector<render::Ray>&
          */
         std::vector<render::Ray> &getRays();
+        std::vector<render::Ray> getRays() const;
 
         /**
          * @brief Sets the position of the camera in the 3D space.
@@ -96,6 +97,14 @@ namespace render
          * @param scale
          */
         void setScale(float scale);
+
+        /**
+         * @brief Returns the recursion depth of the camera, which will be the limit
+         * for all recursive functions.
+         *
+         * @return unsigned int
+         */
+        unsigned int getRecursionDepth() const;
 
     private:
         /**
@@ -156,6 +165,8 @@ namespace render
         float scale = 10;
 
         float _focalDistance = 10;
+
+        unsigned int _recursionDepth = 0;
     };
 } // namespace render
 

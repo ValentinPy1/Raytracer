@@ -38,12 +38,17 @@ namespace vanille {
             return;
 
         float sqrtDelta = std::sqrt(delta);
-        ray.addIntersection(
-            render::Intersection(_parent, ray, (-b - sqrtDelta) / (2 * a))
-        );
-        ray.addIntersection(
-            render::Intersection(_parent, ray, (-b + sqrtDelta) / (2 * a))
-        );
+        float t1 = (-b - sqrtDelta) / (2 * a);
+        float t2 = (-b + sqrtDelta) / (2 * a);
+
+        if (t1 > 0)
+            ray.addIntersection(
+                render::Intersection(_parent, ray, t1)
+            );
+        if (t2 > 0)
+            ray.addIntersection(
+                render::Intersection(_parent, ray, t2)
+            );
     }
 
     sf::Vector3f SpherePrimitive_v::getNormalAt(sf::Vector3f &point)

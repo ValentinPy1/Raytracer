@@ -62,18 +62,18 @@ namespace render {
     //     return *this;
     // }
 
-    // sf::Color Ray::blendColor(const sf::Color &color) const
-    // {
-    //     int r = color.r + _color.r;
-    //     int g = color.g + _color.g;
-    //     int b = color.b + _color.b;
-    //     sf::Color final = {
-    //         static_cast<sf::Uint8>((r > 255) ? 255 : r),
-    //         static_cast<sf::Uint8>((g > 255) ? 255 : g),
-    //         static_cast<sf::Uint8>((b > 255) ? 255 : b)
-    //     };
-    //     return final;
-    // }
+    sf::Color Ray::blendColor(const sf::Color &color) const
+    {
+        int r = color.r + _color.r;
+        int g = color.g + _color.g;
+        int b = color.b + _color.b;
+        sf::Color final = {
+            static_cast<sf::Uint8>((r > 255) ? 255 : r),
+            static_cast<sf::Uint8>((g > 255) ? 255 : g),
+            static_cast<sf::Uint8>((b > 255) ? 255 : b)
+        };
+        return final;
+    }
 
     sf::Color Ray::blendMultiply(const sf::Color &color) const
     {
@@ -130,18 +130,27 @@ namespace render {
         _color = color;
     }
 
-    // sf::Color Ray::blendAdd(const sf::Color &color) const
-    // {
-    //     int r = color.r + _color.r;
-    //     int g = color.g + _color.g;
-    //     int b = color.b + _color.b;
-    //     sf::Color final = {
-    //         static_cast<sf::Uint8>((r > 255) ? 255 : r),
-    //         static_cast<sf::Uint8>((g > 255) ? 255 : g),
-    //         static_cast<sf::Uint8>((b > 255) ? 255 : b)
-    //     };
-    //     return final;
-    // }
+    sf::Color Ray::blendAdd(const sf::Color &color) const
+    {
+        int r = color.r + _color.r;
+        int g = color.g + _color.g;
+        int b = color.b + _color.b;
+        sf::Color final = {
+            static_cast<sf::Uint8>((r > 255) ? 255 : r),
+            static_cast<sf::Uint8>((g > 255) ? 255 : g),
+            static_cast<sf::Uint8>((b > 255) ? 255 : b)
+        };
+        return final;
+    }
+
+    sf::Color Ray::blendLerp(const sf::Color &color, float t) const {
+        sf::Color final = {
+            static_cast<sf::Uint8>((_color.r * (1 - t)) + (color.r * t)),
+            static_cast<sf::Uint8>((_color.g * (1 - t)) + (color.g * t)),
+            static_cast<sf::Uint8>((_color.b * (1 - t)) + (color.b * t))
+        };
+        return final;
+    }
 
     // bool Ray::isShadowed(const Renderer &rdr, sf::Vector3f lightPos, sf::Vector3f intersection)
     // {
@@ -226,4 +235,36 @@ namespace render {
     //     // end of process loop
     //     return getColor();
     // }
+
+    void Ray::setRecursionParameter(const std::string &name, int initialValue)
+    {
+        _recursionParameters[name] = initialValue;
+    }
+
+    void Ray::incrementRecursionParameter(const std::string &name)
+    {
+        if (_recursionParameters.count(name) == 0) {
+            std::cerr << render::yellow << "[WARNING] :" << render::no_color <<  "Trying to increment non-existing recursion parameter" << std::endl;
+            return;
+        }
+        _recursionParameters[name]++;
+    }
+
+    void Ray::decrementRecursionParameter(const std::string &name)
+    {
+        if (_recursionParameters.count(name) == 0) {
+            std::cerr << render::yellow << "[WARNING] :" << render::no_color <<  "Trying to decrement non-existing recursion parameter" << std::endl;
+            return;
+        }
+        _recursionParameters[name]--;
+    }
+
+    int Ray::getRecursionParameter(const std::string &name) const
+    {
+        if (_recursionParameters.count(name) == 0) {
+            std::cerr << render::yellow << "[WARNING]: " << render::no_color <<  "Trying to get non-existing recursion parameter (" << render::yellow << name << render::no_color << ")" << std::endl;
+            return 0;
+        }
+        return _recursionParameters.at(name);
+    }
 }

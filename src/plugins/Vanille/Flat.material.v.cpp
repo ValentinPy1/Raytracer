@@ -54,6 +54,25 @@ namespace vanille {
             return 0;
         }
     }
+
+    void FlatMaterial_v::selfInit(libconfig::Setting &setting)
+    {
+        libconfig::Setting &color = setting.lookup("color");
+        int r, g, b;
+        color.lookupValue("r", r);
+        color.lookupValue("g", g);
+        color.lookupValue("b", b);
+        _color = sf::Color(r, g, b);
+
+        libconfig::Setting &properties = setting.lookup("properties");
+        for (int i = 0; i < properties.getLength(); i++) {
+            libconfig::Setting &property = properties[i];
+            std::string name = property.getName();
+            float value = 10;
+            properties.lookupValue(name, value);
+            _properties[name] = value;
+        }
+    }
 }
 
 extern "C" {

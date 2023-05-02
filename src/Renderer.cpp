@@ -18,6 +18,13 @@ namespace render {
         _wrapper->run(*this);
     }
 
+    IWrapper &Renderer::getWrapper() const
+    {
+        if (_wrapper == nullptr)
+            throw std::runtime_error("No wrapper set");
+        return *_wrapper;
+    }
+
     void Renderer::setCamera(std::shared_ptr<Camera> camera)
     {
         _camera = camera;
@@ -33,11 +40,18 @@ namespace render {
         _wrapper = std::shared_ptr<IWrapper>(wrapper);
     }
 
-    Camera &Renderer::getCamera() const
+    std::shared_ptr<Camera> Renderer::getCamera()
     {
         if (_camera == nullptr)
             throw std::runtime_error("No camera set");
-        return *_camera;
+        return _camera;
+    }
+
+    std::shared_ptr<Camera> Renderer::getCamera() const
+    {
+        if (_camera == nullptr)
+            throw std::runtime_error("No camera set");
+        return _camera;
     }
 
     void Renderer::setAmbientLight(const sf::Color &color)

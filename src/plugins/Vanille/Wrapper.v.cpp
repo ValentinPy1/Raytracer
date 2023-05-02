@@ -18,20 +18,27 @@ namespace vanille {
     }
 
     Wrapper_v::~Wrapper_v() {
-        std::cout << "destroying wrapper" << std::endl;
     }
 
     void Wrapper_v::init(render::PluginManager &pm, render::Renderer &rdr) const
     {
         std::vector<render::init_t> initFuns = pm.getInitFunctions();
+
         for (auto &fun : initFuns)
             fun(rdr);
     }
 
-    sf::Color Wrapper_v::processRay(render::Ray &ray, render::Renderer &rdr, std::vector<render::processRay_t> &processFuns) const
+    sf::Color Wrapper_v::processRay(render::Ray &ray, const render::Renderer &rdr, std::vector<render::processRay_t> &processFuns) const
     {
         for (auto &fun : processFuns)
             ray = fun(ray, rdr);
+        return ray.getColor();
+    }
+    sf::Color Wrapper_v::processRay(render::Ray &ray, const render::Renderer &rdr) const
+    {
+        for (auto &fun : _processFuns) {
+            ray = fun(ray, rdr);
+        }
         return ray.getColor();
     }
 
@@ -42,13 +49,14 @@ namespace vanille {
             fun(rdr);
     }
 
-    void Wrapper_v::render(render::Renderer &rdr, render::PluginManager &pm) const
+    void Wrapper_v::render(render::Renderer &rdr, render::PluginManager &pm)
     {
         clock_t start = clock();
-        render::Camera &camera = rdr.getCamera();
+        render::Camera &camera = *rdr.getCamera();
         sf::Image &captor = camera.getCaptor();
         std::vector<render::Ray> &rays = camera.getRays();
         std::vector<render::processRay_t> processFuns = pm.getProcessRayFunctions();
+        _processFuns = processFuns;
 
         std::cout << render::green << "[INFO] " << render::yellow << "Rendering... " << render::no_color << std::endl;
         for (unsigned int i = 0; i < camera.getCaptor().getSize().x; i++) {
