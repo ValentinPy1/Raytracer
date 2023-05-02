@@ -21,6 +21,7 @@ namespace vanille {
             float getProperty(const std::string &name) const override;
         private:
             std::map<std::string, float> _properties = {
+                {"reflectivity", 0},
                 {"shininess", 0},
             };
             sf::Color _color;

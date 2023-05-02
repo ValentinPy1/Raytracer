@@ -20,6 +20,8 @@ set(COMMON_SRC
     ../../Renderer.cpp
     ../../Camera.cpp
     ../../Ray.cpp
+    ../../operations.cpp
+    ../../Entity.cpp
 )
 
 add_library(
@@ -37,9 +39,12 @@ add_library(
     Sphere.primitive.v SHARED
     ${COMMON_SRC}
     Sphere.primitive.v.cpp
-    ../../operations.cpp
-    ../../Intersection.cpp
-    ../../Entity.cpp
+)
+
+add_library(
+    Plane.primitive.v SHARED
+    ${COMMON_SRC}
+    Plane.primitive.v.cpp
 )
 
 target_link_libraries(
@@ -60,6 +65,7 @@ add_library(
     ${COMMON_SRC}
     Cylinder.primitive.v.cpp
 )
+
 
 add_library(
     Flat.material.v SHARED
@@ -86,6 +92,11 @@ add_custom_command(
 add_custom_command(
     TARGET Sphere.primitive.v POST_BUILD
     COMMAND mv libSphere.primitive.v.so ..
+)
+
+add_custom_command(
+    TARGET Plane.primitive.v POST_BUILD
+    COMMAND mv libPlane.primitive.v.so ..
 )
 
 add_custom_command(
@@ -158,4 +169,24 @@ target_link_libraries(
 add_custom_command(
     TARGET ApplyReflections.process.v POST_BUILD
     COMMAND mv libApplyReflections.process.v.so ..
+)
+
+
+add_library(
+    Disk.light.v SHARED
+    ${COMMON_SRC}
+    Disk.light.v.cpp
+    ../../Entity.cpp
+    ../../operations.cpp
+    ../../LightModel.cpp
+)
+
+target_link_libraries(
+    Disk.light.v
+    -lsfml-system
+)
+
+add_custom_command(
+    TARGET Disk.light.v POST_BUILD
+    COMMAND mv libDisk.light.v.so ..
 )

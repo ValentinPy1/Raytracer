@@ -74,7 +74,8 @@ namespace vanille {
 }
 
 extern "C" {
-    render::IPrimitive *entryPoint() {
+    render::IPrimitive *entryPoint()
+    {
         return new vanille::CerclePrimitive_v();
     }
 }

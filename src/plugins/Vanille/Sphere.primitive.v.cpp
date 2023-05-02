@@ -21,6 +21,15 @@ namespace vanille {
         _radius = 1;
     }
 
+    void SpherePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
+    {
+        setting.lookupValue("x", _origin.x);
+        setting.lookupValue("y", _origin.y);
+        setting.lookupValue("z", _origin.z);
+        setting.lookupValue("radius", _radius);
+        _parent = parent;
+    }
+
     SpherePrimitive_v::~SpherePrimitive_v()
     {
     }
@@ -56,14 +65,6 @@ namespace vanille {
         return (point - _origin) / _radius;
     }
 
-    void SpherePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
-    {
-        setting.lookupValue("x", _origin.x);
-        setting.lookupValue("y", _origin.y);
-        setting.lookupValue("z", _origin.z);
-        setting.lookupValue("radius", _radius);
-        _parent = parent;
-    }
 }
 
 extern "C" {

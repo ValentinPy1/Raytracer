@@ -122,6 +122,7 @@ namespace render {
                 std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(name, name));
                 obj->selfInit(args, en.get());
                 en->setPrimitive(obj);
+                std::cout << render::green << "[INFO] " << render::no_color << "Loaded primitive: " << name << std::endl;
             } catch (std::exception &e) {
                 wasError = true;
                 std::cerr << render::red << "[ERROR] " << render::no_color << "Failed to load primitive: " << e.what() << std::endl;
