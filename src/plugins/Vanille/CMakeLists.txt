@@ -22,62 +22,45 @@ set(COMMON_SRC
     ../../Ray.cpp
     ../../operations.cpp
     ../../Entity.cpp
-)
+    ../../LightModel.cpp
+    )
 
-add_library(
-    Wrapper.v SHARED
-    ${COMMON_SRC}
-    Wrapper.v.cpp
-)
+add_library(Wrapper.v SHARED Wrapper.v.cpp)
+target_sources(Wrapper.v PRIVATE ${COMMON_SRC})
 
-add_library(AmbientLight.v SHARED
-    ${COMMON_SRC}
-    AmbientLight.v.cpp
-)
+add_library(AmbientLight.v SHARED ./Lights/AmbientLight.v.cpp)
+target_sources(AmbientLight.v PRIVATE ${COMMON_SRC})
 
-add_library(
-    Sphere.primitive.v SHARED
-    ${COMMON_SRC}
-    Sphere.primitive.v.cpp
-)
+add_library(Directional.light.v SHARED ./Lights/Directional.light.v.cpp)
+target_sources(Directional.light.v PRIVATE ${COMMON_SRC})
 
-add_library(
-    Plane.primitive.v SHARED
-    ${COMMON_SRC}
-    Plane.primitive.v.cpp
-)
+add_library(Sphere.primitive.v SHARED ./Primitives/Sphere.primitive.v.cpp)
+target_sources(Sphere.primitive.v PRIVATE ${COMMON_SRC})
 
-target_link_libraries(
-    Sphere.primitive.v
-    -lsfml-graphics
-    -lsfml-system
-    -lsfml-window
-)
+add_library(Plane.primitive.v SHARED ./Primitives/Plane.primitive.v.cpp)
+target_sources(Plane.primitive.v PRIVATE ${COMMON_SRC})
 
-add_library(
-    Cercle.primitive.v SHARED
-    ${COMMON_SRC}
-    Cercle.primitive.v.cpp
-)
+add_library(Cercle.primitive.v SHARED ./Primitives/Cercle.primitive.v.cpp)
+target_sources(Cercle.primitive.v PRIVATE ${COMMON_SRC})
 
-add_library(
-    Cylinder.primitive.v SHARED
-    ${COMMON_SRC}
-    Cylinder.primitive.v.cpp
-)
+add_library(Cylinder.primitive.v SHARED ./Primitives/Cylinder.primitive.v.cpp)
+target_sources(Cylinder.primitive.v PRIVATE ${COMMON_SRC})
+
+add_library(Flat.material.v SHARED ./Materials/Flat.material.v.cpp)
+target_sources(Flat.material.v PRIVATE ${COMMON_SRC})
+
+add_library(ApplyIntersect.process.v SHARED ./Processes/ApplyIntersect.process.v.cpp)
+target_sources(ApplyIntersect.process.v PRIVATE ${COMMON_SRC})
 
 
-add_library(
-    Flat.material.v SHARED
-    ${COMMON_SRC}
-    Flat.material.v.cpp
-)
+add_library(ApplyPointLights.process.v SHARED ./Processes/ApplyPointLights.process.v.cpp)
+target_sources(ApplyPointLights.process.v PRIVATE ${COMMON_SRC})
 
-add_library(ApplyIntersect.process.v SHARED
-    ${COMMON_SRC}
-    ApplyIntersect.process.v.cpp
-    ../../Entity.cpp
-)
+add_library(Disk.light.v SHARED ./Lights/Disk.light.v.cpp)
+target_sources(Disk.light.v PRIVATE ${COMMON_SRC})
+
+add_library(ApplyReflections.process.v SHARED ./Processes/ApplyReflections.process.v.cpp)
+target_sources(ApplyReflections.process.v PRIVATE ${COMMON_SRC})
 
 add_custom_command(
     TARGET Wrapper.v POST_BUILD
@@ -104,14 +87,6 @@ add_custom_command(
     COMMAND mv libFlat.material.v.so ..
 )
 
-add_library(
-    Directional.light.v SHARED
-    ${COMMON_SRC}
-    Directional.light.v.cpp
-    ../../LightModel.cpp
-    ../../Entity.cpp
-    ../../operations.cpp
-)
 
 target_link_libraries(
     Directional.light.v
@@ -125,11 +100,7 @@ add_custom_command(
     COMMAND mv libDirectional.light.v.so ..
 )
 
-add_library(
-    ApplyPointLights.process.v SHARED
-    ${COMMON_SRC}
-    applyPointLights.process.v.cpp
-)
+
 
 target_link_libraries(
     ApplyPointLights.process.v
@@ -141,14 +112,6 @@ target_link_libraries(
 add_custom_command(
     TARGET ApplyPointLights.process.v POST_BUILD
     COMMAND mv libApplyPointLights.process.v.so ..
-)
-
-add_library(
-    ApplyReflections.process.v SHARED
-    ${COMMON_SRC}
-    ApplyReflections.process.v.cpp
-    ../../Camera.cpp
-    ../../Entity.cpp
 )
 
 add_dependencies(
@@ -169,16 +132,6 @@ target_link_libraries(
 add_custom_command(
     TARGET ApplyReflections.process.v POST_BUILD
     COMMAND mv libApplyReflections.process.v.so ..
-)
-
-
-add_library(
-    Disk.light.v SHARED
-    ${COMMON_SRC}
-    Disk.light.v.cpp
-    ../../Entity.cpp
-    ../../operations.cpp
-    ../../LightModel.cpp
 )
 
 target_link_libraries(
