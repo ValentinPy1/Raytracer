@@ -30,9 +30,8 @@ namespace vanille {
 
     sf::Color Wrapper_v::processRay(render::Ray &ray, const render::Renderer &rdr, std::vector<render::processRay_t> &processFuns) const
     {
-        for (auto &fun : processFuns) {
+        for (auto &fun : processFuns)
             ray = fun(ray, rdr);
-        }
         return ray.getColor();
     }
     sf::Color Wrapper_v::processRay(render::Ray &ray, const render::Renderer &rdr) const
@@ -62,9 +61,9 @@ namespace vanille {
         std::cout << render::green << "[INFO] " << render::yellow << "Rendering... " << render::no_color << std::endl;
         for (unsigned int i = 0; i < camera.getCaptor().getSize().x; i++) {
             for (unsigned int j = 0; j < camera.getCaptor().getSize().y; j++) {
-            render::Ray ray = rays[i * camera.getCaptor().getSize().y + j];
-            sf::Color tmp = processRay(ray, rdr, processFuns);
-            camera.getCaptor().setPixel(i, j, tmp);
+                render::Ray ray = rays[i * camera.getCaptor().getSize().y + j];
+                sf::Color tmp = processRay(ray, rdr, processFuns);
+                camera.getCaptor().setPixel(i, j, tmp);
             }
         }
 

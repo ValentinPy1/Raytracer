@@ -19,6 +19,25 @@ namespace vanille {
         _radius = 1;
     }
 
+    void CerclePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
+    {
+        _parent = parent;
+        if (setting.exists("origin")) {
+            libconfig::Setting &origin = setting["origin"];
+            _origin = sf::Vector3f(origin["x"], origin["y"], origin["z"]);
+        } else {
+            std::cout << render::yellow << "[WARNING] " << render::no_color
+                << "No origin found in primitive" << std::endl;
+        }
+        if (setting.exists("radius")) {
+            libconfig::Setting &radius = setting["radius"];
+            _radius = radius;
+        } else {
+            std::cout << render::yellow << "[WARNING] " << render::no_color
+                << "No radius found in primitive" << std::endl;
+        }
+    }
+
     CerclePrimitive_v::~CerclePrimitive_v()
     {
     }
@@ -52,13 +71,6 @@ namespace vanille {
         return (point - _origin);
     }
 
-    void CerclePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
-    {
-        _parent = parent;
-        _origin = sf::Vector3f(setting["origin"][0], setting["origin"][1], setting["origin"][2]);
-        // _radius = setting["radius"];
-        _radius = 1;
-    }
 }
 
 extern "C" {

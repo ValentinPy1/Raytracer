@@ -10,9 +10,11 @@
     #include <string>
     #include <map>
     #include <libconfig.h++>
+    #include "PluginManager.hpp"
     #include "geometry.hpp"
 
 namespace render {
+    class Entity;
     class IMaterial {
         public:
             /**
