@@ -44,10 +44,10 @@ namespace gpu {
             std::cerr << render::red << "[ERROR] " << render::no_color << e.what() << std::endl;
             exit(84);
         }
-        runWindow(rdr);
+        runWindow();
     }
 
-    void Wrapper_gl::runWindow(render::Renderer &rdr)
+    void Wrapper_gl::runWindow()
     {
         _opgl.setContextCurrent();
         _shaderProgram->use();
@@ -108,7 +108,7 @@ namespace gpu {
 
     void Wrapper_gl::initObjects3D(render::Renderer &rdr) {
         std::vector<std::shared_ptr<render::Entity>>  entities = rdr.getEntities();
-        int index = 0;
+        size_t index = 0;
         if (_objVertices != nullptr)
             delete[] _objVertices;
         _objVertices = new float[entities.size() * 3 * 3]();

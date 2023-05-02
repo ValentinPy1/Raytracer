@@ -18,6 +18,7 @@ namespace vanille {
             ~FlatMaterial_v() = default;
             void getColor(int &r, int &g, int &b, geo::vec3 point) const override;
             float getProperty(const std::string &name) const override;
+            void selfInit(libconfig::Setting &setting) override;
         private:
             std::map<std::string, float> _properties = {
                 {"shininess", 0},

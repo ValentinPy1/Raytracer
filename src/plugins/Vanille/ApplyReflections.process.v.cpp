@@ -1,0 +1,62 @@
+/*
+** EPITECH PROJECT, 2022
+** ray
+** File description:
+** ApplyReflections.v.hpp
+*/
+
+#include <string>
+#include "Renderer.hpp"
+#include "Ray.hpp"
+#include "Wrapper.hpp"
+#include "IPlugin.hpp"
+#include "Camera.hpp"
+#include "Wrapper.v.hpp"
+
+extern "C" {
+    render::IPlugin *entryPoint()
+    {
+        return new render::Plugin(
+            [](render::Renderer &rdr) {
+                unsigned int reflectionDepth = rdr.getCamera()->getRecursionDepth();
+                auto wrapper = dynamic_cast<vanille::Wrapper_v *>(&(rdr.getWrapper()));
+                if (wrapper == nullptr)
+                    throw render::Renderer::IncompatibleException(render::red + "[ERROR] " + render::no_color + "ApplyReflections.process.v is not compatible with the current wrapper");
+                for (auto &r : rdr.getCamera()->getRays()) {
+                    r.setRecursionParameter("reflectionDepth", reflectionDepth);
+                }
+                rdr.getCamera()->getRays()[0].getRecursionParameter("reflectionDepth");
+                std::string a;
+                std::cin >> a;
+            },
+
+            [](render::Ray &ray, const render::Renderer &rdr) -> render::Ray & {
+                if (ray.getRecursionParameter("reflectionDepth") <= 0 || !ray.hasIntersections())
+                    return ray;
+                auto intersection = ray.getIntersections()[0];
+                float reflectivity = intersection.getInterceptee()->getMaterial()->getProperty("reflectivity");
+                if (reflectivity <= 0)
+                    return ray;
+                sf::Vector3f normal = intersection.getNormal();
+                sf::Vector3f direction = ray.getDirection();
+                sf::Vector3f reflection = direction - 2.0f * normal * (normal.x * direction.x + normal.y * direction.y + normal.z * direction.z);
+                sf::Vector3f origin = intersection.getPoint() + reflection * 0.001f;
+
+                render::Ray newRay(origin, reflection, ray.getRecursionParameter("reflectionDepth") - 1);
+                dynamic_cast<vanille::Wrapper_v *>(&(rdr.getWrapper()))->processRay(newRay, rdr);
+                sf::Color reflColor = newRay.getColor();
+                reflColor = (sf::Color) {
+                    static_cast<sf::Uint8>(reflColor.r * reflectivity),
+                    static_cast<sf::Uint8>(reflColor.g * reflectivity),
+                    static_cast<sf::Uint8>(reflColor.b * reflectivity)
+                };
+                ray.blendColor(reflColor);
+                return ray;
+            },
+
+            nullptr,
+            10000,
+            "applyReflections"
+        );
+    }
+}

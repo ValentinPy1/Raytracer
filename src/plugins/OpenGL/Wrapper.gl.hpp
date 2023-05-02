@@ -15,18 +15,54 @@
 
 
 namespace gpu {
+    /**
+     * @brief This wrapper implements the raytracing algorithm using OpenGL.
+     * The actual rendering pipeline should be written in shader files and
+     * loaded as plugins in the config file.
+     *
+     */
     class Wrapper_gl : public render::IWrapper {
         public:
             Wrapper_gl();
             ~Wrapper_gl();
+
+            /**
+             * @brief The run function runs the whole rendering pipeline,
+             * after having initialized the camera, the program and the objects.
+             *
+             * @param rdr
+             */
             void run(render::Renderer &rdr) override;
 
         private:
+            /**
+             * @brief Converts the rays of the camera to vertices for the
+             * Vertex shaders.
+             *
+             */
             void initCamera();
-            void initProgram(render::Renderer &rdr);
-            void initObjects3D(render::Renderer &rdr);
-            void runWindow(render::Renderer &rdr);
 
+            /**
+             * @brief Initializes the shader program from the list of shaders
+             * in the plugins section of the config file.
+             *
+             * @param rdr
+             */
+            void initProgram(render::Renderer &rdr);
+
+            /**
+             * @brief Initializes the objects from the list of objects in the
+             * config file.
+             *
+             * @param rdr
+             */
+            void initObjects3D(render::Renderer &rdr);
+
+            /**
+             * @brief Runs the window and the rendering loop.
+             *
+             */
+            void runWindow();
 
             Opgl _opgl;
             static const int w = 1000;

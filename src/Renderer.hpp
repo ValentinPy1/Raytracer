@@ -9,6 +9,7 @@
 
 #include <vector>
 #include <memory>
+#include <stdexcept>
 #include <SFML/Graphics.hpp>
 #include "Entity.hpp"
 #include "PluginManager.hpp"
@@ -21,6 +22,11 @@ namespace render {
     class Camera;
     class Renderer {
         public:
+            class IncompatibleException : public std::runtime_error {
+                public:
+                    IncompatibleException(const std::string &what) : std::runtime_error(what) {}
+            };
+
             Renderer() = default;
             ~Renderer() = default;
 
@@ -31,10 +37,11 @@ namespace render {
             void setAmbientLight(const sf::Color &color);
             void addLight(std::shared_ptr<ILight> light);
 
-            Camera &getCamera() const;
+            std::shared_ptr<Camera> getCamera();
             sf::Color getAmbientLight() const;
             std::vector<std::shared_ptr<ILight>> getLights() const;
             std::vector<std::shared_ptr<Entity>> getEntities() const;
+            IWrapper &getWrapper() const;
             void render();
         private:
             PluginManager _pluginManager;

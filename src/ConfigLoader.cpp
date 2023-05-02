@@ -5,6 +5,7 @@
 ** ConfigLoader.cpp
 */
 
+#include <ctime>
 #include <fstream>
 #include "ConfigLoader.hpp"
 #include "Camera.hpp"
@@ -28,6 +29,7 @@ namespace render {
         int captorHeight;
         sf::Vector3f position;
         sf::Vector3f rotation;
+        unsigned int recursionDepth;
 
         cameraSettings.lookupValue("focal", focalPoint);
         libconfig::Setting &captorSetting = cameraSettings.lookup("captor");
@@ -41,6 +43,7 @@ namespace render {
         rotationSetting.lookupValue("x", rotation.x);
         rotationSetting.lookupValue("y", rotation.y);
         rotationSetting.lookupValue("z", rotation.z);
+        cameraSettings.lookupValue("recursionDepth", recursionDepth);
 
         std::shared_ptr<Camera> cam = std::shared_ptr<Camera>(
             new Camera(
@@ -48,7 +51,8 @@ namespace render {
             captorWidth,
             captorHeight,
             position,
-            rotation)
+            rotation,
+            recursionDepth)
         );
 
         std::cout << render::green << "[INFO] " << render::no_color << "Loaded camera:" << std::endl;
@@ -112,17 +116,20 @@ namespace render {
                 libconfig::Setting &args = objectsValue[i].lookup("args");
                 libconfig::Setting &primitive = objectsValue[i].lookup("primitive");
                 std::string name = primitive;
-                name = name + _mode;
+                name = "lib" + name + ".primitive" + _mode;
                 name = _path + name + ".so";
                 std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
                 obj->selfInit(args, en.get());
                 en->setPrimitive(obj);
 
                 libconfig::Setting &material = objectsValue[i].lookup("material");
-                std::string materialName = material;
-                materialName = materialName + _mode;
+                std::string materialName;
+                material.lookupValue("src", materialName);
+                materialName = "lib" + materialName + ".material" + _mode;
                 materialName = _path + materialName + ".so";
-                std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(material, materialName));
+                libconfig::Setting &materialArgs = material.lookup("args");
+                std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(materialName + "_" + std::to_string(clock()), materialName));
+                mat->selfInit(materialArgs);
                 en->setMaterial(mat);
                 rdr.addEntity(en);
             } catch (std::exception &e) {

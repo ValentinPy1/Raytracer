@@ -15,8 +15,8 @@
 namespace render {
 
     Camera::Camera(float focalPoint, int captorWidth, int captorHeight,
-        const sf::Vector3f &position, const sf::Vector3f &rotation)
-        : _position(position), _rotation(rotation)
+        const sf::Vector3f &position, const sf::Vector3f &rotation, unsigned int recursionDepth)
+        : _position(position), _rotation(rotation), _recursionDepth(recursionDepth)
     {
         _focalPoint = computeFocalPoint(focalPoint);
         _focalDistance = -focalPoint;
@@ -39,20 +39,10 @@ namespace render {
                     (float) y * pixHeight,
                     _focalDistance
                 ));
-                _rays.emplace_back(_focalPoint, direction);
+                _rays.emplace_back(_focalPoint, direction, _recursionDepth);
                 // std::cerr << direction.x << " " << direction.y << " " << direction.z << " " << _focalPoint.x << " " << _focalPoint.y << " " << _focalPoint.z << std::endl;
             }
         }
-
-
-        // for (int w = -captorWidth / 2.0f; w < captorWidth / 2.0f; w++) {
-        //     for (int h = -captorHeight / 2.0f; h < captorHeight / 2.0f; h++) {
-        //         sf::Vector3f direction = Ray::normalize(sf::Vector3f(w * pixWidth, 0, h * pixHeight) - _focalPoint);
-        //         _rays.emplace_back(_focalPoint, direction);
-        //     }
-        // }
-
-
     }
 
     sf::Vector3f Camera::computeFocalPoint(float focalPoint) const
@@ -115,5 +105,10 @@ namespace render {
         Camera::scale = scale;
         _rays.clear();
         generateRays();
+    }
+
+    unsigned int Camera::getRecursionDepth() const
+    {
+        return _recursionDepth;
     }
 }

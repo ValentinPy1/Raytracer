@@ -75,7 +75,7 @@ add_library(ApplyIntersect.process.v SHARED
 
 add_custom_command(
     TARGET Wrapper.v POST_BUILD
-    COMMAND mv libWrapper.v.so ..
+    COMMAND cp libWrapper.v.so ..
 )
 
 add_custom_command(
@@ -130,4 +130,32 @@ target_link_libraries(
 add_custom_command(
     TARGET ApplyPointLights.process.v POST_BUILD
     COMMAND mv libApplyPointLights.process.v.so ..
+)
+
+add_library(
+    ApplyReflections.process.v SHARED
+    ${COMMON_SRC}
+    ApplyReflections.process.v.cpp
+    ../../Camera.cpp
+    ../../Entity.cpp
+)
+
+add_dependencies(
+    ApplyReflections.process.v
+    Wrapper.v
+)
+
+target_link_libraries(
+    ApplyReflections.process.v
+    Wrapper.v
+)
+
+target_link_libraries(
+    ApplyReflections.process.v
+    -lsfml-system
+)
+
+add_custom_command(
+    TARGET ApplyReflections.process.v POST_BUILD
+    COMMAND mv libApplyReflections.process.v.so ..
 )

@@ -66,7 +66,7 @@ namespace render {
         return ret;
     }
 
-    std::vector<processRay_t> PluginManager::getProcessRayFunctions() const
+    std::vector<processRay_t> PluginManager::getProcessRayFunctions()
     {
         std::vector<processRay_t> ret;
         for (const auto &plugin : _plugins) {
