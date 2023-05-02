@@ -33,7 +33,7 @@ namespace render {
              * be used by the plugin itself to initialize its internal state.
              *
             */
-            virtual void selfInit(libconfig::Setting &setting) = 0;
+            virtual void selfInit(libconfig::Setting &setting, render::Entity *parent) = 0;
 
             /**
              * @brief Get the Color object by setting its RGB values in place

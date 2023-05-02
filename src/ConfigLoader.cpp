@@ -114,10 +114,12 @@ namespace render {
             std::shared_ptr<Entity> en = std::make_shared<Entity>();
             try {
                 libconfig::Setting &primitive = objectsValue[i].lookup("primitive");
-                std::string name = primitive;
+                std::string name;
+                primitive.lookupValue("type", name);
                 name = "lib" + name + ".primitive" + _mode;
                 name = _path + name + ".so";
-                std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
+                libconfig::Setting &args = primitive.lookup("args");
+                std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(name, name));
                 obj->selfInit(args, en.get());
                 en->setPrimitive(obj);
             } catch (std::exception &e) {
@@ -127,15 +129,15 @@ namespace render {
             try {
                 libconfig::Setting &material = objectsValue[i].lookup("material");
                 std::string materialName;
-                material.lookupValue("src", materialName);
+                material.lookupValue("type", materialName);
                 materialName = "lib" + materialName + ".material" + _mode;
                 materialName = _path + materialName + ".so";
                 libconfig::Setting &materialArgs = material.lookup("args");
                 std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(materialName + "_" + std::to_string(clock()), materialName));
-                mat->selfInit(materialArgs);
+                mat->selfInit(materialArgs, en.get());
                 en->setMaterial(mat);
                 rdr.addEntity(en);
-                std::cout << render::green << "[INFO] " << render::no_color << "Loaded material: " << mName << std::endl;
+                std::cout << render::green << "[INFO] " << render::no_color << "Loaded material: " << materialName << std::endl;
             } catch (std::exception &e) {
                 wasError = true;
                 std::cerr << render::red << "[ERROR] " << render::no_color << "Failed to load material: " << e.what() << std::endl;
