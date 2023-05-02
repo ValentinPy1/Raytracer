@@ -31,7 +31,7 @@ namespace gpu {
         b = _b;
     }
 
-    void FlatMaterial_gl::selfInit(libconfig::Setting &setting)
+    void FlatMaterial_gl::selfInit(libconfig::Setting &setting, render::Entity *en)
     {
         libconfig::Setting &color = setting.lookup("color");
 

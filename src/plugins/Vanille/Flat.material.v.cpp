@@ -14,27 +14,27 @@ namespace vanille {
         _color = sf::Color::White;
     }
 
-    void FlatMaterial_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
-    {
-        _parent = parent;
-        if (setting.exists("color")) {
-            libconfig::Setting &color = setting["color"];
-            int r = color["r"];
-            int g = color["g"];
-            int b = color["b"];
-            _color = sf::Color(r, g, b);
-        } else {
-            std::cout << render::yellow << "[WARNING] " << render::no_color
-                << "No color found in material" << std::endl;
-        }
-        if (setting.exists("shininess")) {
-            libconfig::Setting &shininess = setting["shininess"];
-            _properties["shininess"] = shininess;
-        } else {
-            std::cout << render::yellow << "[WARNING] " << render::no_color
-                << "No shininess found in material" << std::endl;
-        }
-    }
+    // void FlatMaterial_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
+    // {
+    //     _parent = parent;
+    //     if (setting.exists("color")) {
+    //         libconfig::Setting &color = setting["color"];
+    //         int r = color["r"];
+    //         int g = color["g"];
+    //         int b = color["b"];
+    //         _color = sf::Color(r, g, b);
+    //     } else {
+    //         std::cout << render::yellow << "[WARNING] " << render::no_color
+    //             << "No color found in material" << std::endl;
+    //     }
+    //     if (setting.exists("shininess")) {
+    //         libconfig::Setting &shininess = setting["shininess"];
+    //         _properties["shininess"] = shininess;
+    //     } else {
+    //         std::cout << render::yellow << "[WARNING] " << render::no_color
+    //             << "No shininess found in material" << std::endl;
+    //     }
+    // }
 
     void FlatMaterial_v::getColor(int &r, int &g, int &b,
         __attribute__((unused)) geo::vec3 point) const
@@ -55,7 +55,7 @@ namespace vanille {
         }
     }
 
-    void FlatMaterial_v::selfInit(libconfig::Setting &setting)
+    void FlatMaterial_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
         libconfig::Setting &color = setting.lookup("color");
         int r, g, b;
