@@ -18,7 +18,7 @@ namespace vanille
     void CheckMaterial_v::getColor(int &r, int &g, int &b,
         __attribute__((unused)) geo::vec3 point) const
     {
-        if ((int)point.x % 4 == 0 ^ (int)point.y % 4 == 0 ^ (int)point.z % 4 == 0) {
+        if ((int)point.x % 2 == 0 ^ (int)point.y % 2 == 0 ^ (int)point.z % 2 == 0) {
             r = _color1.r;
             g = _color1.g;
             b = _color1.b;
