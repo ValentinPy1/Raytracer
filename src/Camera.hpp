@@ -28,6 +28,12 @@ namespace render
         ~Camera() = default;
 
         /**
+         * @brief Returns the focal distance of the camera.
+         *
+         */
+        float getFocalDistance() const;
+
+        /**
          * @brief Return the captor of the camera.
          *
          * @return sf::Image&
@@ -105,6 +111,13 @@ namespace render
          * @return unsigned int
          */
         unsigned int getRecursionDepth() const;
+
+        /**
+         * @brief Replaces the captor of the camera by the specified one.
+         *
+         * @param captor
+         */
+        void setCaptor(sf::Image &captor);
 
     private:
         /**

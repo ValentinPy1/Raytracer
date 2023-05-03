@@ -28,11 +28,19 @@ add_library(
     Wrapper.v SHARED
     ${COMMON_SRC}
     Wrapper.v.cpp
+    Wrapper.v.entryPoint.cpp
 )
 
-add_library(AmbientLight.v SHARED
+add_library(AmbientLight.process.v SHARED
     ${COMMON_SRC}
     AmbientLight.v.cpp
+    ../../Camera.cpp
+    ../../Renderer.cpp
+)
+
+add_custom_command(
+    TARGET AmbientLight.process.v POST_BUILD
+    COMMAND mv libAmbientLight.process.v.so ..
 )
 
 add_library(
@@ -189,4 +197,23 @@ target_link_libraries(
 add_custom_command(
     TARGET Disk.light.v POST_BUILD
     COMMAND mv libDisk.light.v.so ..
+)
+
+# PROCESS PLUGIN ANTIALIASING
+add_library(
+    Antialiasing.process.v SHARED
+    ${COMMON_SRC}
+    Antialiasing.process.v.cpp
+    ../../Camera.cpp
+    Wrapper.v.cpp
+)
+
+target_link_libraries(
+    Antialiasing.process.v
+    -lsfml-system
+)
+
+add_custom_command(
+    TARGET Antialiasing.process.v POST_BUILD
+    COMMAND mv libAntialiasing.process.v.so ..
 )

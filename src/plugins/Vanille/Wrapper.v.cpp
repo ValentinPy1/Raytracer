@@ -5,6 +5,7 @@
 ** Wrapper.v.cpp
 */
 
+#include <thread>
 #include <ctime>
 #include "Plugin.hpp"
 #include "../plugins/Vanille/Wrapper.v.hpp"
@@ -66,7 +67,6 @@ namespace vanille {
                 camera.getCaptor().setPixel(i, j, tmp);
             }
         }
-
         std::cout << render::green << "[INFO] " << render::yellow << "Applying post process to the image... " << render::no_color << std::endl;
         postProcess(rdr, pm);
         std::cout << render::green << "[INFO] " << render::yellow << "Done in " << (double) (clock() - start) / CLOCKS_PER_SEC << " seconds."  << render::no_color << std::endl;
@@ -79,12 +79,5 @@ namespace vanille {
 
         init(pm, rdr);
         render(rdr, pm);
-    }
-
-    extern "C" {
-        render::IWrapper *entryPoint()
-        {
-            return new Wrapper_v();
-        }
     }
 }

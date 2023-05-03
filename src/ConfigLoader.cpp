@@ -186,6 +186,19 @@ namespace render {
         }
     }
 
+    void ConfigLoader::loadParams(Renderer &rdr)
+    {
+        try {
+            const libconfig::Setting &settings = _cfg.lookup("params");
+            const libconfig::Setting &params =
+            settings.lookup("params");std::cout << "le maquis" << std::endl;
+            rdr.setParams(&params);
+        } catch (std::exception &e) {
+            std::cout << render::green << "[INFO] " << render::no_color << "No params found, using default values" << std::endl;
+        }
+
+    }
+
     void ConfigLoader::loadConfigFile(std::string path, Renderer &rdr)
     {
         try {
@@ -198,6 +211,7 @@ namespace render {
         // const libconfig::Setting &mode = _cfg.lookupValue("mode", mode);
         extention.lookupValue("mode", _mode);
 
+        loadParams(rdr);
         loadCamera(rdr);
         loadPlugins(rdr);
         loadObjects(rdr);

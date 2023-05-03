@@ -30,6 +30,7 @@ namespace render {
             void loadPlugins(Renderer &rdr);
             void loadObjects(Renderer &rdr);
             void loadLights(Renderer &rdr);
+            void loadParams(Renderer &rdr);
 
             libconfig::Config _cfg;
             std::string _mode;

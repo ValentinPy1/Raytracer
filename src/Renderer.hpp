@@ -44,6 +44,12 @@ namespace render {
             std::vector<std::shared_ptr<Entity>> getEntities() const;
             IWrapper &getWrapper() const;
             void render();
+
+            void setCustomValue(const std::string &name, float value);
+            float getCustomValue(const std::string &name) const;
+
+            void setParams(const libconfig::Setting *params);
+            const libconfig::Setting *getParams() const;
         private:
             PluginManager _pluginManager;
             std::vector<std::shared_ptr<Entity>> _entities;
@@ -51,5 +57,7 @@ namespace render {
             std::shared_ptr<Camera> _camera;
             sf::Color _ambientLight;
             std::vector<std::shared_ptr<ILight>> _lights;
+            std::map<std::string, float> _customValues;
+            const libconfig::Setting *_params = nullptr;
     };
 }
