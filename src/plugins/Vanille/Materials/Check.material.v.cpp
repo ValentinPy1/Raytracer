@@ -62,12 +62,13 @@ namespace vanille
             std::cout << render::yellow << "[WARNING] " << render::no_color
                 << "No color found in material" << std::endl;
         }
-        if (setting.exists("shininess")) {
-            libconfig::Setting &shininess = setting["shininess"];
-            _properties["shininess"] = shininess;
-        } else {
-            std::cout << render::yellow << "[WARNING] " << render::no_color
-                << "No shininess found in material" << std::endl;
+        libconfig::Setting &properties = setting.lookup("properties");
+        for (int i = 0; i < properties.getLength(); i++) {
+            libconfig::Setting &property = properties[i];
+            std::string name = property.getName();
+            float value = 10;
+            properties.lookupValue(name, value);
+            _properties[name] = value;
         }
     }
 } // namespace v
