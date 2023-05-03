@@ -15,6 +15,7 @@ namespace render {
     Ray::Ray(const sf::Vector3f &origin, const sf::Vector3f &direction, int reflectionDepth)
     : _reflectionDepth(reflectionDepth), _origin(origin), _direction(direction)
     {
+        _color = sf::Color::White;
     }
 
     sf::Vector3f Ray::rotateVector(const sf::Vector3f& vector, const sf::Vector3f& rotation) {
@@ -47,18 +48,23 @@ namespace render {
         return sf::Vector3f(vector.x / length, vector.y / length, vector.z / length);
     }
 
-    Ray &Ray::findIntersections(const render::Renderer &renderer)
+    // Ray &Ray::findIntersections(const render::Renderer &renderer)
+    // {
+    //     for (auto &object : renderer.getObjects()) {
+    //         object->solve(*this); // ? TODO optimisation n ^ 2 ?
+    //     }
+    //     std::sort(_intersections.begin(), _intersections.end(), [](const Intersection &a, const Intersection &b) {
+    //         return a.getDistance() < b.getDistance();
+    //     });
+    //     if (_intersections.size() > 0) {
+    //         _color = _intersections[0].getColor();
+    //     }
+    //     return *this;
+    // }
+
+    std::map<std::string, int> Ray::getAllRecursionParameters() const
     {
-        for (auto &object : renderer.getObjects()) {
-            object->solve(*this); // ? TODO optimisation n ^ 2 ?
-        }
-        std::sort(_intersections.begin(), _intersections.end(), [](const Intersection &a, const Intersection &b) {
-            return a.getDistance() < b.getDistance();
-        });
-        if (_intersections.size() > 0) {
-            _color = _intersections[0].getColor();
-        }
-        return *this;
+        return _recursionParameters;
     }
 
     sf::Color Ray::blendColor(const sf::Color &color) const
@@ -96,10 +102,10 @@ namespace render {
 
     bool Ray::hasIntersections() const
     {
-        return _intersections.size() == 0;
+        return _intersections.size() > 0;
     }
 
-    const std::vector<Intersection> &Ray::getIntersections() const
+    std::vector<Intersection> &Ray::getIntersections()
     {
         return _intersections;
     }
@@ -121,8 +127,6 @@ namespace render {
 
     sf::Color Ray::getColor() const
     {
-        if (_intersections.size() == 0)
-            return sf::Color::Black;
         return _color;
     }
 
@@ -144,72 +148,128 @@ namespace render {
         return final;
     }
 
-    bool Ray::isShadowed(const Renderer &rdr, sf::Vector3f lightPos, sf::Vector3f intersection)
-    {
-        sf::Vector3f lightDirection = lightPos - intersection;
-        float lightDistance = getNorm(lightDirection);
-        Ray shadowRay(intersection, lightDirection);
-
-        shadowRay.findIntersections(rdr);
-        for (auto i : shadowRay.getIntersections()) {
-            if (i.getDistance() > 0 &&  getNorm(intersection - i.getPoint()) < lightDistance && getNorm(intersection - i.getPoint()) > 0.01f) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    // ? optimize with  deferred shading or forward+ rendering.
-    Ray &Ray::applyLighting(const Renderer &renderer)
-    {
-        if (_intersections.size() == 0)
-            return *this;
-        setColor(blendMultiply(renderer.getAmbientLight()));
-        for (auto light : renderer.getLights()) {
-            _color = light.sample(*this, renderer);
-        }
-        return *this;
-    }
-
-    sf::Color Ray::getReflectionColor(const Renderer &renderer)
-    {
-        if (_intersections.size() == 0)
-            return sf::Color::Black;
-        sf::Vector3f normal = _intersections[0].getNormal();
-        sf::Vector3f reflection = _direction - 2 * normal * (normal.x * _direction.x + normal.y * _direction.y + normal.z * _direction.z);
-        Ray reflectionRay(_intersections[0].getPoint(), -reflection, _reflectionDepth - 1);
-        reflectionRay.findIntersections(renderer);
-        if (reflectionRay._intersections.size() == 0)
-            return sf::Color::Black;
-        if (Ray::getNorm(reflectionRay._intersections[0].getPoint() - _intersections[0].getPoint()) < 0.01f)
-            reflectionRay._intersections.erase(reflectionRay._intersections.begin());
-        if (reflectionRay._intersections.size() == 0) {
-            reflectionRay.setColor(sf::Color::Black);
-            return sf::Color::Black;
-        }
-        reflectionRay.applyLighting(renderer);
-        if (reflectionRay._reflectionDepth > 0)
-            reflectionRay.blendAdd(reflectionRay.getReflectionColor(renderer));
-        auto reflectivity = _intersections[0].getInterceptee()->getReflectivity();
-        auto tmp = reflectionRay.getColor();
-        tmp = (sf::Color) {
-            static_cast<sf::Uint8>(tmp.r * reflectivity),
-            static_cast<sf::Uint8>(tmp.g * reflectivity),
-            static_cast<sf::Uint8>(tmp.b * reflectivity)
+    sf::Color Ray::blendLerp(const sf::Color &color, float t) const {
+        sf::Color final = {
+            static_cast<sf::Uint8>((_color.r * (1 - t)) + (color.r * t)),
+            static_cast<sf::Uint8>((_color.g * (1 - t)) + (color.g * t)),
+            static_cast<sf::Uint8>((_color.b * (1 - t)) + (color.b * t))
         };
-        return tmp;
-        // return reflectionRay.getColor();
+        return final;
     }
 
-    sf::Color Ray::cast(const Renderer &renderer)
+    // bool Ray::isShadowed(const Renderer &rdr, sf::Vector3f lightPos, sf::Vector3f intersection)
+    // {
+    //     sf::Vector3f lightDirection = lightPos - intersection;
+    //     float lightDistance = getNorm(lightDirection);
+    //     Ray shadowRay(intersection, lightDirection);
+
+    //     shadowRay.findIntersections(rdr);
+    //     for (auto i : shadowRay.getIntersections()) {
+    //         if (i.getDistance() > 0 &&  getNorm(intersection - i.getPoint()) < lightDistance && getNorm(intersection - i.getPoint()) > 0.01f) {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+
+    // // ? optimize with  deferred shading or forward+ rendering.
+    // Ray &Ray::applyLighting(const Renderer &renderer)
+    // {
+    //     if (_intersections.size() == 0)
+    //         return *this;
+    //     setColor(blendMultiply(renderer.getAmbientLight()));
+    //     for (auto light : renderer.getLights()) {
+    //         _color = light.sample(*this, renderer);
+    //     }
+    //     return *this;
+    // }
+
+    // sf::Color Ray::getReflectionColor(const Renderer &renderer)
+    // {
+    //     if (_intersections.size() == 0)
+    //         return sf::Color::Black;
+    //     sf::Vector3f normal = _intersections[0].getNormal();
+    //     sf::Vector3f reflection = _direction - 2 * normal * (normal.x * _direction.x + normal.y * _direction.y + normal.z * _direction.z);
+    //     Ray reflectionRay(_intersections[0].getPoint(), -reflection, _reflectionDepth - 1);
+    //     reflectionRay.findIntersections(renderer);
+    //     if (reflectionRay._intersections.size() == 0)
+    //         return sf::Color::Black;
+    //     if (Ray::getNorm(reflectionRay._intersections[0].getPoint() - _intersections[0].getPoint()) < 0.01f)
+    //         reflectionRay._intersections.erase(reflectionRay._intersections.begin());
+    //     if (reflectionRay._intersections.size() == 0) {
+    //         reflectionRay.setColor(sf::Color::Black);
+    //         return sf::Color::Black;
+    //     }
+    //     reflectionRay.applyLighting(renderer);
+    //     if (reflectionRay._reflectionDepth > 0)
+    //         reflectionRay.blendAdd(reflectionRay.getReflectionColor(renderer));
+    //     auto reflectivity = _intersections[0].getInterceptee()->getReflectivity();
+    //     auto tmp = reflectionRay.getColor();
+    //     tmp = (sf::Color) {
+    //         static_cast<sf::Uint8>(tmp.r * reflectivity),
+    //         static_cast<sf::Uint8>(tmp.g * reflectivity),
+    //         static_cast<sf::Uint8>(tmp.b * reflectivity)
+    //     };
+    //     return tmp;
+    //     // return reflectionRay.getColor();
+    // }
+
+    // sf::Color Ray::cast(const Renderer &renderer)
+    // {
+    //     // findIntersections(renderer);
+    //     // if (getIntersections().size() == 0) {
+    //     //     setColor(sf::Color {33, 33, 33});
+    //     //     return getColor();
+    //     // }
+    //     // return getColor();
+
+    //     // real pipeline to convert to plugins
+    //     // plugin geometry::intersection
+    //     findIntersections(renderer);
+
+    //     // plugin lights
+    //     if (_intersections.size() == 0)
+    //         return sf::Color::Black;
+    //     applyLighting(renderer);
+
+    //     //plugin reflection
+    //     if (_intersections.size() > 0 && _reflectionDepth > 0) {
+    //         return blendAdd(getReflectionColor(renderer));
+    //     }
+
+    //     // end of process loop
+    //     return getColor();
+    // }
+
+    void Ray::setRecursionParameter(const std::string &name, int initialValue)
     {
-        findIntersections(renderer);
-        if (_intersections.size() == 0)
-            return sf::Color::Black;
-        applyLighting(renderer);
-        if (_intersections.size() > 0 && _reflectionDepth > 0) {
-            return blendAdd(getReflectionColor(renderer));
+        _recursionParameters[name] = initialValue;
+    }
+
+    void Ray::incrementRecursionParameter(const std::string &name)
+    {
+        if (_recursionParameters.count(name) == 0) {
+            std::cerr << render::yellow << "[WARNING] :" << render::no_color <<  "Trying to increment non-existing recursion parameter" << std::endl;
+            return;
         }
-        return getColor();
+        _recursionParameters[name]++;
+    }
+
+    void Ray::decrementRecursionParameter(const std::string &name)
+    {
+        if (_recursionParameters.count(name) == 0) {
+            std::cerr << render::yellow << "[WARNING] :" << render::no_color <<  "Trying to decrement non-existing recursion parameter" << std::endl;
+            return;
+        }
+        _recursionParameters[name]--;
+    }
+
+    int Ray::getRecursionParameter(const std::string &name) const
+    {
+        if (_recursionParameters.count(name) == 0) {
+            // std::cerr << render::yellow << "[WARNING]: " << render::no_color <<  "Trying to get non-existing recursion parameter (" << render::yellow << name << render::no_color << ")" << std::endl;
+            return 0;
+        }
+        return _recursionParameters.at(name);
     }
 }

@@ -5,6 +5,7 @@
 ** DLLoader.cpp
 */
 
+#include "Renderer.hpp"
 #include "PluginManager.hpp"
 
 namespace render {
@@ -21,10 +22,12 @@ namespace render {
     }
 
     DLLoader::~DLLoader() {
-        for (auto &handle : _handles) {
-            dlclose(handle);
+        for (auto &handle : _libHandles) {
+            std::cout << render::green << "[INFO] " << render::no_color <<"Closing " << handle.first << ": \r\t\t\t\t\t\t\t\t" << std::flush;
+            dlclose(handle.second);
+            std::cout << render::green << "OK" << render::no_color << std::endl;
         }
-        _handles.clear();
+        _libHandles.clear();
     }
 
     void DLLoader::load(const std::string &path, const std::string &libName) {
@@ -37,8 +40,7 @@ namespace render {
         if (dlsym_error) {
             throw DLLoaderException("Cannot load symbol 'entryPoint': " + std::string(dlsym_error));
         }
-        _handles.push_back(handle);
-        _handleNames.push_back(libName);
+        _libHandles[libName] = handle;
     }
 
 }
