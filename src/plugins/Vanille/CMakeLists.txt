@@ -83,6 +83,9 @@ target_sources(ApplyPointLights.process.v PRIVATE ${COMMON_SRC})
 add_library(ApplyReflections.process.v SHARED ./Processes/ApplyReflections.process.v.cpp)
 target_sources(ApplyReflections.process.v PRIVATE ${COMMON_SRC})
 
+add_library(ApplyAmbientOcclusion.process.v SHARED ./Processes/AmbientOcclusion.process.v.cpp)
+target_sources(ApplyAmbientOcclusion.process.v PRIVATE ${COMMON_SRC})
+
 
 
 # TARGET LINK LIB
@@ -166,4 +169,9 @@ add_custom_command(
 add_custom_command(
     TARGET Check.material.v POST_BUILD
     COMMAND mv libCheck.material.v.so ..
+)
+
+add_custom_command(
+    TARGET ApplyAmbientOcclusion.process.v POST_BUILD
+    COMMAND mv libApplyAmbientOcclusion.process.v.so ..
 )

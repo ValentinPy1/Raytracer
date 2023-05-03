@@ -14,7 +14,7 @@ namespace vanille {
         public:
             AmbientOcclusion_v();
         private:
-            float _density = 1;
+            float _density = 0.005;
             sf::Color _color = sf::Color::White;
     };
 }

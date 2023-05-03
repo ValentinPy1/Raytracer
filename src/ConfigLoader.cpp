@@ -191,7 +191,7 @@ namespace render {
         try {
             const libconfig::Setting &settings = _cfg.lookup("params");
             const libconfig::Setting &params =
-            settings.lookup("params");std::cout << "le maquis" << std::endl;
+            settings.lookup("params");
             rdr.setParams(&params);
         } catch (std::exception &e) {
             std::cout << render::green << "[INFO] " << render::no_color << "No params found, using default values" << std::endl;
