@@ -45,6 +45,11 @@ namespace render {
         }
     }
 
+    float Camera::getFocalDistance() const
+    {
+        return -_focalDistance;
+    }
+
     sf::Vector3f Camera::computeFocalPoint(float focalPoint) const
     {
         return render::Ray::rotateVector(sf::Vector3f(0, 0, focalPoint), _rotation)
@@ -101,6 +106,7 @@ namespace render {
     void Camera::setCaptorSize(const sf::Vector2i &captorSize)
     {
         _captorSize = captorSize;
+        _captor.create(captorSize.x, captorSize.y, sf::Color::Black);
         _rays.clear();
         generateRays();
     }
@@ -116,4 +122,11 @@ namespace render {
     {
         return _recursionDepth;
     }
+
+    void Camera::setCaptor(sf::Image &captor)
+    {
+        _captor = captor;
+    }
+
+
 }

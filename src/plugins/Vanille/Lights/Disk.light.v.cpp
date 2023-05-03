@@ -33,9 +33,10 @@ namespace vanille {
             sf::Vector3f normal = ray.getIntersections()[0].getNormal();
             sf::Color color;
             lightDirection = lightpos - intersection;
+            lightDirection = -lightDirection;
 
             if (pointIsShadowed(renderer, intersection, lightDirection)) {
-                return ray.getColor();
+                return sf::Color::Black;
             }
 
             color = _lightModel.apply(
@@ -80,13 +81,15 @@ namespace vanille {
         std::vector<sf::Color> samples;
         sf::Vector3f position = _position;
 
-        for (int i = 0; i < _nSamples; ++i) {
+        for (int i = 0; i < _nSamples * _radius; ++i) {
             randomSample = {static_cast<float>(fmod(rand(), _radius)), static_cast<float>(fmod(rand(), _radius)), static_cast<float>(fmod(rand(), _radius))};
             sf::Vector3f tmp = position + randomSample;
             samples.push_back(sampleHardLight(ray, rdr, tmp));
         }
         auto average = averageSamples(samples);
-        ray.setColor(ray.blendLerp(average, 0.9));
+        // ray.setColor(ray.blendLerp(average, 0.5f));
+        // ray.setColor(ray.blendMultiply(average));
+        ray.setColor(ray.blendColor(average));
     }
 
     void DiskLight::selfInit(const libconfig::Setting &setting)

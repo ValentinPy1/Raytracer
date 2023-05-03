@@ -15,7 +15,7 @@ namespace render {
     Ray::Ray(const sf::Vector3f &origin, const sf::Vector3f &direction, int reflectionDepth)
     : _reflectionDepth(reflectionDepth), _origin(origin), _direction(direction)
     {
-        _color = sf::Color::Black;
+        _color = sf::Color::White;
     }
 
     sf::Vector3f Ray::rotateVector(const sf::Vector3f& vector, const sf::Vector3f& rotation) {
@@ -61,6 +61,11 @@ namespace render {
     //     }
     //     return *this;
     // }
+
+    std::map<std::string, int> Ray::getAllRecursionParameters() const
+    {
+        return _recursionParameters;
+    }
 
     sf::Color Ray::blendColor(const sf::Color &color) const
     {
@@ -262,7 +267,7 @@ namespace render {
     int Ray::getRecursionParameter(const std::string &name) const
     {
         if (_recursionParameters.count(name) == 0) {
-            std::cerr << render::yellow << "[WARNING]: " << render::no_color <<  "Trying to get non-existing recursion parameter (" << render::yellow << name << render::no_color << ")" << std::endl;
+            // std::cerr << render::yellow << "[WARNING]: " << render::no_color <<  "Trying to get non-existing recursion parameter (" << render::yellow << name << render::no_color << ")" << std::endl;
             return 0;
         }
         return _recursionParameters.at(name);

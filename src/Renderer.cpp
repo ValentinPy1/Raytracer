@@ -73,4 +73,24 @@ namespace render {
     {
         return _lights;
     }
+
+    void Renderer::setCustomValue(const std::string &name, float value)
+    {
+        _customValues[name] = value;
+    }
+
+    float Renderer::getCustomValue(const std::string &name) const
+    {
+        return _customValues.at(name);
+    }
+
+    void Renderer::setParams(const libconfig::Setting *params)
+    {
+        _params = params;
+    }
+
+    const libconfig::Setting *Renderer::getParams() const
+    {
+        return _params;
+    }
 }

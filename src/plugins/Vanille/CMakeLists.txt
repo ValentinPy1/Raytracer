@@ -25,6 +25,24 @@ set(COMMON_SRC
     ../../LightModel.cpp
     )
 
+add_library(
+    Wrapper.v SHARED
+    ${COMMON_SRC}
+    Wrapper.v.cpp
+    Wrapper.v.entryPoint.cpp
+)
+
+add_library(AmbientLight.process.v SHARED
+    ${COMMON_SRC}
+    AmbientLight.v.cpp
+    ../../Camera.cpp
+    ../../Renderer.cpp
+)
+
+add_custom_command(
+    TARGET AmbientLight.process.v POST_BUILD
+    COMMAND mv libAmbientLight.process.v.so ..
+)
 
 # WRAPPER
 
@@ -163,7 +181,28 @@ add_custom_command(
     COMMAND mv libDisk.light.v.so ..
 )
 
+<<<<<<< HEAD
+# PROCESS PLUGIN ANTIALIASING
+add_library(
+    Antialiasing.process.v SHARED
+    ${COMMON_SRC}
+    Antialiasing.process.v.cpp
+    ../../Camera.cpp
+    Wrapper.v.cpp
+)
+
+target_link_libraries(
+    Antialiasing.process.v
+    -lsfml-system
+)
+
+add_custom_command(
+    TARGET Antialiasing.process.v POST_BUILD
+    COMMAND mv libAntialiasing.process.v.so ..
+)
+=======
 add_custom_command(
     TARGET Check.material.v POST_BUILD
     COMMAND mv libCheck.material.v.so ..
 )
+>>>>>>> c5839c5455ff67c8bfa0079f6273efc5a36f020b

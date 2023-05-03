@@ -89,6 +89,7 @@ namespace render {
             int getRecursionParameter(const std::string &name) const;
             void incrementRecursionParameter(const std::string &name);
             void decrementRecursionParameter(const std::string &name);
+            std::map<std::string, int> getAllRecursionParameters() const;
 
         private:
             int _reflectionDepth;
