@@ -8,67 +8,6 @@
 #include "Bloom.process.v.hpp"
 #include <memory>
 
-// namespace vanille {
-// Bloom_v::Bloom_v() :
-//     render::Plugin(
-//         nullptr,
-//         nullptr,
-//         nullptr,
-//         10200,
-//         "bloom"
-//     )
-//     {
-//         _postProcess = [this](render::Renderer &rdr) {
-//             sf::Image img = rdr.getCamera()->getCaptor();
-//             rdr.getCamera()->setCaptor(applyBloom(img));
-//         };
-//         _gaussianKernel = std::shared_ptr<ConvolutionKernel<3>>(new ConvolutionKernel<3>({
-//             std::array<float, 3>{0.075, 0.125, 0.075},
-//             std::array<float, 3>{0.125, 0.204, 0.125},
-//             std::array<float, 3>{0.075, 0.125, 0.075}
-//         }));
-//     }
-
-//     sf::Image &Bloom_v::applyBloom(sf::Image &img)
-//     {
-//         sf::Image blurred = img;
-//         std::cout << "applying gaussian blur" << std::endl;
-//         for (int i = 0; i < _intensity; ++i)
-//             blurred = applyGaussianBlur(blurred);
-//         std::cout << "applying threshold" << std::endl;
-//         sf::Image thresholded = blurred;
-//         float tmp = 0;
-//         sf::Color tmpColor(sf::Color::Black);
-//         for (unsigned int x = 0; x < img.getSize().x; x++)
-//             for (unsigned int y = 0; y < img.getSize().y; y++) {
-//                 tmpColor = blurred.getPixel(x, y);
-//                 tmp = tmpColor.r + tmpColor.g + tmpColor.b;
-//                 tmp /= 3.0f;
-//                 tmp /= 255.0f;
-//                 thresholded.setPixel(x, y, tmp > _threshold ? sf::Color::White : sf::Color::Black);
-//             }
-
-//         for (int i = 0; i < _intensity; ++i)
-//             thresholded = applyGaussianBlur(thresholded);
-
-//         for (unsigned int x = 0; x < img.getSize().x; x++)
-//             for (unsigned int y = 0; y < img.getSize().y; y++) {
-//                 img.setPixel(x, y, img.getPixel(x, y) + thresholded.getPixel(x, y));
-//             }
-//         return img;
-//     }
-
-//     sf::Image Bloom_v::applyGaussianBlur(const sf::Image &img)
-//     {
-//         sf::Image blurred = img;
-//         // #pragma clang loop vectorize(assume_safety)
-//         for (unsigned int x = 0; x < img.getSize().x; x++)
-//             for (unsigned int y = 0; y < img.getSize().y; y++)
-//                 blurred.setPixel(x, y, _gaussianKernel->getWeightedAverage(img, x, y));
-//         return blurred;
-//     }
-// }
-
 namespace vanille {
     Bloom_v::Bloom_v() {
         _postProcess = [this](render::Renderer &rdr) {
@@ -96,6 +35,7 @@ namespace vanille {
         for (unsigned int x = 0; x < img.getSize().x; x++)
             for (unsigned int y = 0; y < img.getSize().y; y++) {
                 setKernel(c, img, x, y);
+                // ugly, but I am speed
                 tmp.r = _gaussKernel[0][0] * c[0][0].r + _gaussKernel[0][1] * c[0][1].r + _gaussKernel[0][2] * c[0][2].r +
                         _gaussKernel[1][0] * c[1][0].r + _gaussKernel[1][1] * c[1][1].r + _gaussKernel[1][2] * c[1][2].r +
                         _gaussKernel[2][0] * c[2][0].r + _gaussKernel[2][1] * c[2][1].r + _gaussKernel[2][2] * c[2][2].r;
