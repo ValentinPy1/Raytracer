@@ -35,9 +35,6 @@ target_sources(Wrapper.v PRIVATE ${COMMON_SRC})
 
 # LIGHTS
 
-add_library(AmbientLight.v SHARED ./Lights/AmbientLight.v.cpp)
-target_sources(AmbientLight.v PRIVATE ${COMMON_SRC})
-
 add_library(Directional.light.v SHARED ./Lights/Directional.light.v.cpp)
 target_sources(Directional.light.v PRIVATE ${COMMON_SRC})
 
@@ -92,6 +89,9 @@ target_sources(ApplyAmbientOcclusion.process.v PRIVATE ${COMMON_SRC})
 
 add_library(Bloom.process.v SHARED ./Processes/Bloom.process.v.cpp)
 target_sources(Bloom.process.v PRIVATE ${COMMON_SRC})
+
+add_library(AmbientLight.process.v SHARED ./Processes/AmbientLight.process.v.cpp)
+target_sources(AmbientLight.process.v PRIVATE ${COMMON_SRC})
 
 # TARGET LINK LIB
 
@@ -197,3 +197,7 @@ add_custom_command(
     COMMAND mv libMesh.primitive.v.so ..
 )
 
+add_custom_command(
+    TARGET AmbientLight.process.v POST_BUILD
+    COMMAND mv libAmbientLight.process.v.so ..
+)

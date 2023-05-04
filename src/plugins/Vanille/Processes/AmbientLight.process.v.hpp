@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** ray
 ** File description:
-** AmbientLight.v.hpp
+** AmbientLight.process.v.hpp
 */
 
 #ifndef E3F48462_7625_411F_9381_50161120187F

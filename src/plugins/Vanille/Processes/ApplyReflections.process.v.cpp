@@ -52,8 +52,9 @@ extern "C" {
                     static_cast<sf::Uint8>(reflColor.g),
                     static_cast<sf::Uint8>(reflColor.b)
                 };
-                ray.setColor(ray.blendLerp(reflColor, reflectivity));
                 // ray.setColor(ray.blendAdd(reflColor));
+                ray.setColor(ray.blendLerp(reflColor, reflectivity));
+                // ray.setColor(ray.blendMultiply(reflColor));
                 return ray;
             },
 

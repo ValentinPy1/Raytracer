@@ -29,9 +29,9 @@ namespace render {
             float specular = std::pow(std::max(0.0f, normal * halfwayDir), shininess);
             float attenuation = 1.0f / (1.0f + 0.01f * lightDistance * lightDistance);
 
-            float r = static_cast<int>((diffuse + specular) * attenuation * lightColor.r);
-            float g = static_cast<int>((diffuse + specular) * attenuation * lightColor.g);
-            float b = static_cast<int>((diffuse + specular) * attenuation * lightColor.b);
+            float r = static_cast<int>((diffuse + specular) * attenuation * lightColor.r) * intensity;
+            float g = static_cast<int>((diffuse + specular) * attenuation * lightColor.g) * intensity;
+            float b = static_cast<int>((diffuse + specular) * attenuation * lightColor.b) * intensity;
             if (r > 255)
                 r = 255;
             if (g > 255)
