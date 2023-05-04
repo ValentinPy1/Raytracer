@@ -60,7 +60,11 @@ target_sources(Cercle.primitive.v PRIVATE ${COMMON_SRC})
 add_library(Cylinder.primitive.v SHARED ./Primitives/Cylinder.primitive.v.cpp)
 target_sources(Cylinder.primitive.v PRIVATE ${COMMON_SRC})
 
+add_library(TrianglePart.primitive.v SHARED ./Primitives/TrianglePart.primitive.v.cpp)
+target_sources(TrianglePart.primitive.v PRIVATE ${COMMON_SRC})
 
+add_library(Mesh.primitive.v SHARED ./Primitives/Mesh.primitive.v.cpp)
+target_sources(Mesh.primitive.v PRIVATE ${COMMON_SRC})
 
 # MATERIALS
 
@@ -187,3 +191,9 @@ add_custom_command(
     TARGET Bloom.process.v POST_BUILD
     COMMAND mv libBloom.process.v.so ..
 )
+
+add_custom_command(
+    TARGET Mesh.primitive.v POST_BUILD
+    COMMAND mv libMesh.primitive.v.so ..
+)
+
