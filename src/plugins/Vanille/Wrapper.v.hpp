@@ -5,6 +5,8 @@
 ** Wrapper.v.hpp
 */
 
+#include <thread>
+#include <mutex>
 #include "Wrapper.hpp"
 #include "Renderer.hpp"
 #include "SFML/Graphics.hpp"
@@ -24,5 +26,7 @@ namespace vanille {
             void render(render::Renderer &rdr, render::PluginManager &pm);
 
             std::vector<render::processRay_t> _processFuns;
+
+            std::mutex _mutex;
     };
 }

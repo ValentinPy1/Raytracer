@@ -31,7 +31,6 @@ namespace vanille
         IMeshPart *obj = _loader.loadInstance<IMeshPart>(name, name);
         obj->selfInit(args, _parent);
         _parts.push_back(obj);
-        // _parts.push_back(std::shared_ptr<IMeshPart>(obj));
     }
 
     sf::Vector3f Mesh::getNormalAt(sf::Vector3f &point)
