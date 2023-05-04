@@ -53,6 +53,7 @@ namespace vanille {
             std::string _applyMode;
             int _nSamples;
             float _radius;
+            float _intensity;
             render::LightModel _lightModel;
 
     };

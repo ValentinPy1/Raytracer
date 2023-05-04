@@ -46,8 +46,8 @@ namespace vanille {
                 normal,
                 ray.getDirection(),
                 render::Ray::getNorm(lightDirection),
-                0,
-                ray.getIntersections()[0].getInterceptee()->getMaterial()->getProperty("shininess")
+                ray.getIntersections()[0].getInterceptee()->getMaterial()->getProperty("shininess"),
+                _intensity
             );
             return color;
         }
@@ -111,6 +111,7 @@ namespace vanille {
         setting.lookupValue("applyMode", _applyMode);
         setting.lookupValue("shadowSamples", _nSamples);
         setting.lookupValue("radius", _radius);
+        setting.lookupValue("intensity", _intensity);
     }
 }
 
