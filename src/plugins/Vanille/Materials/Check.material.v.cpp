@@ -54,18 +54,29 @@ namespace vanille
 
     void CheckMaterial_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
-        // _colors = {};
-        // _pattern = {};
-        // _parent = parent;
-        // libconfig::Setting &colors = setting.lookup("colors");
-        // for (int i = 0; i < 3; i++) {
-        //     auto &color = colors[i];
-        //     sf::Color c;
-        //     color.lookupValue("r", c.r);
-        //     color.lookupValue("g", c.g);
-        //     color.lookupValue("b", c.b);
-
-        // }
+        _colors = {};
+        _pattern = {};
+        libconfig::Setting &colors = setting.lookup("colors");
+        for (int i = 0; i < colors.getLength(); i++) {
+            libconfig::Setting &color = colors[i];
+            int r;
+            int g;
+            int b;
+            color.lookupValue("r", r);
+            color.lookupValue("g", g);
+            color.lookupValue("b", b);
+            _colors.push_back(sf::Color(r, g, b));
+        }
+        libconfig::Setting &pattern = setting.lookup("pattern");
+        for (int y = 0; y < pattern.getLength(); y++) {
+            libconfig::Setting &row = pattern[y];
+            std::vector<sf::Color> rowColors;
+            for (int x = 0; x < row.getLength(); x++) {
+                int index = row[x];
+                rowColors.push_back(_colors[index]);
+            }
+            _pattern.push_back(rowColors);
+        }
     }
 } // namespace v
 
