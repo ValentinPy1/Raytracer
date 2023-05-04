@@ -19,14 +19,14 @@ namespace vanille
         std::reverse(_colors.begin(), _colors.end());
         _pattern.push_back(_colors);
 
-        _scale = 0.1;
+        _scale = 1;
     }
 
     void CheckMaterial_v::getColor(int &r, int &g, int &b,
         __attribute__((unused)) geo::vec3 point) const
     {
-        float scaledX = point.x * _scale;
-        float scaledY = point.z * _scale;
+        float scaledX = point.x / _scale;
+        float scaledY = point.z / _scale;
         if (scaledX < 0)
             scaledX -= 1;
         if (scaledY < 0)
@@ -76,6 +76,15 @@ namespace vanille
                 rowColors.push_back(_colors[index]);
             }
             _pattern.push_back(rowColors);
+        }
+        setting.lookupValue("scale", _scale);
+        libconfig::Setting &properties = setting.lookup("properties");
+        for (int i = 0; i < properties.getLength(); i++) {
+            libconfig::Setting &property = properties[i];
+            std::string name = property.getName();
+            float value = 10;
+            properties.lookupValue(name, value);
+            _properties[name] = value;
         }
     }
 } // namespace v

@@ -52,7 +52,7 @@ namespace render {
             ray.setColor(_color);
             return;
         }
-        ray.setColor(ray.blendLerp(_color, 0.3));
+        ray.setColor(ray.blendMultiply(_color));
     }
 }
 
