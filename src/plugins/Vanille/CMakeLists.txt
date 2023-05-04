@@ -71,6 +71,9 @@ target_sources(Flat.material.v PRIVATE ${COMMON_SRC})
 add_library(Check.material.v SHARED ./Materials/Check.material.v.cpp)
 target_sources(Check.material.v PRIVATE ${COMMON_SRC})
 
+add_library(Texture.material.v SHARED ./Materials/Texture.material.v.cpp)
+target_sources(Texture.material.v PRIVATE ${COMMON_SRC})
+
 
 
 # PROCESSES
@@ -200,4 +203,9 @@ add_custom_command(
 add_custom_command(
     TARGET AmbientLight.process.v POST_BUILD
     COMMAND mv libAmbientLight.process.v.so ..
+)
+
+add_custom_command(
+    TARGET Texture.material.v POST_BUILD
+    COMMAND mv libTexture.material.v.so ..
 )
