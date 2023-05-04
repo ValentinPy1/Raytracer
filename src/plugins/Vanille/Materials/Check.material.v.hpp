@@ -24,8 +24,9 @@ namespace vanille {
                 {"reflectivity", 0},
                 {"shininess", 0},
             };
-            sf::Color _color1;
-            sf::Color _color2;
             render::Entity *_parent;
+            std::vector<sf::Color> _colors;
+            std::vector<std::vector<sf::Color>> _pattern;
+            float _scale;
     };
 }

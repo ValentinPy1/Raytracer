@@ -2,14 +2,14 @@
 ** EPITECH PROJECT, 2022
 ** ray
 ** File description:
-** AmbientLight.v.cpp
+** AmbientLight.process.v.cpp
 */
 
 #include <libconfig.h++>
 #include "Camera.hpp"
 #include "Ray.hpp"
 #include "Renderer.hpp"
-#include "AmbientLight.v.hpp"
+#include "AmbientLight.process.v.hpp"
 
 namespace render {
     AmbientLight_v::AmbientLight_v() :
