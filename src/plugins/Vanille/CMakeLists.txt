@@ -86,15 +86,22 @@ target_sources(ApplyReflections.process.v PRIVATE ${COMMON_SRC})
 add_library(ApplyAmbientOcclusion.process.v SHARED ./Processes/AmbientOcclusion.process.v.cpp)
 target_sources(ApplyAmbientOcclusion.process.v PRIVATE ${COMMON_SRC})
 
-
+add_library(Bloom.process.v SHARED ./Processes/Bloom.process.v.cpp)
+target_sources(Bloom.process.v PRIVATE ${COMMON_SRC})
 
 # TARGET LINK LIB
+
 
 target_link_libraries(
     Directional.light.v
     -lsfml-graphics
     -lsfml-system
     -lsfml-window
+)
+
+target_link_libraries(
+    Bloom.process.v
+    -lsfml-graphics
 )
 
 target_link_libraries(
@@ -174,4 +181,9 @@ add_custom_command(
 add_custom_command(
     TARGET ApplyAmbientOcclusion.process.v POST_BUILD
     COMMAND mv libApplyAmbientOcclusion.process.v.so ..
+)
+
+add_custom_command(
+    TARGET Bloom.process.v POST_BUILD
+    COMMAND mv libBloom.process.v.so ..
 )
