@@ -61,35 +61,10 @@ namespace vanille {
     //     _processFuns = processFuns;
 
     //     std::cout << render::green << "[INFO] " << render::yellow << "Rendering... " << render::no_color << std::endl;
-    //     for (unsigned int i = 0; i < camera.getCaptor().getSize().x; i++) {
-    //         while (threads.size() >= std::thread::hardware_concurrency() / 1.5f) {
-    //             for (auto &thread : threads) {
-    //                 if (thread.joinable())
-    //                     thread.join();
-    //             }
-    //             threads.erase(std::remove_if(threads.begin(), threads.end(), [](std::thread &x) { return !x.joinable(); }), threads.end());
-    //         }
-    //         threads.emplace_back(
-    //             [this, &rdr, &processFuns, &rays, &camera, i]() {
-    //                 for (unsigned int j = 0; j < camera.getCaptor().getSize().y; j++) {
-    //                     _mutex.lock();
-    //                     render::Ray ray = rays[i * camera.getCaptor().getSize().y + j];
-    //                     _mutex.unlock();
-    //                     sf::Color tmp = processRay(ray, rdr, processFuns);
-    //                     _mutex.lock();
-    //                     camera.getCaptor().setPixel(i, j, tmp);
-    //                     _mutex.unlock();
-    //                 }
-    //                 for (unsigned int j = 0; j < camera.getCaptor().getSize().y; j++) {
-    //                     render::Ray ray = rays[i * camera.getCaptor().getSize().y + j];
-    //                     sf::Color tmp = processRay(ray, rdr, processFuns);
-    //                     camera.getCaptor().setPixel(i, j, tmp);
-    //                 }
-    //             }
-    //         );
-    //     }
-    //         for (auto &thread : threads)
-    //             thread.join();
+    //     threads.push_back
+
+    //     for (auto &thread : threads)
+    //         thread.join();
 
 
     //     std::cout << render::green << "[INFO] " << render::yellow << "Applying post process to the image... " << render::no_color << std::endl;

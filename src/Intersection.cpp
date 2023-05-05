@@ -17,12 +17,9 @@ namespace render {
         : _distance(distance), _ray(ray), _interceptee(interceptee)
     {
         int r, g, b;
-        std::cout << "getting point "<< std::endl;
         _point = _ray.getOrigin() + _ray.getDirection() * (_distance);
-        std::cout << "getting material "<< std::endl;
         _interceptee->getMaterial()->getColor(r, g, b, (geo::vec3) {_point.x, _point.y, _point.z});
         _color = sf::Color(r, g, b);
-        std::cout << "material is " << (int)_color.r << " " << (int)_color.g << " " << (int)_color.b << std::endl;
         _normal = _interceptee->getPrimitive()->getNormalAt(_point);
 
     }
