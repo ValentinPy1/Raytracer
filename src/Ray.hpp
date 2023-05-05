@@ -24,7 +24,8 @@ namespace render {
 
             Intersection &operator=(const Intersection &other);
 
-            Intersection &addNormal(IPrimitive *primitive);
+            Intersection &addNormal(sf::Vector3f normal);
+            // Intersection &addNormal(IPrimitive *primitive);
             Intersection &addColor(sf::Color color);
             float getDistance() const;
             bool isFacingCamera(const Camera &) const;

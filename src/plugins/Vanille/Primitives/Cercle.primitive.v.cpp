@@ -58,11 +58,11 @@ namespace vanille {
 
         float t = (-b - std::sqrt(delta)) / (2.0f * a);
         ray.addIntersection(
-            render::Intersection(ray, t).addNormal(this)
+            render::Intersection(ray, t).addNormal(vo + t * vd)
         );
-
+        float t2 = (-b + std::sqrt(delta)) / (2.0f * a);
         ray.addIntersection(
-            render::Intersection(ray, (-b + std::sqrt(delta)) / (2 * a)).addNormal(this)
+            render::Intersection(ray, t2).addNormal(vo + t2 * vd)
         );
     }
 

@@ -13,8 +13,18 @@ namespace vanille
     void Mesh::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
         const libconfig::Setting &primitives = setting.lookup("primitives");
+        const libconfig::Setting &position = setting.lookup("position");
+        const libconfig::Setting &rotation = setting.lookup("rotation");
+        setting.lookupValue("scale", _scale);
+        position.lookupValue("x", _position.x);
+        position.lookupValue("y", _position.y);
+        position.lookupValue("z", _position.z);
+        rotation.lookupValue("x", _rotation.x);
+        rotation.lookupValue("y", _rotation.y);
+        rotation.lookupValue("z", _rotation.z);
 
         _parent = parent;
+
         for (int i = 0; i < primitives.getLength(); i++) {
             loadPart(primitives[i], parent);
         }
@@ -28,10 +38,12 @@ namespace vanille
         name = "lib" + name + ".primitive.v";
         name = "src/plugins/" + name + ".so";
         libconfig::Setting &args = primitive.lookup("args");
-        IMeshPart *obj = _loader.loadInstance<IMeshPart>(name, name);
+        IMeshPart *obj = new TrianglePart();
         obj->selfInit(args, _parent);
-        _parts.push_back(obj);
-        // _parts.push_back(std::shared_ptr<IMeshPart>(obj));
+        reinterpret_cast<TrianglePart *>(obj)->scale(_scale);
+        obj->move(_position);
+        obj->rotate(_rotation, _position);
+        _parts.push_back(std::shared_ptr<IMeshPart>(obj));
     }
 
     sf::Vector3f Mesh::getNormalAt(sf::Vector3f &point)
@@ -47,7 +59,7 @@ namespace vanille
         for (auto &primitive : _parts) {
             primitive->solve(ray);
             if (ray.hasIntersections()) {
-                _lasthit = primitive;
+                _lasthit = primitive.get();
                 return;
             }
         }

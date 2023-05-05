@@ -19,9 +19,9 @@ namespace vanille
     class IMeshPart : public render::IPrimitive {
         public:
             virtual ~IMeshPart() = default;
-            virtual void selfInit(libconfig::Setting &setting, render::Entity *parent) = 0;
-            virtual sf::Vector3f getNormalAt(sf::Vector3f &point) = 0;
-            virtual void solve(render::Ray &ray) = 0;
+            // virtual void selfInit(libconfig::Setting &setting, render::Entity *parent) = 0;
+            // virtual sf::Vector3f getNormalAt(sf::Vector3f &point) = 0;
+            // virtual void solve(render::Ray &ray) = 0;
 
             /**
              * @brief Moves the mesh part by the given offset.
@@ -35,7 +35,14 @@ namespace vanille
              *
              * @param rotation
              */
-            virtual void rotate(sf::Vector3f &rotation) = 0;
+            virtual void rotate(sf::Vector3f &rotation, sf::Vector3f center) = 0;
+
+            /**
+             * @brief Scales the mesh part by the given factor.
+             *
+             * @param factor
+             */
+            virtual void scale(float factor) = 0;
     };
 
     class TrianglePart : public IMeshPart {
@@ -44,7 +51,8 @@ namespace vanille
             sf::Vector3f getNormalAt(sf::Vector3f &point) override;
             void solve(render::Ray &ray) override;
             void move(sf::Vector3f &offset) override;
-            void rotate(sf::Vector3f &rotation) override;
+            void rotate(sf::Vector3f &rotation, sf::Vector3f center) override;
+            void scale(float factor) override;
         private:
             void computePointRotation(sf::Vector3f &point, sf::Vector3f &rotation, sf::Vector3f barycenter);
             sf::Vector3f _p1;
@@ -86,9 +94,13 @@ namespace vanille
              */
             void loadPart(const libconfig::Setting &setting, render::Entity *parent);
             // std::vector<std::shared_ptr<IMeshPart>> _parts;
-            std::vector<IMeshPart *> _parts;
+            std::vector<std::shared_ptr<IMeshPart>> _parts;
             IMeshPart *_lasthit = nullptr;
             render::DLLoader _loader;
+
+            sf::Vector3f _position;
+            sf::Vector3f _rotation;
+            float _scale;
 
             render::Entity *_parent;
     };

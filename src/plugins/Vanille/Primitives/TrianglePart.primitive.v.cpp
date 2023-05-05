@@ -41,12 +41,12 @@ namespace vanille {
         _p3 += offset;
     }
 
-    void TrianglePart::rotate(sf::Vector3f &rotation)
+    void TrianglePart::rotate(sf::Vector3f &rotation, sf::Vector3f center)
     {
-        sf::Vector3f barycenter = (_p1 + _p2 + _p3) / 3.0f;
-        computePointRotation(_p1, rotation, barycenter);
-        computePointRotation(_p2, rotation, barycenter);
-        computePointRotation(_p3, rotation, barycenter);
+        computePointRotation(_p1, rotation, center);
+        computePointRotation(_p2, rotation, center);
+        computePointRotation(_p3, rotation, center);
+        _normal = (_p2 - _p1) ^ (_p3 - _p1);
     }
 
     void TrianglePart::computePointRotation(sf::Vector3f &point, sf::Vector3f &rotation, sf::Vector3f barycenter)
@@ -56,15 +56,21 @@ namespace vanille {
         float x = tmp.x;
         float y = tmp.y;
         float z = tmp.z;
-        float a = rotation.x;
-        float b = rotation.y;
-        float c = rotation.z;
-
+        float a = rotation.x * (float) M_PI / 180.0;
+        float b = rotation.y * (float) M_PI / 180.0;
+        float c = rotation.z * (float) M_PI / 180.0;
         rotated.x = cos(b)*cos(c)*x - cos(b)*sin(c)*y + sin(b)*z;
         rotated.y = sin(a)*sin(b)*cos(c)*x + cos(a)*sin(c)*x - sin(a)*sin(b)*sin(c)*y + cos(a)*cos(c)*y - sin(a)*cos(b)*z;
         rotated.z = -cos(a)*sin(b)*cos(c)*x + sin(a)*sin(c)*x + cos(a)*sin(b)*sin(c)*y + sin(a)*cos(c)*y + cos(a)*cos(b)*z;
 
         point = rotated + barycenter;
+    }
+
+    void TrianglePart::scale(float scale) {
+        _p1 *= scale;
+        _p2 *= scale;
+        _p3 *= scale;
+        _normal = (_p2 - _p1) ^ (_p3 - _p1);
     }
 
     void TrianglePart::solve(render::Ray &ray)
@@ -94,14 +100,7 @@ namespace vanille {
 
         float t = e2 * qvec * inv_det;
         ray.addIntersection(
-            render::Intersection(_parent, ray, t).addNormal(this)
+            render::Intersection(_parent, ray, t).addNormal(vo + t * vd)
         );
-    }
-}
-
-extern "C" {
-    vanille::TrianglePart *entryPoint()
-    {
-        return new vanille::TrianglePart();
     }
 }
