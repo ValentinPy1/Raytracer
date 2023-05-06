@@ -116,4 +116,23 @@ namespace render {
         _rays.clear();
         generateRays();
     }
+
+    void Camera::setPosition(const sf::Vector3f &position)
+    {
+        _position = position;
+
+        for (auto& ray : _rays) {
+            ray.origin = _position;
+        }
+    }
+
+    void Camera::setRotation(const sf::Vector3f &rotation)
+    {
+        _rotation = rotation;
+
+        for (auto& ray : _rays) {
+            ray.direction = Ray::rotateVector(ray.direction, _rotation);
+        }
+    }
+
 }
