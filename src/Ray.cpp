@@ -110,9 +110,19 @@ namespace render {
         return _origin;
     }
 
+    void Ray::setOrigin(const sf::Vector3f &origin)
+    {
+        _origin = origin;
+    }
+
     const sf::Vector3f &Ray::getDirection() const
     {
         return _direction;
+    }
+
+    void Ray::setDirection(const sf::Vector3f &direction)
+    {
+        _direction = direction;
     }
 
     void Ray::addIntersection(const Intersection &intersection)

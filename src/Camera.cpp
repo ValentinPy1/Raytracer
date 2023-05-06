@@ -86,16 +86,6 @@ namespace render {
         return _rays;
     }
 
-    void Camera::setPosition(const sf::Vector3f &position)
-    {
-        _position = position;
-    }
-
-    void Camera::setRotation(const sf::Vector3f &rotation)
-    {
-        _rotation = rotation;
-    }
-
     void Camera::setFocalPoint(float focalPoint)
     {
         _focalPoint = computeFocalPoint(focalPoint);
@@ -122,7 +112,7 @@ namespace render {
         _position = position;
 
         for (auto& ray : _rays) {
-            ray.origin = _position;
+            ray.setOrigin(_position);
         }
     }
 
@@ -131,7 +121,7 @@ namespace render {
         _rotation = rotation;
 
         for (auto& ray : _rays) {
-            ray.direction = Ray::rotateVector(ray.direction, _rotation);
+            ray.setDirection(Ray::rotateVector(ray.getDirection(), _rotation));
         }
     }
 
