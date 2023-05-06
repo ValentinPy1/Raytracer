@@ -1,7 +1,8 @@
 import bpy
 import os
 
-config_file = 'path/to/config.txt'
+
+config_file = 'path/to/config.cfg'
 
 def create_camera(config):
     cam_data = bpy.data.cameras.new("Camera")
