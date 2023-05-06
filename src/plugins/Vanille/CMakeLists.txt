@@ -96,6 +96,11 @@ target_sources(Bloom.process.v PRIVATE ${COMMON_SRC})
 add_library(AmbientLight.process.v SHARED ./Processes/AmbientLight.process.v.cpp)
 target_sources(AmbientLight.process.v PRIVATE ${COMMON_SRC})
 
+add_library(Antialiasing.process.v SHARED ./Processes/Antialiasing.process.v.cpp)
+target_sources(Antialiasing.process.v PRIVATE ${COMMON_SRC})
+
+
+
 # TARGET LINK LIB
 
 
@@ -208,4 +213,9 @@ add_custom_command(
 add_custom_command(
     TARGET Texture.material.v POST_BUILD
     COMMAND mv libTexture.material.v.so ..
+)
+
+add_custom_command(
+    TARGET Antialiasing.process.v POST_BUILD
+    COMMAND mv libAntialiasing.process.v.so ..
 )
