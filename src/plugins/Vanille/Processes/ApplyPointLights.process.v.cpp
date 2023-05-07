@@ -7,7 +7,7 @@
 
 #include "Renderer.hpp"
 #include "Ray.hpp"
-#include "IPlugin.hpp"
+#include "Plugin.hpp"
 
 extern "C" {
     render::IPlugin *entryPoint()

@@ -16,6 +16,7 @@ namespace gpu {
             FlatMaterial_gl(int r, int g, int b);
             float getProperty(const std::string &name) const override;
             void getColor(int &r, int &g, int &b, geo::vec3 point) const override;
+            void selfInit(libconfig::Setting &setting, render::Entity *en) override;
         private:
             float _r;
             float _g;

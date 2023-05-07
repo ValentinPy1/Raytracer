@@ -1163,7 +1163,7 @@ typedef void (*GLADpostcallback)(void *ret, const char *name, GLADapiproc apipro
 #define GL_SOURCE2_ALPHA 0x858A
 #define GL_SOURCE2_RGB 0x8582
 #define GL_SPECULAR 0x1202
-#define GL_SPHERE_MAP 0x2402
+#define GL_Cercle_MAP 0x2402
 #define GL_SPOT_CUTOFF 0x1206
 #define GL_SPOT_DIRECTION 0x1204
 #define GL_SPOT_EXPONENT 0x1205
@@ -5985,7 +5985,7 @@ int gladLoadGL( GLADloadfunc load) {
 
 
 
- 
+
 
 
 #ifdef __cplusplus

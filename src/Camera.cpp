@@ -15,8 +15,8 @@
 namespace render {
 
     Camera::Camera(float focalPoint, int captorWidth, int captorHeight,
-        const sf::Vector3f &position, const sf::Vector3f &rotation)
-        : _position(position), _rotation(rotation)
+        const sf::Vector3f &position, const sf::Vector3f &rotation, unsigned int recursionDepth)
+        : _position(position), _rotation(rotation), _recursionDepth(recursionDepth)
     {
         _focalPoint = computeFocalPoint(focalPoint);
         _focalDistance = -focalPoint;
@@ -42,20 +42,15 @@ namespace render {
                     (float) y * pixHeight,
                     _focalDistance
                 ));
-                _rays.emplace_back(_focalPoint, direction);
+                _rays.emplace_back(_focalPoint, direction, _recursionDepth);
                 // std::cerr << direction.x << " " << direction.y << " " << direction.z << " " << _focalPoint.x << " " << _focalPoint.y << " " << _focalPoint.z << std::endl;
             }
         }
+    }
 
-
-        // for (int w = -captorWidth / 2.0f; w < captorWidth / 2.0f; w++) {
-        //     for (int h = -captorHeight / 2.0f; h < captorHeight / 2.0f; h++) {
-        //         sf::Vector3f direction = Ray::normalize(sf::Vector3f(w * pixWidth, 0, h * pixHeight) - _focalPoint);
-        //         _rays.emplace_back(_focalPoint, direction);
-        //     }
-        // }
-
-
+    float Camera::getFocalDistance() const
+    {
+        return -_focalDistance;
     }
 
     sf::Vector3f Camera::computeFocalPoint(float focalPoint) const
@@ -84,6 +79,11 @@ namespace render {
         return _focalPoint;
     }
 
+    std::vector<render::Ray> Camera::getRays() const
+    {
+        return _rays;
+    }
+
     std::vector<render::Ray> &Camera::getRays()
     {
         return _rays;
@@ -99,6 +99,7 @@ namespace render {
     void Camera::setCaptorSize(const sf::Vector2i &captorSize)
     {
         _captorSize = captorSize;
+        _captor.create(captorSize.x, captorSize.y, sf::Color::Black);
         _rays.clear();
         generateRays();
     }
@@ -109,6 +110,18 @@ namespace render {
         _rays.clear();
         generateRays();
     }
+
+    unsigned int Camera::getRecursionDepth() const
+    {
+        return _recursionDepth;
+    }
+
+    void Camera::setCaptor(sf::Image &captor)
+    {
+        _captor = captor;
+    }
+
+
 
     void Camera::setPosition(const sf::Vector3f &position)
     {
@@ -127,4 +140,5 @@ namespace render {
             ray.setDirection(Ray::rotateVector(ray.getDirection(), _rotation));
         }
     }
+
 }

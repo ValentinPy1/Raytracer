@@ -24,7 +24,8 @@ namespace render {
 
             Intersection &operator=(const Intersection &other);
 
-            Intersection &addNormal(IPrimitive *primitive);
+            Intersection &addNormal(sf::Vector3f normal);
+            // Intersection &addNormal(IPrimitive *primitive);
             Intersection &addColor(sf::Color color);
             float getDistance() const;
             bool isFacingCamera(const Camera &) const;
@@ -85,12 +86,21 @@ namespace render {
             sf::Color blendMultiply(const sf::Color &color) const;
             sf::Color blendAdd(const sf::Color &color) const;
             sf::Color blendColor(const sf::Color &color) const;
+            sf::Color blendLerp(const sf::Color &color, float t) const;
+
+            void setRecursionParameter(const std::string &name, int initialValue);
+            int getRecursionParameter(const std::string &name) const;
+            void incrementRecursionParameter(const std::string &name);
+            void decrementRecursionParameter(const std::string &name);
+            std::map<std::string, int> getAllRecursionParameters() const;
+
         private:
             int _reflectionDepth;
             sf::Vector3f _origin;
             sf::Vector3f _direction;
             std::vector<Intersection> _intersections;
             sf::Color _color = sf::Color::Black;
+            std::map<std::string, int> _recursionParameters;
     };
 
 }

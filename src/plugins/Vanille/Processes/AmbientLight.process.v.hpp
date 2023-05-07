@@ -2,7 +2,7 @@
 ** EPITECH PROJECT, 2022
 ** ray
 ** File description:
-** AmbientLight.v.hpp
+** AmbientLight.process.v.hpp
 */
 
 #ifndef E3F48462_7625_411F_9381_50161120187F
@@ -18,7 +18,7 @@ namespace render {
             void applyAmbientLight(render::Ray &ray, const render::Renderer &rdr);
 
             private:
-                sf::Color _color = sf::Color(255, 255, 255);
+                sf::Color _color = sf::Color(30, 30, 50);
     };
 }
 

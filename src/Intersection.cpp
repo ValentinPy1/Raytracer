@@ -17,11 +17,11 @@ namespace render {
         : _distance(distance), _ray(ray), _interceptee(interceptee)
     {
         int r, g, b;
-
         _point = _ray.getOrigin() + _ray.getDirection() * (_distance);
         _interceptee->getMaterial()->getColor(r, g, b, (geo::vec3) {_point.x, _point.y, _point.z});
         _color = sf::Color(r, g, b);
         _normal = _interceptee->getPrimitive()->getNormalAt(_point);
+
     }
 
     Intersection::Intersection(Ray &ray, float distance)
@@ -37,11 +37,15 @@ namespace render {
     {
     }
 
-    Intersection &Intersection::addNormal(IPrimitive *primitive)
+    Intersection &Intersection::addNormal(sf::Vector3f normal)
     {
-        _normal = primitive->getNormalAt(_point);
+        _normal = normal;
         return *this;
     }
+    // {
+    //     _normal = primitive->getNormalAt(_point);
+    //     return *this;
+    // }
 
     Intersection &Intersection::addColor(sf::Color color)
     {

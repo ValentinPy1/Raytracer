@@ -21,6 +21,15 @@ namespace vanille {
         _radius = 1;
     }
 
+    void SpherePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
+    {
+        setting.lookupValue("x", _origin.x);
+        setting.lookupValue("y", _origin.y);
+        setting.lookupValue("z", _origin.z);
+        setting.lookupValue("radius", _radius);
+        _parent = parent;
+    }
+
     SpherePrimitive_v::~SpherePrimitive_v()
     {
     }
@@ -38,12 +47,17 @@ namespace vanille {
             return;
 
         float sqrtDelta = std::sqrt(delta);
-        ray.addIntersection(
-            render::Intersection(_parent, ray, (-b - sqrtDelta) / (2 * a))
-        );
-        ray.addIntersection(
-            render::Intersection(_parent, ray, (-b + sqrtDelta) / (2 * a))
-        );
+        float t1 = (-b - sqrtDelta) / (2 * a);
+        float t2 = (-b + sqrtDelta) / (2 * a);
+
+        if (t1 > 0)
+            ray.addIntersection(
+                render::Intersection(_parent, ray, t1)
+            );
+        if (t2 > 0)
+            ray.addIntersection(
+                render::Intersection(_parent, ray, t2)
+            );
     }
 
     sf::Vector3f SpherePrimitive_v::getNormalAt(sf::Vector3f &point)
@@ -51,14 +65,6 @@ namespace vanille {
         return (point - _origin) / _radius;
     }
 
-    void SpherePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
-    {
-        setting.lookupValue("x", _origin.x);
-        setting.lookupValue("y", _origin.y);
-        setting.lookupValue("z", _origin.z);
-        setting.lookupValue("radius", _radius);
-        _parent = parent;
-    }
 }
 
 extern "C" {

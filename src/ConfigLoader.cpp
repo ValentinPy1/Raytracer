@@ -5,6 +5,7 @@
 ** ConfigLoader.cpp
 */
 
+#include <ctime>
 #include <fstream>
 #include "ConfigLoader.hpp"
 #include "Camera.hpp"
@@ -28,6 +29,7 @@ namespace render {
         int captorHeight;
         sf::Vector3f position;
         sf::Vector3f rotation;
+        unsigned int recursionDepth;
 
         cameraSettings.lookupValue("focal", focalPoint);
         libconfig::Setting &captorSetting = cameraSettings.lookup("captor");
@@ -41,6 +43,7 @@ namespace render {
         rotationSetting.lookupValue("x", rotation.x);
         rotationSetting.lookupValue("y", rotation.y);
         rotationSetting.lookupValue("z", rotation.z);
+        cameraSettings.lookupValue("recursionDepth", recursionDepth);
 
         std::shared_ptr<Camera> cam = std::shared_ptr<Camera>(
             new Camera(
@@ -48,14 +51,15 @@ namespace render {
             captorWidth,
             captorHeight,
             position,
-            rotation)
+            rotation,
+            recursionDepth)
         );
 
         std::cout << render::green << "[INFO] " << render::no_color << "Loaded camera:" << std::endl;
-        std::cout << render::yellow << "\tfocal: " << focalPoint << std::endl;
-        std::cout << render::yellow << "\tcaptor: " << captorWidth << "x" << captorHeight << std::endl;
-        std::cout << render::yellow << "\tposition: (" << position.x << ", " << position.y << ", " << position.z << ")" << render::no_color << std::endl;
-        std::cout << render::yellow << "\trotation: (" << rotation.x << ", " << rotation.y << ", " << rotation.z << ")" << render::no_color << std::endl;
+        std::cout << render::green << "\tfocal: " << focalPoint << std::endl;
+        std::cout << render::green << "\tcaptor: " << captorWidth << "x" << captorHeight << std::endl;
+        std::cout << render::green << "\tposition: (" << position.x << ", " << position.y << ", " << position.z << ")" << render::no_color << std::endl;
+        std::cout << render::green << "\trotation: (" << rotation.x << ", " << rotation.y << ", " << rotation.z << ")" << render::no_color << std::endl;
 
         rdr.setCamera(cam);
     }
@@ -109,25 +113,35 @@ namespace render {
         for (int i = 0; i < objectsValue.getLength(); i++) {
             std::shared_ptr<Entity> en = std::make_shared<Entity>();
             try {
-                libconfig::Setting &args = objectsValue[i].lookup("args");
                 libconfig::Setting &primitive = objectsValue[i].lookup("primitive");
-                std::string name = primitive;
-                name = name + _mode;
+                std::string name;
+                primitive.lookupValue("type", name);
+                name = "lib" + name + ".primitive" + _mode;
                 name = _path + name + ".so";
-                std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(primitive, name));
+                libconfig::Setting &args = primitive.lookup("args");
+                std::shared_ptr<IPrimitive> obj = std::shared_ptr<IPrimitive>(_loader.loadInstance<IPrimitive>(name, name));
                 obj->selfInit(args, en.get());
                 en->setPrimitive(obj);
-
-                libconfig::Setting &material = objectsValue[i].lookup("material");
-                std::string materialName = material;
-                materialName = materialName + _mode;
-                materialName = _path + materialName + ".so";
-                std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(material, materialName));
-                en->setMaterial(mat);
-                rdr.addEntity(en);
+                std::cout << render::green << "[INFO] " << render::no_color << "Loaded primitive: " << name << std::endl;
             } catch (std::exception &e) {
                 wasError = true;
-                std::cerr << render::red << "[ERROR] " << render::no_color << "Failed to load object: " << e.what() << std::endl;
+                std::cerr << render::red << "[ERROR] " << render::no_color << "Failed to load primitive: " << e.what() << std::endl;
+            }
+            try {
+                libconfig::Setting &material = objectsValue[i].lookup("material");
+                std::string materialName;
+                material.lookupValue("type", materialName);
+                materialName = "lib" + materialName + ".material" + _mode;
+                materialName = _path + materialName + ".so";
+                libconfig::Setting &materialArgs = material.lookup("args");
+                std::shared_ptr<IMaterial>mat = std::shared_ptr<IMaterial>(_loader.loadInstance<IMaterial>(materialName + "_" + std::to_string(clock()), materialName));
+                mat->selfInit(materialArgs, en.get());
+                en->setMaterial(mat);
+                rdr.addEntity(en);
+                std::cout << render::green << "[INFO] " << render::no_color << "Loaded material: " << materialName << std::endl;
+            } catch (std::exception &e) {
+                wasError = true;
+                std::cerr << render::red << "[ERROR] " << render::no_color << "Failed to load material: " << e.what() << std::endl;
             }
         }
         if (wasError) {
@@ -172,6 +186,19 @@ namespace render {
         }
     }
 
+    void ConfigLoader::loadParams(Renderer &rdr)
+    {
+        try {
+            const libconfig::Setting &settings = _cfg.lookup("params");
+            const libconfig::Setting &params =
+            settings.lookup("params");
+            rdr.setParams(&params);
+        } catch (std::exception &e) {
+            std::cout << render::green << "[INFO] " << render::no_color << "No params found, using default values" << std::endl;
+        }
+
+    }
+
     void ConfigLoader::loadConfigFile(std::string path, Renderer &rdr)
     {
         try {
@@ -184,6 +211,7 @@ namespace render {
         // const libconfig::Setting &mode = _cfg.lookupValue("mode", mode);
         extention.lookupValue("mode", _mode);
 
+        loadParams(rdr);
         loadCamera(rdr);
         loadPlugins(rdr);
         loadObjects(rdr);
