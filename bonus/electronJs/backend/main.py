@@ -20,11 +20,6 @@ app = FastAPI()
 class Item(BaseModel):
     data: str
 
-# load config from file
-# baseConfig = decoder.decode_file("baseConfig.json")
-
-
-
 def loadBaseConfig():
     # os.system(["cat data.json | jsonlibconfig --pretty > dataFormat.json"])
     bash_command = "cat baseConfig.cfg | jsonlibconfig --target json --pretty > baseConfigFormatedJson.json"
@@ -36,20 +31,13 @@ def loadBaseConfig():
     with open('baseConfigFormatedJson.json', 'r') as file:
         jsonBaseConfig = json.load(file)
 
-    print("//////////////////////")
-    print(jsonBaseConfig)
-    print("//////////////////////")
-    # try:
-    #     subprocess.run(bash_command, shell=True, check=True)
-    # except subprocess.CalledProcessError as e:
-    #     print(f"Error running Bash command: {e}")
-    # return {"status": "success"}
     return jsonBaseConfig
 
 def cleanArgs(object):
     size = len(object["args"])
     object["args"] = object["args"][-4:]
     object["args"] = object["args"][:-1]
+
     return object
 
 
@@ -58,9 +46,37 @@ def merge_two_dicts(x, y):
     z.update(y)    # modifies z with y's keys and values & returns None
     return z
 
+
+def getCoord(data):
+    # data["userData"]["matrix"] = data["userData"]["matrix"][-4:]
+    data["object"]["matrix"] = data["object"]["matrix"][-4:]
+    # remove the last element
+    data["object"]["matrix"] = data["object"]["matrix"][:-1]
+    # print(data["matrix"])
+        # round every element to float exemple: 2.0
+        # cast it to float in this format 2.0
+    data["object"]["matrix"] = [float("{:.2f}".format(x)) for x in data["object"]["matrix"]]
+    return data
+
+
+
 def formatJson(datas):
     datas = json.loads(datas)
     allObjects = []
+    material = {
+        "type": "Flat",
+        "args": {
+            "color": {
+                "r": 120,
+                "g": 0,
+                "b": 100
+            },
+            "properties": {
+                "reflectivity": 0.5,
+                "shininess": 0.5
+            }
+        }
+    }
     for data in datas:
         if data["object"]:
             if "userData" in data["object"]:
@@ -68,26 +84,33 @@ def formatJson(datas):
                 buf = data["object"]["userData"].get("name", "default")
                 if buf == "default":
                     continue
+                data = getCoord(data)
+                print("/////////////////////////////////////")
+                print(data["object"]["matrix"])
+                print("/////////////////////////////////////")
                 object = {
-                    # "objects" : {
-                        "primitive": data["object"]["userData"].get("name", "default"),
-                        "type": data["object"].get("type", "default"),
-                        "material": data["object"]["userData"].get("material", "default"),
-                        "args": data["object"].get("matrix", "default")
-                    # }
+                    "primitive" : {
+                        "type": buf,
+                        "args": {
+                            "x": data["object"]["matrix"][0],
+                            "y": data["object"]["matrix"][1],
+                            "z": data["object"]["matrix"][2],
+                            "radius": 10.0
+                        }
+                    },
+                    "material": material
                 }
-                object = cleanArgs(object)
-                # print("////////////////////////////////////////////////////")
-                # print(object)
-                # print("////////////////////////////////////////////////////")
+                # object = cleanArgs(object)
                 allObjects.append(object)
     allObjects = {
-        "objects": allObjects
+        "objects": {
+
+            "pathObjects": "./src/plugins/",
+            "pathMaterial": "./src/plugins/",
+            "objects": allObjects
+        }
     }
     base_config = loadBaseConfig()
-    print("////////////////////////////////////////////////////")
-    print(allObjects)
-    print("////////////////////////////////////////////////////")
     allObjects = merge_two_dicts(base_config, allObjects)
     return allObjects
 

@@ -66,6 +66,7 @@ target_sources(Mesh.primitive.v PRIVATE ${COMMON_SRC} ./Primitives/TrianglePart.
 add_library(Cone.primitive.v SHARED ./Primitives/Cone.primitive.v.cpp)
 target_sources(Cone.primitive.v PRIVATE ${COMMON_SRC})
 
+
 # MATERIALS
 
 add_library(Flat.material.v SHARED ./Materials/Flat.material.v.cpp)
@@ -226,4 +227,9 @@ add_custom_command(
 add_custom_command(
     TARGET Cone.primitive.v POST_BUILD
     COMMAND mv libCone.primitive.v.so ..
+)
+
+add_custom_command(
+    TARGET Cercle.primitive.v POST_BUILD
+    COMMAND mv libCercle.primitive.v.so ..
 )
