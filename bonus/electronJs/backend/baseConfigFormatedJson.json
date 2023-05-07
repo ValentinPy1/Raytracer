@@ -1,0 +1,29 @@
+{
+  "extensions": {
+    "mode": ".gl"
+  },
+  "camera": {
+    "resolution": {
+      "width": 1920,
+      "height": 1080
+    },
+    "position": {
+      "x": 90,
+      "y": 0,
+      "z": 0
+    },
+    "rotation": {
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    "fieldOfView": 72.0
+  },
+  "plugins": {
+    "wrapper": "path/to/wrapper",
+    "plugins": {
+      "name": "PluginName2",
+      "path": "plugins/"
+    }
+  }
+}
