@@ -1,13 +1,9 @@
 #version 430 core
 
-struct Sphere {
-    vec3 center;
-    float radius;
-};
-
-struct Object3D {
-    vec3 position;
-    vec3 rotation;
+struct Triangle {
+    vec3 p1;
+    vec3 p2;
+    vec3 p3;
 };
 
 struct Light {
@@ -17,7 +13,7 @@ struct Light {
 };
 
 layout (std430, binding = 1) buffer ObjBlock {
-    Object3D objects[];
+    Triangle objects[];
 } objBlock;
 
 layout(std430, binding = 2) buffer LightBlock {
@@ -27,10 +23,9 @@ layout(std430, binding = 2) buffer LightBlock {
 vec4 getColorFromLight(vec3 lightDir, vec3 normal, vec3 lightColor, vec3 viewDir, int objIndex);
 
 // Returns the color value of the point after applying lighting using the BlinnPhong Algorithm
-// assums that the object is a sphere for now
 vec4 applyLight(Light light, float t, int objIndex, vec3 dir, vec3 orig) {
     vec3 intersection = orig + t * dir;
-    vec3 normal = normalize(intersection - objBlock.objects[objIndex].position); // TODO: this is only for spheres
+    vec3 normal = normalize(getNormal(objIndex, intersection));
     vec3 lightDir = normalize(light.position - intersection);
     vec3 viewDir = normalize(dir);
 

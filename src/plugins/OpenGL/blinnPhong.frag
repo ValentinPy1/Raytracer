@@ -1,15 +1,10 @@
 #version 430 core
 
-struct Sphere {
-    vec3 center;
-    float radius;
+struct Triangle {
+    vec3 p1;
+    vec3 p2;
+    vec3 p3;
 };
-
-struct Object3D {
-    vec3 position;
-    vec3 rotation;
-};
-
 struct Light {
     vec3 position;
     vec3 color;
@@ -17,7 +12,7 @@ struct Light {
 };
 
 layout (std430, binding = 1) buffer ObjBlock {
-    Object3D objects[];
+    Triangle objects[];
 } objBlock;
 
 layout(std430, binding = 2) buffer LightBlock {
