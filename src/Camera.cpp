@@ -22,6 +22,9 @@ namespace render {
         _focalDistance = -focalPoint;
         _captor.create(captorWidth, captorHeight, sf::Color::Black);
 
+        setPosition(position);
+        setRotation(rotation);
+
         generateRays();
     }
 
@@ -134,5 +137,4 @@ namespace render {
             ray.direction = Ray::rotateVector(ray.direction, _rotation);
         }
     }
-
 }
