@@ -1,20 +1,16 @@
 #version 430 core
 
-struct Object3D {
-    vec3 position;
-    vec3 rotation;
+struct Triangle {
+    vec3 p1;
+    vec3 p2;
+    vec3 p3;
 };
 
-struct Light {
-    vec3 position;
-    vec3 color;
-    float radius;
-};
 
 layout (location = 0) in vec2 aPos;
 
 layout (std430, binding = 1) buffer ObjBlock {
-    Object3D objects[];
+    Triangle objects[];
 } objBlock;
 
 layout(std430, binding = 2) buffer LightBlock {

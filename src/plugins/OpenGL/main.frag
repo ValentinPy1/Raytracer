@@ -1,13 +1,9 @@
 #version 430 core
 
-struct Sphere {
-    vec3 center;
-    float radius;
-};
-
-struct Object3D {
-    vec3 position;
-    vec3 rotation;
+struct Triangle {
+    vec3 p1;
+    vec3 p2;
+    vec3 p3;
 };
 
 struct Light {

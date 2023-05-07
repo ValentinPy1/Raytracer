@@ -22,6 +22,9 @@ namespace render {
         _focalDistance = -focalPoint;
         _captor.create(captorWidth, captorHeight, sf::Color::Black);
 
+        setPosition(position);
+        setRotation(rotation);
+
         generateRays();
     }
 
@@ -86,16 +89,6 @@ namespace render {
         return _rays;
     }
 
-    void Camera::setPosition(const sf::Vector3f &position)
-    {
-        _position = position;
-    }
-
-    void Camera::setRotation(const sf::Vector3f &rotation)
-    {
-        _rotation = rotation;
-    }
-
     void Camera::setFocalPoint(float focalPoint)
     {
         _focalPoint = computeFocalPoint(focalPoint);
@@ -128,5 +121,24 @@ namespace render {
         _captor = captor;
     }
 
+
+
+    void Camera::setPosition(const sf::Vector3f &position)
+    {
+        _position = position;
+
+        for (auto& ray : _rays) {
+            ray.setOrigin(_position);
+        }
+    }
+
+    void Camera::setRotation(const sf::Vector3f &rotation)
+    {
+        _rotation = rotation;
+
+        for (auto& ray : _rays) {
+            ray.setDirection(Ray::rotateVector(ray.getDirection(), _rotation));
+        }
+    }
 
 }
