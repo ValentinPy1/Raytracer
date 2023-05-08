@@ -50,6 +50,7 @@ namespace vanille {
 
             sf::Color _color;
             sf::Vector3f _position;
+            sf::Vector3f _rotation;
             std::string _applyMode;
             int _nSamples;
             float _radius;
