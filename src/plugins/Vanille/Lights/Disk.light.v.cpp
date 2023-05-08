@@ -7,6 +7,7 @@
 
 #include <cmath>
 #include "Disk.light.v.hpp"
+#include "operations.hpp"
 
 namespace vanille {
         bool DiskLight::pointIsShadowed(const render::Renderer &rdr, const sf::Vector3f &intersection, const sf::Vector3f &lightDirection)
@@ -21,19 +22,22 @@ namespace vanille {
             std::sort(intersections.begin(), intersections.end(), [](const render::Intersection &a, const render::Intersection &b) {
                 return a.getDistance() < b.getDistance();
             });
-            return (intersections.size() > 0 && intersections[0].getDistance() < distance && intersections[0].getDistance() > 0.1);
+            return (intersections.size() > 0 && intersections[0].getDistance() < distance && intersections[0].getDistance() > 0.001);
         }
 
 
         sf::Color DiskLight::sampleHardLight(render::Ray &ray,
         const render::Renderer &renderer, const sf::Vector3f &lightpos)
         {
+            auto interObj = ray.getIntersections()[0];
             sf::Vector3f lightDirection;
-            sf::Vector3f intersection = ray.getIntersections()[0].getPoint() + ray.getIntersections()[0].getNormal() * 0.1f;
-            sf::Vector3f normal = ray.getIntersections()[0].getNormal();
+            sf::Vector3f intersection = interObj.getPoint() + interObj.getNormal() * 0.1f;
+            sf::Vector3f normal = interObj.getNormal();
             sf::Color color;
             lightDirection = lightpos - intersection;
             lightDirection = -lightDirection;
+
+
 
             if (pointIsShadowed(renderer, intersection, lightDirection)) {
                 return sf::Color::Black;
@@ -46,8 +50,8 @@ namespace vanille {
                 normal,
                 ray.getDirection(),
                 render::Ray::getNorm(lightDirection),
-                0,
-                ray.getIntersections()[0].getInterceptee()->getMaterial()->getProperty("shininess")
+                ray.getIntersections()[0].getInterceptee()->getMaterial()->getProperty("shininess"),
+                _intensity
             );
             return color;
         }
@@ -111,6 +115,7 @@ namespace vanille {
         setting.lookupValue("applyMode", _applyMode);
         setting.lookupValue("shadowSamples", _nSamples);
         setting.lookupValue("radius", _radius);
+        setting.lookupValue("intensity", _intensity);
     }
 }
 

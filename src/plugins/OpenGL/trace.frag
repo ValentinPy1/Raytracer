@@ -1,13 +1,9 @@
 #version 430 core
 
-struct Sphere {
-    vec3 center;
-    float radius;
-};
-
-struct Object3D {
-    vec3 position;
-    vec3 rotation;
+struct Triangle {
+    vec3 p1;
+    vec3 p2;
+    vec3 p3;
 };
 
 struct Light {
@@ -23,7 +19,7 @@ struct Intersection {
 };
 
 layout (std430, binding = 1) buffer ObjBlock {
-    Object3D objects[];
+    Triangle objects[];
 } objBlock;
 
 layout(std430, binding = 2) buffer LightBlock {
@@ -64,15 +60,24 @@ vec4 traceRay(vec3 orig, vec3 dir, int reflectDepth) {
             return finalColor;
         }
 
-        vec4 color = vec4(0.0f, 0.2f, 0.0f, 1.0f); // TODO: base color from material
-        if (inter.objIndex == 1) {
-            color = vec4(0.0f, 0.0f, 0.2f, 1.0f);
-        }
+        // Get the material of the intersected triangle
+        Material mat = objBlock.objects[inter.objIndex].material;
 
-        color = blendAdd(color, applyLight(lightBlock.lights[0], inter.t, inter.objIndex, dir, orig));
-        orig = orig + (inter.t) * dir;
+        // Calculate the color of the triangle using the Blinn-Phong model
+        vec4 color = vec4(mat.diffuse, 1.0) * vec4(0.2f, 0.2f, 0.2f, 1.0f);
+        vec3 intersection = orig + (inter.t * dir);
+        vec3 normal = inter.normal;
+        vec3 viewDir = normalize(-dir);
+        for (int i = 0; i < lightBlock.numLights; i++) {
+            Light light = lightBlock.lights[i];
+            vec3 lightDir = normalize(light.position - intersection);
+            vec4 lightColor = getColorFromLight(lightDir, normal, light.color, viewDir, mat);
+            color += lightColor;
+        }
+        orig = intersection;
         dir = reflect(dir, inter.normal);
-        finalColor = blendAdd(finalColor, 0.3 * color);
+        finalColor = blendAdd(finalColor, color);
     }
     return finalColor;
 }
+

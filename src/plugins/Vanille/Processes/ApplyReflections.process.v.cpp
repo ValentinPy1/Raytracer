@@ -44,6 +44,10 @@ extern "C" {
                 sf::Vector3f origin = intersection.getPoint() + reflection * 0.1f;
 
                 render::Ray newRay(origin, reflection, ray.getRecursionParameter("reflectionDepth") - 1);
+                auto recParams = ray.getAllRecursionParameters();
+                for (auto &p : recParams) {
+                    newRay.setRecursionParameter(p.first, p.second);
+                }
                 newRay.setRecursionParameter("reflectionDepth", ray.getRecursionParameter("reflectionDepth") - 1);
                 dynamic_cast<vanille::Wrapper_v *>(&(rdr.getWrapper()))->processRay(newRay, rdr);
                 sf::Color reflColor = newRay.getColor();
@@ -52,8 +56,9 @@ extern "C" {
                     static_cast<sf::Uint8>(reflColor.g),
                     static_cast<sf::Uint8>(reflColor.b)
                 };
-                ray.setColor(ray.blendLerp(reflColor, reflectivity));
                 // ray.setColor(ray.blendAdd(reflColor));
+                ray.setColor(ray.blendLerp(reflColor, reflectivity));
+                // ray.setColor(ray.blendMultiply(reflColor));
                 return ray;
             },
 

@@ -12,22 +12,35 @@ namespace vanille
 {
     CheckMaterial_v::CheckMaterial_v() : render::IMaterial()
     {
-        _color1 = sf::Color::White;
-        _color2 = sf::Color::Black;
+        _colors.push_back(sf::Color::White);
+        _colors.push_back(sf::Color::Black);
+
+        _pattern.push_back(_colors);
+        std::reverse(_colors.begin(), _colors.end());
+        _pattern.push_back(_colors);
+
+        _scale = 1;
     }
+
     void CheckMaterial_v::getColor(int &r, int &g, int &b,
         __attribute__((unused)) geo::vec3 point) const
     {
-        if ((int)point.x % 2 == 0 ^ (int)point.y % 2 == 0 ^ (int)point.z % 2 == 0) {
-            r = _color1.r;
-            g = _color1.g;
-            b = _color1.b;
-        } else {
-            r = _color2.r;
-            g = _color2.g;
-            b = _color2.b;
-        }
+        float scaledX = point.x / _scale;
+        float scaledY = point.z / _scale;
+        if (scaledX < 0)
+            scaledX -= 1;
+        if (scaledY < 0)
+            scaledY -= 1;
+        size_t patternWidth = _pattern[0].size();
+        size_t patternHeight = _pattern.size();
+        size_t indexX = (size_t)scaledX % patternWidth;
+        size_t indexY = (size_t)scaledY % patternHeight;
+        sf::Color color = _pattern[indexY][indexX];
+        r = (int)color.r;
+        g = (int)color.g;
+        b = (int)color.b;
     }
+
     float CheckMaterial_v::getProperty(const std::string &name) const
     {
         try {
@@ -41,27 +54,30 @@ namespace vanille
 
     void CheckMaterial_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
-        _parent = parent;
-        if (setting.exists("color1")) {
-            libconfig::Setting &color = setting["color1"];
-            int r = color["r"];
-            int g = color["g"];
-            int b = color["b"];
-            _color1 = sf::Color(r, g, b);
-        } else {
-            std::cout << render::yellow << "[WARNING] " << render::no_color
-                << "No color found in material" << std::endl;
+        _colors = {};
+        _pattern = {};
+        libconfig::Setting &colors = setting.lookup("colors");
+        for (int i = 0; i < colors.getLength(); i++) {
+            libconfig::Setting &color = colors[i];
+            int r;
+            int g;
+            int b;
+            color.lookupValue("r", r);
+            color.lookupValue("g", g);
+            color.lookupValue("b", b);
+            _colors.push_back(sf::Color(r, g, b));
         }
-        if (setting.exists("color2")) {
-            libconfig::Setting &color = setting["color2"];
-            int r = color["r"];
-            int g = color["g"];
-            int b = color["b"];
-            _color2 = sf::Color(r, g, b);
-        } else {
-            std::cout << render::yellow << "[WARNING] " << render::no_color
-                << "No color found in material" << std::endl;
+        libconfig::Setting &pattern = setting.lookup("pattern");
+        for (int y = 0; y < pattern.getLength(); y++) {
+            libconfig::Setting &row = pattern[y];
+            std::vector<sf::Color> rowColors;
+            for (int x = 0; x < row.getLength(); x++) {
+                int index = row[x];
+                rowColors.push_back(_colors[index]);
+            }
+            _pattern.push_back(rowColors);
         }
+        setting.lookupValue("scale", _scale);
         libconfig::Setting &properties = setting.lookup("properties");
         for (int i = 0; i < properties.getLength(); i++) {
             libconfig::Setting &property = properties[i];

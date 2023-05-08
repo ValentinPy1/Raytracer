@@ -22,13 +22,9 @@ namespace vanille {
     void CerclePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
         _parent = parent;
-        if (setting.exists("origin")) {
-            libconfig::Setting &origin = setting["origin"];
-            _origin = sf::Vector3f(origin["x"], origin["y"], origin["z"]);
-        } else {
-            std::cout << render::yellow << "[WARNING] " << render::no_color
-                << "No origin found in primitive" << std::endl;
-        }
+            setting.lookupValue("x", _origin.x);
+            setting.lookupValue("y", _origin.y);
+            setting.lookupValue("z", _origin.z);
         if (setting.exists("radius")) {
             libconfig::Setting &radius = setting["radius"];
             _radius = radius;
@@ -56,13 +52,13 @@ namespace vanille {
         if (delta < 0)
             return;
 
-        float t = (-b - std::sqrt(delta)) / (2.0f * a);
-        ray.addIntersection(
-            render::Intersection(ray, t).addNormal(this)
-        );
+        float t1 = (-b - std::sqrt(delta)) / (2.0f * a);
+        float t2 = (-b + std::sqrt(delta)) / (2.0f * a);
+
+        t1 = std::min(t1, t2);
 
         ray.addIntersection(
-            render::Intersection(ray, (-b + std::sqrt(delta)) / (2 * a)).addNormal(this)
+            render::Intersection(_parent, ray, t1).addNormal(vo + t1 * vd)
         );
     }
 
