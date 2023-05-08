@@ -362,11 +362,31 @@ function createMenu() {
     document.body.appendChild(titleMenu);
 }
 
+function createSettingBox() {
+    const settingDiv = document.createElement('div');
+
+    settingDiv.classList.add('setting-div'); // Add a CSS class for styling
+    const ambientLightForm = document.createElement('form');
+    ambientLightForm.classList.add('ambient-light-form');
+    const ambientLightLabel = document.createElement('label');
+    ambientLightLabel.textContent = 'Ambient Color:';
+    const ambientLightInput = document.createElement('input');
+    ambientLightInput.type = 'color';
+    ambientLightInput.value = '#ffffff';
+    ambientLightInput.addEventListener('input', (event) => {
+        const color = (event.target).value;
+        hemiLight.color.set(color);
+    }
+    );
+    ambientLightForm.appendChild(ambientLightLabel);
+}
+
 createMenu()
 createFloor()
 // createBox()
 createSphere()
 // createCylinder()
 // createTriangle()
+createSettingBox();
 
 animate()

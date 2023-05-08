@@ -68,6 +68,103 @@ namespace vanille {
         file.close();
     }
 
+    // void Wrapper_v::render(render::Renderer &rdr, render::PluginManager &pm)
+    // {
+    //     clock_t start = clock();
+    //     render::Camera &camera = *rdr.getCamera();
+    //     sf::Image &captor = camera.getCaptor();
+    //     std::vector<render::Ray> &rays = camera.getRays();
+    //     std::vector<render::processRay_t> processFuns = pm.getProcessRayFunctions();
+    //     _processFuns = processFuns;
+
+    //     size_t total = camera.getCaptor().getSize().x * camera.getCaptor().getSize().y;
+    //     size_t hundreth = total / 100;
+    //     size_t step = 0;
+    //     float progress = 0;
+    //     int barWidth = 70;
+
+    //     const libconfig::Setting *setting = rdr.getParams();
+    //     int threadCount = 1;
+    //     if (setting->exists("threadCount")) {
+    //         setting->lookupValue("threadCount", threadCount);
+    //     }
+
+    //     std::vector<std::thread> threads;
+    //     std::vector<std::tuple<int, int>> ranges;
+    //     int range = camera.getCaptor().getSize().y / threadCount;
+    //     int rest = camera.getCaptor().getSize().y % threadCount;
+    //     int startRange = 0;
+    //     int endRange = range;
+    //     for (int i = 0; i < threadCount; ++i) {
+    //         if (i == threadCount - 1)
+    //             endRange += rest;
+    //         ranges.push_back(std::make_tuple(startRange, endRange));
+    //         startRange = endRange;
+    //         endRange += range;
+    //     }
+
+    //     for (size_t i = 0; i < threadCount; ++i) {
+    //         threads.emplace_back(std::thread(
+    //             [this, &camera, &rays, &processFuns, &ranges, i, &step, &hundreth, &total, &barWidth, &progress, &captor, &pm, &rdr]() {
+    //                 for (unsigned int i = std::get<0>(ranges[i]); i < std::get<1>(ranges[i]); i++) {
+    //                     for (unsigned int j = 0; j < camera.getCaptor().getSize().y; j++) {
+    //                         render::Ray ray = rays[i * camera.getCaptor().getSize().y + j];
+    //                         sf::Color tmp = processRay(ray, rdr, processFuns);
+    //                         _mutex.lock();
+    //                         camera.getCaptor().setPixel(i, j, tmp);
+    //                         _mutex.unlock();
+    //                         step++;
+
+    //                         _mutex.lock();
+    //                         if (step % hundreth == 0) {
+    //                             progress = (float) step / total;
+    //                             std::cout << "[";
+    //                             int pos = barWidth * progress;
+    //                             for (int i = 0; i < barWidth; ++i) {
+    //                                 if (i < pos) std::cout << "=";
+    //                                 else if (i == pos) std::cout << ">";
+    //                                 else std::cout << " ";
+    //                             }
+    //                             std::cout << "] " << int(progress * 100.0) << " %\r";
+    //                             std::cout.flush();
+    //                         }
+    //                         _mutex.unlock();
+    //                     }
+    //                 }
+    //             }
+    //         ));
+    //     }
+
+
+
+    //     std::cout << render::green << "[INFO] " << render::yellow << "Rendering... " << render::no_color << std::endl;
+    //     for (unsigned int i = 0; i < camera.getCaptor().getSize().x; i++) {
+    //         for (unsigned int j = 0; j < camera.getCaptor().getSize().y; j++) {
+    //             render::Ray ray = rays[i * camera.getCaptor().getSize().y + j];
+    //             sf::Color tmp = processRay(ray, rdr, processFuns);
+    //             camera.getCaptor().setPixel(i, j, tmp);
+    //             step++;
+    //             if (step % hundreth == 0) {
+    //                 progress = (float) step / total;
+    //                 std::cout << "[";
+    //                 int pos = barWidth * progress;
+    //                 for (int i = 0; i < barWidth; ++i) {
+    //                     if (i < pos) std::cout << "=";
+    //                     else if (i == pos) std::cout << ">";
+    //                     else std::cout << " ";
+    //                 }
+    //                 std::cout << "] " << int(progress * 100.0) << " %\r";
+    //                 std::cout.flush();
+    //             }
+    //         }
+    //     }
+    //     std::cout << render::green << "[INFO] " << render::yellow << "Applying post process to the image... " << render::no_color << std::endl;
+    //     postProcess(rdr, pm);
+    //     std::cout << render::green << "[INFO] " << render::yellow << "Done in " << (double) (clock() - start) / CLOCKS_PER_SEC << " seconds."  << render::no_color << std::endl;
+    //     captor.saveToFile("test.png");
+    //     saveToPPM(captor, "test.ppm");
+    // }
+
     void Wrapper_v::render(render::Renderer &rdr, render::PluginManager &pm)
     {
         clock_t start = clock();
