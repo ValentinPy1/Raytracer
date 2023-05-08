@@ -5,6 +5,8 @@
 ** Wrapper.v.hpp
 */
 
+#include <thread>
+#include <mutex>
 #include "Wrapper.hpp"
 #include "Renderer.hpp"
 #include "SFML/Graphics.hpp"
@@ -25,5 +27,6 @@ namespace vanille {
             void saveToPPM(const sf::Image &captor, const std::string &path) const;
 
             std::vector<render::processRay_t> _processFuns;
+            std::mutex _mutex;
     };
 }

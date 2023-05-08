@@ -31,7 +31,7 @@ namespace vanille {
 
     sf::Vector3f TrianglePart::getNormalAt(__attribute__((unused)) sf::Vector3f &point)
     {
-        return _normal;
+        return -_normal;
     }
 
     void TrianglePart::move(sf::Vector3f &offset)
