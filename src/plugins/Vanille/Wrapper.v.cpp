@@ -7,6 +7,7 @@
 
 #include <thread>
 #include <ctime>
+#include <fstream>
 #include "Plugin.hpp"
 #include "../plugins/Vanille/Wrapper.v.hpp"
 #include "Ray.hpp"
@@ -50,6 +51,23 @@ namespace vanille {
             fun(rdr);
     }
 
+    void Wrapper_v::saveToPPM(const sf::Image &captor, const std::string &path) const
+    {
+        std::ofstream file(path);
+        sf::Color color;
+
+        file << "P3" << std::endl;
+        file << captor.getSize().x << " " << captor.getSize().y << std::endl;
+        file << "255" << std::endl;
+        for (unsigned int y = 0; y < captor.getSize().y; y++) {
+            for (unsigned int x = 0; x < captor.getSize().x; x++) {
+                color = captor.getPixel(x, y);
+                file << (int) color.r << " " << (int) color.g << " " << (int) color.b << std::endl;
+            }
+        }
+        file.close();
+    }
+
     void Wrapper_v::render(render::Renderer &rdr, render::PluginManager &pm)
     {
         clock_t start = clock();
@@ -89,6 +107,7 @@ namespace vanille {
         postProcess(rdr, pm);
         std::cout << render::green << "[INFO] " << render::yellow << "Done in " << (double) (clock() - start) / CLOCKS_PER_SEC << " seconds."  << render::no_color << std::endl;
         captor.saveToFile("test.png");
+        saveToPPM(captor, "test.ppm");
     }
 
     void Wrapper_v::run(render::Renderer &rdr)

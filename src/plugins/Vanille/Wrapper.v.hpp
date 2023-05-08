@@ -22,6 +22,7 @@ namespace vanille {
             void init(render::PluginManager &pm, render::Renderer &rdr) const;
             void postProcess(render::Renderer &rdr, render::PluginManager &pm) const;
             void render(render::Renderer &rdr, render::PluginManager &pm);
+            void saveToPPM(const sf::Image &captor, const std::string &path) const;
 
             std::vector<render::processRay_t> _processFuns;
     };
