@@ -59,12 +59,30 @@ namespace vanille {
         std::vector<render::processRay_t> processFuns = pm.getProcessRayFunctions();
         _processFuns = processFuns;
 
+        size_t total = camera.getCaptor().getSize().x * camera.getCaptor().getSize().y;
+        size_t hundreth = total / 100;
+        size_t step = 0;
+        float progress = 0;
+        int barWidth = 70;
         std::cout << render::green << "[INFO] " << render::yellow << "Rendering... " << render::no_color << std::endl;
         for (unsigned int i = 0; i < camera.getCaptor().getSize().x; i++) {
             for (unsigned int j = 0; j < camera.getCaptor().getSize().y; j++) {
                 render::Ray ray = rays[i * camera.getCaptor().getSize().y + j];
                 sf::Color tmp = processRay(ray, rdr, processFuns);
                 camera.getCaptor().setPixel(i, j, tmp);
+                step++;
+                if (step % hundreth == 0) {
+                    progress = (float) step / total;
+                    std::cout << "[";
+                    int pos = barWidth * progress;
+                    for (int i = 0; i < barWidth; ++i) {
+                        if (i < pos) std::cout << "=";
+                        else if (i == pos) std::cout << ">";
+                        else std::cout << " ";
+                    }
+                    std::cout << "] " << int(progress * 100.0) << " %\r";
+                    std::cout.flush();
+                }
             }
         }
         std::cout << render::green << "[INFO] " << render::yellow << "Applying post process to the image... " << render::no_color << std::endl;
