@@ -233,3 +233,8 @@ add_custom_command(
     TARGET Cercle.primitive.v POST_BUILD
     COMMAND mv libCercle.primitive.v.so ..
 )
+
+add_custom_command(
+    TARGET Cylinder.primitive.v POST_BUILD
+    COMMAND mv libCylinder.primitive.v.so ..
+)
