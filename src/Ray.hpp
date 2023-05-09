@@ -62,6 +62,9 @@ namespace render {
              */
             static sf::Vector3f normalize(const sf::Vector3f &vector);
             static float getNorm(const sf::Vector3f &vector);
+            static sf::Vector3f rotateX(sf::Vector3f vector, float angle);
+            static sf::Vector3f rotateY(sf::Vector3f vector, float angle);
+            static sf::Vector3f rotateZ(sf::Vector3f vector, float angle);
             static sf::Vector3f rotateVector(const sf::Vector3f &vector, const sf::Vector3f &rotation);
 
             sf::Color cast(const Renderer & renderer);

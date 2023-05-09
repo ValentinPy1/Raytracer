@@ -18,22 +18,48 @@ namespace render {
         _color = sf::Color::White;
     }
 
+    sf::Vector3f Ray::rotateX(sf::Vector3f vec, float rotationRad)
+    {
+        float sin = std::sin(rotationRad);
+        float cos = std::cos(rotationRad);
+        return sf::Vector3f(
+            vec.x,
+            vec.y * cos - vec.z * sin,
+            vec.y * sin + vec.z * cos
+        );
+    }
+
+    sf::Vector3f Ray::rotateY(sf::Vector3f vec, float rotationRad)
+    {
+        float sin = std::sin(rotationRad);
+        float cos = std::cos(rotationRad);
+        return sf::Vector3f(
+            vec.x * cos + vec.z * sin,
+            vec.y,
+            -vec.x * sin + vec.z * cos
+        );
+    }
+
+    sf::Vector3f Ray::rotateZ(sf::Vector3f vec, float rotationRad)
+    {
+        float sin = std::sin(rotationRad);
+        float cos = std::cos(rotationRad);
+        return sf::Vector3f(
+            vec.x * cos - vec.y * sin,
+            vec.x * sin + vec.y * cos,
+            vec.z
+        );
+    }
+
     sf::Vector3f Ray::rotateVector(const sf::Vector3f& vector, const sf::Vector3f& rotation) {
         float angleX = rotation.x * M_PI / 180.0;
         float angleY = rotation.y * M_PI / 180.0;
         float angleZ = rotation.z * M_PI / 180.0;
-        float sinX = std::sin(angleX);
-        float cosX = std::cos(angleX);
-        float sinY = std::sin(angleY);
-        float cosY = std::cos(angleY);
-        float sinZ = std::sin(angleZ);
-        float cosZ = std::cos(angleZ);
+        auto vec = rotateX(vector, angleX);
 
-        return sf::Vector3f(
-            vector.x * (cosY * cosZ) + vector.y * (cosX * sinZ + sinX * sinY * cosZ) + vector.z * (sinX * sinZ - cosX * sinY * cosZ),
-            vector.x * (-cosY * sinZ) + vector.y * (cosX * cosZ - sinX * sinY * sinZ) + vector.z * (sinX * cosZ + cosX * sinY * sinZ),
-            vector.x * sinY + vector.y * (-sinX * cosY) + vector.z * (cosX * cosY)
-        );
+        vec = rotateY(vec, angleY);
+        vec = rotateZ(vec, angleZ);
+        return vec;
     }
 
     float Ray::getNorm(const sf::Vector3f &vector)
