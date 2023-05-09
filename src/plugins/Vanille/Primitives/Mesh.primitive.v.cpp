@@ -56,12 +56,40 @@ namespace vanille
 
     void Mesh::solve(render::Ray &ray)
     {
+        auto closestInter = render::Intersection(_parent, ray, 100000000);
+
+        std::vector<render::Intersection> intersectBackup;
+        for (auto &inter : ray.getIntersections()) {
+            intersectBackup.push_back(inter);
+        }
+
+        ray.getIntersections().clear();
         for (auto &primitive : _parts) {
             primitive->solve(ray);
-            if (ray.hasIntersections()) {
-                _lasthit = primitive.get();
-                return;
+            if (not ray.hasIntersections()) {
+                continue;
             }
+            if (ray.getIntersections().back().getDistance() < closestInter.getDistance()) {
+                closestInter = ray.getIntersections().back();
+                _lasthit = primitive.get();
+            }
+            ray.getIntersections().clear();
+        }
+        if (intersectBackup.size() == 0) {
+            ray.addIntersection(closestInter);
+            return;
+        }
+
+        auto closestOld = intersectBackup[0];
+        for (auto &inter : intersectBackup) {
+            if (inter.getDistance() < closestOld.getDistance()) {
+                closestOld = inter;
+            }
+        }
+        if (closestInter.getDistance() < closestOld.getDistance()) {
+            ray.addIntersection(closestInter);
+        } else {
+            ray.addIntersection(closestOld);
         }
     }
 } // namespace vanille

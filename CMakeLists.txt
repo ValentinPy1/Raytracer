@@ -8,7 +8,7 @@ include_directories(
 add_compile_options(-Wall -Wextra -O3)
 
 add_executable (
-    ray
+    raytracer
     src/Renderer.cpp
     src/ConfigLoader.cpp
     src/PluginManagement/Plugin.cpp
@@ -24,7 +24,7 @@ add_executable (
 )
 
 target_link_libraries(
-    ray
+    raytracer
     -lsfml-graphics
     -lsfml-window
     -lsfml-system
