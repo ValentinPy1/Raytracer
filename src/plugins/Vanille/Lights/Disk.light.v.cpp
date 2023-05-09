@@ -100,8 +100,10 @@ namespace vanille {
     {
         const libconfig::Setting &colorSetting = setting.lookup("color");
         const libconfig::Setting &positionSetting = setting.lookup("position");
+        const libconfig::Setting &rotationSetting = setting.lookup("rotation");
         int r, g, b;
         float x, y, z;
+        float rx, ry, rz;
 
         colorSetting.lookupValue("r", r);
         colorSetting.lookupValue("g", g);
@@ -109,9 +111,14 @@ namespace vanille {
         positionSetting.lookupValue("x", x);
         positionSetting.lookupValue("y", y);
         positionSetting.lookupValue("z", z);
+        rotationSetting.lookupValue("x", rx);
+        rotationSetting.lookupValue("y", ry);
+        rotationSetting.lookupValue("z", rz);
 
         _position = sf::Vector3f(x, y, z);
         _color = sf::Color(r, g, b);
+        _rotation = sf::Vector3f(rx, ry, rz);
+
         setting.lookupValue("applyMode", _applyMode);
         setting.lookupValue("shadowSamples", _nSamples);
         setting.lookupValue("radius", _radius);

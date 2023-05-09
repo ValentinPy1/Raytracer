@@ -103,7 +103,8 @@ target_sources(AmbientLight.process.v PRIVATE ${COMMON_SRC})
 add_library(Antialiasing.process.v SHARED ./Processes/Antialiasing.process.v.cpp)
 target_sources(Antialiasing.process.v PRIVATE ${COMMON_SRC})
 
-
+add_library(ApplyTransparency.process.v SHARED ./Processes/applyTransparency.process.v.cpp Wrapper.v.cpp)
+target_sources(ApplyTransparency.process.v PRIVATE ${COMMON_SRC})
 
 # TARGET LINK LIB
 
@@ -131,11 +132,14 @@ target_link_libraries(
 )
 
 target_link_libraries(
-    Disk.light.v
+    ApplyTransparency.process.v
     -lsfml-system
 )
 
-
+target_link_libraries(
+    Disk.light.v
+    -lsfml-system
+)
 
 # MOVE LIBS
 
