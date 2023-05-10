@@ -18,6 +18,7 @@ namespace vanille
     {
         _origin = sf::Vector3f(0, 0, 0);
         _normal = sf::Vector3f(0, 0, 0);
+        _rotation = sf::Vector3f(0, 0, 0);
     }
 
     void PlanePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
@@ -43,6 +44,16 @@ namespace vanille
             std::cout << render::yellow << "[WARNING] " << render::no_color
                       << "No normal found in primitive" << std::endl;
         }
+        if (setting.exists("rotation"))
+        {
+            libconfig::Setting &rotation = setting["rotation"];
+            _rotation = sf::Vector3f(rotation["x"], rotation["y"], rotation["z"]);
+        }
+        else
+        {
+            std::cout << render::yellow << "[WARNING] " << render::no_color
+                      << "No rotation found in primitive" << std::endl;
+        }
     }
 
     PlanePrimitive_v::~PlanePrimitive_v() {
@@ -50,12 +61,14 @@ namespace vanille
 
     void PlanePrimitive_v::solve(render::Ray &ray) {
 
-        sf::Vector3f normal = render::Ray::rotateVector(_normal, _rotation);
+        sf::Vector3f normal = render::Ray::rotateVector(_normal, -_rotation);
+        sf::Vector3f origin = render::Ray::rotateVector(ray.getOrigin() - _origin, -_rotation);
+        sf::Vector3f direction = render::Ray::rotateVector(ray.getDirection(), -_rotation);
 
-        if (ray.getDirection() * normal == 0)
+        if (direction * normal == 0)
             return;
 
-        float t = (normal * _origin - normal * ray.getOrigin()) / (normal * ray.getDirection());
+        float t = (normal * origin) / (normal * direction);
 
         if (t < 0)
             return;
@@ -64,7 +77,7 @@ namespace vanille
     }
 
     sf::Vector3f PlanePrimitive_v::getNormalAt(sf::Vector3f &point) {
-        sf::Vector3f normal = render::Ray::rotateVector(_normal, _parent->getRotation());
+        sf::Vector3f normal = render::Ray::rotateVector(_normal, -_rotation);
 
         return -normal;
     }
@@ -73,7 +86,7 @@ namespace vanille
 
 extern "C"
 {
-    vanille::PlanePrimitive_v *entryPoint() Ò{
+    vanille::PlanePrimitive_v *entryPoint() {
         return new vanille::PlanePrimitive_v();
     }
 }

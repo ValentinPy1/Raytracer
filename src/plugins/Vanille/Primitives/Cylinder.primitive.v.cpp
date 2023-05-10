@@ -17,6 +17,7 @@ namespace vanille {
     {
         _origin = sf::Vector3f(0, 0, 0);
         _radius = 1;
+        _rotation = sf::Vector3f(0, 0, 0);
     }
 
     CylinderPrimitive_v::~CylinderPrimitive_v()
