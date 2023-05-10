@@ -30,13 +30,12 @@ namespace vanille
                 std::cout << render::green << "[INFO] " << render::yellow << "[Ambient Occlusion Plugin] " << render::no_color << "Defaulting ambient color to (rgb) (30,30,50)" << std::endl;
             }
         },
-        [this](render::Ray &ray, const render::Renderer &rdr) -> render::Ray & {
+        [this](render::Ray &ray, __attribute__((unused)) const render::Renderer &rdr) -> render::Ray & {
             float distance = (ray.hasIntersections()) ? ray.getIntersections()[0].getDistance() : 1000000;
             ray.setColor(ray.blendLerp(
                 _color,
                 1 - exp(-_density * distance)
             ));
-            // std::cout << exp(-_density * distance) << "   " << distance << std::endl;
             return ray;
         },
         nullptr,

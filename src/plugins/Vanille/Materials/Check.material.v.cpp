@@ -52,7 +52,7 @@ namespace vanille
         }
     }
 
-    void CheckMaterial_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
+    void CheckMaterial_v::selfInit(libconfig::Setting &setting, __attribute__((unused)) render::Entity *parent)
     {
         _colors = {};
         _pattern = {};

@@ -20,7 +20,7 @@ namespace vanille {
     {
         for (int x = -1; x < 2; x++)
             for (int y = -1; y < 2; y++) {
-                if (i + x < 0 || j + y < 0 || i + x >= img.getSize().x || j + y >= img.getSize().y)
+                if (i + x >= img.getSize().x || j + y >= img.getSize().y)
                     c[x + 1][y + 1] = sf::Color::Black;
                 else
                     c[x + 1][y + 1] = img.getPixel(i + x, j + y);
@@ -52,7 +52,7 @@ namespace vanille {
 
     sf::Image &Bloom_v::applyBloom(sf::Image &img) {
         sf::Image blurred = img;
-        for (char i = 0; i < _intensity; ++i) {
+        for (unsigned int i = 0; i < _intensity; ++i) {
             blurred = applyGaussianBlur(blurred);
         }
         sf::Image thresholded = blurred;
@@ -67,7 +67,7 @@ namespace vanille {
                 thresholded.setPixel(i, j, tmp > _threshold ? sf::Color::White : sf::Color::Black);
             }
         }
-        for (char i = 0; i < _intensity; ++i) {
+        for (unsigned int i = 0; i < _intensity; ++i) {
             thresholded = applyGaussianBlur(thresholded);
         }
         for (size_t i = 0; i < img.getSize().x; ++i) {

@@ -131,8 +131,8 @@ namespace render {
         _texture.setSmooth(true);
         _image = _texture.copyToImage();
         int meanR = 0, meanG = 0, meanB = 0;
-        for (int i = 0; i < _image.getSize().x; i++) {
-            for (int j = 0; j < _image.getSize().y; j++) {
+        for (size_t i = 0; i < _image.getSize().x; i++) {
+            for (size_t j = 0; j < _image.getSize().y; j++) {
                 sf::Color color = _image.getPixel(i, j);
                 meanR += color.r;
                 meanG += color.g;

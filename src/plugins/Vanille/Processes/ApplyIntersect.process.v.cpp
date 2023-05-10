@@ -19,9 +19,6 @@ extern "C" {
             [](render::Ray &ray, const render::Renderer &rdr)->render::Ray & {
                 for (auto &e : rdr.getEntities()) {
                     auto primitive = e->getPrimitive();
-                    auto translation = primitive->getTranslation();
-                    auto rotation = primitive->getRotation();
-                    auto scale = primitive->getScale();
 
                     e->getPrimitive()->solve(ray);
                 }

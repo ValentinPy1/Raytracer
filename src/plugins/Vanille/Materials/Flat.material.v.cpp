@@ -33,7 +33,7 @@ namespace vanille {
         }
     }
 
-    void FlatMaterial_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
+    void FlatMaterial_v::selfInit(libconfig::Setting &setting, __attribute__((unused)) render::Entity *parent)
     {
         libconfig::Setting &color = setting.lookup("color");
         int r, g, b;

@@ -70,7 +70,7 @@ namespace vanille
         );
     }
 
-    sf::Vector3f PlanePrimitive_v::getNormalAt(sf::Vector3f &point)
+    sf::Vector3f PlanePrimitive_v::getNormalAt(__attribute__((unused)) sf::Vector3f &point)
     {
         auto normal = -_normal;
         normal = render::Ray::getVirtualNormal(normal, _rotation);

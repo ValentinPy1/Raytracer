@@ -39,7 +39,7 @@ namespace vanille
         name = "src/plugins/" + name + ".so";
         libconfig::Setting &args = primitive.lookup("args");
         IMeshPart *obj = new TrianglePart();
-        obj->selfInit(args, _parent);
+        obj->selfInit(args, parent);
         reinterpret_cast<TrianglePart *>(obj)->scale(_scale);
         obj->move(_position);
         obj->rotate(_rotation, _position);
