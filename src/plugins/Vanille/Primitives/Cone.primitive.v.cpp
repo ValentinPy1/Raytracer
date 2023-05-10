@@ -12,10 +12,8 @@
 #include "Ray.hpp"
 #include "operations.hpp"
 
-
-
-
-namespace vanille {
+namespace vanille
+{
     ConePrimitive_v::ConePrimitive_v() : render::IPrimitive()
     {
         std::cout << "ConePrimitive_v::ConePrimitive_v" << std::endl;
@@ -29,35 +27,34 @@ namespace vanille {
     {
     }
 
-void ConePrimitive_v::solve(render::Ray &ray)
-{
-    sf::Vector3f vd = render::Ray::rotateVector(ray.getDirection(), _rotation);
-    sf::Vector3f vo = render::Ray::rotateVector(ray.getOrigin(), _rotation);
+    void ConePrimitive_v::solve(render::Ray &ray)
+    {
+        sf::Vector3f vd = render::Ray::rotateVector(ray.getDirection(), _rotation);
+        sf::Vector3f vo = render::Ray::rotateVector(ray.getOrigin(), _rotation);
 
-    float k = _radius / _height;
-    float a = vd.x * vd.x + vd.z * vd.z - k * k * vd.y * vd.y;
-    float b = 2.0f * (vd.x * (vo.x - _origin.x) + vd.z * (vo.z - _origin.z) - k * k * vd.y * (vo.y - _origin.y + _height));
-    float c = (vo.x - _origin.x) * (vo.x - _origin.x) + (vo.z - _origin.z) * (vo.z - _origin.z) - k * k * (vo.y - _origin.y + _height) * (vo.y - _origin.y + _height);
+        float k = _radius / _height;
+        float a = vd.x * vd.x + vd.z * vd.z - k * k * vd.y * vd.y;
+        float b = 2.0f * (vd.x * (vo.x - _origin.x) + vd.z * (vo.z - _origin.z) - k * k * vd.y * (vo.y - _origin.y + _height));
+        float c = (vo.x - _origin.x) * (vo.x - _origin.x) + (vo.z - _origin.z) * (vo.z - _origin.z) - k * k * (vo.y - _origin.y + _height) * (vo.y - _origin.y + _height);
 
-    float delta = b * b - 4 * a * c;
+        float delta = b * b - 4 * a * c;
 
-    if (delta < 0)
-        return;
+        if (delta < 0)
+            return;
 
-    float t1 = (-b - std::sqrt(delta)) / (2.0f * a);
-    float t2 = (-b + std::sqrt(delta)) / (2.0f * a);
-    t1 = std::min(t1, t2);
+        float t1 = (-b - std::sqrt(delta)) / (2.0f * a);
+        float t2 = (-b + std::sqrt(delta)) / (2.0f * a);
+        t1 = std::min(t1, t2);
 
-    sf::Vector3f point = vo + vd * t1;
+        sf::Vector3f point = vo + vd * t1;
 
-    float height = point.y - _origin.y;
-    float radius = k * height + _radius;
-    if (height < 0 || height > _height || render::Ray::magnitude(sf::Vector2f(point.x - _origin.x, point.z - _origin.z)) > radius)
-        return;
+        float height = point.y - _origin.y;
+        float radius = k * height + _radius;
+        if (height < 0 || height > _height || std::sqrt((point.x - _origin.x) * (point.x - _origin.x) + (point.z - _origin.z) * (point.z - _origin.z)) > radius)
+            return;
 
-    ray.addIntersection(render::Intersection(_parent, ray, t1).addNormal(getNormalAt(point)));
-}
-
+        ray.addIntersection(render::Intersection(_parent, ray, t1).addNormal(getNormalAt(point)));
+    }
 
     sf::Vector3f ConePrimitive_v::getNormalAt(sf::Vector3f &point)
     {
@@ -94,17 +91,15 @@ void ConePrimitive_v::solve(render::Ray &ray)
         // auto x = point.x * std::cos(_rotation.x) - point.x * std::sin(_rotation.x);
         // auto y = point.x * std::sin(_rotation.y) + point.y * std::cos(_rotation.y);
         // auto z = point.z * std::cos(_rotation.z) - point.z * std::sin(_rotation.z);
-        //render::ray::rotateVector(point, _rotation);
+        // render::ray::rotateVector(point, _rotation);
 
         auto rotation = render::Ray::rotateVector(point, _rotation);
 
         return sf::Vector3f(
             rotation.x,
             rotation.y,
-            rotation.z
-        );
+            rotation.z);
         // return sf::Vector3f(x, y, z);
-
     }
 
     void ConePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
@@ -116,7 +111,8 @@ void ConePrimitive_v::solve(render::Ray &ray)
         setting.lookupValue("radius", _radius);
         setting.lookupValue("height", _height);
         _rotation = sf::Vector3f(0, 0, 0);
-        if (setting.exists("rotation")) {
+        if (setting.exists("rotation"))
+        {
             libconfig::Setting &rotation = setting.lookup("rotation");
             rotation.lookupValue("x", _rotation.x);
             rotation.lookupValue("y", _rotation.y);
@@ -125,8 +121,10 @@ void ConePrimitive_v::solve(render::Ray &ray)
     }
 }
 
-extern "C" {
-    render::IPrimitive *entryPoint() {
+extern "C"
+{
+    render::IPrimitive *entryPoint()
+    {
         return new vanille::ConePrimitive_v();
     }
 }
