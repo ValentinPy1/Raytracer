@@ -8,11 +8,13 @@
 #include <string>
 #include <cmath>
 #include "Cylinder.primitive.v.hpp"
+#include "Cercle.primitive.v.hpp"
 #include "Renderer.hpp"
 #include "Ray.hpp"
 #include "operations.hpp"
 
-namespace vanille {
+namespace vanille
+{
     CylinderPrimitive_v::CylinderPrimitive_v() : render::IPrimitive()
     {
         _origin = sf::Vector3f(0, 0, 0);
@@ -44,7 +46,8 @@ namespace vanille {
         if (t < 0)
             return;
         auto point = vo + vd * t;
-        if (point.y < 0 || point.y > _height) {
+        if (point.y < 0 || point.y > _height)
+        {
             t = std::max(t1, t2);
             if (t < 0)
                 return;
@@ -52,9 +55,16 @@ namespace vanille {
             if (point.y < 0 || point.y > _height)
                 return;
         }
+        if (ray.hasIntersections(topCircle->solve(ray);)) {
+            ray.addIntersection(
+                render::Intersection(_parent, ray, t).addNormal(getNormalAt(point)));
+        }
+        if (ray.hasIntersections(bottomCircle->solve(ray);)) {
+            ray.addIntersection(
+                render::Intersection(_parent, ray, t).addNormal(getNormalAt(point)));
+        }
         ray.addIntersection(
-            render::Intersection(_parent, ray, t).addNormal(getNormalAt(point))
-        );
+            render::Intersection(_parent, ray, t).addNormal(getNormalAt(point)));
 
         return;
     }
@@ -78,11 +88,15 @@ namespace vanille {
         const auto &rotation = setting.lookup("rotation");
         _rotation = sf::Vector3f(rotation[0], rotation[1], rotation[2]);
         _height = setting.lookup("height");
+
+        CerclePrimitive_v *topCircle = new vanille::CerclePrimitive_v(_height);
+        CerclePrimitive_v *bottomCircle = new vanille::CerclePrimitive_v(0);
     }
 }
 
 extern "C" {
-    render::IPrimitive *entryPoint() {
+    render::IPrimitive *entryPoint()
+    {
         return new vanille::CylinderPrimitive_v();
     }
 }

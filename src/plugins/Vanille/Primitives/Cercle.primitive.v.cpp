@@ -19,6 +19,13 @@ namespace vanille {
         _radius = 1;
     }
 
+    CerclePrimitive_v::CerclePrimitive(origin) :
+    {
+        _origin = origin;
+        _radius = 1;
+    }
+
+
     void CerclePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
         _parent = parent;
