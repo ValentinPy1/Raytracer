@@ -10,6 +10,7 @@
 #include "IPrimitive.hpp"
 #include "Plugin.hpp"
 #include "SFML/System/Vector3.hpp"
+#include "Cercle.primitive.v.hpp"
 
 namespace vanille {
     class CylinderPrimitive_v : public render::IPrimitive, public render::Plugin {
@@ -22,6 +23,11 @@ namespace vanille {
         private:
             sf::Vector3f _origin;
             float _radius;
+            sf::Vector3f _rotation;
+            float _height;
             render::Entity *_parent;
+            CerclePrimitive_v *topCircle;
+            CerclePrimitive_v *bottomCircle;
+            
     };
 }

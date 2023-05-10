@@ -12,32 +12,35 @@
 #include "Ray.hpp"
 #include "operations.hpp"
 
-namespace vanille {
+namespace vanille
+{
     CerclePrimitive_v::CerclePrimitive_v() : render::IPrimitive()
     {
         _origin = sf::Vector3f(0, 0, 0);
         _radius = 1;
     }
 
-    CerclePrimitive_v::CerclePrimitive(origin) :
+    vanille::CerclePrimitive_v::CerclePrimitive_v(sf::Vector3f origin) : render::IPrimitive()
     {
         _origin = origin;
         _radius = 1;
     }
 
-
     void CerclePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
         _parent = parent;
-            setting.lookupValue("x", _origin.x);
-            setting.lookupValue("y", _origin.y);
-            setting.lookupValue("z", _origin.z);
-        if (setting.exists("radius")) {
+        setting.lookupValue("x", _origin.x);
+        setting.lookupValue("y", _origin.y);
+        setting.lookupValue("z", _origin.z);
+        if (setting.exists("radius"))
+        {
             libconfig::Setting &radius = setting["radius"];
             _radius = radius;
-        } else {
+        }
+        else
+        {
             std::cout << render::yellow << "[WARNING] " << render::no_color
-                << "No radius found in primitive" << std::endl;
+                      << "No radius found in primitive" << std::endl;
         }
     }
 
@@ -65,8 +68,7 @@ namespace vanille {
         t1 = std::min(t1, t2);
 
         ray.addIntersection(
-            render::Intersection(_parent, ray, t1).addNormal(vo + t1 * vd)
-        );
+            render::Intersection(_parent, ray, t1).addNormal(vo + t1 * vd));
     }
 
     sf::Vector3f CerclePrimitive_v::getNormalAt(sf::Vector3f &point)
@@ -76,7 +78,8 @@ namespace vanille {
 
 }
 
-extern "C" {
+extern "C"
+{
     render::IPrimitive *entryPoint()
     {
         return new vanille::CerclePrimitive_v();

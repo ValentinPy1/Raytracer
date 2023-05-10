@@ -15,6 +15,7 @@ namespace vanille {
     class CerclePrimitive_v : public render::IPrimitive {
         public:
             CerclePrimitive_v();
+            CerclePrimitive_v(sf::Vector3f origin);
             ~CerclePrimitive_v();
             void selfInit(libconfig::Setting &setting, render::Entity *parent) override;
             sf::Vector3f getNormalAt(sf::Vector3f &point) override;

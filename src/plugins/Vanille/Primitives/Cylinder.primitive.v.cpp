@@ -8,7 +8,6 @@
 #include <string>
 #include <cmath>
 #include "Cylinder.primitive.v.hpp"
-#include "Cercle.primitive.v.hpp"
 #include "Renderer.hpp"
 #include "Ray.hpp"
 #include "operations.hpp"
@@ -55,14 +54,16 @@ namespace vanille
             if (point.y < 0 || point.y > _height)
                 return;
         }
-        if (ray.hasIntersections(topCircle->solve(ray);)) {
-            ray.addIntersection(
-                render::Intersection(_parent, ray, t).addNormal(getNormalAt(point)));
-        }
-        if (ray.hasIntersections(bottomCircle->solve(ray);)) {
-            ray.addIntersection(
-                render::Intersection(_parent, ray, t).addNormal(getNormalAt(point)));
-        }
+
+        topCircle->solve(ray);
+        if (ray.getIntersections().size() > 0)
+            ray.getIntersections().back().addNormal(getNormalAt(point));
+        bottomCircle->solve(ray);
+        if (ray.getIntersections().size() > 0)
+            ray.getIntersections().back().addNormal(getNormalAt(point));
+
+
+
         ray.addIntersection(
             render::Intersection(_parent, ray, t).addNormal(getNormalAt(point)));
 
@@ -88,9 +89,10 @@ namespace vanille
         const auto &rotation = setting.lookup("rotation");
         _rotation = sf::Vector3f(rotation[0], rotation[1], rotation[2]);
         _height = setting.lookup("height");
+        sf::Vector3f topCirclePosition = _origin + sf::Vector3f(0, _height, 0);
 
-        CerclePrimitive_v *topCircle = new vanille::CerclePrimitive_v(_height);
-        CerclePrimitive_v *bottomCircle = new vanille::CerclePrimitive_v(0);
+        topCircle = new CerclePrimitive_v(topCirclePosition);
+        bottomCircle = new CerclePrimitive_v(_origin);
     }
 }
 
