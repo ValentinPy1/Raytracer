@@ -25,27 +25,59 @@ namespace vanille {
 
     void CylinderPrimitive_v::solve(render::Ray &ray)
     {
-        (void) ray;
-        // sf::Vector3f vo = ray.getOrigin();
-        // sf::Vector3f vd = ray.getDirection();
+        sf::Vector3f vo = ray.getOrigin();
+        sf::Vector3f vd = ray.getDirection();
+        vo = render::Ray::rotateVector(vo - _origin, -_rotation);
+        vd = render::Ray::rotateVector(vd, -_rotation);
 
-        // auto a = vd * vd;
+        auto a = vd.x * vd.x + vd.z * vd.z;
+        auto b = 2 * (vd.x * vo.x + vd.z * vo.z);
+        auto c = vo.x * vo.x + vo.z * vo.z - _radius * _radius;
+
+        auto delta = (b * b) - 4 * a * c;
+
+        if (delta < 0)
+            return;
+        auto t1 = (-b - std::sqrt(delta)) / (2.0f * a);
+        auto t2 = (-b + std::sqrt(delta)) / (2.0f * a);
+        auto t = std::min(t1, t2);
+        if (t < 0)
+            return;
+        auto point = vo + vd * t;
+        if (point.y < 0 || point.y > _height) {
+            t = std::max(t1, t2);
+            if (t < 0)
+                return;
+            point = vo + vd * t;
+            if (point.y < 0 || point.y > _height)
+                return;
+        }
+        ray.addIntersection(
+            render::Intersection(_parent, ray, t).addNormal(getNormalAt(point))
+        );
+
         return;
     }
 
     sf::Vector3f CylinderPrimitive_v::getNormalAt(sf::Vector3f &point)
     {
-        // return (point - _origin) / _radius;
-
+        point = render::Ray::rotateVector(point, _rotation);
+        point = point - _origin;
+        point.y = 0;
+        point = render::Ray::rotateVector(point, -_rotation);
+        point = render::Ray::normalize(point);
         return (point);
     }
 
     void CylinderPrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
         _parent = parent;
-        (void) setting;
-        // _origin = sf::Vector3f(setting["origin"][0], setting["origin"][1], setting["origin"][2]);
-        // _radius = setting["radius"];
+        const auto &translation = setting.lookup("origin");
+        _origin = sf::Vector3f(translation[0], translation[1], translation[2]);
+        _radius = setting.lookup("radius");
+        const auto &rotation = setting.lookup("rotation");
+        _rotation = sf::Vector3f(rotation[0], rotation[1], rotation[2]);
+        _height = setting.lookup("height");
     }
 }
 
