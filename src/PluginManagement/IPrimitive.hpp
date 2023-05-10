@@ -19,6 +19,9 @@ namespace render {
             virtual void selfInit(libconfig::Setting &setting, Entity *parent) = 0;
             virtual sf::Vector3f getNormalAt(sf::Vector3f &point) = 0;
             virtual void solve(render::Ray &ray) = 0;
+            virtual sf::Vector3f getRotation() const = 0;
+            virtual sf::Vector3f getTranslation() const = 0;
+            virtual float getScale() const = 0;
     };
 }
 

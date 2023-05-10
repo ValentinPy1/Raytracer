@@ -79,6 +79,21 @@ namespace vanille {
         _rotation = sf::Vector3f(rotation[0], rotation[1], rotation[2]);
         _height = setting.lookup("height");
     }
+
+    sf::Vector3f CylinderPrimitive_v::getRotation() const
+    {
+        return _rotation;
+    }
+
+    sf::Vector3f CylinderPrimitive_v::getTranslation() const
+    {
+        return _origin;
+    }
+
+    float CylinderPrimitive_v::getScale() const
+    {
+        return _radius;
+    }
 }
 
 extern "C" {

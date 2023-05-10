@@ -67,6 +67,11 @@ namespace render {
             static sf::Vector3f rotateZ(sf::Vector3f vec, float angleRad);
             static sf::Vector3f rotateVector(const sf::Vector3f &vector, const sf::Vector3f &rotation);
 
+            sf::Vector3f getVirtualOrigin(const sf::Vector3f &rotation, const sf::Vector3f &translation, float scale);
+            sf::Vector3f getVirtualDirection(const sf::Vector3f &rotation);
+            static sf::Vector3f getVirtualNormal(sf::Vector3f normal, const sf::Vector3f &rot);
+
+
             sf::Color cast(const Renderer & renderer);
             Ray &findIntersections(const render::Renderer &renderer);
             Ray &applyLighting(const render::Renderer &renderer);

@@ -53,6 +53,11 @@ namespace vanille
             void move(sf::Vector3f &offset) override;
             void rotate(sf::Vector3f &rotation, sf::Vector3f center) override;
             void scale(float factor) override;
+
+
+            sf::Vector3f getRotation() const override;
+            sf::Vector3f getTranslation() const override;
+            float getScale() const override;
         private:
             void computePointRotation(sf::Vector3f &point, sf::Vector3f &rotation, sf::Vector3f barycenter);
             sf::Vector3f _p1;
@@ -60,6 +65,10 @@ namespace vanille
             sf::Vector3f _p3;
             sf::Vector3f _normal;
             render::Entity *_parent;
+
+            sf::Vector3f _translation;
+            sf::Vector3f _rotation;
+            float _scale;
     };
 
     /**
@@ -85,6 +94,10 @@ namespace vanille
             void selfInit(libconfig::Setting &setting, render::Entity *parent) override;
             sf::Vector3f getNormalAt(sf::Vector3f &point) override;
             void solve(render::Ray &ray) override;
+
+            sf::Vector3f getRotation() const override;
+            sf::Vector3f getTranslation() const override;
+            float getScale() const override;
         private:
             /**
              * @brief Loads a part of the mesh from the configuration file.
@@ -98,8 +111,8 @@ namespace vanille
             IMeshPart *_lasthit = nullptr;
             render::DLLoader _loader;
 
-            sf::Vector3f _position;
-            sf::Vector3f _rotation;
+            sf::Vector3f _position = {0, 0, 0};
+            sf::Vector3f _rotation = {0, 0, 0};
             float _scale;
 
             render::Entity *_parent;

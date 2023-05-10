@@ -27,6 +27,14 @@ namespace vanille {
         setting.lookupValue("y", _origin.y);
         setting.lookupValue("z", _origin.z);
         setting.lookupValue("radius", _radius);
+        if (setting.exists("translation")) {
+            libconfig::Setting &translation = setting["translation"];
+            _origin += sf::Vector3f(translation["x"], translation["y"], translation["z"]);
+        }
+        if (setting.exists("scale")) {
+            float scale = setting["scale"];
+            _radius *= scale;
+        }
         _parent = parent;
     }
 
@@ -38,6 +46,7 @@ namespace vanille {
     {
         sf::Vector3f vo = ray.getOrigin();
         sf::Vector3f vd = ray.getDirection();
+
         auto a = vd * vd;
         auto b = 2 * vd * (vo - _origin);
         auto c = (vo - _origin) * (vo - _origin) - _radius * _radius;
@@ -65,6 +74,20 @@ namespace vanille {
         return (point - _origin) / _radius;
     }
 
+    sf::Vector3f SpherePrimitive_v::getRotation() const
+    {
+        return {0, 0, 0};
+    }
+
+    sf::Vector3f SpherePrimitive_v::getTranslation() const
+    {
+        return _origin;
+    }
+
+    float SpherePrimitive_v::getScale() const
+    {
+        return _radius;
+    }
 }
 
 extern "C" {

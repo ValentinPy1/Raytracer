@@ -37,6 +37,14 @@ namespace vanille
             std::cout << render::yellow << "[WARNING] " << render::no_color
                 << "No normal found in primitive" << std::endl;
         }
+        if (setting.exists("rotation")) {
+            libconfig::Setting &rotation = setting["rotation"];
+            _rotation = sf::Vector3f(rotation["x"], rotation["y"], rotation["z"]);
+        }
+        if (setting.exists("translation")) {
+            libconfig::Setting &translation = setting["translation"];
+            _translation = sf::Vector3f(translation["x"], translation["y"], translation["z"]);
+        }
     }
 
     PlanePrimitive_v::~PlanePrimitive_v()
@@ -45,9 +53,16 @@ namespace vanille
 
     void PlanePrimitive_v::solve(render::Ray &ray)
     {
-        if (ray.getDirection() * _normal == 0)
+        auto vo = ray.getVirtualOrigin(_rotation, _translation, 1);
+        auto vd = ray.getVirtualDirection(_rotation);
+
+        if (vd * _normal == 0)
             return;
-        float t = (_origin - ray.getOrigin()) * _normal / (ray.getDirection() * _normal);
+        float t = (_origin - vo) * _normal / (vd * _normal);
+
+        // if (ray.getDirection() * _normal == 0)
+        //     return;
+        // float t = (_origin - ray.getOrigin()) * _normal / (ray.getDirection() * _normal);
         if (t < 0)
             return;
         ray.addIntersection(
@@ -57,7 +72,24 @@ namespace vanille
 
     sf::Vector3f PlanePrimitive_v::getNormalAt(sf::Vector3f &point)
     {
-        return -_normal;
+        auto normal = -_normal;
+        normal = render::Ray::getVirtualNormal(normal, _rotation);
+        return normal;
+    }
+
+    sf::Vector3f PlanePrimitive_v::getRotation() const
+    {
+        return _rotation;
+    }
+
+    sf::Vector3f PlanePrimitive_v::getTranslation() const
+    {
+        return _translation;
+    }
+
+    float PlanePrimitive_v::getScale() const
+    {
+        return 1;
     }
 }
 
