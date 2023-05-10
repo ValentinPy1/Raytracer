@@ -83,7 +83,10 @@ namespace vanille
         normal = render::Ray::normalize(normal);
         normal = render::Ray::rotateVector(normal, _rotation);
 
-        ray.addIntersection(render::Intersection(ray, (intersection - vo).length()).addNormal(normal));
+        float distance = std::sqrt((intersection - ray.getOrigin()).x * (intersection - ray.getOrigin()).x +
+                                   (intersection - ray.getOrigin()).y * (intersection - ray.getOrigin()).y +
+                                   (intersection - ray.getOrigin()).z * (intersection - ray.getOrigin()).z);
+        ray.addIntersection(render::Intersection(ray, distance).addNormal(normal));
     }
 
     sf::Vector3f CerclePrimitive_v::getNormalAt(sf::Vector3f &point)
