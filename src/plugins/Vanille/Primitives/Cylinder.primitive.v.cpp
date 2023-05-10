@@ -30,10 +30,12 @@ namespace vanille
         sf::Vector3f vd = ray.getDirection();
         vo = render::Ray::rotateVector(vo - _origin, -_rotation);
         vd = render::Ray::rotateVector(vd, -_rotation);
-
         auto a = vd.x * vd.x + vd.z * vd.z;
         auto b = 2 * (vd.x * vo.x + vd.z * vo.z);
         auto c = vo.x * vo.x + vo.z * vo.z - _radius * _radius;
+
+        topCircle->solve(ray);
+        bottomCircle->solve(ray);
 
         auto delta = (b * b) - 4 * a * c;
 
@@ -56,11 +58,11 @@ namespace vanille
         }
 
         topCircle->solve(ray);
-        if (ray.getIntersections().size() > 0)
-            ray.getIntersections().back().addNormal(getNormalAt(point));
+        // if (ray.getIntersections().size() > 0)
+        //     ray.getIntersections().back().addNormal(getNormalAt(point));
         bottomCircle->solve(ray);
-        if (ray.getIntersections().size() > 0)
-            ray.getIntersections().back().addNormal(getNormalAt(point));
+        // if (ray.getIntersections().size() > 0)
+        //     ray.getIntersections().back().addNormal(getNormalAt(point));
 
 
 
@@ -87,12 +89,16 @@ namespace vanille
         _origin = sf::Vector3f(translation[0], translation[1], translation[2]);
         _radius = setting.lookup("radius");
         const auto &rotation = setting.lookup("rotation");
+        if (setting.exists("scale"))
+            _scale = setting.lookup("scale");
+        else
+            _scale = 1;
         _rotation = sf::Vector3f(rotation[0], rotation[1], rotation[2]);
         _height = setting.lookup("height");
         sf::Vector3f topCirclePosition = _origin + sf::Vector3f(0, _height, 0);
 
-        topCircle = new CerclePrimitive_v(topCirclePosition);
-        bottomCircle = new CerclePrimitive_v(_origin);
+        topCircle = new CerclePrimitive_v(topCirclePosition, _rotation, {0, 0, 0}, _scale);
+        bottomCircle = new CerclePrimitive_v(_origin, _rotation, {0, 0, 0}, _scale);
     }
 }
 

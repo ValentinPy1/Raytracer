@@ -20,10 +20,13 @@ namespace vanille
         _radius = 1;
     }
 
-    vanille::CerclePrimitive_v::CerclePrimitive_v(sf::Vector3f origin) : render::IPrimitive()
+    vanille::CerclePrimitive_v::CerclePrimitive_v(sf::Vector3f origin, sf::Vector3f rotation, sf::Vector3f translation, float scale) : render::IPrimitive()
     {
         _origin = origin;
         _radius = 1;
+        _rotation = rotation;
+        _translation = translation;
+        _scale = scale;
     }
 
     void CerclePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
@@ -50,9 +53,8 @@ namespace vanille
 
     void CerclePrimitive_v::solve(render::Ray &ray)
     {
-        sf::Vector3f vo = ray.getOrigin();
-        sf::Vector3f vd = ray.getDirection();
-
+        auto vo = ray.getVirtualOrigin(_rotation, _translation, _scale);
+        auto vd = ray.getVirtualDirection(_rotation);
         auto a = vd.x * vd.x + vd.y * vd.y + vd.z * vd.z;
         auto b = 2 * (vd.x * (vo.x - _origin.x) + vd.y * (vo.y - _origin.y) + vd.z * (vo.z - _origin.z));
         auto c = (vo.x - _origin.x) * (vo.x - _origin.x) + (vo.y - _origin.y) * (vo.y - _origin.y) + (vo.z - _origin.z) * (vo.z - _origin.z) - _radius * _radius;
@@ -73,7 +75,8 @@ namespace vanille
 
     sf::Vector3f CerclePrimitive_v::getNormalAt(sf::Vector3f &point)
     {
-        return (point - _origin);
+        auto normal = (point - _origin);
+        normal = render::Ray::getVirtualNormal(normal, _rotation);
     }
 
 }

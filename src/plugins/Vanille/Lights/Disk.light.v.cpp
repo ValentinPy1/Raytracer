@@ -32,7 +32,7 @@ namespace vanille {
             auto interObj = ray.getIntersections()[0];
             sf::Vector3f lightDirection;
             sf::Vector3f intersection = interObj.getPoint() + interObj.getNormal() * 0.1f;
-            sf::Vector3f normal = interObj.getNormal();
+            sf::Vector3f normal = render::Ray::normalize(interObj.getNormal());
             sf::Color color;
             lightDirection = lightpos - intersection;
             lightDirection = -lightDirection;
