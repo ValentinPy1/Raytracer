@@ -24,6 +24,8 @@ namespace vanille {
             sf::Vector3f getRotation() const override;
             sf::Vector3f getTranslation() const override;
             float getScale() const override;
+
+            void setParent(render::Entity *parent);
         private:
             sf::Vector3f _origin;
             float _radius;

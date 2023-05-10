@@ -47,7 +47,7 @@ namespace vanille
         if (t < 0)
             return;
         auto point = vo + vd * t;
-        if (point.y < 0 || point.y > _height)
+        if (_height != -1 && (point.y < 0 || point.y > _height))
         {
             t = std::max(t1, t2);
             if (t < 0)
@@ -57,10 +57,16 @@ namespace vanille
                 return;
         }
 
+        auto backupVd = ray.getDirection();
+        auto backupVo = ray.getOrigin();
+        ray.setOrigin(vo);
+        ray.setDirection(vd);
         topCircle->solve(ray);
         // if (ray.getIntersections().size() > 0)
         //     ray.getIntersections().back().addNormal(getNormalAt(point));
         bottomCircle->solve(ray);
+        ray.setOrigin(backupVo);
+        ray.setDirection(backupVd);
         // if (ray.getIntersections().size() > 0)
         //     ray.getIntersections().back().addNormal(getNormalAt(point));
 
@@ -88,17 +94,27 @@ namespace vanille
         const auto &translation = setting.lookup("origin");
         _origin = sf::Vector3f(translation[0], translation[1], translation[2]);
         _radius = setting.lookup("radius");
-        const auto &rotation = setting.lookup("rotation");
         if (setting.exists("scale"))
             _scale = setting.lookup("scale");
         else
             _scale = 1;
-        _rotation = sf::Vector3f(rotation[0], rotation[1], rotation[2]);
-        _height = setting.lookup("height");
+        if (setting.exists("rotation")) {
+            const auto &rotation = setting.lookup("rotation");
+            _rotation = sf::Vector3f(rotation[0], rotation[1], rotation[2]);
+        } else {
+            _rotation = {0, 0, 0};
+        }
+        if (setting.exists("height")) {
+            _height = setting.lookup("height");
+        } else {
+            _height = -1;
+        }
         sf::Vector3f topCirclePosition = _origin + sf::Vector3f(0, _height, 0);
 
         topCircle = new CerclePrimitive_v(topCirclePosition, _rotation, {0, 0, 0}, _scale);
         bottomCircle = new CerclePrimitive_v(_origin, _rotation, {0, 0, 0}, _scale);
+        topCircle->setParent(parent);
+        bottomCircle->setParent(parent);
     }
 
     sf::Vector3f CylinderPrimitive_v::getRotation() const
@@ -114,12 +130,5 @@ namespace vanille
     float CylinderPrimitive_v::getScale() const
     {
         return _radius;
-    }
-}
-
-extern "C" {
-    render::IPrimitive *entryPoint()
-    {
-        return new vanille::CylinderPrimitive_v();
     }
 }

@@ -52,10 +52,10 @@ add_library(Plane.primitive.v SHARED ./Primitives/Plane.primitive.v.cpp)
 target_sources(Plane.primitive.v PRIVATE ${COMMON_SRC})
 
 add_library(Cercle.primitive.v SHARED ./Primitives/Cercle.primitive.v.cpp)
-target_sources(Cercle.primitive.v PRIVATE ${COMMON_SRC})
+target_sources(Cercle.primitive.v PRIVATE ${COMMON_SRC} ./Primitives/CercleEntryPoint.cpp)
 
 add_library(Cylinder.primitive.v SHARED ./Primitives/Cylinder.primitive.v.cpp)
-target_sources(Cylinder.primitive.v PRIVATE ${COMMON_SRC})
+target_sources(Cylinder.primitive.v PRIVATE ${COMMON_SRC} ./Primitives/Cercle.primitive.v.cpp ./Primitives/CylinderEntryPoint.cpp)
 
 add_library(TrianglePart.primitive.v SHARED ./Primitives/TrianglePart.primitive.v.cpp)
 target_sources(TrianglePart.primitive.v PRIVATE ${COMMON_SRC} ./Primitives/TrianglePart.entryPoint.cpp)
@@ -240,4 +240,9 @@ add_custom_command(
 add_custom_command(
     TARGET ApplyTransparency.process.v POST_BUILD
     COMMAND mv libApplyTransparency.process.v.so ..
+)
+
+add_custom_command(
+    TARGET Cylinder.primitive.v POST_BUILD
+    COMMAND mv libCylinder.primitive.v.so ..
 )

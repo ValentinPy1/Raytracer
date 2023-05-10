@@ -29,6 +29,11 @@ namespace vanille
         _scale = scale;
     }
 
+    void CerclePrimitive_v::setParent(render::Entity *parent)
+    {
+        _parent = parent;
+    }
+
     void CerclePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
     {
         _parent = parent;
@@ -105,13 +110,5 @@ namespace vanille
     float CerclePrimitive_v::getScale() const
     {
         return _scale;
-    }
-}
-
-extern "C"
-{
-    render::IPrimitive *entryPoint()
-    {
-        return new vanille::CerclePrimitive_v();
     }
 }
