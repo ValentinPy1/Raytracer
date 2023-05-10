@@ -21,6 +21,8 @@ namespace vanille {
         std::cout << "ConePrimitive_v::ConePrimitive_v" << std::endl;
         _origin = sf::Vector3f(0, 0, 0);
         _radius = 1;
+        _height = 1;
+        _rotation = sf::Vector3f(0, 0, 0);
     }
 
     ConePrimitive_v::~ConePrimitive_v()
