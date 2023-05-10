@@ -309,4 +309,32 @@ namespace render {
         }
         return _recursionParameters.at(name);
     }
+
+    sf::Vector3f Ray::getVirtualOrigin(const sf::Vector3f &rot, const sf::Vector3f &trans, float scale)
+    {
+        auto rotation = -rot;
+        auto translation = -trans;
+
+        sf::Vector3f origin = _origin;
+        origin = rotateVector(origin, rotation);
+        if (scale != 0)
+            origin = origin / scale;
+        origin = origin + translation;
+        return origin;
+    }
+
+    sf::Vector3f Ray::getVirtualDirection(const sf::Vector3f &rot)
+    {
+        auto rotation = -rot;
+        sf::Vector3f direction = _direction;
+        direction = rotateVector(direction, rotation);
+        direction = direction;
+        return direction;
+    }
+
+    sf::Vector3f Ray::getVirtualNormal(sf::Vector3f normal, const sf::Vector3f &rot)
+    {
+        normal = rotateVector(normal, -rot);
+        return normal;
+    }
 }

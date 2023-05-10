@@ -103,4 +103,19 @@ namespace vanille {
             render::Intersection(_parent, ray, t).addNormal(vo + t * vd)
         );
     }
+
+    sf::Vector3f TrianglePart::getRotation() const
+    {
+        return _rotation;
+    }
+
+    sf::Vector3f TrianglePart::getTranslation() const
+    {
+        return _translation;
+    }
+
+    float TrianglePart::getScale() const
+    {
+        return _scale;
+    }
 }

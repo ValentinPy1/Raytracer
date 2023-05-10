@@ -45,6 +45,18 @@ namespace vanille
             std::cout << render::yellow << "[WARNING] " << render::no_color
                       << "No radius found in primitive" << std::endl;
         }
+        if (setting.exists("rotation")) {
+            libconfig::Setting &rotation = setting["rotation"];
+            _rotation = sf::Vector3f(rotation["x"], rotation["y"], rotation["z"]);
+        }
+        if (setting.exists("translation")) {
+            libconfig::Setting &translation = setting["translation"];
+            _translation = sf::Vector3f(translation["x"], translation["y"], translation["z"]);
+        }
+        if (setting.exists("scale")) {
+            float scale = setting["scale"];
+            _scale = scale;
+        }
     }
 
     CerclePrimitive_v::~CerclePrimitive_v()
@@ -55,6 +67,7 @@ namespace vanille
     {
         auto vo = ray.getVirtualOrigin(_rotation, _translation, _scale);
         auto vd = ray.getVirtualDirection(_rotation);
+
         auto a = vd.x * vd.x + vd.y * vd.y + vd.z * vd.z;
         auto b = 2 * (vd.x * (vo.x - _origin.x) + vd.y * (vo.y - _origin.y) + vd.z * (vo.z - _origin.z));
         auto c = (vo.x - _origin.x) * (vo.x - _origin.x) + (vo.y - _origin.y) * (vo.y - _origin.y) + (vo.z - _origin.z) * (vo.z - _origin.z) - _radius * _radius;
@@ -76,9 +89,23 @@ namespace vanille
     sf::Vector3f CerclePrimitive_v::getNormalAt(sf::Vector3f &point)
     {
         auto normal = (point - _origin);
-        normal = render::Ray::getVirtualNormal(normal, _rotation);
+        return render::Ray::normalize(render::Ray::getVirtualNormal(normal, _rotation));
     }
 
+    sf::Vector3f CerclePrimitive_v::getRotation() const
+    {
+        return _rotation;
+    }
+
+    sf::Vector3f CerclePrimitive_v::getTranslation() const
+    {
+        return _translation;
+    }
+
+    float CerclePrimitive_v::getScale() const
+    {
+        return _scale;
+    }
 }
 
 extern "C"

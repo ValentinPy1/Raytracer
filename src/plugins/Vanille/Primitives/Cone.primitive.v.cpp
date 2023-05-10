@@ -18,7 +18,6 @@
 namespace vanille {
     ConePrimitive_v::ConePrimitive_v() : render::IPrimitive()
     {
-        std::cout << "ConePrimitive_v::ConePrimitive_v" << std::endl;
         _origin = sf::Vector3f(0, 0, 0);
         _radius = 1;
     }
@@ -29,18 +28,8 @@ namespace vanille {
 
     void ConePrimitive_v::solve(render::Ray &ray)
     {
-    //  a=xD2+yD2-zD2, b=2xExD+2yEyD-2zEzD, and c=xE2+yE2-zE2
-        auto vo = ray.getOrigin();
-        auto vd = ray.getDirection();
-
-        // _direction is the rotation of the cone in x y z, we need to rotate the ray to match the cone
-
-        // auto x = vd.x * std::cos(_rotation.x) - vd.x * std::sin(_rotation.x);
-        // auto y = vd.x * std::sin(_rotation.y) + vd.y * std::cos(_rotation.y);
-        // auto z = vd.z * std::cos(_rotation.z) - vd.z * std::sin(_rotation.z);
-        vd = render::Ray::rotateVector(vd, _rotation);
-        vo = render::Ray::rotateVector(vo, _rotation);
-
+        auto vo = ray.getVirtualOrigin(_rotation, {0, 0, 0}, _scale);
+        auto vd = ray.getVirtualDirection(_rotation);
 
         auto a = vd.x * vd.x + vd.z * vd.z - vd.y * vd.y;
         auto b = 2 * (vd.x * (vo.x - _origin.x) + vd.z * (vo.z - _origin.z) - vd.y * (vo.y - _origin.y));
@@ -58,10 +47,8 @@ namespace vanille {
         t1 = std::min(t1, t2);
 
         auto point = vo + vd * t1;
-
         if (point.y < _origin.y || point.y > _origin.y + _height)
             return;
-
         ray.addIntersection(
             render::Intersection(_parent, ray, t1)
             .addNormal(getNormalAt(point))
@@ -72,50 +59,12 @@ namespace vanille {
 
     sf::Vector3f ConePrimitive_v::getNormalAt(sf::Vector3f &point)
     {
-        // return (point - _origin) / _radius;
-        // get the normal of a cone at a given point
-        // the normal of a cone is the vector from the point to the center of the cone
-        // the center of the cone is the origin
-        // return (point - _origin);
-
-        // auto k = 1.0f; //angle
-        // auto x = point.x;
-        // auto y = point.y;
-        // auto z = point.z;
-        // auto sqr = std::sqrt(x * x + y * y);
-
-        // auto dx = -k * (x / sqr);
-        // auto dy = -k * (y / sqr);
-        // auto dz = 1.0f;
-
-        // return sf::Vector3f(dx, dy, dz);
-
-        // auto angle = 45.0f;
-        // // demi angle + 90
-        // auto k = (angle / 2.0f) + 90.0f;
-
-        // return sf::Vector3f(
-        //     std::cos(k) * point.x,
-        //     std::sin(k) * point.y,
-        //     std::sin(k) * point.z
-        // );
-
-        // rotate the normal vector to match the cone rotation
-
-        // auto x = point.x * std::cos(_rotation.x) - point.x * std::sin(_rotation.x);
-        // auto y = point.x * std::sin(_rotation.y) + point.y * std::cos(_rotation.y);
-        // auto z = point.z * std::cos(_rotation.z) - point.z * std::sin(_rotation.z);
-        //render::ray::rotateVector(point, _rotation);
-
-        auto rotation = render::Ray::rotateVector(point, _rotation);
-
-        return sf::Vector3f(
-            rotation.x,
-            rotation.y,
-            rotation.z
-        );
-        // return sf::Vector3f(x, y, z);
-
+        point = render::Ray::rotateVector(point - _origin, -_rotation);
+        auto diff = render::Ray::normalize(point - _origin);
+        auto normal = diff ^ sf::Vector3f(0, 1, 0);
+        normal = render::Ray::normalize(normal);
+        normal = render::Ray::getVirtualNormal(normal, _rotation);
+        return normal;
     }
 
     void ConePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
@@ -133,6 +82,31 @@ namespace vanille {
             rotation.lookupValue("y", _rotation.y);
             rotation.lookupValue("z", _rotation.z);
         }
+        if (setting.exists("translation")) {
+            libconfig::Setting &translation = setting["translation"];
+            _origin += sf::Vector3f(translation["x"], translation["y"], translation["z"]);
+        }
+        if (setting.exists("scale")) {
+            float scale = setting["scale"];
+            _radius *= scale;
+            _height *= scale;
+        }
+    }
+
+    sf::Vector3f ConePrimitive_v::getRotation() const
+    {
+        // delt with internally
+        return {0, 0, 0};
+    }
+
+    sf::Vector3f ConePrimitive_v::getTranslation() const
+    {
+        return _origin;
+    }
+
+    float ConePrimitive_v::getScale() const
+    {
+        return _radius;
     }
 }
 

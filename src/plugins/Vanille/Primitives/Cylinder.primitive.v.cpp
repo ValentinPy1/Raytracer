@@ -100,6 +100,21 @@ namespace vanille
         topCircle = new CerclePrimitive_v(topCirclePosition, _rotation, {0, 0, 0}, _scale);
         bottomCircle = new CerclePrimitive_v(_origin, _rotation, {0, 0, 0}, _scale);
     }
+
+    sf::Vector3f CylinderPrimitive_v::getRotation() const
+    {
+        return _rotation;
+    }
+
+    sf::Vector3f CylinderPrimitive_v::getTranslation() const
+    {
+        return _origin;
+    }
+
+    float CylinderPrimitive_v::getScale() const
+    {
+        return _radius;
+    }
 }
 
 extern "C" {
