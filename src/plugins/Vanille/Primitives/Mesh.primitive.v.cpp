@@ -92,6 +92,22 @@ namespace vanille
             ray.addIntersection(closestOld);
         }
     }
+
+    // delt with internally
+    sf::Vector3f Mesh::getRotation() const
+    {
+        return {0, 0, 0};
+    }
+    // delt with internally
+    sf::Vector3f Mesh::getTranslation() const
+    {
+        return {0, 0, 0};
+    }
+    // delt with internally
+    float Mesh::getScale() const
+    {
+        return 0;
+    }
 } // namespace vanille
 
 extern "C" {
