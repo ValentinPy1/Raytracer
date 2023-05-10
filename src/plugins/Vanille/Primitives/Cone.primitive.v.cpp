@@ -27,48 +27,35 @@ namespace vanille {
     {
     }
 
-    void ConePrimitive_v::solve(render::Ray &ray)
-    {
-    //  a=xD2+yD2-zD2, b=2xExD+2yEyD-2zEzD, and c=xE2+yE2-zE2
-        auto vo = ray.getOrigin();
-        auto vd = ray.getDirection();
+void ConePrimitive_v::solve(render::Ray &ray)
+{
+    sf::Vector3f vd = render::Ray::rotateVector(ray.getDirection(), _rotation);
+    sf::Vector3f vo = render::Ray::rotateVector(ray.getOrigin(), _rotation);
 
-        // _direction is the rotation of the cone in x y z, we need to rotate the ray to match the cone
+    float k = _radius / _height;
+    float a = vd.x * vd.x + vd.z * vd.z - k * k * vd.y * vd.y;
+    float b = 2.0f * (vd.x * (vo.x - _origin.x) + vd.z * (vo.z - _origin.z) - k * k * vd.y * (vo.y - _origin.y + _height));
+    float c = (vo.x - _origin.x) * (vo.x - _origin.x) + (vo.z - _origin.z) * (vo.z - _origin.z) - k * k * (vo.y - _origin.y + _height) * (vo.y - _origin.y + _height);
 
-        // auto x = vd.x * std::cos(_rotation.x) - vd.x * std::sin(_rotation.x);
-        // auto y = vd.x * std::sin(_rotation.y) + vd.y * std::cos(_rotation.y);
-        // auto z = vd.z * std::cos(_rotation.z) - vd.z * std::sin(_rotation.z);
-        vd = render::Ray::rotateVector(vd, _rotation);
-        vo = render::Ray::rotateVector(vo, _rotation);
+    float delta = b * b - 4 * a * c;
 
-
-        auto a = vd.x * vd.x + vd.z * vd.z - vd.y * vd.y;
-        auto b = 2 * (vd.x * (vo.x - _origin.x) + vd.z * (vo.z - _origin.z) - vd.y * (vo.y - _origin.y));
-        auto c = (vo.x - _origin.x) * (vo.x - _origin.x) + (vo.z - _origin.z) *
-                (vo.z - _origin.z) - (vo.y - _origin.y) * (vo.y - _origin.y);
-
-        auto delta = (b * b) - 4 * a * c;
-
-        if (delta < 0)
-            return;
-
-        float t1 = (-b - std::sqrt(delta)) / (2.0f * a);
-        float t2 = (-b + std::sqrt(delta)) / (2.0f * a);
-
-        t1 = std::min(t1, t2);
-
-        auto point = vo + vd * t1;
-
-        if (point.y < _origin.y || point.y > _origin.y + _height)
-            return;
-
-        ray.addIntersection(
-            render::Intersection(_parent, ray, t1)
-            .addNormal(getNormalAt(point))
-        );
-
+    if (delta < 0)
         return;
-    }
+
+    float t1 = (-b - std::sqrt(delta)) / (2.0f * a);
+    float t2 = (-b + std::sqrt(delta)) / (2.0f * a);
+    t1 = std::min(t1, t2);
+
+    sf::Vector3f point = vo + vd * t1;
+
+    float height = point.y - _origin.y;
+    float radius = k * height + _radius;
+    if (height < 0 || height > _height || render::Ray::magnitude(sf::Vector2f(point.x - _origin.x, point.z - _origin.z)) > radius)
+        return;
+
+    ray.addIntersection(render::Intersection(_parent, ray, t1).addNormal(getNormalAt(point)));
+}
+
 
     sf::Vector3f ConePrimitive_v::getNormalAt(sf::Vector3f &point)
     {

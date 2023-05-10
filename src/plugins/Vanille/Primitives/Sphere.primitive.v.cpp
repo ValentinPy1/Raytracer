@@ -4,7 +4,6 @@
 ** File description:
 ** Sphere.primitive.v.cpp
 */
-
 #include <string>
 #include <cmath>
 #include <SFML/Graphics.hpp>
@@ -14,15 +13,14 @@
 #include "Ray.hpp"
 #include "operations.hpp"
 
-namespace vanille {
-    SpherePrimitive_v::SpherePrimitive_v() : render::IPrimitive()
-    {
+namespace vanille
+{
+    SpherePrimitive_v::SpherePrimitive_v() : render::IPrimitive() {
         _origin = sf::Vector3f(0, 0, 0);
         _radius = 1;
     }
 
-    void SpherePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent)
-    {
+    void SpherePrimitive_v::selfInit(libconfig::Setting &setting, render::Entity *parent) {
         setting.lookupValue("x", _origin.x);
         setting.lookupValue("y", _origin.y);
         setting.lookupValue("z", _origin.z);
@@ -34,10 +32,13 @@ namespace vanille {
     {
     }
 
-    void SpherePrimitive_v::solve(render::Ray &ray)
-    {
+    void SpherePrimitive_v::solve(render::Ray &ray) {
         sf::Vector3f vo = ray.getOrigin();
         sf::Vector3f vd = ray.getDirection();
+
+        vd = render::Ray::rotateVector(vd, _parent->getRotation());
+        vo = render::Ray::rotateVector(vo, _parent->getRotation());
+
         auto a = vd * vd;
         auto b = 2 * vd * (vo - _origin);
         auto c = (vo - _origin) * (vo - _origin) - _radius * _radius;
@@ -52,22 +53,23 @@ namespace vanille {
 
         if (t1 > 0)
             ray.addIntersection(
-                render::Intersection(_parent, ray, t1)
-            );
+                render::Intersection(_parent, ray, t1));
         if (t2 > 0)
             ray.addIntersection(
-                render::Intersection(_parent, ray, t2)
-            );
+                render::Intersection(_parent, ray, t2));
     }
 
-    sf::Vector3f SpherePrimitive_v::getNormalAt(sf::Vector3f &point)
-    {
-        return (point - _origin) / _radius;
+    sf::Vector3f SpherePrimitive_v::getNormalAt(sf::Vector3f &point) {
+        sf::Vector3f normal = (point - _origin) / _radius;
+        normal = render::Ray::rotateVector(normal, _parent->getRotation());
+
+        return normal;
     }
 
 }
 
-extern "C" {
+extern "C"
+{
     render::IPrimitive *entryPoint() {
         return new vanille::SpherePrimitive_v();
     }
