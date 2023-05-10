@@ -22,6 +22,8 @@ namespace vanille {
         private:
             sf::Vector3f _origin;
             float _radius;
+            float _height;
+            float _rotation;
             render::Entity *_parent;
     };
 }

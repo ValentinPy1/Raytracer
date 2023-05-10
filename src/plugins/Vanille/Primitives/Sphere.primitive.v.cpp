@@ -36,8 +36,8 @@ namespace vanille
         sf::Vector3f vo = ray.getOrigin();
         sf::Vector3f vd = ray.getDirection();
 
-        vd = render::Ray::rotateVector(vd, _parent->getRotation());
-        vo = render::Ray::rotateVector(vo, _parent->getRotation());
+        vd = render::Ray::rotateVector(vd - _origin, -_rotation);
+        vo = render::Ray::rotateVector(vo, -_rotation);
 
         auto a = vd * vd;
         auto b = 2 * vd * (vo - _origin);
@@ -60,9 +60,8 @@ namespace vanille
     }
 
     sf::Vector3f SpherePrimitive_v::getNormalAt(sf::Vector3f &point) {
+        point = render::Ray::rotateVector(point - _origin, _rotation);
         sf::Vector3f normal = (point - _origin) / _radius;
-        normal = render::Ray::rotateVector(normal, _parent->getRotation());
-
         return normal;
     }
 

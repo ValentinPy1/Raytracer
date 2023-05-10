@@ -50,7 +50,7 @@ namespace vanille
 
     void PlanePrimitive_v::solve(render::Ray &ray) {
 
-        sf::Vector3f normal = render::Ray::rotateVector(_normal, _parent->getRotation());
+        sf::Vector3f normal = render::Ray::rotateVector(_normal, _rotation);
 
         if (ray.getDirection() * normal == 0)
             return;
